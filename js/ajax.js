@@ -155,10 +155,11 @@ this.failed = true;
 }
 };
 this.setVar = function(name, value){
+var varString = this.encVar(name, value == null ? '' : value);
 if (this.URLString.length < 3){
-this.URLString = name + "=" + value;
+this.URLString = varString;
 } else {
-this.URLString += "&" + name + "=" + value;
+this.URLString += "&" + varString;
 }
 }
 this.encVar = function(name, value){
@@ -219,7 +220,7 @@ this.xmlhttp.open(this.method, this.requestFile, true);
 }
 if (this.method == "POST"){
 try {
-this.xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+this.xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
 } catch (e) {}
 }
 this.xmlhttp.send(this.URLString);

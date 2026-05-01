@@ -6,7 +6,7 @@ header ("Content-Type: text/html; charset=" . $tracker_lang['language_charset'])
 header ("Cache-control: no-store");
 header ("Pragma: no-cache");
 
-if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_METHOD"] == 'POST')
+if(($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') == 'XMLHttpRequest' && ($_SERVER["REQUEST_METHOD"] ?? '') == 'POST')
 {
     $id = (int)$_POST["torrent"];
     $act = (string)$_POST["act"];
@@ -208,14 +208,13 @@ print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" ti
 if($can_not_thanks == true) {
 print("</td></tr>");
 } else {
-print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$torrentid}\">");
+print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$id}\">");
 print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"Сказать спасибо\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
 print("</td></tr>");
 }
-print("</div>");
 print("<tr><td colspan=\"3\" style=\"border-top: none;\"><div style=\"float: left;\">".$tags."</div>");
 print("</td></tr>");
-print("<tr><td valign=\"top\" colspan=\"3\" ");
+print("<tr><td valign=\"top\" colspan=\"3\">");
 if($row['multitracker']==0)
 print("<b><font color=\"#BB0000\">Скидка:</font> <font color=\"red\">".$row["free"]."%</font></b>");
 else
@@ -294,6 +293,9 @@ if($row['multitracker']==1)
 if($act == "thanks") {
 		  if($id)
 		  {
+              $torrent_sql = sql_query("SELECT owner FROM torrents WHERE id = $id LIMIT 1") or sqlerr(__FILE__,__LINE__);
+              $row = mysql_fetch_assoc($torrent_sql);
+              if(empty($row)) die('Ошибка');
 			  $count_sql = sql_query("SELECT COUNT(*) FROM thanks WHERE torrentid = $id");
 	          $count_row = mysql_fetch_row($count_sql);
 			  if($count_row===false) die('Ошибка');
@@ -307,7 +309,7 @@ if($act == "thanks") {
 			  $thanked_sql = sql_query("SELECT thanks.userid, thanks.added, users.username, users.class FROM thanks INNER JOIN users ON thanks.userid = users.id WHERE thanks.torrentid = $id ORDER BY thanks.id ASC");
 		      while ($thanked_row = mysql_fetch_assoc($thanked_sql))
 		      {
-				  if(($thanked_row["userid"] == $CURUSER["id"]) || ($thanked_row["userid"] == $row["owner"]))
+				  if(($CURUSER && $thanked_row["userid"] == $CURUSER["id"]) || ($thanked_row["userid"] == $row["owner"]))
 			        $can_not_thanks = true;
 			
 			        $userid   = intval($thanked_row['userid']);

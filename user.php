@@ -6,7 +6,7 @@ header ("Content-Type: text/html; charset=" . $tracker_lang['language_charset'])
 header ("Cache-control: no-store");
 header ("Pragma: no-cache");
 
-if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_METHOD"] == 'POST')
+if(($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') == 'XMLHttpRequest' && ($_SERVER["REQUEST_METHOD"] ?? '') == 'POST')
 {
     $id = (int)$_POST["user"];
     $act = (string)$_POST["act"];

@@ -4,14 +4,15 @@ dbconn();
 loggedinorreturn();
 header("Content-Type: text/html; charset=utf-8");
 
-if ($_POST["do"] == "shout") {
-    $shout = convert_text(decode_unicode_url($_POST["shout"]));
+if (($_POST["do"] ?? "") == "shout") {
+    $shout = trim((string)($_POST["shout"] ?? ""));
     if ($shout == "/prune" && get_user_class() >= UC_ADMINISTRATOR) {
         sql_query("TRUNCATE TABLE shoutbox");
         die("Сообшений нет");
     }
-	elseif(ereg("^/ban",$shout) && get_user_class() >= UC_ADMINISTRATOR) {
-		preg_replace("#^/ban ([0-9\.]+)#eis", "sql_query(\"INSERT INTO bans (`added`,`addedby`,`comment`,`first`,`last`) VALUES (NOW(),".$CURUSER['id'].", \".sqlesc('Banned from chat, IP: \\1').\", INET_ATON(\".sqlesc('\\1').\"), INET_ATON(\".sqlesc('\\1').\"))\");",$shout);
+	elseif(preg_match("#^/ban\s+([0-9\.]+)$#i", $shout, $matches) && get_user_class() >= UC_ADMINISTRATOR) {
+        $ban_ip = $matches[1];
+		sql_query("INSERT INTO bans (`added`,`addedby`,`comment`,`first`,`last`) VALUES (NOW(),".$CURUSER['id'].", ".sqlesc('Banned from chat, IP: '.$ban_ip).", INET_ATON(".sqlesc($ban_ip)."), INET_ATON(".sqlesc($ban_ip)."))");
 		die('IP забанен');
 	}
 	elseif($shout == "thetime") {
@@ -24,7 +25,7 @@ $datee = time();
         sql_query("INSERT INTO shoutbox (date,  text, userid) VALUES (".implode(", ", array_map("sqlesc", array($datee, $shout, $sender))).")") or sqlerr(__FILE__,__LINE__);
     } else
         print("<script>alert('Введи сообщение');</script>");
-} elseif ($_POST["do"] == "delete" && get_user_class() >= UC_ADMINISTRATOR && is_valid_id($_POST["id"])) {
+} elseif (($_POST["do"] ?? "") == "delete" && get_user_class() >= UC_ADMINISTRATOR && is_valid_id($_POST["id"])) {
     $id = $_POST["id"];
     sql_query("DELETE FROM shoutbox WHERE id = $id") or sqlerr(__FILE__,__LINE__);
 }
@@ -69,7 +70,7 @@ $arr["text"] = str_replace("privat($CURUSER[username])","<b style='color: orange
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+<a target=_blank href=\"message.php?action=sendmessage&receiver=".$arr['userid']."\" title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 }
 } else
 if ((($CURUSER["id"] == "".$arr["userid"]."") OR (get_user_class() >= UC_MODERATOR)) AND (get_user_class() >= $arr["class"]) AND (strpos($arr["text"], "privat(") !== false)) {
@@ -78,13 +79,13 @@ $arr["text"] = preg_replace("/privat\(([^()<>\s]+?)\)/i","<b style='color: #oran
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\">[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-    <a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+    <a target=_blank href=\"message.php?action=sendmessage&receiver=".$arr['userid']."\" title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 } elseif (strpos($arr["text"], "privat(") !== false) {
 } else {
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
+<a target=_blank href=\"message.php?action=sendmessage&receiver=".$arr['userid']."\" title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"userdetails.php?id=".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
 print("</table>");
 }
 }

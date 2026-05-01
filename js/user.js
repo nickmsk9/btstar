@@ -19,7 +19,7 @@ jQuery(function() {
         }
     });
     jQuery('.zebra:even').css({backgroundColor: '#EEEEEE'});
-    if(jQuery.browser.msie)
+    if(jQuery.browser && jQuery.browser.msie)
     {
         width = jQuery('#profile_right h2').width();
         if (width > 422)

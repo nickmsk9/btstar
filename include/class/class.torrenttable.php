@@ -185,7 +185,7 @@ print("<tbody id=\"highlighted\">");
 
                 $dispname = $row["name"];
                 $thisisfree = ($row['free']=="yes" ? "<img src=\"pic/freedownload.gif\" title=\"".$tracker_lang['golden']."\" alt=\"".$tracker_lang['golden']."\">" : "");
-                print("<td colspan=\"9\" align=\"left\">".($row["sticky"] == "yes" ? "Важный: " : "")."<a onmouseover=\"return overlib('<div style=\'padding: 5px;\'><table id=\'thumbs\'><tr style=\'background: #f0f0f0;\'><td colspan=\'2\'><img src=\'torrents/images/$row[image1]\' width=\'250\'></td></tr></table></div>');\" onmouseout=\"return nd();\" href=\"torrent-".$id."\" style=\"cursor:pointer;\"");
+                print("<td colspan=\"9\" align=\"left\">".($row["sticky"] == "yes" ? "Важный: " : "")."<a onmouseover=\"return overlib('<div style=\'padding: 5px;\'><table id=\'thumbs\'><tr style=\'background: #f0f0f0;\'><td colspan=\'2\'><img src=\'torrents/images/$row[image1]\' width=\'250\'></td></tr></table></div>');\" onmouseout=\"return nd();\" href=\"details.php?id=".$id."&amp;hit=1\" style=\"cursor:pointer;");
                 print("\"><b>$dispname</b></a> $thisisfree\n");
 
                 if ($CURUSER["id"] == $row["owner"] || get_user_class() >= UC_MODERATOR)
