@@ -736,7 +736,7 @@ return <<<HTML
 <HTML>
 <HEAD>
 <TITLE>Sypex Dumper Lite 1.0.8 | &copy; 2006 zapimir</TITLE>
-<META HTTP-EQUIV=Content-Type CONTENT="text/html; charset=windows-1251">
+<META HTTP-EQUIV=Content-Type CONTENT="text/html; charset=utf-8">
 <STYLE TYPE="TEXT/CSS">
 <!--
 body{

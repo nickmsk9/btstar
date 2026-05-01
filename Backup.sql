@@ -10,7 +10,7 @@
 -- БД: `btstartracker`
 -- 
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 SET SQL_MODE='NO_ENGINE_SUBSTITUTION';
 
 -- --------------------------------------------------------
@@ -20,12 +20,12 @@ SET SQL_MODE='NO_ENGINE_SUBSTITUTION';
 -- 
 
 CREATE TABLE `avps` (
-  `arg` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `value_s` text collate utf8_unicode_ci NOT NULL,
+  `arg` varchar(20) collate utf8mb4_unicode_ci NOT NULL default '',
+  `value_s` text collate utf8mb4_unicode_ci NOT NULL,
   `value_i` int(11) NOT NULL default '0',
   `value_u` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`arg`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 
 -- Дамп данных таблицы `avps`
@@ -43,12 +43,12 @@ CREATE TABLE `bans` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
   `addedby` int(10) unsigned NOT NULL default '0',
-  `comment` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `comment` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
   `first` int(11) default NULL,
   `last` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `first_last` (`first`,`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
 
 -- 
 -- Дамп данных таблицы `bans`
@@ -69,7 +69,7 @@ CREATE TABLE `blocks` (
   `blockid` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `userfriend` (`userid`,`blockid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=2 ;
 
 -- 
 -- Дамп данных таблицы `blocks`
@@ -85,13 +85,13 @@ INSERT INTO `blocks` (`id`, `userid`, `blockid`) VALUES (1, 371, 1);
 
 CREATE TABLE `bonus` (
   `id` int(5) NOT NULL auto_increment,
-  `name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
+  `name` varchar(50) collate utf8mb4_unicode_ci NOT NULL default '',
   `points` decimal(7,1) NOT NULL default '0.0',
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `type` varchar(10) collate utf8_unicode_ci NOT NULL default 'traffic',
+  `description` text collate utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(10) collate utf8mb4_unicode_ci NOT NULL default 'traffic',
   `quanity` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9 ;
 
 -- 
 -- Дамп данных таблицы `bonus`
@@ -116,7 +116,7 @@ CREATE TABLE `bonusgen` (
   `activated` enum('yes','no') NOT NULL default 'no',
   `owner` varchar(40) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
 
 -- 
 -- Дамп данных таблицы `bonusgen`
@@ -136,11 +136,11 @@ INSERT INTO `bonusgen` (`id`, `pid`, `bonus`, `activated`, `owner`) VALUES (1, '
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `sort` int(10) NOT NULL default '0',
-  `name` varchar(30) collate utf8_unicode_ci NOT NULL default '',
-  `image` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `name` varchar(30) collate utf8mb4_unicode_ci NOT NULL default '',
+  `image` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
   `type` smallint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=34 ;
 
 -- 
 -- Дамп данных таблицы `categories`
@@ -173,7 +173,7 @@ CREATE TABLE `checkcomm` (
   `torrent` tinyint(4) NOT NULL default '0',
   `req` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=634 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=634 ;
+) ENGINE=MyISAM AUTO_INCREMENT=634 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=634 ;
 
 -- 
 -- Дамп данных таблицы `checkcomm`
@@ -824,7 +824,7 @@ CREATE TABLE `cities` (
   `name` varchar(50) default NULL,
   `country_id` int(11) default NULL,
   PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=90 ;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=90 ;
 
 -- 
 -- Дамп данных таблицы `cities`
@@ -911,7 +911,7 @@ CREATE TABLE `clubs` (
   `topics` mediumint(9) NOT NULL default '0',
   `torrents` mediumint(9) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- 
 -- Дамп данных таблицы `clubs`
@@ -930,7 +930,7 @@ CREATE TABLE `coins` (
   `torrentid` int(10) unsigned NOT NULL default '0',
   `points` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=69 ;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=69 ;
 
 -- 
 -- Дамп данных таблицы `coins`
@@ -1016,18 +1016,18 @@ CREATE TABLE `comments` (
   `user` int(10) unsigned NOT NULL default '0',
   `torrent` int(10) unsigned NOT NULL default '0',
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `text` text collate utf8_unicode_ci NOT NULL,
-  `ori_text` text collate utf8_unicode_ci NOT NULL,
+  `text` text collate utf8mb4_unicode_ci NOT NULL,
+  `ori_text` text collate utf8mb4_unicode_ci NOT NULL,
   `editedby` int(10) unsigned NOT NULL default '0',
   `editedat` datetime NOT NULL default '0000-00-00 00:00:00',
-  `request` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  `offer` varchar(11) collate utf8_unicode_ci NOT NULL default '0',
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
+  `request` varchar(11) collate utf8mb4_unicode_ci NOT NULL default '0',
+  `offer` varchar(11) collate utf8mb4_unicode_ci NOT NULL default '0',
+  `ip` varchar(15) collate utf8mb4_unicode_ci NOT NULL default '',
   `karma` int(10) default '0',
   PRIMARY KEY  (`id`),
   KEY `user` (`user`),
   KEY `torrent` (`torrent`)
-) ENGINE=MyISAM AUTO_INCREMENT=263 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=263 ;
+) ENGINE=MyISAM AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=263 ;
 
 -- 
 -- Дамп данных таблицы `comments`
@@ -1161,11 +1161,11 @@ INSERT INTO `comments` (`id`, `user`, `torrent`, `added`, `text`, `ori_text`, `e
 
 CREATE TABLE `countries` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `name` varchar(50) collate utf8_unicode_ci default NULL,
-  `flagpic` varchar(50) collate utf8_unicode_ci default NULL,
+  `name` varchar(50) collate utf8mb4_unicode_ci default NULL,
+  `flagpic` varchar(50) collate utf8mb4_unicode_ci default NULL,
   `order` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103 ;
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=103 ;
 
 -- 
 -- Дамп данных таблицы `countries`
@@ -1289,7 +1289,7 @@ CREATE TABLE `faq` (
   `categ` int(10) NOT NULL default '0',
   `order` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=75 ;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=75 ;
 
 -- 
 -- Дамп данных таблицы `faq`
@@ -1379,7 +1379,7 @@ CREATE TABLE `friends` (
   `status` enum('yes','no','pending') NOT NULL default 'pending',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `userfriend` (`userid`,`friendid`)
-) ENGINE=MyISAM AUTO_INCREMENT=517 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=517 ;
+) ENGINE=MyISAM AUTO_INCREMENT=517 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=517 ;
 
 -- 
 -- Дамп данных таблицы `friends`
@@ -1456,7 +1456,7 @@ CREATE TABLE `futurerls` (
   `download` varchar(10) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=57 ;
 
 -- 
 -- Дамп данных таблицы `futurerls`
@@ -1485,12 +1485,12 @@ CREATE TABLE `invites` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `inviter` int(10) unsigned NOT NULL default '0',
   `inviteid` int(10) NOT NULL default '0',
-  `invite` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `invite` varchar(32) collate utf8mb4_unicode_ci NOT NULL default '',
   `time_invited` datetime NOT NULL default '0000-00-00 00:00:00',
-  `confirmed` varchar(3) collate utf8_unicode_ci NOT NULL default 'no',
+  `confirmed` varchar(3) collate utf8mb4_unicode_ci NOT NULL default 'no',
   PRIMARY KEY  (`id`),
   KEY `inviter` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=14 ;
 
 -- 
 -- Дамп данных таблицы `invites`
@@ -1522,7 +1522,7 @@ CREATE TABLE `karma` (
   `value` int(10) unsigned NOT NULL default '0',
   `added` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=96 ;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=96 ;
 
 -- 
 -- Дамп данных таблицы `karma`
@@ -1556,17 +1556,17 @@ CREATE TABLE `messages` (
   `sender` int(10) unsigned NOT NULL default '0',
   `receiver` int(10) unsigned NOT NULL default '0',
   `added` datetime default NULL,
-  `subject` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `msg` text collate utf8_unicode_ci,
-  `unread` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
+  `subject` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
+  `msg` text collate utf8mb4_unicode_ci,
+  `unread` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
   `poster` int(10) unsigned NOT NULL default '0',
   `location` tinyint(1) NOT NULL default '1',
-  `saved` enum('no','yes') collate utf8_unicode_ci NOT NULL default 'no',
+  `saved` enum('no','yes') collate utf8mb4_unicode_ci NOT NULL default 'no',
   PRIMARY KEY  (`id`),
   KEY `receiver` (`receiver`),
   KEY `sender` (`sender`),
   KEY `poster` (`poster`)
-) ENGINE=MyISAM AUTO_INCREMENT=3503 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3503 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3503 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3503 ;
 
 -- 
 -- Дамп данных таблицы `messages`
@@ -4071,7 +4071,7 @@ CREATE TABLE `much_on` (
   `amount` int(5) unsigned NOT NULL default '0',
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
   `main` enum('yes','no') NOT NULL default 'no'
-) ENGINE=MyISAM DEFAULT CHARSET=cp1251;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 
 -- Дамп данных таблицы `much_on`
@@ -4089,11 +4089,11 @@ CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `userid` int(11) NOT NULL default '0',
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `body` text collate utf8_unicode_ci NOT NULL,
-  `subject` text collate utf8_unicode_ci NOT NULL,
+  `body` text collate utf8mb4_unicode_ci NOT NULL,
+  `subject` text collate utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `added` (`added`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=16 ;
 
 -- 
 -- Дамп данных таблицы `news`
@@ -4124,7 +4124,7 @@ CREATE TABLE `newscomments` (
   PRIMARY KEY  (`id`),
   KEY `user` (`user`),
   KEY `news` (`news`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
 
 -- 
 -- Дамп данных таблицы `newscomments`
@@ -4152,7 +4152,7 @@ CREATE TABLE `notconnectablepmlog` (
   `user` int(10) unsigned NOT NULL default '0',
   `date` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1 ;
 
 -- 
 -- Дамп данных таблицы `notconnectablepmlog`
@@ -4183,7 +4183,7 @@ CREATE TABLE `notes` (
   KEY `timestamp` (`timestamp`),
   KEY `uid` (`uid`),
   KEY `tags` (`tags`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=cp1251 COMMENT='Таблица записок';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Таблица записок';
 
 -- 
 -- Дамп данных таблицы `notes`
@@ -4210,7 +4210,7 @@ CREATE TABLE `noteswall` (
   PRIMARY KEY  (`id`),
   KEY `user` (`user`),
   KEY `owner` (`owner`,`nid`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=15 ;
 
 -- 
 -- Дамп данных таблицы `noteswall`
@@ -4233,7 +4233,7 @@ CREATE TABLE `pages` (
   `photo` text NOT NULL,
   `content` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=8 ;
 
 -- 
 -- Дамп данных таблицы `pages`
@@ -4256,23 +4256,23 @@ INSERT INTO `pages` (`id`, `name`, `birthday`, `photo`, `content`) VALUES (1, '�
 CREATE TABLE `peers` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `torrent` int(10) unsigned NOT NULL default '0',
-  `peer_id` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `ip` varchar(64) collate utf8_unicode_ci NOT NULL default '',
+  `peer_id` varchar(20) collate utf8mb4_unicode_ci NOT NULL default '',
+  `ip` varchar(64) collate utf8mb4_unicode_ci NOT NULL default '',
   `port` smallint(5) unsigned NOT NULL default '0',
   `uploaded` bigint(20) unsigned NOT NULL default '0',
   `downloaded` bigint(20) unsigned NOT NULL default '0',
   `uploadoffset` bigint(20) unsigned NOT NULL default '0',
   `downloadoffset` bigint(20) unsigned NOT NULL default '0',
   `to_go` bigint(20) unsigned NOT NULL default '0',
-  `seeder` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `seeder` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `started` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_action` datetime NOT NULL default '0000-00-00 00:00:00',
   `prev_action` datetime NOT NULL default '0000-00-00 00:00:00',
-  `connectable` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
+  `connectable` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
   `userid` int(10) unsigned NOT NULL default '0',
-  `agent` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+  `agent` varchar(60) collate utf8mb4_unicode_ci NOT NULL default '',
   `finishedat` int(10) unsigned NOT NULL default '0',
-  `passkey` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `passkey` varchar(32) collate utf8mb4_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `torrent_peer_id` (`torrent`,`peer_id`),
   KEY `torrent` (`torrent`),
@@ -4280,7 +4280,7 @@ CREATE TABLE `peers` (
   KEY `last_action` (`last_action`),
   KEY `connectable` (`connectable`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=33648 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33648 ;
+) ENGINE=MyISAM AUTO_INCREMENT=33648 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=33648 ;
 
 -- 
 -- Дамп данных таблицы `peers`
@@ -4315,7 +4315,7 @@ CREATE TABLE `pollanswers` (
   KEY `pollid` (`pollid`),
   KEY `selection` (`selection`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=91 ;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=91 ;
 
 -- 
 -- Дамп данных таблицы `pollanswers`
@@ -4362,7 +4362,7 @@ CREATE TABLE `polls` (
   `option19` varchar(40) NOT NULL default '',
   `sort` enum('yes','no') NOT NULL default 'yes',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 
 -- 
 -- Дамп данных таблицы `polls`
@@ -4377,19 +4377,19 @@ INSERT INTO `polls` (`id`, `added`, `question`, `option0`, `option1`, `option2`,
 -- 
 
 CREATE TABLE `sessions` (
-  `sid` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `sid` varchar(32) collate utf8mb4_unicode_ci NOT NULL default '',
   `uid` int(10) NOT NULL default '0',
-  `username` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `username` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
   `class` tinyint(4) NOT NULL default '0',
-  `ip` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `ip` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
   `time` bigint(30) NOT NULL default '0',
-  `url` varchar(150) collate utf8_unicode_ci NOT NULL default '',
-  `useragent` text collate utf8_unicode_ci,
+  `url` varchar(150) collate utf8mb4_unicode_ci NOT NULL default '',
+  `useragent` text collate utf8mb4_unicode_ci,
   PRIMARY KEY  (`sid`),
   KEY `time` (`time`),
   KEY `uid` (`uid`),
   KEY `url` (`url`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 
 -- Дамп данных таблицы `sessions`
@@ -4406,14 +4406,14 @@ CREATE TABLE `shoutbox` (
   `id` smallint(6) NOT NULL auto_increment,
   `userid` smallint(6) NOT NULL default '0',
   `class` int(11) NOT NULL default '0',
-  `username` varchar(25) character set cp1251 collate cp1251_bin NOT NULL default '',
+  `username` varchar(25) character set utf8mb4 collate utf8mb4_bin NOT NULL default '',
   `date` int(11) NOT NULL default '0',
-  `text` text character set cp1251 collate cp1251_bin NOT NULL,
-  `orig_text` text character set cp1251 collate cp1251_bin NOT NULL,
-  `warned` enum('yes','no') collate latin2_czech_cs NOT NULL default 'no',
-  `donor` enum('yes','no') collate latin2_czech_cs NOT NULL default 'no',
+  `text` text character set utf8mb4 collate utf8mb4_bin NOT NULL,
+  `orig_text` text character set utf8mb4 collate utf8mb4_bin NOT NULL,
+  `warned` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
+  `donor` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin2 COLLATE=latin2_czech_cs AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
 -- 
 -- Дамп данных таблицы `shoutbox`
@@ -4432,17 +4432,17 @@ CREATE TABLE `simpaty` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `touserid` int(10) unsigned NOT NULL default '0',
   `fromuserid` int(10) unsigned NOT NULL default '0',
-  `fromusername` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `fromusername` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
   `bad` tinyint(1) unsigned NOT NULL default '0',
   `good` tinyint(1) unsigned NOT NULL default '0',
-  `type` varchar(60) collate utf8_unicode_ci NOT NULL default '',
+  `type` varchar(60) collate utf8mb4_unicode_ci NOT NULL default '',
   `respect_time` datetime NOT NULL default '0000-00-00 00:00:00',
-  `description` text collate utf8_unicode_ci NOT NULL,
+  `description` text collate utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `touserid` (`touserid`),
   KEY `fromuserid` (`fromuserid`),
   KEY `fromusername` (`fromusername`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
 
 -- 
 -- Дамп данных таблицы `simpaty`
@@ -4464,12 +4464,12 @@ INSERT INTO `simpaty` (`id`, `touserid`, `fromuserid`, `fromusername`, `bad`, `g
 CREATE TABLE `sitelog` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `added` datetime default NULL,
-  `color` varchar(11) collate utf8_unicode_ci NOT NULL default 'transparent',
-  `txt` text collate utf8_unicode_ci,
-  `type` varchar(8) collate utf8_unicode_ci NOT NULL default 'tracker',
+  `color` varchar(11) collate utf8mb4_unicode_ci NOT NULL default 'transparent',
+  `txt` text collate utf8mb4_unicode_ci,
+  `type` varchar(8) collate utf8mb4_unicode_ci NOT NULL default 'tracker',
   PRIMARY KEY  (`id`),
   KEY `added` (`added`)
-) ENGINE=MyISAM AUTO_INCREMENT=3460 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3460 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3460 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3460 ;
 
 -- 
 -- Дамп данных таблицы `sitelog`
@@ -4880,15 +4880,15 @@ CREATE TABLE `snatched` (
   `uploaded` bigint(20) unsigned NOT NULL default '0',
   `downloaded` bigint(20) unsigned NOT NULL default '0',
   `to_go` bigint(20) unsigned NOT NULL default '0',
-  `seeder` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `seeder` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `last_action` datetime NOT NULL default '0000-00-00 00:00:00',
   `startdat` datetime NOT NULL default '0000-00-00 00:00:00',
   `completedat` datetime NOT NULL default '0000-00-00 00:00:00',
-  `connectable` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `finished` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `connectable` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `finished` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `snatch` (`torrent`,`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=1342 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1342 ;
+) ENGINE=MyISAM AUTO_INCREMENT=1342 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=FIXED AUTO_INCREMENT=1342 ;
 
 -- 
 -- Дамп данных таблицы `snatched`
@@ -5917,7 +5917,7 @@ CREATE TABLE `tags` (
   PRIMARY KEY  (`id`),
   KEY `category` (`category`),
   KEY `howmuch` (`howmuch`)
-) ENGINE=MyISAM AUTO_INCREMENT=343 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=343 ;
+) ENGINE=MyISAM AUTO_INCREMENT=343 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=343 ;
 
 -- 
 -- Дамп данных таблицы `tags`
@@ -6031,7 +6031,7 @@ CREATE TABLE `templates` (
   `name` varchar(100) NOT NULL default '',
   `template` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 
 -- 
 -- Дамп данных таблицы `templates`
@@ -6052,7 +6052,7 @@ CREATE TABLE `thanks` (
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
   `touserid` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=170 ;
+) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=170 ;
 
 -- 
 -- Дамп данных таблицы `thanks`
@@ -6216,18 +6216,18 @@ INSERT INTO `thanks` (`id`, `torrentid`, `userid`, `added`, `touserid`) VALUES (
 CREATE TABLE `torrents` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `info_hash` varbinary(40) NOT NULL default '',
-  `name` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `filename` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `save_as` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `search_text` text collate utf8_unicode_ci NOT NULL,
-  `descr` text collate utf8_unicode_ci NOT NULL,
-  `ori_descr` text collate utf8_unicode_ci NOT NULL,
-  `image1` text collate utf8_unicode_ci NOT NULL,
-  `image2` text collate utf8_unicode_ci NOT NULL,
+  `name` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
+  `filename` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
+  `save_as` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
+  `search_text` text collate utf8mb4_unicode_ci NOT NULL,
+  `descr` text collate utf8mb4_unicode_ci NOT NULL,
+  `ori_descr` text collate utf8mb4_unicode_ci NOT NULL,
+  `image1` text collate utf8mb4_unicode_ci NOT NULL,
+  `image2` text collate utf8mb4_unicode_ci NOT NULL,
   `category` int(10) unsigned NOT NULL default '0',
   `size` bigint(20) unsigned NOT NULL default '0',
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `type` enum('single','multi') collate utf8_unicode_ci NOT NULL default 'single',
+  `type` enum('single','multi') collate utf8mb4_unicode_ci NOT NULL default 'single',
   `numfiles` mediumint(8) unsigned NOT NULL default '0',
   `comments` int(10) unsigned NOT NULL default '0',
   `views` int(10) unsigned NOT NULL default '0',
@@ -6237,29 +6237,29 @@ CREATE TABLE `torrents` (
   `seeders` int(10) unsigned NOT NULL default '0',
   `last_action` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_reseed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `visible` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `banned` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `visible` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `banned` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `owner` int(10) unsigned NOT NULL default '0',
   `free` smallint(6) default '0',
-  `sticky` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `sticky` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `points` int(10) NOT NULL default '0',
-  `silverload` enum('yes','no') collate utf8_unicode_ci default 'no',
-  `image3` text character set cp1251 NOT NULL,
-  `image4` text character set cp1251 NOT NULL,
-  `comment_lock` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `ontop` enum('yes','no') collate utf8_unicode_ci default 'no',
+  `silverload` enum('yes','no') collate utf8mb4_unicode_ci default 'no',
+  `image3` text character set utf8mb4 NOT NULL,
+  `image4` text character set utf8mb4 NOT NULL,
+  `comment_lock` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
+  `ontop` enum('yes','no') collate utf8mb4_unicode_ci default 'no',
   `ratio` int(10) unsigned NOT NULL default '0',
-  `tags` text character set cp1251 NOT NULL,
+  `tags` text character set utf8mb4 NOT NULL,
   `ratingsum` float unsigned NOT NULL default '0',
   `numratings` smallint(5) unsigned NOT NULL default '0',
-  `moderated` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `moderated` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `moderatedby` int(10) unsigned default '0',
-  `moderatorname` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `moderatorname` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
   `multitracker` smallint(1) unsigned NOT NULL default '0',
   `f_peers` mediumint(8) unsigned NOT NULL default '0',
   `f_seeders` mediumint(8) unsigned NOT NULL default '0',
-  `announce_list` text collate utf8_unicode_ci,
-  `tracker_cache` text collate utf8_unicode_ci NOT NULL,
+  `announce_list` text collate utf8mb4_unicode_ci,
+  `tracker_cache` text collate utf8mb4_unicode_ci NOT NULL,
   `karma` int(10) default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `info_hash` (`info_hash`),
@@ -6269,7 +6269,7 @@ CREATE TABLE `torrents` (
   KEY `ontop` (`ontop`),
   KEY `multitracker` (`multitracker`),
   FULLTEXT KEY `ft_search` (`search_text`,`ori_descr`)
-) ENGINE=MyISAM AUTO_INCREMENT=633 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=633 ;
+) ENGINE=MyISAM AUTO_INCREMENT=633 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=633 ;
 
 -- 
 -- Дамп данных таблицы `torrents`
@@ -6487,61 +6487,61 @@ INSERT INTO `torrents` (`id`, `info_hash`, `name`, `filename`, `save_as`, `searc
 
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `username` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `old_password` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `passhash` varchar(32) collate utf8_unicode_ci NOT NULL default '',
-  `secret` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `email` varchar(80) collate utf8_unicode_ci NOT NULL default '',
-  `status` enum('pending','confirmed') collate utf8_unicode_ci NOT NULL default 'pending',
+  `username` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
+  `old_password` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
+  `passhash` varchar(32) collate utf8mb4_unicode_ci NOT NULL default '',
+  `secret` varchar(20) collate utf8mb4_unicode_ci NOT NULL default '',
+  `email` varchar(80) collate utf8mb4_unicode_ci NOT NULL default '',
+  `status` enum('pending','confirmed') collate utf8mb4_unicode_ci NOT NULL default 'pending',
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_login` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_access` datetime NOT NULL default '0000-00-00 00:00:00',
-  `editsecret` varchar(20) collate utf8_unicode_ci NOT NULL default '',
-  `privacy` enum('strong','normal','low') collate utf8_unicode_ci NOT NULL default 'normal',
+  `editsecret` varchar(20) collate utf8mb4_unicode_ci NOT NULL default '',
+  `privacy` enum('strong','normal','low') collate utf8mb4_unicode_ci NOT NULL default 'normal',
   `stylesheet` int(10) default '1',
-  `info` text collate utf8_unicode_ci,
-  `acceptpms` enum('yes','friends','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
+  `info` text collate utf8mb4_unicode_ci,
+  `acceptpms` enum('yes','friends','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `ip` varchar(15) collate utf8mb4_unicode_ci NOT NULL default '',
   `class` tinyint(3) unsigned NOT NULL default '0',
   `override_class` tinyint(3) unsigned NOT NULL default '255',
-  `support` enum('no','yes') collate utf8_unicode_ci NOT NULL default 'no',
-  `supportfor` text collate utf8_unicode_ci,
-  `avatar` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `icq` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `website` varchar(50) collate utf8_unicode_ci NOT NULL default '',
+  `support` enum('no','yes') collate utf8mb4_unicode_ci NOT NULL default 'no',
+  `supportfor` text collate utf8mb4_unicode_ci,
+  `avatar` varchar(100) collate utf8mb4_unicode_ci NOT NULL default '',
+  `icq` varchar(255) collate utf8mb4_unicode_ci NOT NULL default '',
+  `website` varchar(50) collate utf8mb4_unicode_ci NOT NULL default '',
   `uploaded` bigint(20) unsigned NOT NULL default '0',
   `downloaded` bigint(20) unsigned NOT NULL default '0',
   `bonus` decimal(7,2) NOT NULL default '50.00',
-  `title` varchar(30) collate utf8_unicode_ci NOT NULL default '',
+  `title` varchar(30) collate utf8mb4_unicode_ci NOT NULL default '',
   `country` int(10) unsigned NOT NULL default '0',
-  `notifs` varchar(100) collate utf8_unicode_ci NOT NULL default '',
-  `modcomment` text collate utf8_unicode_ci,
-  `enabled` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `parked` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `avatars` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `donor` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `notifs` varchar(100) collate utf8mb4_unicode_ci NOT NULL default '',
+  `modcomment` text collate utf8mb4_unicode_ci,
+  `enabled` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `parked` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
+  `avatars` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `donor` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `simpaty` int(10) unsigned NOT NULL default '0',
-  `warned` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
+  `warned` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
   `warneduntil` datetime NOT NULL default '0000-00-00 00:00:00',
   `torrentsperpage` int(3) unsigned NOT NULL default '0',
   `topicsperpage` int(3) unsigned NOT NULL default '0',
   `postsperpage` int(3) unsigned NOT NULL default '0',
-  `deletepms` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'yes',
-  `savepms` enum('yes','no') collate utf8_unicode_ci NOT NULL default 'no',
-  `gender` enum('1','2','3') collate utf8_unicode_ci NOT NULL default '1',
+  `deletepms` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'yes',
+  `savepms` enum('yes','no') collate utf8mb4_unicode_ci NOT NULL default 'no',
+  `gender` enum('1','2','3') collate utf8mb4_unicode_ci NOT NULL default '1',
   `birthday` date default '0000-00-00',
-  `passkey` varchar(32) collate utf8_unicode_ci NOT NULL default '',
-  `language` varchar(255) collate utf8_unicode_ci NOT NULL default 'russian',
+  `passkey` varchar(32) collate utf8mb4_unicode_ci NOT NULL default '',
+  `language` varchar(255) collate utf8mb4_unicode_ci NOT NULL default 'russian',
   `invites` int(10) NOT NULL default '0',
   `invitedby` int(10) NOT NULL default '0',
   `invitedroot` int(10) NOT NULL default '0',
-  `passkey_ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
+  `passkey_ip` varchar(15) collate utf8mb4_unicode_ci NOT NULL default '',
   `last_access_numb` bigint(30) NOT NULL default '0',
   `onlinetime` bigint(30) NOT NULL default '0',
-  `lovemovies` text collate utf8_unicode_ci NOT NULL,
+  `lovemovies` text collate utf8mb4_unicode_ci NOT NULL,
   `city` int(10) unsigned NOT NULL default '0',
-  `firstname` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `surname` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `firstname` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
+  `surname` varchar(40) collate utf8mb4_unicode_ci NOT NULL default '',
   `vip_to` date default NULL,
   `not_user` smallint(1) NOT NULL default '0',
   `karma` int(10) default '0',
@@ -6559,7 +6559,7 @@ CREATE TABLE `users` (
   KEY `user` (`id`,`status`,`enabled`),
   KEY `passkey` (`passkey`),
   KEY `city` (`city`)
-) ENGINE=MyISAM AUTO_INCREMENT=1889 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1889 ;
+) ENGINE=MyISAM AUTO_INCREMENT=1889 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1889 ;
 
 -- 
 -- Дамп данных таблицы `users`
@@ -8387,7 +8387,7 @@ CREATE TABLE `wall` (
   PRIMARY KEY  (`id`),
   KEY `user` (`user`),
   KEY `owner` (`owner`)
-) ENGINE=MyISAM AUTO_INCREMENT=158 DEFAULT CHARSET=cp1251 AUTO_INCREMENT=158 ;
+) ENGINE=MyISAM AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=158 ;
 
 -- 
 -- Дамп данных таблицы `wall`
