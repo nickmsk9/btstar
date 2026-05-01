@@ -114,7 +114,7 @@ if ($CURUSER['id'] != $id)
         print("<a href=\"javascript:void(0);\" onclick=\"javascript:moderate('$id');\" class=\"menu\">Модерирование</a>\n");
 }
 print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
-print("<script language=\"JavaScript\" src=\"js/user.js\" type=\"text/javascript\"></script>\n");
+print("<script language=\"JavaScript\" src=\"js/user.js?v=20260501\" type=\"text/javascript\"></script>\n");
 ?>
 <td class='outer' valign='top' align='left' style='border:none'>
 <div id="actions"></div><div id="tabs">
@@ -175,7 +175,7 @@ elseif ($row["gender"] == "2") $genders = "написала";
             <td width=\"50\" style=\"border: none;\"><img src=\"" . ($row['avatar'] ? $DEFAULTBASEURL.'/avatars/small/'.$row['avatar'] : "pic/default_avatar.gif") . "\" style=\"border:1px solid #999;padding:5px;width:50px;\" title=\"\" alt=\"\" /></td>
             <td style=\"border: none;\">
 			    <div style=\"border-top: 1px solid #516A88;\">
-                <div style=\"float:left;\"><a href=\"id" . $row['user'] . "\">" . get_user_class_color($row['class'], $row['username']) . "</a><font color=\"#C0C0C0\">&nbsp;".$genders."<br></font></div>
+                <div style=\"float:left;\"><a href=\"userdetails.php?id=" . $row['user'] . "\">" . get_user_class_color($row['class'], $row['username']) . "</a><font color=\"#C0C0C0\">&nbsp;".$genders."<br></font></div>
                 <div style=\"float:right;\"><font size=\"1\" color=\"#C0C0C0\">" . nicetime($row['added'], true) . "&nbsp;" . (($CURUSER['id'] == $row['owner'] || $CURUSER['id'] == $row['user'] || get_user_class() >= UC_MODERATOR) ? "<a href=\"javascript:void(0);\" onclick=\"javascript:wall_del('" . $row['id'] . "', '" . $row['owner'] . "');\"><img src=\"pic/warned2.gif\" border=\"0\" /></a>" : "") . "</font></div><br /><div style=\"border-bottom: 1px solid #DCDCDC;\"></div>" . format_comment($row['text']) . "</td>
         </tr>\n");
 

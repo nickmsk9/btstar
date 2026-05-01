@@ -16,8 +16,8 @@ if (!defined('UC_SYSOP'))
 <script language="javascript" type="text/javascript" src="js/resizer.js"></script>
 <script language="javascript" type="text/javascript" src="js/tooltips.js"></script>
 <script language="javascript" type="text/javascript" src="js/overlib.js"></script>
-<script language="javascript" type="text/javascript" src="js/functions.js"></script>
-<script language="javascript" type="text/javascript" src="js/collapse.js"></script>
+<script language="javascript" type="text/javascript" src="js/functions.js?v=20260501"></script>
+<script language="javascript" type="text/javascript" src="js/collapse.js?v=20260501"></script>
 <link rel="alternate" type="application/rss+xml" title="Последние торренты" href="<?=$DEFAULTBASEURL?>/rss.xml">
 <link rel="shortcut icon" href="<?=$DEFAULTBASEURL;?>/favicon.ico" type="image/x-icon" />
 </head>

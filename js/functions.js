@@ -36,6 +36,7 @@ jQuery("#karma" + id).append(response);
      var t_load   = '<img src="pic/upload.gif" title="Загрузка" />';
      var t_img_p  = '<img src="pic/plus.gif" />';
      var t_img_m  = '<img src="pic/minus.gif" />';
+     var sendThanks = jQuery('#send_thanks');
       
                  jQuery('#show_thanks').toggle(
                         function() {
@@ -68,13 +69,15 @@ jQuery("#karma" + id).append(response);
              
      function SendThanks()
      {
-         jQuery('#send_thanks').get(0).style.display = 'none';
+         sendThanks.hide();
          jQuery.post('thanks_new.php',{'tid':jQuery('#torrentid').val(),'do':'send_thanks'},
                          function(response)
                          {
                                  jQuery('#thanks_msg').html(response).fadeOut(3000);
                          });
-        
+
      }
-     jQuery('#send_thanks').click(SendThanks);
+     if (sendThanks.length) {
+         sendThanks.click(SendThanks);
+     }
   });

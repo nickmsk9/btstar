@@ -61,7 +61,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 				if ($a[0] < $b[0]) return 1;
 				return 0;
 				}
-				usort($results, srt);
+				usort($results, "srt");
 				
 			//	print("<div id=\"poll_title\">".format_comment($ar_check["question"])."&nbsp;[".$modop."]&nbsp;</div>\n");
 				print("<div id=\"poll_title\">".format_comment($ar_check["question"])."</div>\n");

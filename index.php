@@ -129,7 +129,7 @@ end_frame();
 begin_frame("Опрос");
 if($CURUSER) {
 ?>
-<script type="text/javascript" src="js/poll.core.js"></script>
+<script type="text/javascript" src="js/poll.core.js?v=20260501"></script>
 <link href="css/poll.core.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">$(document).ready(function(){loadpoll();});</script>
 <?php
@@ -145,7 +145,7 @@ end_frame();
 if($CURUSER) {
 begin_frame("Живое общение");
 print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
-print("<script language=\"JavaScript\" src=\"js/user.js\" type=\"text/javascript\"></script>\n");
+print("<script language=\"JavaScript\" src=\"js/user.js?v=20260501\" type=\"text/javascript\"></script>\n");
 print("<form action=\"shoutbox.php\" method=\"post\" name=\"shoutform\" onsubmit=\"return sendShout(this);\">");
 ?>
 <table cellspacing="0" cellpadding="5" width="100%"  >
@@ -412,8 +412,8 @@ if ($total == "")  $total = 0;
 begin_frame("Сейчас на сайте " . $users . " пользователей");
 if (count($title_who)){
 print("<table border=\"0\" width=\"100%\"><tr valign=\"top\"><td width=40 style='border: none'><img src=\"pic/whosonline.gif\" border=0 align=absmiddle></td><td align=\"left\" style=\"padding-top: 7px;\" class=\"embedded\"> ".@implode(", ", $title_who)."</td></tr></table>\n");
-if($how[amount] < $total){ sql_query("UPDATE much_on SET amount = $total, date = NOW() WHERE main = 'yes'"); }
-print("<hr>Рекорд одновременного посещения трекера: <b>" .$how[amount]. "</b> <br>Зафиксирован: $how[date]");  
+if($how["amount"] < $total){ sql_query("UPDATE much_on SET amount = $total, date = NOW() WHERE main = 'yes'"); }
+print("<hr>Рекорд одновременного посещения трекера: <b>" .$how["amount"]. "</b> <br>Зафиксирован: ".$how["date"]);
 }
 else
 print("<table border=\"0\" width=\"100%\"><tr valign=\"top\"><td width=40 style='border: none'><img src=\"pic/whosonline.gif\" border=0 align=absmiddle></td><td align=\"left\" style=\"padding-top: 7px;\" class=\"embedded\"> Нет активных пользователей</td></tr></table>\n");

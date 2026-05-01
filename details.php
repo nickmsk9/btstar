@@ -16,7 +16,7 @@ if(empty($row))
 stdhead("Обзор торрента ".$row["name"]."");
 //begin_frame("Обзор торрента ".$row["name"]."");
 print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
-print("<script language=\"JavaScript\" src=\"js/details.js\" type=\"text/javascript\"></script>\n");
+print("<script language=\"JavaScript\" src=\"js/details.js?v=20260501\" type=\"text/javascript\"></script>\n");
 print("<div id=\"tabs\">");
 print("<span class=\"tab active\" id=\"info\">Описание</span>");
 print("<span class=\"tab\" id=\"peers\">Пиры</span>");
@@ -60,11 +60,10 @@ print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" ti
 if($can_not_thanks == true) {
 print("</td></tr>");
 } else {
-print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$torrentid}\">");
+print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$id}\">");
 print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"Сказать спасибо\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
 print("</td></tr>");
 }
-print("</div>");
 print("<tr><td colspan=\"3\" style=\"border-top: none;\"><div style=\"float: left;\">".$tags."</div>");
 print("</td></tr>");
 print("<tr><td valign=\"top\" colspan=\"3\">");

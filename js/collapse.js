@@ -31,6 +31,8 @@ function implode( glue, pieces )
 
 function explode( delimiter, string )
 {
+    if (string == null)
+        return [];
     return string.toString().split(delimiter.toString());
 }
 
