@@ -291,7 +291,7 @@ print("</td></tr><tr>");
 				if ($row["cat_name"]=="XXX") {
 				   print("<td align=\"center\"><b>Скрыто</b></td>\n");
 				 }  elseif ($variant == "index") {
-                        print("<td align=\"center\">" . (isset($row["username"]) ? ("<a href=\"id" . $row["owner"] . "\"><b>" . get_user_class_color($row["class"], htmlspecialchars_uni($row["username"])) . "</b></a>") : "<i>(unknown)</i>") . "</td>\n");
+                        print("<td align=\"center\">" . (isset($row["username"]) ? ("<a href=\"userdetails.php?id=" . $row["owner"] . "\"><b>" . get_user_class_color($row["class"], htmlspecialchars_uni($row["username"])) . "</b></a>") : "<i>(unknown)</i>") . "</td>\n");
                  }
 						
                 if ($variant == "bookmarks")

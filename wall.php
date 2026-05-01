@@ -60,7 +60,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
                 print("<tr class=\"zebra\" valign=\"top\">
                 <td width=\"50\"><img src=\"" . ($row['avatar'] ? $DEFAULTBASEURL.'/avatars/small/'.$row['avatar'] : "pic/default_avatar.gif") . "\" style=\"border:1px solid #999;padding:5px;width:50px;\" title=\"\" alt=\"\" /></td>
                 <td>
-                <div style=\"float:left;\"><a href=\"id" . $row['user'] . "\">" . get_user_class_color($row['class'], $row['username']) . "</a></div>
+                <div style=\"float:left;\"><a href=\"userdetails.php?id=" . $row['user'] . "\">" . get_user_class_color($row['class'], $row['username']) . "</a></div>
                 <div style=\"float:right;\"><font size=\"1\" color=\"#C0C0C0\">" . nicetime($row['added'], true) . "&nbsp;" . (($CURUSER['id'] == $row['owner'] || $CURUSER['id'] == $row['user']  || get_user_class() >= UC_MODERATOR) ? "<a href=\"javascript:void(0);\" onclick=\"wall_del('" . $row['id'] . "', '" . $row['owner'] . "');\"><img src=\"pic/warned2.gif\" border=\"0\" /></a>" : "") . "</font></div><br />" . format_comment($row['text']) . "</td>
                 </tr>\n");
                 print("<tr><td></td></tr>\n");

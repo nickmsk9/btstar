@@ -29,8 +29,8 @@ begin_frame('Записи с тегом "'.htmlspecialchars($_GET['tag']).'"');
 		$text=preg_replace("#\[.*\]#is","",$text);
 		if(strlen($note['text']) > 240)
 		$text=substr($text,0,200).'...';
-		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$note['uid'];?>-<?=$note['id'];?>"><?=$note['name'];?></a></span> (<?=nicetime($note['timestamp'],true);?>)<br>
-		Автор: <a href="id<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
+		?><tr><td><span style="font-size: 12pt;"><a href="note.php?uid=<?=$note['uid'];?>&id=<?=$note['id'];?>"><?=$note['name'];?></a></span> (<?=nicetime($note['timestamp'],true);?>)<br>
+		Автор: <a href="userdetails.php?id=<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
 		<hr>
 		<?=$text;?>
 		<hr>
@@ -38,7 +38,7 @@ begin_frame('Записи с тегом "'.htmlspecialchars($_GET['tag']).'"');
 			$tags=explode(',',$note['tags']);
 			$i=0;
 			foreach ($tags as $tag)
-		{echo ($i!=0 ? ', ' : '').'<a href="note-tag,'.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
+		{echo ($i!=0 ? ', ' : '').'<a href="notetag.php?tag='.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
 		$i++;}echo "<br>";}
 		?> Просмотров: <?=$note['views'];?>, комментариев: <?=$note['comments'];?></td></tr>
 	<?php } ?>

@@ -44,7 +44,7 @@ function image_resize($mime, $source, $dest, $max_width, $max_height)
             case 'image/jpeg':
             $source = imagecreatefromjpeg($source);
             break;
-            case 'image/gif';
+            case 'image/gif':
             $source = imagecreatefromgif($source);
             break;
             case 'image/png':
@@ -145,6 +145,7 @@ function dbconn($autoclean = false, $lightmode = false) {
         mysql_select_db($mysql_db)
                 or die("dbconn: mysql_select_db: " + mysql_error());
 
+        mysql_query("SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION'");
         mysql_query("SET NAMES $mysql_charset");
 
 		if(!$no_login)
@@ -165,6 +166,7 @@ function mysql_try_reconnect()
             die("[" . mysql_errno() . "] reconnect: mysql_connect: " . mysql_error());
         mysql_select_db($mysql_db)
                 or die("[" . mysql_errno() . "]reconnect: mysql_select_db: " + mysql_error());
+        mysql_query("SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION'");
         mysql_query("SET NAMES $mysql_charset");
 	}
 	return true;

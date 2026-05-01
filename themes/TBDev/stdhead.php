@@ -37,7 +37,7 @@ if (!defined('UC_SYSOP'))
 <li><a href="upload.php"><?=$tracker_lang['upload'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <?php } ?>
-<li><a href="notes">Записи</a></li>
+<li><a href="notes.php">Записи</a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="rules.php"><?=$tracker_lang['rules'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
@@ -50,7 +50,7 @@ if (!defined('UC_SYSOP'))
 </ul><div style="float:right;">
 <?php if($CURUSER) {?>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<li><a href="id<?=$CURUSER["id"];?>"><?=$CURUSER["firstname"]?>&nbsp;<?=$CURUSER["surname"]?></a></li>
+<li><a href="userdetails.php?id=<?=$CURUSER["id"];?>"><?=$CURUSER["firstname"]?>&nbsp;<?=$CURUSER["surname"]?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="logout.php">Выход</a></li>
 <?php } ?>

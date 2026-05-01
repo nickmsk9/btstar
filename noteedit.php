@@ -139,7 +139,7 @@ switch($_GET['act'])
 			bark("Такой записи не существует!");
 		if($uid!=$CURUSER['id']&&$CURUSER['class'] < UC_MODERATOR)
 			bark("Вы не можете редактировать чужие записи!");
-		ques('Вы действительно хотите удалить запись "'.htmlspecialchars($note['name']).'"?<br>[<a href="noteedit.php?uid='.$uid.'&id='.$id.'&act=deleteconf">Удалить</a>] [<a href="note'.$uid.'-'.$id.'">Вернуться</a>]');
+		ques('Вы действительно хотите удалить запись "'.htmlspecialchars($note['name']).'"?<br>[<a href="noteedit.php?uid='.$uid.'&id='.$id.'&act=deleteconf">Удалить</a>] [<a href="note.php?uid='.$uid.'&id='.$id.'">Вернуться</a>]');
 	
 	break;
 	case 'deleteconf':

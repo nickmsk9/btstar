@@ -143,7 +143,7 @@ insert_tag(
 	"Image (alt. 2)",
 	"Inserts a picture.",
 	"[img]<i>URL</i>[/img]",
-	"[img]http://bt-star.ru/pic/rss_boite.gif[/img]",
+	"[img]".$DEFAULTBASEURL."/pic/rss_boite.gif[/img]",
 	"The URL must end with <b>.gif</b>, <b>.jpg</b> or <b>.png</b>."
 );
 

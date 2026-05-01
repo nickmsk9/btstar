@@ -26,14 +26,14 @@ foreach($notes as $note) {
 		$text=preg_replace("#\[.*\]#is","",$text);
 		if(strlen($note['text']) > 240)
 		$text=substr($text,0,200).'...';*/
-		/* <span style="font-size: 12pt;"><a href="note<?=$note['uid'];?>-<?=$note['id'];?>"><?=$note['name'];?></a></span> */
+		/* <span style="font-size: 12pt;"><a href="note.php?uid=<?=$note['uid'];?>&id=<?=$note['id'];?>"><?=$note['name'];?></a></span> */
 		?><tr><td><?=nicetime((empty($note['last_edit']) ? $note['timestamp'] : $note['last_edit']),true);?><br>
-		Автор: <a href="id<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
+		Автор: <a href="userdetails.php?id=<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
 		<hr>
 		<?=$text;?>
 		<hr>
 		<div style="float: left;">Просмотров: <?=$note['views'];?>, комментариев: <?=$note['comments'];?></div>
-		<div style="float: right;">[<a href="note<?=$noteuid;?>-<?=$noteid;?>">Перейти</a>]
+		<div style="float: right;">[<a href="note.php?uid=<?=$noteuid;?>&id=<?=$noteid;?>">Перейти</a>]
 		<?php if($CURUSER['id']==$noteuid||get_user_class()>=UC_MODERATOR) { ?>
 		 [<a href="noteedit.php?uid=<?=$noteuid;?>&id=<?=$noteid;?>&act=edit">Редактировать</a>]
 		<?php } ?>

@@ -18,7 +18,7 @@ print("<br><b>E242423324828</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;е
 print("<br><b>U798575084060</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;гривнах.");
 print("</td></tr>");
 print("<tr><td class=\"rowhead\">Яндекс.Деньги</td><td align=\"left\"><b><font color=\"green\">41001289828071</font></b></td></tr>");
-print("<tr><td colspan=\"2\">После&nbsp;перевода&nbsp;пишем&nbsp;<a href=\"pmto-1\">сюда</a>,&nbsp;сумму&nbsp;и&nbsp;тип&nbsp;перевода.</td></tr>");
+print("<tr><td colspan=\"2\">После&nbsp;перевода&nbsp;пишем&nbsp;<a href=\"message.php?action=sendmessage&receiver=1\">сюда</a>,&nbsp;сумму&nbsp;и&nbsp;тип&nbsp;перевода.</td></tr>");
 print("</table>");
 end_frame();
 stdfoot();

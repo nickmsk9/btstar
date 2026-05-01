@@ -49,7 +49,7 @@ $messag = "<a class=\"menu\" href=\"message.php\">Мои сообщения</a>"
 }
 
 
-	$userbar = "<a class=\"menu\" href=\"id".$CURUSER["id"]."\">Моя страница</a>
+		$userbar = "<a class=\"menu\" href=\"userdetails.php?id=".$CURUSER["id"]."\">Моя страница</a>
 	<a class=\"menu\" href=\"friends.php\">Мои друзья";
 $fetch=mysql_fetch_array(sql_query("SELECT COUNT(*) FROM friends WHERE friendid=".$CURUSER['id']." AND status = 'pending'"));
 if($fetch&&$fetch[0]!=0) $userbar.=" (<b>".$fetch[0]."</b>)";
@@ -132,7 +132,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 
 </td>
 <?php
-	print("<td align=\"left\" style=\"border: none;\"><a href=\"http://bt-star.ru\">bt-star.ru</a> &copy; 2008-".date("Y")." <br>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries)."<br>Хочу сказать огромное спасибо моей любимой Полине за вдохновение.</td>\n");
+		print("<td align=\"left\" style=\"border: none;\"><a href=\"$DEFAULTBASEURL\">BT-Star Russia</a> &copy; 2008-".date("Y")." <br>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries)."<br>Хочу сказать огромное спасибо моей любимой Полине за вдохновение.</td>\n");
 	print("</tr></table></body></html>\n");
 ?>
 <!--GA-->

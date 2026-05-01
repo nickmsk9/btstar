@@ -464,7 +464,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
 		$text=preg_replace("#\[.*\]#is","",$text);
 		if(strlen($note['text']) > 240)
 		$text=substr($text,0,200).'...';
-		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$id;?>-<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Добавлена: <?=nicetime($note['timestamp'],true);?><br>
+			?><tr><td><span style="font-size: 12pt;"><a href="note.php?uid=<?=$id;?>&id=<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Добавлена: <?=nicetime($note['timestamp'],true);?><br>
 		<?php if(!empty($note['last_edit'])) { ?><small>Последняя правка: <?=nicetime($note['last_edit'],true);?><?php } ?>
 		<hr>
 		<?=$text;?>
@@ -473,7 +473,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
 			$tags=explode(',',$note['tags']);
 			$i=0;
 			foreach ($tags as $tag)
-		{echo ($i!=0 ? ', ' : '').'<a href="note-tag,'.trim($tag).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
+		{echo ($i!=0 ? ', ' : '').'<a href="notetag.php?tag='.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
 		$i++;}echo "<br>";}
 		?> Просмотров: <?=$note['views'];?>, комментариев: <?=$note['comments'];?></td></tr><?php		
 		}

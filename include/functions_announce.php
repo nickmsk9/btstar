@@ -133,6 +133,7 @@ function dbconn() {
     }
     mysql_select_db($mysql_db) or err('dbconn: mysql_select_db: ' + mysql_error());
 
+	mysql_query("SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION'");
 	mysql_query('SET NAMES '.$mysql_charset);
 
 	register_shutdown_function("mysql_close");

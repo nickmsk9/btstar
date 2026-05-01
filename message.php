@@ -348,7 +348,7 @@ stderr($tracker_lang['error'], "Лимит сообщений данного п�
         <form id=message name=message method=post action=message.php>
         <input type=hidden name=action value=takemessage>
         <table width="100%" border="0" cellspacing=0 cellpadding="4">
-		<tr><td class="rowhead" style="border: none;">От кого:</td><td align="left" style="border: none;"><a href="id<?=$CURUSER["id"];?>"><?=$CURUSER["username"];?></a></td></tr>
+		<tr><td class="rowhead" style="border: none;">От кого:</td><td align="left" style="border: none;"><a href="userdetails.php?id=<?=$CURUSER["id"];?>"><?=$CURUSER["username"];?></a></td></tr>
 		<tr><td class="rowhead" style="border: none;">Кому:</td><td align="left" style="border: none;"><a href="userdetails.php?id=<?=$receiver;?>"><?=$user["username"];?></a></td></tr>
         <tr><td class="rowhead" style="border: none;">Тема:</td><td align="left" style="border: none;"><INPUT name="subject" type="text" size="60" value="<?=$subject?>" maxlength="255"></TD></TR>
         <tr><td class="rowhead" style="border: none;">Сообщение:</td><td align="left" style="border: none;">

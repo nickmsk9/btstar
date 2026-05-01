@@ -30,7 +30,7 @@ if(!$note = mysql_fetch_assoc($note))
 bark("Такой записи не существует!");
 stdhead("Записи || ".$note['firstname']." ".$note['username']." ".$note['surname']." || ".htmlspecialchars($note['name']));
 ?> <script type="text/javascript" language="javascript" src="js/note.js"></script> <?php
-begin_frame('Записи &rarr; <a href="id'.$note['uid'].'">'.$note['firstname']." ".$note['username']."</a> &rarr; ".htmlspecialchars($note['name']));
+begin_frame('Записи &rarr; <a href="userdetails.php?id='.$note['uid'].'">'.$note['firstname']." ".$note['username']."</a> &rarr; ".htmlspecialchars($note['name']));
 if($note['access']==0 and (!$CURUSER['id']==$uid||!$note['fid']) and $CURUSER['class'] < UC_MODERATOR)
 bark("Эту запись можно просматривать только друзьям ".$note['firstname']." ".$note['username']." ".$note['surname']."!");
 ?>
@@ -41,7 +41,7 @@ else
     echo "<img src=\"pic/default_avatar.gif\" style=\"width:100px;border:3px double #ccc;\" title=\"\" alt=\"Аватар\" align=\"left\">";
 ?>
 </td><td valign="top">
-<span style="font-size: 18pt; font-weight: bold;"><?=htmlspecialchars($note['name']);?></span><br>Запись <a href="id<?=$uid;?>"><?=$note['firstname'];?> <?=$note['username'];?> <?=$note['surname'];?></a> от <b><?=nicetime($note['timestamp']);?>
+<span style="font-size: 18pt; font-weight: bold;"><?=htmlspecialchars($note['name']);?></span><br>Запись <a href="userdetails.php?id=<?=$uid;?>"><?=$note['firstname'];?> <?=$note['username'];?> <?=$note['surname'];?></a> от <b><?=nicetime($note['timestamp']);?>
 <?php if(!empty($note['last_edit'])) { ?><br><small>Последняя правка: <?=nicetime($note['last_edit'],true);?><?php } ?>
 <br>
 <span style="color: gray;font-weight: normal;"><?php if($note['access']==1) { ?>Это открытая запись, её может просматривать любой пользователь<?php } else { ?>Это закрытая запись, только для друзей автора <?php } ?></span>
@@ -65,7 +65,7 @@ if(!empty($note['tags'])) { ?><div style="float: left;">Теги: <?php
 $tags=explode(',',$note['tags']);
 $i=0;
 foreach ($tags as $tag)
-{echo ($i!=0 ? ', ' : '').'<a href="note-tag,'.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
+{echo ($i!=0 ? ', ' : '').'<a href="notetag.php?tag='.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
 $i++;}
 echo "</div>";
 }

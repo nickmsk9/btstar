@@ -90,6 +90,7 @@ $day = intval($_POST["day"]);
 else bark('Выберите день рождения');
 
 $updateset[] = 'birthday = \''.date("Y-m-d",strtotime($year.'-'.$month.'-'.$day)).'\''; 
+$updateset[] = 'lovemovies = \'\'';
 
 if(!empty($_POST['icq'])&&is_numeric($_POST['icq'])&&$_POST['icq']>9999&&$_POST['icq']<=9999999999)
 $updateset[] = 'icq = '.$_POST['icq'];
@@ -178,22 +179,24 @@ if (isset($_COOKIE["uid"]) && is_numeric($_COOKIE["uid"]) && $users) {
     $cid = intval($_COOKIE["uid"]);
     $c = sql_query("SELECT enabled FROM users WHERE id = $cid ORDER BY id DESC LIMIT 1");
     $co = @mysql_fetch_row($c);
-    if ($co[0] == 'no') {
+    if ($co && $co[0] == 'no') {
                 sql_query("UPDATE users SET ip = '".getip()."', last_access = NOW() WHERE id = $cid");
                 bark("Ваш IP забанен на этом трекере. Регистрация невозможна.");
-    } else
-                bark("Регистрация невозможна!");
+    }
 } else {
     $b = (@mysql_fetch_row(@sql_query("SELECT enabled, id FROM users WHERE ip = '".getip()."' ORDER BY last_access DESC LIMIT 1")));
-    if ($b[0] == 'no') {
+    if ($b && $b[0] == 'no') {
                 $banned_id = $b[1];
         setcookie("uid", $banned_id, "0x7fffffff", "/");
                 bark("Вы забанены на этом трекере. Регистрация невозможна.");
     }
 }
 
-$updateset[] = 'secret = '.sqlesc(mksecret());
-$updateset[] = 'passhash = \''.md5($secret . $wantpassword . $secret).'\'';
+$secret = mksecret();
+$passhash = md5($secret . $wantpassword . $secret);
+$updateset[] = 'secret = '.sqlesc($secret);
+$updateset[] = 'passhash = '.sqlesc($passhash);
+$updateset[] = 'passkey = '.sqlesc(md5($wantusername . get_date_time() . $secret));
 $editsecret =(!$users?"":mksecret());
 $updateset[] = 'editsecret = '.sqlesc($editsecret);
 
@@ -245,7 +248,7 @@ if($use_email_act && $users) {
                 stderr($tracker_lang['error'], "Невозможно отправить E-Mail. Попробуйте позже");
         }
 } else {
-        logincookie($id, $wantpasshash);
+        logincookie($id, $passhash);
 }
 
 header("Refresh: 0; url=ok.php?type=signup&email=" . urlencode($email));

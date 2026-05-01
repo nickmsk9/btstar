@@ -110,10 +110,10 @@ if ($CURUSER['id'] != $id)
 <div id="body" user="<?=$user["id"];?>">
 <h4>Оснавная информация</h4>
 <?php if($user["username"] == "Полина") { ?>
-<div align="left"><b><font color="gray">Помолвлена с <a href="id1" title="Faris">Ваней</a></font></b></div>
+<div align="left"><b><font color="gray">Помолвлена с <a href="userdetails.php?id=1" title="Faris">Ваней</a></font></b></div>
 <?php } ?>
 <?php if($user["icq"] == "6227714") { ?>
-<div align="left"><b><font color="gray">Помолвлен с <a href="id1" title="Faris">Полиной</a></font></b></div>
+<div align="left"><b><font color="gray">Помолвлен с <a href="userdetails.php?id=1" title="Faris">Полиной</a></font></b></div>
 <?php } ?>
 <div align="left"><b><font color="gray">Класс:</font></b> <?=get_user_class_color($user['class'], get_user_class_name($user['class']))?></div>
 <div align="left"><b><font color="gray">Пол:</font></b> <?=$gender;?></div>

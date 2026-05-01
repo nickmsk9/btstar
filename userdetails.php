@@ -104,7 +104,7 @@ print("".$avatar."");
 //print('<br><div width="100%" style="padding: 2px; border: 1px solid gray; margin: 2px; margin-top: 4px; background-color: #ddd;">'.$rbar.'</div>');
 if ($CURUSER['id'] != $id)
 {
-    print("<a href=\"pmto-$id\" class=\"menu\">Личное сообщение</a>");
+    print("<a href=\"message.php?action=sendmessage&receiver=$id\" class=\"menu\">Личное сообщение</a>");
     $res = sql_query("SELECT id FROM friends WHERE userid=" . sqlesc($CURUSER['id']) . " AND friendid = $id AND status = 'yes'") or sqlerr(__FILE__, __LINE__);
     if (mysql_num_rows($res) > 0)
         print("<a href=\"javascript:void(0);\" onclick=\"javascript:addtofriends('$id', 'delete');\" class=\"menu\">Удалить из друзей</a>\n");

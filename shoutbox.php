@@ -2,7 +2,7 @@
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
-header("Content-Type: text/html; charset=Windows-1251");
+header("Content-Type: text/html; charset=utf-8");
 
 if ($_POST["do"] == "shout") {
     $shout = convert_text(decode_unicode_url($_POST["shout"]));
@@ -69,7 +69,7 @@ $arr["text"] = str_replace("privat($CURUSER[username])","<b style='color: orange
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+<a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 }
 } else
 if ((($CURUSER["id"] == "".$arr["userid"]."") OR (get_user_class() >= UC_MODERATOR)) AND (get_user_class() >= $arr["class"]) AND (strpos($arr["text"], "privat(") !== false)) {
@@ -78,13 +78,13 @@ $arr["text"] = preg_replace("/privat\(([^()<>\s]+?)\)/i","<b style='color: #oran
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\">[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-    <a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+    <a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 } elseif (strpos($arr["text"], "privat(") !== false) {
 } else {
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
+<a target=_blank href=message.php?action=sendmessage&receiver=".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=userdetails.php?id=".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
 print("</table>");
 }
 }
@@ -167,16 +167,16 @@ $unread2="[b][url=$DEFAULTBASEURL/message.php] у вас $newmessage [/url][/b]"
                      $b="".$CURUSER['username']." обижаешь";          
                     break;
                             
-					case $shout == "$bot бот";
-					case $shout == "$bot Бот";
+					case $shout == "$bot бот":
+					case $shout == "$bot Бот":
 					case (stripos($shout,'пупсик')!==FALSE):
 					case (stripos($shout,'бот')!==FALSE):
                     $a="".$CURUSER['username']." сам такой, гад :P";          
                     $b="".$CURUSER['username']." посмотри на себя, малышь";          
                     break;
              
-                  case $shout == "$bot да";
-				  case $shout == "$bot Да";
+                  case $shout == "$bot да":
+				  case $shout == "$bot Да":
                   $a="".$CURUSER['username']." неа :P";          
                   $b="".$CURUSER['username']." нет конечно";          
                     break;
@@ -190,12 +190,12 @@ $unread2="[b][url=$DEFAULTBASEURL/message.php] у вас $newmessage [/url][/b]"
                     
                     
                     
-				   case $shout == "$bot ip";
+				   case $shout == "$bot ip":
 			       $a="".$CURUSER['username']." ваш ip равен ".$CURUSER['ip']."";          
                    $b="".$CURUSER['username']." ваш ip равен ".$CURUSER['ip']."";          
                     break;
                    
-                     case $shout == "$bot браузер";
+                     case $shout == "$bot браузер":
 			       $a="".$CURUSER['username']." ваш браузер равен ".getenv("HTTP_USER_AGENT")."";          
                    $b="".$CURUSER['username']." ваш браузер равен ".getenv("HTTP_USER_AGENT")."";          
                     break;
@@ -222,8 +222,8 @@ $unread2="[b][url=$DEFAULTBASEURL/message.php] у вас $newmessage [/url][/b]"
                    $b="".$CURUSER['username']." $vikainfo";          
                     break;
                    
-                    case $shout == "$bot нет";
-				    case $shout == "$bot Нет";
+                    case $shout == "$bot нет":
+				    case $shout == "$bot Нет":
                     $a="".$CURUSER['username']." да :D";          
                     $b="".$CURUSER['username']." ууу да.";          
                     break;
