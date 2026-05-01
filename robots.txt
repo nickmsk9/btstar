@@ -1,0 +1,5 @@
+Host: bt-star.ru
+User-agent: *
+Disallow: 
+User-agent: Cys
+Disallow: /

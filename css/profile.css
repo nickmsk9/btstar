@@ -1,0 +1,14 @@
+.profileTable {
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 8px;
+  margin-left: 0px; }
+.profileTable td {
+  vertical-align: top;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0px;
+  padding: 1px 0px 1px 0px; }
+.profileTable .label {
+  width: 120px;
+  color: gray; }

@@ -1,0 +1,36 @@
+#tabs {
+    text-align: left;
+}
+
+#tabs .tab {
+    border: 1px solid #cecece;
+	border-bottom: none;
+    padding: 5px 10px 5px 10px;
+    background:#ededed;
+    margin-right:5px;
+    line-height: 23px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+#tabs .active {
+    border-bottom: none;
+    padding-bottom: 5px;
+    background: #FAFAFA;
+    cursor: default;
+}
+
+#tabs #body {
+    /*border: 1px solid #cecece;*/
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #FAFAFA;
+}
+
+#tabs .tab_error {
+    background:url(../pic/error.gif) repeat-y;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 40px;
+}

@@ -1,0 +1,70 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: btstar-php
+    restart: unless-stopped
+    ports:
+      - "8096:80"
+    environment:
+      BTSTAR_CACHE_DRIVER: memcached
+      BTSTAR_CACHE_HOST: memcached
+      BTSTAR_CACHE_PORT: 11211
+      BTSTAR_DB_HOST: db
+      BTSTAR_DB_PORT: 3306
+      BTSTAR_DB_NAME: btstar
+      BTSTAR_DB_USER: root
+      BTSTAR_DB_PASSWORD: ""
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+      - memcached
+    networks:
+      - btstar-net
+
+  db:
+    image: mysql:8.4
+    container_name: btstar-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: btstar
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./docker-data/mysql:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - btstar-net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: btstar-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    ports:
+      - "8097:80"
+    networks:
+      - btstar-net
+
+  memcached:
+    image: memcached:latest
+    container_name: btstar-memcached
+    restart: unless-stopped
+    ports:
+      - "11214:11211"
+    networks:
+      - btstar-net
+
+networks:
+  btstar-net:
+    driver: bridge
