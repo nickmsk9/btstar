@@ -14,13 +14,13 @@ function showspoiler(id){
     {
         text.style.display = 'block';
         pic.src = 'pic/minus.gif';
-        pic.title = 'Скрыть';
+        pic.title = 'РЎРєСЂС‹С‚СЊ';
     }
     else
     {
         text.style.display = 'none';
         pic.src = 'pic/plus.gif';
-        pic.title = 'Показать';
+        pic.title = 'РџРѕРєР°Р·Р°С‚СЊ';
     }
 } 
 
@@ -33,7 +33,7 @@ jQuery("#karma" + id).append(response);
 
    
    jQuery(document).ready(function(){
-     var t_load   = '<img src="pic/upload.gif" title="Загрузка" />';
+     var t_load   = '<img src="pic/upload.gif" title="Р—Р°РіСЂСѓР·РєР°" />';
      var t_img_p  = '<img src="pic/plus.gif" />';
      var t_img_m  = '<img src="pic/minus.gif" />';
       
@@ -53,16 +53,16 @@ jQuery("#karma" + id).append(response);
                             else
                             {
                                 jQuery('#thanks_body').empty();
-                                alert( 'Произошла ошибка' );
+                                alert( 'РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°' );
                                   return false;
                             }
                             
                         },'html');
-                            jQuery(this).html(t_img_m + '&nbsp;&nbsp;Последние поблагодарившие');
+                            jQuery(this).html(t_img_m + '&nbsp;&nbsp;РџРѕСЃР»РµРґРЅРёРµ РїРѕР±Р»Р°РіРѕРґР°СЂРёРІС€РёРµ');
                         },
                         function() {
                             jQuery('#thanks_body').slideUp( 'fast' );
-                            jQuery(this).html(t_img_p + '&nbsp;&nbsp;Последние поблагодарившие');
+                            jQuery(this).html(t_img_p + '&nbsp;&nbsp;РџРѕСЃР»РµРґРЅРёРµ РїРѕР±Р»Р°РіРѕРґР°СЂРёРІС€РёРµ');
                         }
                     );
              

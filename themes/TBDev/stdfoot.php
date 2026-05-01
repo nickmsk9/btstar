@@ -1,10 +1,10 @@
-<?
+<?php
 if (!defined('UC_GOD'))
 	die('Direct access denied.');
 ?>
 </td>
 <td valign="top" width="190px" style="border:0;padding-right:0px;">
-<?
+<?php
 
 
 $datum = getdate();
@@ -15,60 +15,50 @@ $datum[minutes] = sprintf("%02.0f", $datum[minutes]);
 
 $datum[seconds] = sprintf("%02.0f", $datum[seconds]);
 
-$uped = mksize($CURUSER['uploaded']);
+$uped = $downed = '';
+$ratio = '---';
+$medaldon = $warn = $usrclass = '';
 
-$downed = mksize($CURUSER['downloaded']);
+if ($CURUSER) {
+	$uped = mksize($CURUSER['uploaded']);
+	$downed = mksize($CURUSER['downloaded']);
 
-if ($CURUSER["downloaded"] > 0)
+	if ($CURUSER["downloaded"] > 0)
+	{
+		$ratio = $CURUSER['uploaded'] / $CURUSER['downloaded'];
+		$ratio = number_format($ratio, 3);
+		$color = get_ratio_color($ratio);
+		if ($color)
+			$ratio = "<font color=$color>$ratio</font>";
+	}
+	elseif ($CURUSER["uploaded"] > 0)
+		$ratio = "Inf.";
 
-{
-
-$ratio = $CURUSER['uploaded'] / $CURUSER['downloaded'];
-
-$ratio = number_format($ratio, 3);
-
-$color = get_ratio_color($ratio);
-
-if ($color)
-
-$ratio = "<font color=$color>$ratio</font>";
-
+	if ($CURUSER['donor'] == "yes")
+		$medaldon = "<img src=\"pic/star.gif\" alt=\"Р”РѕРЅРѕСЂ\" title=\"Р”РѕРЅРѕСЂ\">";
+	if ($CURUSER['warned'] == "yes")
+		$warn = "<img src=\"pic/warned.gif\" alt=\"РџСЂРµРґСѓРїСЂРµР¶РґРµРЅ\" title=\"РџСЂРµРґСѓРїСЂРµР¶РґРµРЅ\">";
 }
-
-else
-
-if ($CURUSER["uploaded"] > 0)
-
-$ratio = "Inf.";
-
-else
-
-$ratio = "---";
-
-if ($CURUSER['donor'] == "yes")
-	$medaldon = "<img src=\"pic/star.gif\" alt=\"Донор\" title=\"Донор\">";
-if ($CURUSER['warned'] == "yes")
-	$warn = "<img src=\"pic/warned.gif\" alt=\"Предупрежден\" title=\"Предупрежден\">";
 
 
 if ($CURUSER) {
 if($unread) {
-$messag = "<a class=\"menu\" href=\"message.php\">Мои сообщения (<b>$unread</b>)</a>";
+$messag = "<a class=\"menu\" href=\"message.php\">РњРѕРё СЃРѕРѕР±С‰РµРЅРёСЏ (<b>$unread</b>)</a>";
 }else{
-$messag = "<a class=\"menu\" href=\"message.php\">Мои сообщения</a>";
+$messag = "<a class=\"menu\" href=\"message.php\">РњРѕРё СЃРѕРѕР±С‰РµРЅРёСЏ</a>";
 }
 
 
-	$userbar = "<a class=\"menu\" href=\"id".$CURUSER["id"]."\">Моя страница</a>
-	<a class=\"menu\" href=\"friends.php\">Мои друзья";
+	$userbar = "<a class=\"menu\" href=\"id".$CURUSER["id"]."\">РњРѕСЏ СЃС‚СЂР°РЅРёС†Р°</a>
+	<a class=\"menu\" href=\"friends.php\">РњРѕРё РґСЂСѓР·СЊСЏ";
 $fetch=mysql_fetch_array(sql_query("SELECT COUNT(*) FROM friends WHERE friendid=".$CURUSER['id']." AND status = 'pending'"));
 if($fetch&&$fetch[0]!=0) $userbar.=" (<b>".$fetch[0]."</b>)";
-	$userbar.="</a><a class=\"menu\" href=\"subnet.php\">Мои соседи</a>";
-	$userbar.="<a class=\"menu\" href=\"mynote.php\">Мои записи</a>";
+	$userbar.="</a><a class=\"menu\" href=\"subnet.php\">РњРѕРё СЃРѕСЃРµРґРё</a>";
+	$userbar.="<a class=\"menu\" href=\"mynote.php\">РњРѕРё Р·Р°РїРёСЃРё</a>";
 	$userbar.=$messag."
-	<a class=\"menu\" href=\"mybonus.php\">Мои бонусы (<b>$CURUSER[bonus]</b>)</a>
+	<a class=\"menu\" href=\"mybonus.php\">РњРѕРё Р±РѕРЅСѓСЃС‹ (<b>$CURUSER[bonus]</b>)</a>
 	<a class=\"menu\" href=\"mytorrents.php\">".$tracker_lang['my_torrents']."</a>
-    <a class=\"menu\" href=\"my.php\">Мои настройки</a>";
+    <a class=\"menu\" href=\"my.php\">РњРѕРё РЅР°СЃС‚СЂРѕР№РєРё</a>";
 } else {
 	$userbar = '<table width="100%" border="0"><form method="post" action="takelogin.php">
 <tr><td style="border:none;"><font class="small">E-Mail:</font>:</td><td style="border:none;"><input type="text" size=20 name="email"/></td></tr>
@@ -77,46 +67,46 @@ if($fetch&&$fetch[0]!=0) $userbar.=" (<b>".$fetch[0]."</b>)";
 <tr><td colspan="2" style="border:none;"><a class="menu" href="signup.php">'.$tracker_lang['signup'].'</a></td></tr></table>';
 }
 
-if ($CURUSER['override_class'] != 255) $usrclass = "&nbsp;<img src=\"pic/warning.gif\" title=".get_user_class_name($CURUSER['class'])." alt=".get_user_class_name($CURUSER['class']).">&nbsp;";
+if ($CURUSER && $CURUSER['override_class'] != 255) $usrclass = "&nbsp;<img src=\"pic/warning.gif\" title=".get_user_class_name($CURUSER['class'])." alt=".get_user_class_name($CURUSER['class']).">&nbsp;";
 
-elseif(get_user_class() >= UC_MODERATOR) $usrclass = "&nbsp;<a href=\"setclass.php\"><img src=\"pic/warning.gif\" title=\"".get_user_class_name($CURUSER['class'])."\" alt=\"".get_user_class_name($CURUSER['class'])."\" border=\"0\"></a>&nbsp;";
+elseif($CURUSER && get_user_class() >= UC_MODERATOR) $usrclass = "&nbsp;<a href=\"setclass.php\"><img src=\"pic/warning.gif\" title=\"".get_user_class_name($CURUSER['class'])."\" alt=\"".get_user_class_name($CURUSER['class'])."\" border=\"0\"></a>&nbsp;";
 
-	blok_menu("<div style=\"float:left;\">Моё меню</div><div style=\"float:right; margin-top: 4px;\"><a href=\"/rss.xml\" title=\"RSS-лента\"><img src=\"/pic/rss_boite.gif\" alt=\"RSS\" border=\"0\"></a></div>", $userbar, "userbar", yes, "155");
+	blok_menu("<div style=\"float:left;\">РњРѕС‘ РјРµРЅСЋ</div><div style=\"float:right; margin-top: 4px;\"><a href=\"/rss.xml\" title=\"RSS-Р»РµРЅС‚Р°\"><img src=\"/pic/rss_boite.gif\" alt=\"RSS\" border=\"0\"></a></div>", $userbar, "userbar", yes, "155");
 
 if ($CURUSER) {
 
-	//$usermenu = "<a class=\"menu\" href=\"invite.php\">&nbsp;Пригласить</a>"
-    $usermenu = "<a class=\"menu\" href=\"users.php\">&nbsp;Люди</a>"
-           ."<a class=\"menu\" href=\"futurerls.php\">&nbsp;Скоро на трекере</a>"
-		   ."<a class=\"menu\" href=\"pages.php\">&nbsp;Персоны кино</a>";
+	//$usermenu = "<a class=\"menu\" href=\"invite.php\">&nbsp;РџСЂРёРіР»Р°СЃРёС‚СЊ</a>"
+    $usermenu = "<a class=\"menu\" href=\"users.php\">&nbsp;Р›СЋРґРё</a>"
+           ."<a class=\"menu\" href=\"futurerls.php\">&nbsp;РЎРєРѕСЂРѕ РЅР° С‚СЂРµРєРµСЂРµ</a>"
+		   ."<a class=\"menu\" href=\"pages.php\">&nbsp;РџРµСЂСЃРѕРЅС‹ РєРёРЅРѕ</a>";
 	if($CURUSER['class']>=UC_ADMINISTRATOR)
-	$usermenu .= '<a class="menu" href="admin.php">&nbsp;Админпанель</a>';
+	$usermenu .= '<a class="menu" href="admin.php">&nbsp;РђРґРјРёРЅРїР°РЅРµР»СЊ</a>';
 		   
-	blok_menu("Ваши функции", $usermenu , "usermenu", yes, "155");
+	blok_menu("Р’Р°С€Рё С„СѓРЅРєС†РёРё", $usermenu , "usermenu", yes, "155");
 
 }	
-?> <script language="javascript" type="text/javascript" src="js/tags.js"></script><?
+?> <script language="javascript" type="text/javascript" src="js/tags.js"></script><?php
 if((empty($_COOKIE['tagst'])||$_COOKIE['tagst']=='cloud')&&!is_bot())
 {
-begin_frame("<span id=\"tagcchead\">Облако <a href=\"javascript:tag_switch();\" title=\"Теги\"><img src=\"pic/r-arrow.gif\" alt=\"Теги\" title=\"Теги\" border=\"0\"></a></span>");
+begin_frame("<span id=\"tagcchead\">РћР±Р»Р°РєРѕ <a href=\"javascript:tag_switch();\" title=\"РўРµРіРё\"><img src=\"pic/r-arrow.gif\" alt=\"РўРµРіРё\" title=\"РўРµРіРё\" border=\"0\"></a></span>");
 ?> <div id="tagscc" style="overflow: auto; height: 190px;"></div>
-<script language="javascript" type="text/javascript"> var tagNow = 'cloud'; tag_puts(); </script> <?
+<script language="javascript" type="text/javascript"> var tagNow = 'cloud'; tag_puts(); </script> <?php
 }
 else
 {
-begin_frame("<span id=\"tagcchead\"><a href=\"javascript:tag_switch();\" title=\"Облако\"><img src=\"pic/l-arrow.gif\" alt=\"Облако\" title=\"Облако\" border=\"0\"></a> Теги</span>");
+begin_frame("<span id=\"tagcchead\"><a href=\"javascript:tag_switch();\" title=\"РћР±Р»Р°РєРѕ\"><img src=\"pic/l-arrow.gif\" alt=\"РћР±Р»Р°РєРѕ\" title=\"РћР±Р»Р°РєРѕ\" border=\"0\"></a> РўРµРіРё</span>");
 ?> <div id="tagscc" style="overflow: auto; height: 190px;"></div>
-<script language="javascript" type="text/javascript"> var tagNow = 'tags'; tag_puts(); </script> <?
+<script language="javascript" type="text/javascript"> var tagNow = 'tags'; tag_puts(); </script> <?php
 }
 end_frame();
 //if($show_ad) {
-begin_frame('Посетители');
+begin_frame('РџРѕСЃРµС‚РёС‚РµР»Рё');
 ?>
-<div align="center"><img src="http://s03.flagcounter.com/count/tv7H/bg=FFFFFF/txt=000000/border=CCCCCC/columns=2/maxflags=10/viewers=0/labels=0/" alt="Страны посетителей" border="0"></div>
-<? end_frame();// }
+<div align="center"><img src="http://s03.flagcounter.com/count/tv7H/bg=FFFFFF/txt=000000/border=CCCCCC/columns=2/maxflags=10/viewers=0/labels=0/" alt="РЎС‚СЂР°РЅС‹ РїРѕСЃРµС‚РёС‚РµР»РµР№" border="0"></div>
+<?php end_frame();// }
 ?>
 </td>
-<?
+<?php
 // Variables for End Time
 
 //$phptime = 		$seconds - $querytime;
@@ -126,7 +116,7 @@ begin_frame('Посетители');
 $seconds = 		number_format(substr(timer() - $tstart, 0, 8),3);
 	print("</td></tr></table>\n");
 	//print("<div id=\"footer\">\n");
-	//print("<td width=\"49%\"><div align=\"center\"><br><a href=\"http://bt-star.ru\">bt-star.ru</a> &copy; 2008-".date("Y")." <br><b>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries, $percentphp, $percentsql)."<br>Хочу сказать огромное спасибо моей любимой Полине за вдохновение.</font></div></td>\n");
+	//print("<td width=\"49%\"><div align=\"center\"><br><a href=\"http://bt-star.ru\">bt-star.ru</a> &copy; 2008-".date("Y")." <br><b>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries, $percentphp, $percentsql)."<br>РҐРѕС‡Сѓ СЃРєР°Р·Р°С‚СЊ РѕРіСЂРѕРјРЅРѕРµ СЃРїР°СЃРёР±Рѕ РјРѕРµР№ Р»СЋР±РёРјРѕР№ РџРѕР»РёРЅРµ Р·Р° РІРґРѕС…РЅРѕРІРµРЅРёРµ.</font></div></td>\n");
 	print("<table width=\"50%\" style=\"margin-left: 35px;\"><tr>");
 		?> <td style="border: 0;" align="right" valign="top" width="90px"><!--LiveInternet counter--><script type="text/javascript"><!--
 document.write("<a href='http://www.liveinternet.ru/click' "+
@@ -135,14 +125,14 @@ escape(document.referrer)+((typeof(screen)=="undefined")?"":
 ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
 screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 ";"+Math.random()+
-"' alt='' title='LiveInternet: показано число посетителей за"+
-" сегодня' "+
+"' alt='' title='LiveInternet: РїРѕРєР°Р·Р°РЅРѕ С‡РёСЃР»Рѕ РїРѕСЃРµС‚РёС‚РµР»РµР№ Р·Р°"+
+" СЃРµРіРѕРґРЅСЏ' "+
 "border='0' width='88' height='15'><\/a>")
 //--></script><!--/LiveInternet-->
 
 </td>
-<?
-	print("<td align=\"left\" style=\"border: none;\"><a href=\"http://bt-star.ru\">bt-star.ru</a> &copy; 2008-".date("Y")." <br>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries)."<br>Хочу сказать огромное спасибо моей любимой Полине за вдохновение.</td>\n");
+<?php
+	print("<td align=\"left\" style=\"border: none;\"><a href=\"http://bt-star.ru\">bt-star.ru</a> &copy; 2008-".date("Y")." <br>Faris Grimm || ".sprintf($tracker_lang["page_generated"], $seconds, $queries)."<br>РҐРѕС‡Сѓ СЃРєР°Р·Р°С‚СЊ РѕРіСЂРѕРјРЅРѕРµ СЃРїР°СЃРёР±Рѕ РјРѕРµР№ Р»СЋР±РёРјРѕР№ РџРѕР»РёРЅРµ Р·Р° РІРґРѕС…РЅРѕРІРµРЅРёРµ.</td>\n");
 	print("</tr></table></body></html>\n");
 ?>
 <!--GA-->

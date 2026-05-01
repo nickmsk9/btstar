@@ -2,6 +2,6 @@
 
 if (!defined("ADMIN_FILE")) die("Illegal File Access");
 
-BuildMenu("".$admin_file.".php?op=addtheme", "Äîáàâèòü òåìó", "theme.png");
+BuildMenu("".$admin_file.".php?op=addtheme", "Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚ÐµÐ¼Ñƒ", "theme.png");
 
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 require "include/bittorrent.php";
 dbconn();
@@ -46,7 +46,7 @@ countries.setselectedClassTarget("link") //"link" or "linkparent"
 countries.init()
 
 </script>
-<?
+<?php
 stdfoot();
 
 ?>

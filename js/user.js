@@ -1,4 +1,4 @@
-var loading = "<img src=\"pic/upload.gif\" alt=\"Загрузка..\" />";
+var loading = "<img src=\"pic/upload.gif\" alt=\"Р—Р°РіСЂСѓР·РєР°..\" />";
 
 jQuery(function() {
     jQuery(".tab").click ( function(){
@@ -49,7 +49,7 @@ function togglepic(bu, picid, formid)
     }
 }
 
-var azWin = '     Ё               ё       АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя';
+var azWin = '     РЃ               С‘       РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇР°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ';
 var AZ=azWin;
 var b64s  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 var b64a  = b64s.split('');
@@ -89,7 +89,7 @@ function wall_send(to, msg)
 {
     var text = enBASE64(msg);
     if (text == ''){
-        alert('Ошибка. Пустое сообщение.');
+        alert('РћС€РёР±РєР°. РџСѓСЃС‚РѕРµ СЃРѕРѕР±С‰РµРЅРёРµ.');
         return;
     }
     jQuery.post("wall.php",{"to":to,"text":text,"act":"send"},function (response) {

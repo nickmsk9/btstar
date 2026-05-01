@@ -1,6 +1,6 @@
 <?php
 
-### "Случайные раздачи" by merdox [AJAX-часть] --> ###
+### "РЎР»СѓС‡Р°Р№РЅС‹Рµ СЂР°Р·РґР°С‡Рё" by merdox [AJAX-С‡Р°СЃС‚СЊ] --> ###
 
 require_once("include/bittorrent.php");
 
@@ -10,22 +10,22 @@ header ("Content-Type: text/html; charset=" . $tracker_lang['language_charset'])
 
 if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_METHOD"] == 'POST')
 {
-    ### Настройки ###
-    $cats = "2,13"; //id категорий, учавствующих в поиске
-    $pwidth = "120"; //ширина отображаемого постера
+    ### РќР°СЃС‚СЂРѕР№РєРё ###
+    $cats = "2,13"; //id РєР°С‚РµРіРѕСЂРёР№, СѓС‡Р°РІСЃС‚РІСѓСЋС‰РёС… РІ РїРѕРёСЃРєРµ
+    $pwidth = "120"; //С€РёСЂРёРЅР° РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РїРѕСЃС‚РµСЂР°
 
     $res = sql_query("SELECT * FROM torrents WHERE ontop='yes' LIMIT 3") or sqlerr(__FILE__, __LINE__);
     if (mysql_num_rows($res) > 0)
     {
         $row = mysql_fetch_array($res);
-        print("<a href=\"details.php?id=" . $row["id"] . "\"><img src=\"torrents/images/" . $row["image1"] . "\" width=\"$pwidth\" border=\"0\" title=\"" . $row["name"] . "\" alt=\"Загрузка..\" /></a>");
+        print("<a href=\"details.php?id=" . $row["id"] . "\"><img src=\"torrents/images/" . $row["image1"] . "\" width=\"$pwidth\" border=\"0\" title=\"" . $row["name"] . "\" alt=\"Р—Р°РіСЂСѓР·РєР°..\" /></a>");
     }
     else
-        print("Нет торрентов");
+        print("РќРµС‚ С‚РѕСЂСЂРµРЅС‚РѕРІ");
 }
 else
-    die("Прямой доступ запрещен");
+    die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ");
 
-### <-- "Случайные раздачи" by merdox [AJAX-часть] ###
+### <-- "РЎР»СѓС‡Р°Р№РЅС‹Рµ СЂР°Р·РґР°С‡Рё" by merdox [AJAX-С‡Р°СЃС‚СЊ] ###
 
 ?>

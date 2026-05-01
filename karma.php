@@ -12,15 +12,15 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_M
     $type = (string)$_POST["type"];
 
     if (empty($id) || empty($user) || empty($act) || empty($type))
-        die("Прямой доступ закрыт");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
     if (!in_array($type, array("torrent", "comment", "user")))
-        die("Прямой доступ закрыт");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
     $canrate = get_row_count("karma", "WHERE type = " . sqlesc($type) . " AND value = $id AND user = $user");
 
     if ($canrate > 0)
-        die("Вы уже голосовали");
+        die("Р’С‹ СѓР¶Рµ РіРѕР»РѕСЃРѕРІР°Р»Рё");
 
     if ($type == "torrent")
         $table = "torrents";
@@ -42,16 +42,16 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_M
         $show = true;
     }
     else
-        die("Прямой доступ закрыт");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
     if ($show)
     {
         $res = sql_query("SELECT karma FROM $table WHERE id = $id");
         $row = mysql_fetch_array($res);
-        die("<img src=\"pic/minus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" />&nbsp;" . karma($row["karma"]) . "&nbsp;<img src=\"pic/plus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" />");
+        die("<img src=\"pic/minus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" />&nbsp;" . karma($row["karma"]) . "&nbsp;<img src=\"pic/plus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" />");
     }
 }
 else
-    die("Прямой доступ закрыт");
+    die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
 ?>

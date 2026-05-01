@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -47,7 +47,7 @@ if ($search != '' || $class || $city) {
 	if (strlen($letter) > 1)
 		die;
 
-	if ($letter != "" && strpos("abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщьыъэюя", $letter) === false)
+	if ($letter != "" && strpos("abcdefghijklmnopqrstuvwxyzР°Р±РІРіРґРµС‘Р¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЊС‹СЉСЌСЋСЏ", $letter) === false)
 		$letter = "a";
 	$query = ( $letter != "" ? "(username LIKE '$letter%' OR firstname LIKE '$letter%' OR surname LIKE '$letter%') AND " : "") . "status='confirmed'";
 	if ($letter == "")
@@ -56,7 +56,7 @@ if ($search != '' || $class || $city) {
 }
 
 if (is_valid_user_class($class)) {
-	$head .= ($head ? ', ' : '').'классу ('.get_user_class_color($class,get_user_class_name($class)).')';
+	$head .= ($head ? ', ' : '').'РєР»Р°СЃСЃСѓ ('.get_user_class_color($class,get_user_class_name($class)).')';
 	$query .= " AND class = $class";
 	$q .= ($q ? "&amp;" : "") . "class=$class";
 }
@@ -64,20 +64,20 @@ if (is_valid_user_class($class)) {
 if (is_valid_id($city)) {
 	$sql=mysql_fetch_array(sql_query("SELECT c.name, c.country_id, s.name as cname FROM cities AS c LEFT JOIN countries AS s ON s.id = c.country_id WHERE c.id=".$city));
 	if(!empty($sql))
-	{	$head .= ($head ? ', ' : '').'городу ('.$sql['name'].', '.$sql['cname'].')';
+	{	$head .= ($head ? ', ' : '').'РіРѕСЂРѕРґСѓ ('.$sql['name'].', '.$sql['cname'].')';
 	$query .= " AND city = $city";
 	$q .= ($q ? "&amp;" : "") . "city=$city";}
 }
 
-stdhead("Пользователи");
+stdhead("РџРѕР»СЊР·РѕРІР°С‚РµР»Рё");
 
-print("<h1>Пользователи</h1>\n");
+print("<h1>РџРѕР»СЊР·РѕРІР°С‚РµР»Рё</h1>\n");
 if(!empty($head))
-print("<h3>Поиск по ".$head."</h3>");
+print("<h3>РџРѕРёСЃРє РїРѕ ".$head."</h3>");
 print("<form method=\"get\" action=\"users.php\">\n");
-print("Поиск: <input type=\"text\" size=\"30\" name=\"search\" value=\"".htmlspecialchars($search)."\">\n");
+print("РџРѕРёСЃРє: <input type=\"text\" size=\"30\" name=\"search\" value=\"".htmlspecialchars($search)."\">\n");
 print("<select name=\"class\">\n");
-print("<option value=\"-\">(Все уровни)</option>\n");
+print("<option value=\"-\">(Р’СЃРµ СѓСЂРѕРІРЅРё)</option>\n");
 for ($i = 0;;++$i) {
 if ($c = get_user_class_name($i))
 	print("<option value=\"$i\"" . (is_valid_user_class($class) && $class == $i ? " selected" : "") . ">$c</option>\n");
@@ -85,7 +85,7 @@ else
 	break;
 }
 print("</select>\n");
-print("<input type=\"submit\" value=\"Вперед\">\n");
+print("<input type=\"submit\" value=\"Р’РїРµСЂРµРґ\">\n");
 print("</form>\n");
 
 print("<p>\n");
@@ -134,16 +134,16 @@ else
 $pagemenu .= "<a href=\"users.php?$q&page=$i\"><b>$i</b></a>\n";
 
 if ($page == 1)
-$browsemenu .= "<b>&lt;&lt; Пред</b>";
+$browsemenu .= "<b>&lt;&lt; РџСЂРµРґ</b>";
 else
-$browsemenu .= "<a href=\"users.php?$q&page=" . ($page - 1) . "\"><b>&lt;&lt; Пред</b></a>";
+$browsemenu .= "<a href=\"users.php?$q&page=" . ($page - 1) . "\"><b>&lt;&lt; РџСЂРµРґ</b></a>";
 
 $browsemenu .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
 if ($page == $pages)
-$browsemenu .= "<b>След &gt;&gt;</b>";
+$browsemenu .= "<b>РЎР»РµРґ &gt;&gt;</b>";
 else
-$browsemenu .= "<a href=\"users.php?$q&page=" . ($page + 1) . "\"><b>След &gt;&gt;</b></a>";
+$browsemenu .= "<a href=\"users.php?$q&page=" . ($page + 1) . "\"><b>РЎР»РµРґ &gt;&gt;</b></a>";
 
 print("<p>$browsemenu<br />$pagemenu</p>");
 
@@ -153,7 +153,7 @@ $res = sql_query("SELECT u.*, c.name, c.flagpic FROM users AS u LEFT JOIN countr
 $num = mysql_num_rows($res);
 
 print("<table border=\"1\" cellspacing=\"0\" cellpadding=\"5\">\n");
-print("<tr><td class=\"colhead\" align=\"left\">Имя</td><td class=\"colhead\">Зарегестрирован</td><td class=\"colhead\">Последний вход</td><td class=\"colhead\">Рейтинг</td><td class=\"colhead\">Пол</td><td class=\"colhead\" align=\"left\">Уровень</td><td class=\"colhead\">Страна</td></tr>\n");
+print("<tr><td class=\"colhead\" align=\"left\">РРјСЏ</td><td class=\"colhead\">Р—Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅ</td><td class=\"colhead\">РџРѕСЃР»РµРґРЅРёР№ РІС…РѕРґ</td><td class=\"colhead\">Р РµР№С‚РёРЅРі</td><td class=\"colhead\">РџРѕР»</td><td class=\"colhead\" align=\"left\">РЈСЂРѕРІРµРЅСЊ</td><td class=\"colhead\">РЎС‚СЂР°РЅР°</td></tr>\n");
 for ($i = 0; $i < $num; ++$i)
 {
 $arr = mysql_fetch_assoc($res);
@@ -178,8 +178,8 @@ else
 	else
 		$ratio = "------";
 
-if ($arr["gender"] == "1") $gender = "<img src=\"".$pic_base_url."male.gif\" alt=\"Парень\" style=\"margin-left: 4pt\">";
-elseif ($arr["gender"] == "2") $gender = "<img src=\"".$pic_base_url."female.gif\" alt=\"Девушка\" style=\"margin-left: 4pt\">";
+if ($arr["gender"] == "1") $gender = "<img src=\"".$pic_base_url."male.gif\" alt=\"РџР°СЂРµРЅСЊ\" style=\"margin-left: 4pt\">";
+elseif ($arr["gender"] == "2") $gender = "<img src=\"".$pic_base_url."female.gif\" alt=\"Р”РµРІСѓС€РєР°\" style=\"margin-left: 4pt\">";
 
 print("<tr><td align=\"left\"><a href=\"userdetails.php?id=$arr[id]\"><b>".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"].' '.$arr['surname'])."</b></a>" .($arr["donated"] > 0 ? "<img src=\"pic/star.gif\" border=\"0\" alt=\"Donor\">" : "")."</td>" .
 "<td>$arr[added]</td><td>$arr[last_access]</td><td>$ratio</td><td>$gender</td>".

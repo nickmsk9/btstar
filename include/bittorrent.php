@@ -1,4 +1,4 @@
-<?
+<?php
 
 # IMPORTANT: Do not edit below unless you know what you are doing!
 
@@ -6,17 +6,18 @@
 define('IN_TRACKER', true);
 
 // SET PHP ENVIRONMENT
-@error_reporting(E_ALL & ~E_NOTICE);
-@ini_set('error_reporting', E_ALL & ~E_NOTICE);
+@error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+@ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 @ini_set('display_errors', '1');
 @ini_set('display_startup_errors', '0');
 @ini_set('ignore_repeated_errors', '1');
 @ignore_user_abort(1);
 @set_time_limit(0);
-@set_magic_quotes_runtime(0);
-if(!$no_login)
+if(empty($no_login))
 @session_start();
 define ('ROOT_PATH', dirname(dirname(__FILE__))."/");
+require_once(ROOT_PATH . 'include/compat.php');
+@set_magic_quotes_runtime(0);
 
 function timer() {
 	list($usec, $sec) = explode(" ", microtime());

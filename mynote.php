@@ -7,18 +7,18 @@ function bark($msg) {
 	stdmsg($tracker_lang['error'], $msg);
 	exit;
 }
-stdhead('Мои записи');
+stdhead('РњРѕРё Р·Р°РїРёСЃРё');
 $sql=sql_query("SELECT * FROM notes WHERE uid = ".$CURUSER['id']);
 if(mysql_num_rows($sql)==0)
 {
-begin_frame('Нет зписей');
-?><a href="noteedit.php?act=add">Добавить</a><?
+begin_frame('РќРµС‚ Р·РїРёСЃРµР№');
+?><a href="noteedit.php?act=add">Р”РѕР±Р°РІРёС‚СЊ</a><?php
 end_frame();
 }
 else
 {
-	begin_frame('Мои записи');
-	?><table width="100%" cellpadding="5" border="0"> <?
+	begin_frame('РњРѕРё Р·Р°РїРёСЃРё');
+	?><table width="100%" cellpadding="5" border="0"> <?php
 	while($note=mysql_fetch_array($sql))
 	{
 		$text = htmlspecialchars($note['text']);
@@ -26,25 +26,25 @@ else
 		$text=preg_replace("#\[.*\]#is","",$text);
 		if(strlen($note['text']) > 240)
 		$text=substr($text,0,200).'...';
-		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$CURUSER['id'];?>-<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Добавлена: <?=nicetime($note['timestamp'],true);?><br>
-		<? if(!empty($note['last_edit'])) { ?><br><small>Последняя правка: <?=nicetime($note['last_edit'],true);?><? } ?>
+		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$CURUSER['id'];?>-<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Р”РѕР±Р°РІР»РµРЅР°: <?=nicetime($note['timestamp'],true);?><br>
+		<?php if(!empty($note['last_edit'])) { ?><br><small>РџРѕСЃР»РµРґРЅСЏСЏ РїСЂР°РІРєР°: <?=nicetime($note['last_edit'],true);?><?php } ?>
 		<hr>
 		<?=$text;?>
 		<hr>
-		<span style="color: gray;font-weight: normal;"><? if($note['access']==1) { ?>Открытая запись<? } else { ?>Закрытая запись<? } ?></span>
+		<span style="color: gray;font-weight: normal;"><?php if($note['access']==1) { ?>РћС‚РєСЂС‹С‚Р°СЏ Р·Р°РїРёСЃСЊ<?php } else { ?>Р—Р°РєСЂС‹С‚Р°СЏ Р·Р°РїРёСЃСЊ<?php } ?></span>
 		<br>
-		<? if(!empty($note['tags'])) { ?>Теги: <?
+		<?php if(!empty($note['tags'])) { ?>РўРµРіРё: <?php
 			$tags=explode(',',$note['tags']);
 			$i=0;
 			foreach ($tags as $tag)
 		{echo ($i!=0 ? ', ' : '').'<a href="note-tag,'.urlencode(trim($tag)).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
 		$i++;}echo "<br>";}
-		?> Просмотров: <?=$note['views'];?><br> Комментариев: <?=$note['comments'];?></td></tr>
-	<? } ?>
-	</table> <?
+		?> РџСЂРѕСЃРјРѕС‚СЂРѕРІ: <?=$note['views'];?><br> РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ: <?=$note['comments'];?></td></tr>
+	<?php } ?>
+	</table> <?php
 	end_frame();
-begin_frame('Управление');
-?><a href="noteedit.php?act=add">Добавить</a><?
+begin_frame('РЈРїСЂР°РІР»РµРЅРёРµ');
+?><a href="noteedit.php?act=add">Р”РѕР±Р°РІРёС‚СЊ</a><?php
 end_frame();
 }
 stdfoot();

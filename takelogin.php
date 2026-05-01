@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 if (!mkglobal("email:password"))
@@ -6,31 +6,31 @@ if (!mkglobal("email:password"))
 
 dbconn();
 
-function bark($text = "Имя пользователя или пароль неверны")
+function bark($text = "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР»Рё РїР°СЂРѕР»СЊ РЅРµРІРµСЂРЅС‹")
 {
-  stderr("Ошибка входа", $text);
+  stderr("РћС€РёР±РєР° РІС…РѕРґР°", $text);
 }
 
 $res = sql_query("SELECT id, passhash, secret, enabled, status FROM users WHERE email = " . sqlesc($email));
 $row = mysql_fetch_array($res);
 
 if (!$row)
-	bark("Вы не зарегистрированы в системе. Или ваш почтовый адрес или пароль не верны.");
+	bark("Р’С‹ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ РІ СЃРёСЃС‚РµРјРµ. РР»Рё РІР°С€ РїРѕС‡С‚РѕРІС‹Р№ Р°РґСЂРµСЃ РёР»Рё РїР°СЂРѕР»СЊ РЅРµ РІРµСЂРЅС‹.");
 
 if ($row["status"] == 'pending')
-	bark("Вы еще не активировали свой почтовый ящик! Активируйте ваш почтовый ящик и попробуйте снова.");
+	bark("Р’С‹ РµС‰Рµ РЅРµ Р°РєС‚РёРІРёСЂРѕРІР°Р»Рё СЃРІРѕР№ РїРѕС‡С‚РѕРІС‹Р№ СЏС‰РёРє! РђРєС‚РёРІРёСЂСѓР№С‚Рµ РІР°С€ РїРѕС‡С‚РѕРІС‹Р№ СЏС‰РёРє Рё РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.");
 
 if ($row["passhash"] != md5($row["secret"] . $password . $row["secret"]))
 	bark();
 
 if ($row["enabled"] == "no")
-	bark("Ваша страница отключена.");
+	bark("Р’Р°С€Р° СЃС‚СЂР°РЅРёС†Р° РѕС‚РєР»СЋС‡РµРЅР°.");
 	
 $peers = sql_query("SELECT COUNT(id) FROM peers WHERE userid = $row[id]");
 $num = mysql_fetch_row($peers);
 $ip = getip();
 if ($num[0] > 0 && $row[ip] != $ip && $row[ip])
-	bark("Этот пользователь на данный момент активен. Вход невозможен.");
+	bark("Р­С‚РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ Р°РєС‚РёРІРµРЅ. Р’С…РѕРґ РЅРµРІРѕР·РјРѕР¶РµРЅ.");
 
 logincookie($row["id"], $row["passhash"]);
 

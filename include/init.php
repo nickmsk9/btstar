@@ -1,4 +1,4 @@
-<?
+<?php
 # IMPORTANT: Do not edit below unless you know what you are doing!
 if(!defined('IN_TRACKER') && !defined('IN_ANNOUNCE') )
   die("Hacking attempt!");
@@ -18,7 +18,7 @@ if (!function_exists("htmlspecialchars_uni")) {
 define ('TIMENOW', time());
 /*$url = explode('/', htmlspecialchars_uni($_SERVER['PHP_SELF'])); 
 array_pop($url);*/
-$DEFAULTBASEURL = 'http://bt-star.ru';
+$DEFAULTBASEURL = 'http://' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
 $BASEURL = $DEFAULTBASEURL;
 $announce_urls = array();
 $announce_urls[] = "/announce.php";

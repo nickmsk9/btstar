@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 gzip();
@@ -234,7 +234,7 @@ if ($count)
 {
     if ($addparam != "") {
  if ($pagerlink != "") {
-  if ($addparam{strlen($addparam)-1} != ";") { // & = &amp;
+  if ($addparam[strlen($addparam)-1] != ";") { // & = &amp;
     $addparam = $addparam . "&" . $pagerlink;
   } else {
     $addparam = $addparam . $pagerlink;
@@ -275,23 +275,23 @@ return no_ajax;
 }
 </script>
 
-<?
-begin_frame("Поиск торрентов");
+<?php
+begin_frame("РџРѕРёСЃРє С‚РѕСЂСЂРµРЅС‚РѕРІ");
 ?>
 <table class="bottom" width="100%">
 <form method="get" action="browse.php">
-<tr><td style="border: none;"><b>Поиск по названию:</b></td><td style="border: none;">
+<tr><td style="border: none;"><b>РџРѕРёСЃРє РїРѕ РЅР°Р·РІР°РЅРёСЋ:</b></td><td style="border: none;">
 <input type="text" id="searchinput" name="search" size="80" autocomplete="off" value="<?= htmlspecialchars($searchstr) ?>" />
 <select name="incldead">
 <option value="0"><?=$tracker_lang['active'];?></option>
-<option value="1"<? print($_GET["incldead"] == 1 ? " selected" : ""); ?>><?=$tracker_lang['including_dead'];?></option>
-<option value="2"<? print($_GET["incldead"] == 2 ? " selected" : ""); ?>><?=$tracker_lang['only_dead'];?></option>
-<option value="3"<? print($_GET["incldead"] == 3 ? " selected" : ""); ?>><?=$tracker_lang['golden_torrents'];?></option>
-<option value="4"<? print($_GET["incldead"] == 4 ? " selected" : ""); ?>><?=$tracker_lang['no_seeds'];?></option>
+<option value="1"<?php print($_GET["incldead"] == 1 ? " selected" : ""); ?>><?=$tracker_lang['including_dead'];?></option>
+<option value="2"<?php print($_GET["incldead"] == 2 ? " selected" : ""); ?>><?=$tracker_lang['only_dead'];?></option>
+<option value="3"<?php print($_GET["incldead"] == 3 ? " selected" : ""); ?>><?=$tracker_lang['golden_torrents'];?></option>
+<option value="4"<?php print($_GET["incldead"] == 4 ? " selected" : ""); ?>><?=$tracker_lang['no_seeds'];?></option>
 </select>
 <select name="cat">
 <option value="0">(<?=$tracker_lang['all_types'];?>)</option>
-<?
+<?php
 
 
 //$cats = genrelist();
@@ -307,14 +307,14 @@ $catdropdown .= ">" . htmlspecialchars($cat["name"]) . "</option>\n";
 <?= $catdropdown ?>
 </select>
 </td></tr><tr><td style="border: none;">
-<b>Поиск по описанию:</b></td><td style="border: none;">
+<b>РџРѕРёСЃРє РїРѕ РѕРїРёСЃР°РЅРёСЋ:</b></td><td style="border: none;">
 <input type="text" id="searchinput" name="descr" size="80" autocomplete="off" value="<?= htmlspecialchars($descrstr) ?>" />
 <select name="incldead">
 <option value="0"><?=$tracker_lang['active'];?></option>
-<option value="1"<? print($_GET["incldead"] == 1 ? " selected" : ""); ?>><?=$tracker_lang['including_dead'];?></option>
-<option value="2"<? print($_GET["incldead"] == 2 ? " selected" : ""); ?>><?=$tracker_lang['only_dead'];?></option>
-<option value="3"<? print($_GET["incldead"] == 3 ? " selected" : ""); ?>><?=$tracker_lang['golden_torrents'];?></option>
-<option value="4"<? print($_GET["incldead"] == 4 ? " selected" : ""); ?>><?=$tracker_lang['no_seeds'];?></option>
+<option value="1"<?php print($_GET["incldead"] == 1 ? " selected" : ""); ?>><?=$tracker_lang['including_dead'];?></option>
+<option value="2"<?php print($_GET["incldead"] == 2 ? " selected" : ""); ?>><?=$tracker_lang['only_dead'];?></option>
+<option value="3"<?php print($_GET["incldead"] == 3 ? " selected" : ""); ?>><?=$tracker_lang['golden_torrents'];?></option>
+<option value="4"<?php print($_GET["incldead"] == 4 ? " selected" : ""); ?>><?=$tracker_lang['no_seeds'];?></option>
 </select>
 <select name="cat">
 <option value="0">(<?=$tracker_lang['all_types'];?>)</option>
@@ -330,7 +330,7 @@ $catdropdown .= ">" . htmlspecialchars($cat["name"]) . "</option>\n";
 <div id="suggestions" style="cursor: default; position: absolute; background-color: #FFFFFF; border: 1px solid #777777;"></div>
 </div>
 </td></tr></table>
-<?
+<?php
 end_frame();
 ?>
 <div id="contenttop" class="floatbox">
@@ -338,7 +338,7 @@ end_frame();
 <div class="mone">
 <div class="mtwo">
 <div class="mthree">
-<h3><div style="float:left;">Обзор торрентов</div><div style="margin-top: 13px; display:none; float:right;" id="loading-layer"><img src="pic/upload.gif" border="0" alt="Загрузка"></div></h3>
+<h3><div style="float:left;">РћР±Р·РѕСЂ С‚РѕСЂСЂРµРЅС‚РѕРІ</div><div style="margin-top: 13px; display:none; float:right;" id="loading-layer"><img src="pic/upload.gif" border="0" alt="Р—Р°РіСЂСѓР·РєР°"></div></h3>
 <div class="mfour"><table class="embedded" cellspacing="0" cellpadding="2" width="100%">
 
 <STYLE TYPE="text/css" MEDIA=screen>
@@ -359,13 +359,13 @@ end_frame();
 
         <table class="bottom" width="100%">
 
-<?
+<?php
 $i = 0;
 foreach ($cats as $cat)
 {
         $catsperrow = 5;
         print(($i && $i % $catsperrow == 0) ? "</tr><tr>" : "");
-        print("<td class=\"bottom\" style=\"padding-bottom: 2px;padding-left: 7px\"><input name=\"c$cat[id]\" type=\"checkbox\" " . (in_array($cat[id],$wherecatina) ? "checked " : "") . "value=\"1\"><a class=\"catlink\" href=\"browse.php?cat=$cat[id]\">" . htmlspecialchars($cat[name]) . "</a> <span style=\"cursor: pointer;\" onclick=\"javascript: show_tags(".$cat["id"].");\"><img border=\"0\" src=\"pic/tags.gif\" title=\"Показать тэги\"></span>&nbsp;<a href=\"rss.php?cat=".$cat["id"]."\"><img src=\"pic/rss.gif\" width=\"9\" border=\"0\" title=\"Трансляция\"></a></td></td>\n");
+        print("<td class=\"bottom\" style=\"padding-bottom: 2px;padding-left: 7px\"><input name=\"c$cat[id]\" type=\"checkbox\" " . (in_array($cat[id],$wherecatina) ? "checked " : "") . "value=\"1\"><a class=\"catlink\" href=\"browse.php?cat=$cat[id]\">" . htmlspecialchars($cat[name]) . "</a> <span style=\"cursor: pointer;\" onclick=\"javascript: show_tags(".$cat["id"].");\"><img border=\"0\" src=\"pic/tags.gif\" title=\"РџРѕРєР°Р·Р°С‚СЊ С‚СЌРіРё\"></span>&nbsp;<a href=\"rss.php?cat=".$cat["id"]."\"><img src=\"pic/rss.gif\" width=\"9\" border=\"0\" title=\"РўСЂР°РЅСЃР»СЏС†РёСЏ\"></a></td></td>\n");
         $i++;
 }
 
@@ -389,12 +389,12 @@ if ($lastrowcols != 0)
 </form>
 <table class="bottom" width="100%"><div id="tags"></div></table>
 
-<?
+<?php
 if (isset($cleansearchstr))
 print("<tr><td class=\"index\" colspan=\"12\">".$tracker_lang['search_results_for']." \"" . htmlspecialchars($searchstr) . "\"</td></tr>\n");
 
 if (isset($cleantagstr))
-print("<tr><td class=\"index\" colspan=\"12\">Результаты поиска по тэгу: \"" . htmlspecialchars($tagstr) . "\"</td></tr>\n");
+print("<tr><td class=\"index\" colspan=\"12\">Р РµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР° РїРѕ С‚СЌРіСѓ: \"" . htmlspecialchars($tagstr) . "\"</td></tr>\n");
 
 print("</td></tr>");
 
@@ -411,7 +411,7 @@ if ($num_torrents) {
 else {
         if (isset($cleansearchstr)) {
                 print("<tr><td class=\"index\" colspan=\"12\">".$tracker_lang['nothing_found']."</td></tr>\n");
-                //print("<p>Попробуйте изменить запрос поиска.</p>\n");
+                //print("<p>РџРѕРїСЂРѕР±СѓР№С‚Рµ РёР·РјРµРЅРёС‚СЊ Р·Р°РїСЂРѕСЃ РїРѕРёСЃРєР°.</p>\n");
         }
         else {
                 print("<tr><td class=\"index\" colspan=\"12\">".$tracker_lang['nothing_found']."</td></tr>\n");

@@ -9,7 +9,7 @@ function get_user_class_color($class, $username)
   switch ($class)
   {
     case UC_GOD:
-	  return "<span style=\"color:#7BA813\" title=\"—ÓÁ‰‡ÚÂÎ¸ ÚÂÍÂ‡\"><b>" . $username . "</b></span>";
+	  return "<span style=\"color:#7BA813\" title=\"–°–æ–∑–¥–∞—Ç–µ–ª—å —Ç—Ä–µ–∫–µ—Ä–∞\"><b>" . $username . "</b></span>";
 	  break;
     case UC_SYSOP:
       return "<span style=\"color:#0F6CEE\" title=\"".$tracker_lang['class_sysop']."\">" . $username . "</span>";
@@ -33,7 +33,7 @@ function get_user_class_color($class, $username)
       return "<span title=\"".$tracker_lang['class_user']."\">" . $username . "</span>";
       break;
 	 case UC_BOT:
-	  return "<span style=\"color:#ddd\" title=\"¡ÓÚ\">".$username."</span>";
+	  return "<span style=\"color:#ddd\" title=\"–ë–æ—Ç\">".$username."</span>";
 	  break;
   }
   return "$username";
@@ -266,7 +266,7 @@ function format_quotes($s)
 function encode_quote($text) {
 	$start_html = "<div align=\"center\"><div style=\"width: 85%; overflow: auto\">"
 	."<table width=\"100%\" cellspacing=\"1\" cellpadding=\"3\" border=\"0\" align=\"center\" class=\"bgcolor4\">"
-	."<tr bgcolor=\"FFE5E0\"><td><font class=\"block-title\">÷ËÚ‡Ú‡</font></td></tr><tr class=\"bgcolor1\"><td>";
+	."<tr bgcolor=\"FFE5E0\"><td><font class=\"block-title\">–¶–∏—Ç–∞—Ç–∞</font></td></tr><tr class=\"bgcolor1\"><td>";
 	$end_html = "</td></tr></table></div></div>";
 	$text = preg_replace("#\[quote\](.*?)\[/quote\]#si", "".$start_html."\\1".$end_html."", $text);
 	return $text;
@@ -276,7 +276,7 @@ function encode_quote($text) {
 function encode_quote_from($text) {
 	$start_html = "<div align=\"center\"><div style=\"width: 85%; overflow: auto\">"
 	."<table width=\"100%\" cellspacing=\"1\" cellpadding=\"3\" border=\"0\" align=\"center\" class=\"bgcolor4\">"
-	."<tr bgcolor=\"FFE5E0\"><td><font class=\"block-title\">\\1 ÔËÒ‡Î</font></td></tr><tr class=\"bgcolor1\"><td>";
+	."<tr bgcolor=\"FFE5E0\"><td><font class=\"block-title\">\\1 –ø–∏—Å–∞–ª</font></td></tr><tr class=\"bgcolor1\"><td>";
 	$end_html = "</td></tr></table></div></div>";
 	$text = preg_replace("#\[quote=(.+?)\](.*?)\[/quote\]#si", "".$start_html."\\2".$end_html."", $text);
 	return $text;
@@ -286,7 +286,7 @@ function encode_quote_from($text) {
 function encode_code($text) {
 	$start_html = "<div align=\"center\"><div style=\"width: 85%; overflow: auto\">"
 	."<table width=\"100%\" cellspacing=\"1\" cellpadding=\"3\" border=\"0\" align=\"center\" class=\"bgcolor4\">"
-	."<tr bgcolor=\"E5EFFF\"><td colspan=\"2\"><font class=\"block-title\"> Ó‰</font></td></tr>"
+	."<tr bgcolor=\"E5EFFF\"><td colspan=\"2\"><font class=\"block-title\">–ö–æ–¥</font></td></tr>"
 	."<tr class=\"bgcolor1\"><td align=\"right\" class=\"code\" style=\"width: 5px; border-right: none\">{ZEILEN}</td><td class=\"code\">";
 	$end_html = "</td></tr></table></div></div>";
 	$match_count = preg_match_all("#\[code\](.*?)\[/code\]#si", $text, $matches);
@@ -322,7 +322,7 @@ function encode_code($text) {
 function encode_php($text) {
 	$start_html = "<div align=\"center\"><div style=\"width: 85%; overflow: auto\">"
 	."<table width=\"100%\" cellspacing=\"1\" cellpadding=\"3\" border=\"0\" align=\"center\" class=\"bgcolor4\">"
-	."<tr bgcolor=\"F3E8FF\"><td colspan=\"2\"><font class=\"block-title\">PHP -  Ó‰</font></td></tr>"
+	."<tr bgcolor=\"F3E8FF\"><td colspan=\"2\"><font class=\"block-title\">PHP - –ö–æ–¥</font></td></tr>"
 	."<tr class=\"bgcolor1\"><td align=\"right\" class=\"code\" style=\"width: 5px; border-right: none\">{ZEILEN}</td><td>";
 	$end_html = "</td></tr></table></div></div>";
 	$match_count = preg_match_all("#\[php\](.*?)\[/php\]#si", $text, $matches);
@@ -405,9 +405,9 @@ function format_comment($text, $strip_html = true) {
 	$html[] = "<img src=\"\\1\" border=\"0\" />";
 	$bb[] = "#\[img=([a-zA-Z]+)\](?!javascript:)([^?](?:[^\[]+|\[(?!url))*?)\[/img\]#is";
 	$html[] = "<img class=\"linked-image\" src=\"\\2\" align=\"\\1\" border=\"0\" alt=\"\\2\" title=\"\\2\" />";
-	$bb[] = "#\[img\ alt=([a-zA-Z‡-ˇ¿-ﬂ0-9\_\-\. ]+)\](?!javascript:)([^?](?:[^\[]+|\[(?!url))*?)\[/img\]#is";
+	$bb[] = "#\[img\ alt=([a-zA-Z–∞-—è–ê-–Ø0-9\_\-\. ]+)\](?!javascript:)([^?](?:[^\[]+|\[(?!url))*?)\[/img\]#is";
 	$html[] = "<img class=\"linked-image\" src=\"\\2\" align=\"\\1\" border=\"0\" alt=\"\\1\" title=\"\\1\" />";
-	$bb[] = "#\[img=([a-zA-Z]+) alt=([a-zA-Z‡-ˇ¿-ﬂ0-9\_\-\. ]+)\](?!javascript:)([^?](?:[^\[]+|\[(?!url))*?)\[/img\]#is";
+	$bb[] = "#\[img=([a-zA-Z]+) alt=([a-zA-Z–∞-—è–ê-–Ø0-9\_\-\. ]+)\](?!javascript:)([^?](?:[^\[]+|\[(?!url))*?)\[/img\]#is";
 	$html[] = "<img class=\"linked-image\" src=\"\\3\" align=\"\\1\" border=\"0\" alt=\"\\2\" title=\"\\2\" />";
 	$bb[] = "#\[url\]([\w]+?://([\w\#$%&~/.\-;:=,?@\]+]+|\[(?!url=))*?)\[/url\]#is";
 	$html[] = "<a href=\"\\1\" title=\"\\1\">\\1</a>";
@@ -460,7 +460,7 @@ function format_comment($text, $strip_html = true) {
 while (preg_match("#\[spoiler=((\s|.)+?)\]((\s|.)+?)\[/spoiler\]#is", $s))
 {
         $q = time().mt_rand(1, 1024);
-        $s = preg_replace("/\[spoiler=((\s|.)+?)\]((\s|.)+?)\[\/spoiler\]/i", "<div class=\"spoiler_head\" onclick=\"javascript:showspoiler('".$q."')\"><img border=\"0\" src=\"pic/plus.gif\" id=\"pic".$q."\" title=\"œÓÍ‡Á‡Ú¸\">&nbsp;&nbsp;\\1</div><div class=\"spoiler_body\" style=\"display:none;\" id=".$q." name=".$q.">\\3</div>", $s, 1);
+        $s = preg_replace("/\[spoiler=((\s|.)+?)\]((\s|.)+?)\[\/spoiler\]/i", "<div class=\"spoiler_head\" onclick=\"javascript:showspoiler('".$q."')\"><img border=\"0\" src=\"pic/plus.gif\" id=\"pic".$q."\" title=\"–ü–æ–∫–∞–∑–∞—Ç—å\">&nbsp;&nbsp;\\1</div><div class=\"spoiler_body\" style=\"display:none;\" id=".$q." name=".$q.">\\3</div>", $s, 1);
 }  
 
 	// URLs
@@ -501,9 +501,9 @@ function get_user_class_name($class) {
 
     case UC_SYSOP: return $tracker_lang['class_sysop'];
 	
-	case UC_GOD: return "—ÓÁ‰‡ÚÂÎ¸ ÚÂÍÂ‡";
+	case UC_GOD: return "–°–æ–∑–¥–∞—Ç–µ–ª—å —Ç—Ä–µ–∫–µ—Ä–∞";
 	
-	case UC_BOT: return "¡ÓÚ";
+	case UC_BOT: return "–ë–æ—Ç";
   }
   return "";
 }
@@ -511,9 +511,10 @@ function get_user_class_name($class) {
 function is_bot()
 {
 	global $botlist, $botname;
+	$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 	foreach($botlist as $bot => $name)
 	{
-		if(preg_match("#".$bot."#is",$_SERVER['HTTP_USER_AGENT'])){
+		if(preg_match("#".$bot."#is",$userAgent)){
 			$botname = $name;
 			return true;}
 	}
@@ -617,14 +618,14 @@ function get_elapsed_time($ts) {
   $days -= $weeks * 7;
   $t = "";
   if ($weeks > 0)
-    return "$weeks ÌÂ‰ÂÎ" . ($weeks > 1 ? "Ë" : "ˇ");
+    return "$weeks –Ω–µ–¥–µ–ª" . ($weeks > 1 ? "–∏" : "—è");
   if ($days > 0)
-    return "$days ‰" . ($days > 1 ? "ÌÂÈ" : "ÂÌ¸");
+    return "$days –¥" . ($days > 1 ? "–Ω–µ–π" : "–µ–Ω—å");
   if ($hours > 0)
-    return "$hours ˜‡Ò" . ($hours > 1 ? "Ó‚" : "");
+    return "$hours —á–∞—Å" . ($hours > 1 ? "–æ–≤" : "");
   if ($mins > 0)
-    return "$mins ÏËÌÛÚ" . ($mins > 1 ? "" : "‡");
-  return "< 1 ÏËÌÛÚ˚";
+    return "$mins –º–∏–Ω—É—Ç" . ($mins > 1 ? "" : "–∞");
+  return "< 1 –º–∏–Ω—É—Ç—ã";
 }
 
 ?>

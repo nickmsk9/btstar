@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(true);
 loggedinorreturn();
@@ -47,7 +47,7 @@ if ((is_valid_id($torrentid)) && ($arr) && ($text))  {
   print("<div align=\"center\">". textbbcode("comment","text","", 1) ."</div>");
   print("</td></tr><tr><td align=\"left\" colspan=\"2\">");
   print("<input type=\"hidden\" name=\"tid\" value=\"$id\"/>");
-  print('<a id="'.$row['id'].'" class="add_comment" method="send" href="javascript:void(0)">Комментировать</a>');
+  print('<a id="'.$row['id'].'" class="add_comment" method="send" href="javascript:void(0)">РљРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ</a>');
   print("</td></tr></form></table></div>"); */
    }
 
@@ -67,7 +67,7 @@ if ((is_valid_id($torrentid)) && ($arr) && ($text))  {
 }
 //$torrentid = intval($_POST["tid"]);
 //if (empty($torrentid) || !is_valid_id($torrentid)) {
-//stdmsg($tracker_lang['error'], "Ошибка!");
+//stdmsg($tracker_lang['error'], "РћС€РёР±РєР°!");
 //die();
 //}
 //$id = intval($_POST["tid"]);

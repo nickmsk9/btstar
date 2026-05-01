@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 $action = $_GET["action"];
 dbconn(false);
@@ -30,7 +30,7 @@ if ($action == "add")
         stderr($tracker_lang['error'], $tracker_lang['invalid_id']);
 
 
-    stdhead("Добление комментария к новости");
+    stdhead("Р”РѕР±Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РЅРѕРІРѕСЃС‚Рё");
 
     print("<p><form name=\"comment\" method=\"post\" action=\"newscomment.php?action=add\">\n");
     print("<input type=\"hidden\" name=\"nid\" value=\"$nid\"/>\n");
@@ -38,20 +38,20 @@ if ($action == "add")
     <table class="main" border="0" cellspacing="0" cellpadding="3">
     <tr>
     <td class="colhead">
-<?
-    print("".$tracker_lang['add_comment']." к новости");
+<?php
+    print("".$tracker_lang['add_comment']." Рє РЅРѕРІРѕСЃС‚Рё");
 ?>
     </td>
     </tr>
     <tr>
     <td>
-<?
+<?php
     textbbcode("comment","text","");
 ?>
     </td></tr></table>
-<?
+<?php
     //print("<textarea name=\"text\" rows=\"10\" cols=\"60\"></textarea></p>\n");
-    print("<p><input type=\"submit\" value=\"Добавить\" /></p></form>\n");
+    print("<p><input type=\"submit\" value=\"Р”РѕР±Р°РІРёС‚СЊ\" /></p></form>\n");
 
     $res = sql_query("SELECT newscomments.id, text, newscomments.ip, newscomments.added, username, title, class, users.id as user, users.avatar, users.donor, users.enabled, users.warned, users.parked FROM newscomments LEFT JOIN users ON newscomments.user = users.id WHERE news = $nid ORDER BY comments.id DESC");
 
@@ -60,7 +60,7 @@ if ($action == "add")
       $allrows[] = $row;
 
     if (count($allrows)) {
-      print("<h2>Последние комментарии, в обратном порядке</h2>\n");
+      print("<h2>РџРѕСЃР»РµРґРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё, РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ</h2>\n");
       commenttable($allrows);
     }
 
@@ -78,7 +78,7 @@ elseif ($action == "quote")
   if (!$arr)
       stderr($tracker_lang['error'], $tracker_lang['invalid_id']);
 
-     stdhead("Добавления комментария к новости");
+     stdhead("Р”РѕР±Р°РІР»РµРЅРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РЅРѕРІРѕСЃС‚Рё");
 
     $text = "[quote=$arr[username]]" . $arr["text"] . "[/quote]\n";
 
@@ -89,21 +89,21 @@ elseif ($action == "quote")
     <table class="main" border="0" cellspacing="0" cellpadding="3">
     <tr>
     <td class="colhead">
-<?
-    print("Добавления комментария к опросу");
+<?php
+    print("Р”РѕР±Р°РІР»РµРЅРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РѕРїСЂРѕСЃСѓ");
 ?>
     </td>
     </tr>
     <tr>
     <td>
-<?
+<?php
     textbbcode("comment","text",htmlspecialchars($text));
 ?>
     </td></tr></table>
 
-<?
+<?php
 
-    print("<p><input type=\"submit\" value=\"Добавить\" /></p></form>\n");
+    print("<p><input type=\"submit\" value=\"Р”РѕР±Р°РІРёС‚СЊ\" /></p></form>\n");
 
     stdfoot();
 
@@ -142,7 +142,7 @@ elseif ($action == "edit")
         die;
     }
 
-     stdhead("Редактирование комментария к новости");
+     stdhead("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РЅРѕРІРѕСЃС‚Рё");
 
     print("<form method=\"post\" name=\"comment\" action=\"newscomment.php?action=edit&amp;cid=$commentid\">\n");
     print("<input type=\"hidden\" name=\"returnto\" value=\"newsoverview.php?id={$arr["nid"]}&amp;viewcomm=$commentid#comm$commentid\" />\n");
@@ -152,21 +152,21 @@ elseif ($action == "edit")
     <table class="main" border="0" cellspacing="0" cellpadding="3">
     <tr>
     <td class="colhead">
-<?
-    print("Редактирование комментария к новости");
+<?php
+    print("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РЅРѕРІРѕСЃС‚Рё");
 ?>
     </td>
     </tr>
     <tr>
     <td>
-<?
+<?php
     textbbcode("comment","text",htmlspecialchars($arr["text"]));
 ?>
     </td></tr></table>
 
-<?
+<?php
 
-    print("<p><input type=\"submit\" value=\"Отредактировать\" /></p></form>\n");
+    print("<p><input type=\"submit\" value=\"РћС‚СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ\" /></p></form>\n");
 
     stdfoot();
     die;
@@ -220,10 +220,10 @@ elseif ($action == "vieworiginal")
   $res = sql_query("SELECT nc.*, n.id AS nid FROM newscomments AS nc LEFT JOIN news AS n ON nc.news = n.id WHERE nc.id=$commentid") or sqlerr(__FILE__,__LINE__);
   $arr = mysql_fetch_array($res);
   if (!$arr)
-      stderr($tracker_lang['error'], "Неверный идентификатор $commentid.");
+      stderr($tracker_lang['error'], "РќРµРІРµСЂРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ $commentid.");
 
-  stdhead("Просмотр оригинала");
-  print("<h1>Оригинальное содержание комментария №$commentid</h1><p>\n");
+  stdhead("РџСЂРѕСЃРјРѕС‚СЂ РѕСЂРёРіРёРЅР°Р»Р°");
+  print("<h1>РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ СЃРѕРґРµСЂР¶Р°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ в„–$commentid</h1><p>\n");
     print("<table width=500 border=1 cellspacing=0 cellpadding=5>");
   print("<tr><td class=comment>\n");
     echo htmlspecialchars($arr["ori_text"]);
@@ -234,7 +234,7 @@ elseif ($action == "vieworiginal")
 //    $returnto = "details.php?id=$torrentid&amp;viewcomm=$commentid#$commentid";
 
     if ($returnto)
-         print("<p><font size=small><a href=$returnto>Назад</a></font></p>\n");
+         print("<p><font size=small><a href=$returnto>РќР°Р·Р°Рґ</a></font></p>\n");
 
     stdfoot();
     die;

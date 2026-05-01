@@ -1,8 +1,8 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
-stdhead('Администраторская панель');
+stdhead('РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСЃРєР°СЏ РїР°РЅРµР»СЊ');
 if(get_user_class() < UC_ADMINISTRATOR)
 die('Access denied');
 ?>
@@ -30,14 +30,14 @@ die('Access denied');
 		color: #848282;
 	}
 	</style>
-<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='adduser.php';">Добавить пользователя<p class="smalltext">Добавить нового пользователя на трекер</p></td>
-<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='staffbox.php';">Сообщения администрации.<p class="smalltext">Сообщения юзеров для всего админ состава</p></td></tr>
-<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='category.php';">Категории<p class="smalltext">Редактировать категории на трекере</p></td>
-<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='staffmess.php';">Сообщения от администрации<p class="smalltext">Массовая отправка сообщений от алминистрации.</p></td></tr>
-<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='bans.php';">Баны<p class="smalltext">Забанить пользователя на трекере</p></td>
-<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='unco.php';">Неподтвержденный пользователи<p class="smalltext">Аккаунты которые не подтверждены</p></td></tr>
-<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='warned.php';">Предупрежденный пользователи<p class="smalltext">Пользователи которым светит бан</p></td>
-<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='stats.php';">Статистика трекера<p class="smalltext">Лучшие аплоадеры и самые лучшие категории</p></td></tr>
-<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='tpls.php';">Шаблоны раздач</td>
+<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='adduser.php';">Р”РѕР±Р°РІРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ<p class="smalltext">Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° С‚СЂРµРєРµСЂ</p></td>
+<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='staffbox.php';">РЎРѕРѕР±С‰РµРЅРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРё.<p class="smalltext">РЎРѕРѕР±С‰РµРЅРёСЏ СЋР·РµСЂРѕРІ РґР»СЏ РІСЃРµРіРѕ Р°РґРјРёРЅ СЃРѕСЃС‚Р°РІР°</p></td></tr>
+<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='category.php';">РљР°С‚РµРіРѕСЂРёРё<p class="smalltext">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєР°С‚РµРіРѕСЂРёРё РЅР° С‚СЂРµРєРµСЂРµ</p></td>
+<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='staffmess.php';">РЎРѕРѕР±С‰РµРЅРёСЏ РѕС‚ Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРё<p class="smalltext">РњР°СЃСЃРѕРІР°СЏ РѕС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёР№ РѕС‚ Р°Р»РјРёРЅРёСЃС‚СЂР°С†РёРё.</p></td></tr>
+<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='bans.php';">Р‘Р°РЅС‹<p class="smalltext">Р—Р°Р±Р°РЅРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° С‚СЂРµРєРµСЂРµ</p></td>
+<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='unco.php';">РќРµРїРѕРґС‚РІРµСЂР¶РґРµРЅРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё<p class="smalltext">РђРєРєР°СѓРЅС‚С‹ РєРѕС‚РѕСЂС‹Рµ РЅРµ РїРѕРґС‚РІРµСЂР¶РґРµРЅС‹</p></td></tr>
+<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='warned.php';">РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё<p class="smalltext">РџРѕР»СЊР·РѕРІР°С‚РµР»Рё РєРѕС‚РѕСЂС‹Рј СЃРІРµС‚РёС‚ Р±Р°РЅ</p></td>
+<td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='stats.php';">РЎС‚Р°С‚РёСЃС‚РёРєР° С‚СЂРµРєРµСЂР°<p class="smalltext">Р›СѓС‡С€РёРµ Р°РїР»РѕР°РґРµСЂС‹ Рё СЃР°РјС‹Рµ Р»СѓС‡С€РёРµ РєР°С‚РµРіРѕСЂРёРё</p></td></tr>
+<tr><td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';" onclick="window.location.href='tpls.php';">РЁР°Р±Р»РѕРЅС‹ СЂР°Р·РґР°С‡</td>
 <td class="alt1Active" onmouseover="this.className='alt2Active';" onmouseout="this.className='alt1Active';">&nbsp;</td></tr>
 </table>

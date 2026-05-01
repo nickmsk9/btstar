@@ -1,16 +1,16 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 function bark($msg) {
-	stdmsg("Произошла ошибка", $msg, 'error');
+	stdmsg("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°", $msg, 'error');
 }
 dbconn();
 loggedinorreturn();
 
 if (get_user_class() < UC_USER){
-    bark("У Вас нет прав для просмотра этой страницы.");
+    bark("РЈ Р’Р°СЃ РЅРµС‚ РїСЂР°РІ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° СЌС‚РѕР№ СЃС‚СЂР°РЅРёС†С‹.");
     }
 
-stdhead("Активация кода бонусов");
+stdhead("РђРєС‚РёРІР°С†РёСЏ РєРѕРґР° Р±РѕРЅСѓСЃРѕРІ");
 
 if (isset($_POST['code']) && $_POST['code']){
 
@@ -23,39 +23,39 @@ $row = mysql_fetch_array($res);
 
 if (!$row)
 {
-bark("Код не верный. <a href=\"bonuscode.php\">Повторить</a>");
+bark("РљРѕРґ РЅРµ РІРµСЂРЅС‹Р№. <a href=\"bonuscode.php\">РџРѕРІС‚РѕСЂРёС‚СЊ</a>");
 }else{
 if ($row['activated']=="no") {
 if (!sql_query("UPDATE users SET bonus = bonus + ".$row['bonus']." WHERE id = ".sqlesc($CURUSER["id"]))) {
-				stderr("Ошибка", "Не могу обновить бонус!");
+				stderr("РћС€РёР±РєР°", "РќРµ РјРѕРіСѓ РѕР±РЅРѕРІРёС‚СЊ Р±РѕРЅСѓСЃ!");
 				die();
 			}elseif (!sql_query("UPDATE bonusgen SET owner='".$CURUSER['username']."',activated='yes' WHERE pid='".$s."'")) {
-			stderr("Ошибка", "Не могу обновить бонус!");
+			stderr("РћС€РёР±РєР°", "РќРµ РјРѕРіСѓ РѕР±РЅРѕРІРёС‚СЊ Р±РѕРЅСѓСЃ!");
 			die();
 			}
-stdmsg($tracker_lang['success'], "Код успешно активирован!<p>Полученный бонус : <b>".$row['bonus']."</b>");
+stdmsg($tracker_lang['success'], "РљРѕРґ СѓСЃРїРµС€РЅРѕ Р°РєС‚РёРІРёСЂРѕРІР°РЅ!<p>РџРѕР»СѓС‡РµРЅРЅС‹Р№ Р±РѕРЅСѓСЃ : <b>".$row['bonus']."</b>");
 
-write_log($CURUSER[username]." активировал код на получение ".$row['bonus']." бонуса(ов)","FFAE00","tracker");
+write_log($CURUSER[username]." Р°РєС‚РёРІРёСЂРѕРІР°Р» РєРѕРґ РЅР° РїРѕР»СѓС‡РµРЅРёРµ ".$row['bonus']." Р±РѕРЅСѓСЃР°(РѕРІ)","FFAE00","tracker");
 
 $sender_id = 0;
 $clases = array(UC_ADMINISTRATOR,UC_SYSOP,UC_GOD);
-$subject ="Бонусный код активирован";
-$msg .= "Пользователь [url=userdetails.php?id=".$CURUSER['id']."]".$CURUSER['username']."[/url] активировал код пополнения бонусов :\n\n"
-	."[b]Код пополнения:[/b] ".$s
-	."\n[b]Полученный бонус :[/b] ".$row['bonus']
-	."\n[b]Статус на момент активации : [/b]";
+$subject ="Р‘РѕРЅСѓСЃРЅС‹Р№ РєРѕРґ Р°РєС‚РёРІРёСЂРѕРІР°РЅ";
+$msg .= "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ [url=userdetails.php?id=".$CURUSER['id']."]".$CURUSER['username']."[/url] Р°РєС‚РёРІРёСЂРѕРІР°Р» РєРѕРґ РїРѕРїРѕР»РЅРµРЅРёСЏ Р±РѕРЅСѓСЃРѕРІ :\n\n"
+	."[b]РљРѕРґ РїРѕРїРѕР»РЅРµРЅРёСЏ:[/b] ".$s
+	."\n[b]РџРѕР»СѓС‡РµРЅРЅС‹Р№ Р±РѕРЅСѓСЃ :[/b] ".$row['bonus']
+	."\n[b]РЎС‚Р°С‚СѓСЃ РЅР° РјРѕРјРµРЅС‚ Р°РєС‚РёРІР°С†РёРё : [/b]";
 	
 if ($row["activated"]=='yes'){
-   $msg .= "[color=red]Активирован[/color]";
+   $msg .= "[color=red]РђРєС‚РёРІРёСЂРѕРІР°РЅ[/color]";
    }else{
-   $msg .= "[color=green]Свободен[/color]";
+   $msg .= "[color=green]РЎРІРѕР±РѕРґРµРЅ[/color]";
    }
-   $msg.="\n\n[i]PS. Обратите внимание, если статус на момент активации кода равен [b]Активирован[/b]. В этом случае скорее всего пользователь является читером и использует какой-либо баг в данном модуле.[/i]";
+   $msg.="\n\n[i]PS. РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, РµСЃР»Рё СЃС‚Р°С‚СѓСЃ РЅР° РјРѕРјРµРЅС‚ Р°РєС‚РёРІР°С†РёРё РєРѕРґР° СЂР°РІРµРЅ [b]РђРєС‚РёРІРёСЂРѕРІР°РЅ[/b]. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ СЃРєРѕСЂРµРµ РІСЃРµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЏРІР»СЏРµС‚СЃСЏ С‡РёС‚РµСЂРѕРј Рё РёСЃРїРѕР»СЊР·СѓРµС‚ РєР°РєРѕР№-Р»РёР±Рѕ Р±Р°Рі РІ РґР°РЅРЅРѕРј РјРѕРґСѓР»Рµ.[/i]";
 
 sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) SELECT $sender_id, id, NOW(), ".sqlesc($msg).", ".sqlesc($subject)." FROM users WHERE class IN (".implode(", ", array_map("sqlesc", $clases)).")") or sqlerr(__FILE__,__LINE__);
 
 }else{
-bark("Код уже активирован. Введите другой код. <a href=\"bonuscode.php\">Повторить</a>");
+bark("РљРѕРґ СѓР¶Рµ Р°РєС‚РёРІРёСЂРѕРІР°РЅ. Р’РІРµРґРёС‚Рµ РґСЂСѓРіРѕР№ РєРѕРґ. <a href=\"bonuscode.php\">РџРѕРІС‚РѕСЂРёС‚СЊ</a>");
 }
 
 }
@@ -63,15 +63,15 @@ bark("Код уже активирован. Введите другой код. <a href=\"bonuscode.php\">Повтори
 
 
 }else{
-begin_frame("Активация бонусного кода");
+begin_frame("РђРєС‚РёРІР°С†РёСЏ Р±РѕРЅСѓСЃРЅРѕРіРѕ РєРѕРґР°");
 echo "<form method=\"post\" action=\"bonuscode.php\">"
 	."<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">"
 	."<tr>"
-	."<td><b>Код</b></td>"
+	."<td><b>РљРѕРґ</b></td>"
 	."<td><input name=\"code\" type=\"text\" SIZE=\"50\"></td>"
 	."</tr>"		
-	."<tr><td colspan=\"2\" align=\"left\"><input type=\"submit\" name=\"csub\" value=\"Получить бонус\"></td></tr>"
-	."<tr><td colspan=\"2\" class=\"success\"><b><li>-&nbsp;Все коды детально отслеживаются</li><li>-&nbsp;Подбор ваучеров (перебором) будет рассматриватся как намеренное вредительство ресурсу.</li></b></td></tr>"
+	."<tr><td colspan=\"2\" align=\"left\"><input type=\"submit\" name=\"csub\" value=\"РџРѕР»СѓС‡РёС‚СЊ Р±РѕРЅСѓСЃ\"></td></tr>"
+	."<tr><td colspan=\"2\" class=\"success\"><b><li>-&nbsp;Р’СЃРµ РєРѕРґС‹ РґРµС‚Р°Р»СЊРЅРѕ РѕС‚СЃР»РµР¶РёРІР°СЋС‚СЃСЏ</li><li>-&nbsp;РџРѕРґР±РѕСЂ РІР°СѓС‡РµСЂРѕРІ (РїРµСЂРµР±РѕСЂРѕРј) Р±СѓРґРµС‚ СЂР°СЃСЃРјР°С‚СЂРёРІР°С‚СЃСЏ РєР°Рє РЅР°РјРµСЂРµРЅРЅРѕРµ РІСЂРµРґРёС‚РµР»СЊСЃС‚РІРѕ СЂРµСЃСѓСЂСЃСѓ.</li></b></td></tr>"
 	."</table>"
 	."</form><p><p><p>";
 end_frame();

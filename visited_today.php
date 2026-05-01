@@ -25,22 +25,22 @@ while ($arr = mysql_fetch_assoc($res))
     }
     $warned = $arr["warned"] == "yes";
     if ($warned) {
-        $todayactive .= " <b>(<font color=red title=Предупрежден>П</font>)</b>";
+        $todayactive .= " <b>(<font color=red title=РџСЂРµРґСѓРїСЂРµР¶РґРµРЅ>Рџ</font>)</b>";
     }
     $usersactivetoday++;
 }
 //end visited today
 
-begin_frame("Статистика регистраций");
+begin_frame("РЎС‚Р°С‚РёСЃС‚РёРєР° СЂРµРіРёСЃС‚СЂР°С†РёР№");
 list($lastuser) = mysql_fetch_array(sql_query("SELECT COUNT(*) FROM users WHERE DATEDIFF(added, NOW()) = -1"));
 list($newuser) = mysql_fetch_array(sql_query("SELECT COUNT(*) FROM users WHERE DATE(added) = DATE(NOW())"));
 print("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\">");
-print("<tr><td class=\"rowhead\">Зарегестрированно вчера:</td><td align=\"left\">".$lastuser." пользователей</td></tr>");
-print("<tr><td class=\"rowhead\">Зарегестрированно сегодня:</td><td align=\"left\">".$newuser." пользователей</td></tr>");
+print("<tr><td class=\"rowhead\">Р—Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕ РІС‡РµСЂР°:</td><td align=\"left\">".$lastuser." РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№</td></tr>");
+print("<tr><td class=\"rowhead\">Р—Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕ СЃРµРіРѕРґРЅСЏ:</td><td align=\"left\">".$newuser." РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№</td></tr>");
 print("</table>");
 end_frame();
-begin_frame("Сегодня нас посетили");
-echo "<div><b><font color=red>".$usersactivetoday."</font> пользователей посетило трекер сегодня</b></div><hr>";
+begin_frame("РЎРµРіРѕРґРЅСЏ РЅР°СЃ РїРѕСЃРµС‚РёР»Рё");
+echo "<div><b><font color=red>".$usersactivetoday."</font> РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РїРѕСЃРµС‚РёР»Рѕ С‚СЂРµРєРµСЂ СЃРµРіРѕРґРЅСЏ</b></div><hr>";
 echo " " . $todayactive . " ";
 end_frame();
 

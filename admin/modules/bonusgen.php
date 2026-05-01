@@ -2,14 +2,14 @@
 if (!defined("ADMIN_FILE")) die("Illegal File Access");
 
 if (get_user_class() < UC_SYSOP)
-	stderr($tracker_lang['error'], "Доступ закрыт!");
+	stderr($tracker_lang['error'], "Р”РѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚!");
 	
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
 
 function bark($msg) {
-	stderr("Произошла ошибка", $msg);
+	stderr("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°", $msg);
 }
 
 function swd_rand($length = 10, $letters = true, $numbers = true, $case = 'i')
@@ -63,19 +63,19 @@ $empty = 1;
 }
 echo "<form method=\"post\" action=\"".$admin_file.".php?op=BonusGen\">"
 		."<table border=\"0\" cellspacing=\"0\" cellpadding=\"3\">"
-		."<tr><td class=\"colhead\" colspan=\"2\">Генерация бонуса</td></tr>"
+		."<tr><td class=\"colhead\" colspan=\"2\">Р“РµРЅРµСЂР°С†РёСЏ Р±РѕРЅСѓСЃР°</td></tr>"
 		."<tr>"
-		."<td><b>Кол-во бонусов</b></td>"
+		."<td><b>РљРѕР»-РІРѕ Р±РѕРЅСѓСЃРѕРІ</b></td>"
 		."<td><input name=\"bonus\" type=\"text\"></td>"
 		."</tr>"		
-		."<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" name=\"bsub\" value=\"Генерировать\"></td></tr>"
+		."<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" name=\"bsub\" value=\"Р“РµРЅРµСЂРёСЂРѕРІР°С‚СЊ\"></td></tr>"
 		."</table>"
 		//."<input type=\"hidden\" name=\"op\" value=\"BonusGen\" />"
 		."</form>";
 
 echo "<form action=\"".$admin_file.".php?op=BonusGen\" method=\"post\" name=\"form1\">"
 ."<p><p><table border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\">"
-		."<tr><td class=\"colhead\"><center>Код бонуса</center></td><td class=\"colhead\"><center>Бонус</center></td><td class=\"colhead\"><center>Владелец</center></td><td class=\"colhead\"><center>Статус</center></td><td class=\"colhead\"><center><INPUT type=\"checkbox\" title=\"Выбрать все\" value=\"Выбрать все\" onClick=\"this.value=check(document.form1.elements);\"></center></td></tr>";
+		."<tr><td class=\"colhead\"><center>РљРѕРґ Р±РѕРЅСѓСЃР°</center></td><td class=\"colhead\"><center>Р‘РѕРЅСѓСЃ</center></td><td class=\"colhead\"><center>Р’Р»Р°РґРµР»РµС†</center></td><td class=\"colhead\"><center>РЎС‚Р°С‚СѓСЃ</center></td><td class=\"colhead\"><center><INPUT type=\"checkbox\" title=\"Р’С‹Р±СЂР°С‚СЊ РІСЃРµ\" value=\"Р’С‹Р±СЂР°С‚СЊ РІСЃРµ\" onClick=\"this.value=check(document.form1.elements);\"></center></td></tr>";
 
 if ($empty){
 
@@ -87,9 +87,9 @@ if ($empty){
    $bonus = $row["bonus"];
    
    if ($row["activated"]=='yes'){
-   $activated = "<b><font color=red>Активирован</font></b>";
+   $activated = "<b><font color=red>РђРєС‚РёРІРёСЂРѕРІР°РЅ</font></b>";
    }else{
-   $activated = "<b><font color=green>Свободен</font></b>";
+   $activated = "<b><font color=green>РЎРІРѕР±РѕРґРµРЅ</font></b>";
    }
    
    $owner = $row["owner"]; 
@@ -98,14 +98,14 @@ if ($empty){
    ."<td align='center'>".$bonus."</td>"
    ."<td align='center'>".$owner."</td>"
    ."<td align='center'>".$activated."</td>"
-   ."<td align='center'><INPUT type=\"checkbox\" name=\"bonusid[]\" title=\"Выбрать\" value=\"".$id."\" id=\"checkbox_tbl_".$id."\"></td></tr>";
+   ."<td align='center'><INPUT type=\"checkbox\" name=\"bonusid[]\" title=\"Р’С‹Р±СЂР°С‚СЊ\" value=\"".$id."\" id=\"checkbox_tbl_".$id."\"></td></tr>";
    } 
 
 }else{
-echo "<tr><td align='center' colspan='5'>Список кодов пуст...</td></tr>";
+echo "<tr><td align='center' colspan='5'>РЎРїРёСЃРѕРє РєРѕРґРѕРІ РїСѓСЃС‚...</td></tr>";
 }		
 		
-echo "<td class=\"colhead\" colspan=\"5\"><div align=right><input type=\"submit\" name=\"delete\" value=\"Удалить выбранное\" onClick=\"return confirm('Вы уверены?')\"></div></td>"
+echo "<td class=\"colhead\" colspan=\"5\"><div align=right><input type=\"submit\" name=\"delete\" value=\"РЈРґР°Р»РёС‚СЊ РІС‹Р±СЂР°РЅРЅРѕРµ\" onClick=\"return confirm('Р’С‹ СѓРІРµСЂРµРЅС‹?')\"></div></td>"
 		."</table></form>";
 
 if ($_POST['delete'] && $_POST['bonusid']) {
@@ -119,10 +119,10 @@ header("Location: ".$admin_file.".php?op=BonusGen");
 if ($_POST['bsub']) {
  if (!$_POST['bonus'])
  {
-bark("Введите желаемое колличество бонусов");
+bark("Р’РІРµРґРёС‚Рµ Р¶РµР»Р°РµРјРѕРµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ Р±РѕРЅСѓСЃРѕРІ");
  }else{
    $bonus = $_POST['bonus'];
-   if (!preg_match("/^[0-9.]+$/", $bonus)) bark("Можно использовать только чистовое значение");
+   if (!preg_match("/^[0-9.]+$/", $bonus)) bark("РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ С‡РёСЃС‚РѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ");
    }
    $string = UniqueSerial(swd_rand(21));
    sql_query("INSERT INTO bonusgen (pid,bonus) VALUES ('".$string."',".$bonus.")")  or sqlerr(__FILE__,__LINE__);  

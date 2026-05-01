@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 
@@ -7,7 +7,7 @@ loggedinorreturn();
 
 function bark($msg) {
 	stdhead();
-	stdmsg("Îøèáêà", $msg);
+	stdmsg("ÐžÑˆÐ¸Ð±ÐºÐ°", $msg);
 	stdfoot();
 	die;
 }
@@ -25,7 +25,7 @@ $re = sql_query("SELECT invites FROM users WHERE id = $id") or sqlerr(__FILE__,_
 $tes = mysql_fetch_assoc($re);
 
 if ($tes[invites] <= 0)
-	bark("Ó âàñ áîëüøå íå îñòàëîñü ïðèãëàøåíèé!");
+	bark("Ð£ Ð²Ð°Ñ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð½Ðµ Ð¾ÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¿Ñ€Ð¸Ð³Ð»Ð°ÑˆÐµÐ½Ð¸Ð¹!");
 
 $hash  = md5(mt_rand(1, 1000000));
 

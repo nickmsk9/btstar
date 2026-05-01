@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 dbconn();
@@ -6,7 +6,7 @@ loggedinorreturn();
 
 $id = (int)$_GET["id"];
 if (!is_valid_id($id))
-	stderr("Îøèáêà", "À âîò ýòîãî ëó÷øå íå äåëàòü...");
+	stderr("ÐžÑˆÐ¸Ð±ÐºÐ°", "Ð Ð²Ð¾Ñ‚ ÑÑ‚Ð¾Ð³Ð¾ Ð»ÑƒÑ‡ÑˆÐµ Ð½Ðµ Ð´ÐµÐ»Ð°Ñ‚ÑŒ...");
 if (isset($_POST["conusr"]))
 	sql_query("UPDATE users SET status = 'confirmed' WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST["conusr"])) . ") AND status = 'pending'".( get_user_class() < UC_SYSOP ? " AND invitedby = $CURUSER[id]" : "")) or sqlerr(__FILE__,__LINE__);
 else

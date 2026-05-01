@@ -1,8 +1,8 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 
-header('Content-Type: text/html; charset=windows-1251');
+header('Content-Type: text/html; charset=utf-8');
 header("Cache-control: no-store");
 header("Pragma: no-cache");
 
@@ -11,9 +11,9 @@ $codecity=$_GET['countryCode']+0;
 
 
 $res = mysql_query("SELECT name, ID FROM cities WHERE country_id = ".$codecity) or die(mysql_error());
-echo "obj.options[obj.options.length] = new Option('Âûáåðèòå ãîðîä','0',true,true);\n";
+echo "obj.options[obj.options.length] = new Option('Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð³Ð¾Ñ€Ð¾Ð´','0',true,true);\n";
 echo "obj.options[(obj.options.length-1)].style.color='gray;';\n";
-echo "obj.options[obj.options.length] = new Option('Äðóãîé...','Other');\n";
+echo "obj.options[obj.options.length] = new Option('Ð”Ñ€ÑƒÐ³Ð¾Ð¹...','Other');\n";
 while($row = mysql_fetch_array($res)){
 echo "obj.options[obj.options.length] = new Option('".$row["name"]."','".$row["ID"]."');\n"; 
 }

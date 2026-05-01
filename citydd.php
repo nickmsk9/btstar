@@ -1,22 +1,22 @@
-<?
+<?php
 ob_start(); 
 require_once("include/bittorrent.php"); 
 dbconn(false); 
 loggedinorreturn(); 
 if (get_user_class() < UC_ADMINISTRATOR) 
- { stdhead("Запрещено");
+ { stdhead("Р—Р°РїСЂРµС‰РµРЅРѕ");
  stderr($tracker_lang['error'], $tracker_lang['access_denied']);
  stdfoot();
 die();
 }
 
 
-stdhead("Города"); 
-print("<h1>Города</h1>\n"); 
+stdhead("Р“РѕСЂРѕРґР°"); 
+print("<h1>Р“РѕСЂРѕРґР°</h1>\n"); 
 print("</br>"); 
 print("<table width=70% border=1 cellspacing=0 cellpadding=2><tr><td align=center>\n"); 
 
-///////////////////// Удалить город \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////// РЈРґР°Р»РёС‚СЊ РіРѕСЂРѕРґ \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 
 $sure = $_GET['sure']; 
 if($sure == "yes") { 
@@ -24,7 +24,7 @@ $delid = $_GET['delid'];
 $query = "DELETE FROM cities WHERE id=" .sqlesc($delid) . " LIMIT 1";
 $sql = sql_query($query);
 sql_query("UPDATE users SET city = 0 WHERE city = ".sqlesc($delid));
-echo("<strong>Город успешно был удалён! </strong>[ <a href='citydd.php'>На главную</a> ]"); 
+echo("<strong>Р“РѕСЂРѕРґ СѓСЃРїРµС€РЅРѕ Р±С‹Р» СѓРґР°Р»С‘РЅ! </strong>[ <a href='citydd.php'>РќР° РіР»Р°РІРЅСѓСЋ</a> ]"); 
 end_frame(); 
 stdfoot(); 
 die(); 
@@ -32,14 +32,14 @@ die();
 $delid = $_GET['delid']; 
 $name = $_GET['name']; 
 if($delid > 0) { 
-echo("Вы уверены что хотите удалить этот город? (<strong>$name</strong>) ( <strong><a href='". $_SERVER['PHP_SELF'] . "?delid=$delid&name=$name&sure=yes'>Да!</a></strong> / <strong><a href='". $_SERVER['PHP_SELF'] . "'>Нет!</a></strong> )"); 
+echo("Р’С‹ СѓРІРµСЂРµРЅС‹ С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚РѕС‚ РіРѕСЂРѕРґ? (<strong>$name</strong>) ( <strong><a href='". $_SERVER['PHP_SELF'] . "?delid=$delid&name=$name&sure=yes'>Р”Р°!</a></strong> / <strong><a href='". $_SERVER['PHP_SELF'] . "'>РќРµС‚!</a></strong> )"); 
 end_frame(); 
 stdfoot(); 
 die(); 
 
 } 
 
-///////////////////// Редактировать город \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////// Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РіРѕСЂРѕРґ \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 $edited = $_GET['edited']; 
 if($edited == 1) { 
 $id = $_GET['id']; 
@@ -51,7 +51,7 @@ country_id = '$country_id' WHERE id=".sqlesc($id);
 $sql = mysql_query($query); 
 if($sql) { 
 echo("<table class=main cellspacing=0 cellpadding=5 width=50%>"); 
-echo("<tr><td><div align='center'><strong>Успешно изменено! </strong>[ <a href='citydd.php'>На главную</a> ]</div></tr>"); 
+echo("<tr><td><div align='center'><strong>РЈСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅРѕ! </strong>[ <a href='citydd.php'>РќР° РіР»Р°РІРЅСѓСЋ</a> ]</div></tr>"); 
 echo("</table>"); 
 end_frame(); 
 stdfoot(); 
@@ -71,11 +71,11 @@ $countries .= "<option value=$ct_a[id]" . ($country_id == $ct_a['id'] ? " select
 if($editid > 0) { 
 echo("<form name='form1' method='get' action='" . $_SERVER['PHP_SELF'] . "'>"); 
 echo("<table class=main cellspacing=0 cellpadding=5 width=50%>"); 
-echo("<div align='center'><input type='hidden' name='edited' value='1'>Вы редактируете город <strong> $name</strong></div>"); 
+echo("<div align='center'><input type='hidden' name='edited' value='1'>Р’С‹ СЂРµРґР°РєС‚РёСЂСѓРµС‚Рµ РіРѕСЂРѕРґ <strong> $name</strong></div>"); 
 echo("<br>"); 
 echo("<input type='hidden' name='id' value='$editid'<table class=main cellspacing=0 cellpadding=5 width=50%>"); 
-echo("<tr><td>Город: </td><td align='right'><input type='text' size=52 name='country_name' value='$name'></td></tr>"); 
-echo("<tr><td>Страна:</td><td align='right'><select name=country_id>$countries</select></td></tr>"); 
+echo("<tr><td>Р“РѕСЂРѕРґ: </td><td align='right'><input type='text' size=52 name='country_name' value='$name'></td></tr>"); 
+echo("<tr><td>РЎС‚СЂР°РЅР°:</td><td align='right'><select name=country_id>$countries</select></td></tr>"); 
 echo("<tr><td></td><td><div align='right'><input type='Submit'></div></td></tr>"); 
 echo("</table></form>"); 
 end_frame(); 
@@ -83,7 +83,7 @@ stdfoot();
 die(); 
 } 
 
-///////////////////// Добавить новый город \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////// Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ РіРѕСЂРѕРґ \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 
 $ct_r = mysql_query("SELECT id,name FROM countries ORDER BY name") or die; 
 while ($ct_a = mysql_fetch_array($ct_r)) 
@@ -103,13 +103,13 @@ $success = TRUE;
 $success = FALSE; 
 } 
 } 
-print("<strong>Добавить город:</strong>"); 
+print("<strong>Р”РѕР±Р°РІРёС‚СЊ РіРѕСЂРѕРґ:</strong>"); 
 print("<br />"); 
 print("<br />"); 
 echo("<form name='form1' method='get' action='" . $_SERVER['PHP_SELF'] . "'>"); 
 echo("<table class=main cellspacing=0 cellpadding=5 width=50%>"); 
-echo("<tr><td>Город: </td><td align='right'><input type='text' size=52 name='country_name'></td></tr>"); 
-echo("<tr><td>Страна: </td><td align='right'><select name=country_id>$countries</select><input type='hidden' name='add' value='true'></td></tr>"); 
+echo("<tr><td>Р“РѕСЂРѕРґ: </td><td align='right'><input type='text' size=52 name='country_name'></td></tr>"); 
+echo("<tr><td>РЎС‚СЂР°РЅР°: </td><td align='right'><select name=country_id>$countries</select><input type='hidden' name='add' value='true'></td></tr>"); 
 echo("<tr><td></td><td><div align='right'><input type='Submit'></div></td></tr>"); 
 echo("</table>"); 
 if($success == TRUE) { 
@@ -118,7 +118,7 @@ header("Location:  " . $_SERVER['PHP_SELF'] . "");
 echo("<br>"); 
 echo("</form>"); 
 
-///////////////////// Список городов \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////// РЎРїРёСЃРѕРє РіРѕСЂРѕРґРѕРІ \\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 print("<br />"); 
 print("<br />"); 
 $res = mysql_query("SELECT COUNT(*) FROM cities") or die(mysql_error()); 
@@ -133,7 +133,7 @@ print($pagertop);
 
 
 echo("<table class=main cellspacing=0 cellpadding=5>"); 
-echo("<td>Город:</td><td>Страна:</td><td>Редактировать:</td><td>Удалить:</td>"); 
+echo("<td>Р“РѕСЂРѕРґ:</td><td>РЎС‚СЂР°РЅР°:</td><td>Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ:</td><td>РЈРґР°Р»РёС‚СЊ:</td>"); 
 $query = "SELECT * FROM cities WHERE 1=1 ORDER BY ID DESC $limit"; 
 $sql = mysql_query($query); 
 while ($row = mysql_fetch_array($sql)) {  

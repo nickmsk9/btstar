@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 if (!mkglobal("id"))
@@ -15,7 +15,7 @@ loggedinorreturn();
 $updateset = array();
 
 if (get_user_class() < UC_MODERATOR)
-    stderr($tracker_lang['error'], "Îòêàçàíî â äîñòóïå.");
+    stderr($tracker_lang['error'], "ÐžÑ‚ÐºÐ°Ð·Ð°Ð½Ð¾ Ð² Ð´Ð¾ÑÑ‚ÑƒÐ¿Ðµ.");
 
 $res = sql_query("SELECT ontop FROM torrents WHERE id=$id");
 $row = mysql_fetch_array($res);

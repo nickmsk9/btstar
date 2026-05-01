@@ -5,21 +5,21 @@ loggedinorreturn(true);
 
 if($action == addfuturerl){
 if (get_user_class() < UC_POWER_USER)
-stderr($tracker_lang['sorry'], "Только пользователи со статусом опытный пользователь и выше могут добавлять ожилаемые релизы.");
-stdhead("Добавить ожидаемый релиз");
-begin_frame("Добавить ожидаемый релиз");
+stderr($tracker_lang['sorry'], "РўРѕР»СЊРєРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃРѕ СЃС‚Р°С‚СѓСЃРѕРј РѕРїС‹С‚РЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ Рё РІС‹С€Рµ РјРѕРіСѓС‚ РґРѕР±Р°РІР»СЏС‚СЊ РѕР¶РёР»Р°РµРјС‹Рµ СЂРµР»РёР·С‹.");
+stdhead("Р”РѕР±Р°РІРёС‚СЊ РѕР¶РёРґР°РµРјС‹Р№ СЂРµР»РёР·");
+begin_frame("Р”РѕР±Р°РІРёС‚СЊ РѕР¶РёРґР°РµРјС‹Р№ СЂРµР»РёР·");
 print("<form name=hhhhh method=post action=takefuturerl.php>\n");
 ?>
 <table align="center" class="embedded" width="550" border="1" cellspacing="0" cellpadding="5">
-<tr><td class="rowhead">Название:</td><td align="left"><input type='text' name='name' size='80' /></td></tr>
-<tr><td class="rowhead">Дата выхода:</td><td align="left"><input type='text' name='realeasedate' size='40' /></td></tr>
-<tr><td class="rowhead">Постер:</td><td align="left"><input type='text' name='trailer' size='80' /></td></tr>
-<tr><td class="rowhead">Описание:</td><td align="left">
-<?
+<tr><td class="rowhead">РќР°Р·РІР°РЅРёРµ:</td><td align="left"><input type='text' name='name' size='80' /></td></tr>
+<tr><td class="rowhead">Р”Р°С‚Р° РІС‹С…РѕРґР°:</td><td align="left"><input type='text' name='realeasedate' size='40' /></td></tr>
+<tr><td class="rowhead">РџРѕСЃС‚РµСЂ:</td><td align="left"><input type='text' name='trailer' size='80' /></td></tr>
+<tr><td class="rowhead">РћРїРёСЃР°РЅРёРµ:</td><td align="left">
+<?php
 textbbcode("upload","descr","", 0);
 ?>
 </td></tr>
-<?
+<?php
 $s = "<select name=\"type\">\n<option value=\"0\">(".$tracker_lang['choose'].")</option>\n";
 
 $cats = genrelist();
@@ -27,8 +27,8 @@ foreach ($cats as $row)
 	$s .= "<option value=\"" . $row["id"] . "\">" . htmlspecialchars($row["name"]) . "</option>\n";
 
 $s .= "</select>\n";
-print("<tr><td class='rowhead'>Категория:</td><td align='left'> ".$s." </td></tr>");
-print("<tr><td colspan='2'><input type=submit class=btn value='Добавить'></td></tr>\n");
+print("<tr><td class='rowhead'>РљР°С‚РµРіРѕСЂРёСЏ:</td><td align='left'> ".$s." </td></tr>");
+print("<tr><td colspan='2'><input type=submit class=btn value='Р”РѕР±Р°РІРёС‚СЊ'></td></tr>\n");
 print("</form>\n");
 echo "</table>";
 end_frame();
@@ -36,40 +36,40 @@ stdfoot();
 die();
 }
 
-stdhead("Ожидаемые релизы");
+stdhead("РћР¶РёРґР°РµРјС‹Рµ СЂРµР»РёР·С‹");
 $res2 = sql_query("SELECT count(id) FROM futurerls") or die(mysql_error());
 $row = mysql_fetch_array($res2);
 $url = " .$_SERVER[PHP_SELF]?";
 $count = $row[0];
 $perpage = 15;
 list($pagertop, $pagerbottom, $limit) = pager($perpage, $count, $url);
-begin_frame("Ожидаемые релизы");
+begin_frame("РћР¶РёРґР°РµРјС‹Рµ СЂРµР»РёР·С‹");
 if (get_user_class() >= UC_POWER_USER){
 ?>
 <center></br>
-<a href=futurerls.php?action=addfuturerl>Добавить новый ожидаемый релиз</a>
+<a href=futurerls.php?action=addfuturerl>Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ РѕР¶РёРґР°РµРјС‹Р№ СЂРµР»РёР·</a>
 </center></p>
-<?
+<?php
 }
 print("</br>");
 if ($count == 0)
-print("<p align=center><b>Извините тут ничего, нет :(</b></p>\n");
+print("<p align=center><b>РР·РІРёРЅРёС‚Рµ С‚СѓС‚ РЅРёС‡РµРіРѕ, РЅРµС‚ :(</b></p>\n");
 else
 {
 print("<table width=100% cellspacing=0 cellpadding=5>\n");
-print("<tr><td class=colhead align=center>Тип</td><td class=colhead align=left> Название / Добавлен</td><td align=center class=colhead>Дата выхода</td><td align=center class=colhead>Скачать</td><td align=center class=colhead>Добавил</td></tr>\n");
+print("<tr><td class=colhead align=center>РўРёРї</td><td class=colhead align=left> РќР°Р·РІР°РЅРёРµ / Р”РѕР±Р°РІР»РµРЅ</td><td align=center class=colhead>Р”Р°С‚Р° РІС‹С…РѕРґР°</td><td align=center class=colhead>РЎРєР°С‡Р°С‚СЊ</td><td align=center class=colhead>Р”РѕР±Р°РІРёР»</td></tr>\n");
 $res = sql_query("SELECT futurerls.name, futurerls.id, futurerls.userid, futurerls.download, futurerls.added, futurerls.realeasedate, users.username, users.class, users.enabled, categories.image FROM futurerls left join users on users.id=futurerls.userid left join categories on categories.id=futurerls.cat ORDER BY futurerls.added DESC $limit") or sqlerr();
 while ($arr = mysql_fetch_assoc($res))
 {
 if($arr[realeasedate] == '')
-$realeasedate = '<i>Неизвестно</i>';
+$realeasedate = '<i>РќРµРёР·РІРµСЃС‚РЅРѕ</i>';
 else
 $realeasedate = $arr[realeasedate];
 
 if($arr[download] == '0')
-$download = '<i>Нет на трекере</i>';
+$download = '<i>РќРµС‚ РЅР° С‚СЂРµРєРµСЂРµ</i>';
 else
-$download = '<a href=details.php?id='.$arr["download"].'>Скачать</a>';
+$download = '<a href=details.php?id='.$arr["download"].'>РЎРєР°С‡Р°С‚СЊ</a>';
 
 print("<tr><td align=center><img src=/pic/cats/$arr[image]></a><td><a href=futurerldetails.php?id=$arr[id]>$arr[name]</a></br>$arr[added]</td><td align=center>$realeasedate</td><td align=center>$download</td><td align=center><a href=userdetails.php?id=$arr[userid]><b>".get_user_class_color($arr['class'],$arr['username'])."</a></td></tr>\n");
 }

@@ -2,10 +2,10 @@
 header("HTTP/1.0 404 Not Found");
 require "include/bittorrent.php";
 dbconn(false);
-stdhead("Ой, а страница не найдена", 'all');
+stdhead("РћР№, Р° СЃС‚СЂР°РЅРёС†Р° РЅРµ РЅР°Р№РґРµРЅР°", 'all');
 ?>
 <div align="left"><font color="red" size="20">404</font><br>
-Данной страницы нету на сервере ...</div>
-<?
+Р”Р°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ РЅРµС‚Сѓ РЅР° СЃРµСЂРІРµСЂРµ ...</div>
+<?php
 stdfoot();
 ?>

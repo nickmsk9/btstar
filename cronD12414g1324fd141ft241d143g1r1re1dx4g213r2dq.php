@@ -4,6 +4,6 @@ require_once('include/bittorrent.php');
 dbconn();
 autoclean();
 
-echo "Îáíîâëåíî ",$_torrents_r,' òîððåíòîâ. ',$_trackers_r,' çàïðîñîâ ê óäàëåííûì òðåêåðàì.';
+echo "ÐžÐ±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¾ ",$_torrents_r,' Ñ‚Ð¾Ñ€Ñ€ÐµÐ½Ñ‚Ð¾Ð². ',$_trackers_r,' Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð² Ðº ÑƒÐ´Ð°Ð»ÐµÐ½Ð½Ñ‹Ð¼ Ñ‚Ñ€ÐµÐºÐµÑ€Ð°Ð¼.';
 
 ?>

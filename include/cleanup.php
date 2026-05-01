@@ -1,4 +1,4 @@
-<?
+<?php
 # IMPORTANT: Do not edit below unless you know what you are doing!
 if(!defined('IN_TRACKER'))
   die('Hacking attempt!');
@@ -145,16 +145,16 @@ function docleanup() {
                 }
         }
 
-        // ************************************* Óäàëåíèå ïðèâàòíûõ ñîîáùåíèé ***********************************************************
-        //Óäàëÿåì âñå ïðî÷òåííûå ñèñòåìíûå ñîîáùåíèÿ ñòàðøå 30 äíåé
-         $secs_system = 30*86400; // Êîëè÷åñòâî äíåé
-         $dt_system = sqlesc(get_date_time(gmtime() - $secs_system)); // Ñåãîäíÿ ìèíóñ êîëè÷åñòâî äíåé
+        // ************************************* Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ñ… ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹ ***********************************************************
+        //Ð£Ð´Ð°Ð»ÑÐµÐ¼ Ð²ÑÐµ Ð¿Ñ€Ð¾Ñ‡Ñ‚ÐµÐ½Ð½Ñ‹Ðµ ÑÐ¸ÑÑ‚ÐµÐ¼Ð½Ñ‹Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ ÑÑ‚Ð°Ñ€ÑˆÐµ 30 Ð´Ð½ÐµÐ¹
+         $secs_system = 30*86400; // ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð´Ð½ÐµÐ¹
+         $dt_system = sqlesc(get_date_time(gmtime() - $secs_system)); // Ð¡ÐµÐ³Ð¾Ð´Ð½Ñ Ð¼Ð¸Ð½ÑƒÑ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð´Ð½ÐµÐ¹
          sql_query("DELETE FROM messages WHERE sender = '' AND unread = 'no' AND added < $dt_system") or sqlerr(__FILE__, __LINE__);
-        //Óäàëÿåì ÂÑÅ ïðî÷òåííûå ñîîáùåíèÿ ñòàðøå 30 äíåé
-         $secs_all = 30*86400; // Êîëè÷åñòâî äíåé
-         $dt_all = sqlesc(get_date_time(gmtime() - $secs_all)); // Ñåãîäíÿ ìèíóñ êîëè÷åñòâî äíåé
+        //Ð£Ð´Ð°Ð»ÑÐµÐ¼ Ð’Ð¡Ð• Ð¿Ñ€Ð¾Ñ‡Ñ‚ÐµÐ½Ð½Ñ‹Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ ÑÑ‚Ð°Ñ€ÑˆÐµ 30 Ð´Ð½ÐµÐ¹
+         $secs_all = 30*86400; // ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð´Ð½ÐµÐ¹
+         $dt_all = sqlesc(get_date_time(gmtime() - $secs_all)); // Ð¡ÐµÐ³Ð¾Ð´Ð½Ñ Ð¼Ð¸Ð½ÑƒÑ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð´Ð½ÐµÐ¹
          sql_query("DELETE FROM messages WHERE unread = 'no' AND added < $dt_all") or sqlerr(__FILE__, __LINE__);
-        // ************************************* Óäàëåíèå ïðèâàòíûõ ñîîáùåíèé ***********************************************************
+        // ************************************* Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ñ… ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹ ***********************************************************
 
         // delete unconfirmed users if timeout.
         $deadtime = TIMENOW - $signup_timeout;
@@ -170,12 +170,12 @@ function docleanup() {
 
         //remove expired warnings
         $now = sqlesc(get_date_time());
-        $modcomment = sqlesc(date("Y-m-d") . " - Ïðåäóïðåæäåíèå ñíÿòî ñèñòåìîé ïî òàéìàóòó.\n");
-        $msg = sqlesc("Âàøå ïðåäóïðåæäåíèå ñíÿòî ïî òàéìàóòó. Ïîñòàðàéòåñü áîëüøå íå ïîëó÷àòü ïðåäóïðåæäåíèé è ñäåëîâàòü ïðàâèëàì.\n");
+        $modcomment = sqlesc(date("Y-m-d") . " - ÐŸÑ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ ÑÐ½ÑÑ‚Ð¾ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹ Ð¿Ð¾ Ñ‚Ð°Ð¹Ð¼Ð°ÑƒÑ‚Ñƒ.\n");
+        $msg = sqlesc("Ð’Ð°ÑˆÐµ Ð¿Ñ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ ÑÐ½ÑÑ‚Ð¾ Ð¿Ð¾ Ñ‚Ð°Ð¹Ð¼Ð°ÑƒÑ‚Ñƒ. ÐŸÐ¾ÑÑ‚Ð°Ñ€Ð°Ð¹Ñ‚ÐµÑÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð½Ðµ Ð¿Ð¾Ð»ÑƒÑ‡Ð°Ñ‚ÑŒ Ð¿Ñ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ð¹ Ð¸ ÑÐ´ÐµÐ»Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ñ€Ð°Ð²Ð¸Ð»Ð°Ð¼.\n");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, poster) SELECT 0, id, $now, $msg, 0 FROM users WHERE warned='yes' AND warneduntil < NOW() AND warneduntil <> '0000-00-00 00:00:00'") or sqlerr(__FILE__,__LINE__);
         sql_query("UPDATE users SET warned='no', warneduntil = '0000-00-00 00:00:00', modcomment = CONCAT($modcomment, modcomment) WHERE warned='yes' AND warneduntil < NOW() AND warneduntil <> '0000-00-00 00:00:00'") or sqlerr(__FILE__,__LINE__);
 
-//Ïåðåñ÷åò êîëè÷åñòâà òýãîâ.
+//ÐŸÐµÑ€ÐµÑÑ‡ÐµÑ‚ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð° Ñ‚ÑÐ³Ð¾Ð².
 sql_query('UPDATE tags AS t SET t.howmuch = (SELECT COUNT(*) FROM torrents AS ts WHERE ts.tags LIKE CONCAT(\'%\', t.name, \'%\') AND ts.category = t.category)');
 sql_query('DELETE FROM tags WHERE howmuch = 0;');
 
@@ -185,25 +185,25 @@ sql_query('DELETE FROM tags WHERE howmuch = 0;');
         $minratio = 1.05;
         $maxdt = sqlesc(get_date_time(gmtime() - 86400*28));
         $now = sqlesc(get_date_time());
-        $msg = sqlesc("Íàøè ïîçäðàâëåíèÿ, âû áûëè àâòî-ïîâûøåíû äî ðàíãà [b]Îïûòíûé ïîëüçîâàòü[/b].");
-        $subject = sqlesc("Âû áûëè ïîâûøåíû");
-        $modcomment = sqlesc(date("Y-m-d") . " - Ïîâûøåí äî óðîâíÿ \"".$tracker_lang["class_power_user"]."\" ñèñòåìîé.\n");
+        $msg = sqlesc("ÐÐ°ÑˆÐ¸ Ð¿Ð¾Ð·Ð´Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ, Ð²Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð°Ð²Ñ‚Ð¾-Ð¿Ð¾Ð²Ñ‹ÑˆÐµÐ½Ñ‹ Ð´Ð¾ Ñ€Ð°Ð½Ð³Ð° [b]ÐžÐ¿Ñ‹Ñ‚Ð½Ñ‹Ð¹ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ[/b].");
+        $subject = sqlesc("Ð’Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð¿Ð¾Ð²Ñ‹ÑˆÐµÐ½Ñ‹");
+        $modcomment = sqlesc(date("Y-m-d") . " - ÐŸÐ¾Ð²Ñ‹ÑˆÐµÐ½ Ð´Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ \"".$tracker_lang["class_power_user"]."\" ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹.\n");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, poster, subject) SELECT 0, id, $now, $msg, 0, $subject FROM users WHERE class = 0 AND uploaded >= $limit AND uploaded / downloaded >= $minratio AND added < $maxdt") or sqlerr(__FILE__,__LINE__);
         sql_query("UPDATE users SET class = ".UC_POWER_USER.", modcomment = CONCAT($modcomment, modcomment) WHERE class = ".UC_USER." AND uploaded >= $limit AND uploaded / downloaded >= $minratio AND added < $maxdt") or sqlerr(__FILE__,__LINE__);
 
         // demote power users
         $minratio = 0.95;
         $now = sqlesc(get_date_time());
-        $msg = sqlesc("Âû áûëè àâòî-ïîíèæåíû ñ ðàíãà [b]Îïûòíûé ïîëüçîâàòåëü[/b] äî ðàíãà [b]Ïîëüçîâàòåëü[/b] ïîòîìó-÷òî âàø ðåéòèíã óïàë íèæå [b]{$minratio}[/b].");
-        $subject = sqlesc("Âû áûëè ïîíèæåíû");
-        $modcomment = sqlesc(date("Y-m-d") . " - Ïîíèæåí äî óðîâíÿ \"".$tracker_lang["class_user"]."\" ñèñòåìîé.\n");
+        $msg = sqlesc("Ð’Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð°Ð²Ñ‚Ð¾-Ð¿Ð¾Ð½Ð¸Ð¶ÐµÐ½Ñ‹ Ñ Ñ€Ð°Ð½Ð³Ð° [b]ÐžÐ¿Ñ‹Ñ‚Ð½Ñ‹Ð¹ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ[/b] Ð´Ð¾ Ñ€Ð°Ð½Ð³Ð° [b]ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ[/b] Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ-Ñ‡Ñ‚Ð¾ Ð²Ð°Ñˆ Ñ€ÐµÐ¹Ñ‚Ð¸Ð½Ð³ ÑƒÐ¿Ð°Ð» Ð½Ð¸Ð¶Ðµ [b]{$minratio}[/b].");
+        $subject = sqlesc("Ð’Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð¿Ð¾Ð½Ð¸Ð¶ÐµÐ½Ñ‹");
+        $modcomment = sqlesc(date("Y-m-d") . " - ÐŸÐ¾Ð½Ð¸Ð¶ÐµÐ½ Ð´Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ \"".$tracker_lang["class_user"]."\" ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹.\n");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, poster, subject) SELECT 0, id, $now, $msg, 0, $subject FROM users WHERE class = 1 AND uploaded / downloaded < $minratio") or sqlerr(__FILE__,__LINE__);
         sql_query("UPDATE users SET class = ".UC_USER.", modcomment = CONCAT($modcomment, modcomment) WHERE class = ".UC_POWER_USER." AND uploaded / downloaded < $minratio") or sqlerr(__FILE__,__LINE__);
 
 		$now = sqlesc(get_date_time());
-        $msg = sqlesc("Âû áûëè àâòî-ïîíèæåíû ñ ðàíãà [b]VIP[/b] äî ðàíãà [b]Ïîëüçîâàòåëü[/b] ïî èñòå÷åíèþ ñðîêà.");
-        $subject = sqlesc("Âû áûëè ïîíèæåíû");
-        $modcomment = sqlesc(date("Y-m-d") . " - Ïîíèæåí äî óðîâíÿ \"".$tracker_lang["class_user"]."\" ñèñòåìîé.\n");
+        $msg = sqlesc("Ð’Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð°Ð²Ñ‚Ð¾-Ð¿Ð¾Ð½Ð¸Ð¶ÐµÐ½Ñ‹ Ñ Ñ€Ð°Ð½Ð³Ð° [b]VIP[/b] Ð´Ð¾ Ñ€Ð°Ð½Ð³Ð° [b]ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ[/b] Ð¿Ð¾ Ð¸ÑÑ‚ÐµÑ‡ÐµÐ½Ð¸ÑŽ ÑÑ€Ð¾ÐºÐ°.");
+        $subject = sqlesc("Ð’Ñ‹ Ð±Ñ‹Ð»Ð¸ Ð¿Ð¾Ð½Ð¸Ð¶ÐµÐ½Ñ‹");
+        $modcomment = sqlesc(date("Y-m-d") . " - ÐŸÐ¾Ð½Ð¸Ð¶ÐµÐ½ Ð´Ð¾ ÑƒÑ€Ð¾Ð²Ð½Ñ \"".$tracker_lang["class_user"]."\" ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹.\n");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, poster, subject) SELECT 0, id, $now, $msg, 0, $subject FROM users WHERE class = ".UC_VIP." AND vip_to != NULL AND vip_to < NOW()") or sqlerr(__FILE__,__LINE__);
 		sql_query("UPDATE users SET class = ".UC_USER.", modcomment = CONCAT($modcomment, modcomment), vip_to = NULL WHERE class = ".UC_VIP." AND vip_to != NULL AND vip_to < NOW()");
 		
@@ -219,7 +219,7 @@ sql_query('DELETE FROM tags WHERE howmuch = 0;');
                         sql_query("DELETE FROM peers WHERE torrent=$arr[id]") or sqlerr(__FILE__,__LINE__);
                         sql_query("DELETE FROM comments WHERE torrent=$arr[id]") or sqlerr(__FILE__,__LINE__);
                         sql_query("DELETE FROM checkcomm WHERE checkid=$arr[id] AND torrent = 1") or sqlerr(__FILE__,__LINE__);
-                        write_log("Òîððåíò $arr[id] ($arr[name]) áûë óäàëåí ñèñòåìîé (ñòàðøå ÷åì $ttl_days äíåé)","","torrent");
+                        write_log("Ð¢Ð¾Ñ€Ñ€ÐµÐ½Ñ‚ $arr[id] ($arr[name]) Ð±Ñ‹Ð» ÑƒÐ´Ð°Ð»ÐµÐ½ ÑÐ¸ÑÑ‚ÐµÐ¼Ð¾Ð¹ (ÑÑ‚Ð°Ñ€ÑˆÐµ Ñ‡ÐµÐ¼ $ttl_days Ð´Ð½ÐµÐ¹)","","torrent");
                 }
         }
 

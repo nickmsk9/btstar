@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -41,9 +41,9 @@ function add_link($url, $title, $description = "")
 }
 
 ?>
-<? if ($CURUSER) { ?>
+<?php if ($CURUSER) { ?>
 <p><a href=message.php?action=sendmessage&amp;receiver=2>Please report dead links!</a></p>
-<? } ?>
+<?php } ?>
 <table width=750 class=main border=0 cellspacing=0 cellpadding=0><tr><td class=embedded>
 
 <h2>Other pages on this site</h2>
@@ -152,8 +152,8 @@ It will look like this:<br />
 </td></tr></table>
 <p align=right><font size=1 color=#004E98><b>Links edited 2004-05-27 (08:38 GMT)</b></font></p>
 </td></tr></table>
-<? if ($CURUSER) { ?>
-<? } ?>
+<?php if ($CURUSER) { ?>
+<?php } ?>
 
 <?php
 

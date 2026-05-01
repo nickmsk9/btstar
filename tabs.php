@@ -1,24 +1,24 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
-stdhead("Настройки профиля");
+stdhead("РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕС„РёР»СЏ");
 ?>
 <div id="tabs">
-<span class="tab active" id="info">Общее</span>
-<span class="tab" id="friends">Друзья</span>
-<span class="tab" id="downloaded">Скачал</span>
-<span class="tab" id="uploaded">Загрузил</span>
+<span class="tab active" id="info">РћР±С‰РµРµ</span>
+<span class="tab" id="friends">Р”СЂСѓР·СЊСЏ</span>
+<span class="tab" id="downloaded">РЎРєР°С‡Р°Р»</span>
+<span class="tab" id="uploaded">Р—Р°РіСЂСѓР·РёР»</span>
 
-<span class="tab" id="downloading">Сейчас качает</span>
-<span class="tab" id="uploading">Сейчас раздает</span>
+<span class="tab" id="downloading">РЎРµР№С‡Р°СЃ РєР°С‡Р°РµС‚</span>
+<span class="tab" id="uploading">РЎРµР№С‡Р°СЃ СЂР°Р·РґР°РµС‚</span>
 <span id="loading"></span>
 <div id="body">
 <table width="100%" border="1" cellspacing="0" cellpadding="5">
-<tr><td colspan="2"><b>Изменить пароль</b></td></tr>
-<?
-tr("Старый пароль", "<input type=\"password\" name=\"oldpassword\" size=\"50\" />", 1);
-tr("Сменить пароль", "<input type=\"password\" name=\"chpassword\" size=\"50\" />", 1);
-tr("Пароль еще раз", "<input type=\"password\" name=\"passagain\" size=\"50\" />", 1);
+<tr><td colspan="2"><b>РР·РјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</b></td></tr>
+<?php
+tr("РЎС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ", "<input type=\"password\" name=\"oldpassword\" size=\"50\" />", 1);
+tr("РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ", "<input type=\"password\" name=\"chpassword\" size=\"50\" />", 1);
+tr("РџР°СЂРѕР»СЊ РµС‰Рµ СЂР°Р·", "<input type=\"password\" name=\"passagain\" size=\"50\" />", 1);
 ?>
 </table>
 </div>

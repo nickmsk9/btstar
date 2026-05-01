@@ -1,12 +1,12 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 
 loggedinorreturn();
 parked();
 
-stdhead("Загрузить Фильм на TorretSide" , all);
-begin_frame('Загрузить Фильм на TorrentSide');
+stdhead("Р—Р°РіСЂСѓР·РёС‚СЊ Р¤РёР»СЊРј РЅР° TorretSide" , all);
+begin_frame('Р—Р°РіСЂСѓР·РёС‚СЊ Р¤РёР»СЊРј РЅР° TorrentSide');
 if (get_user_class() < UC_USER)
 {
   stdmsg($tracker_lang['error'], $tracker_lang['upget']);
@@ -20,57 +20,57 @@ sql_query("UPDATE users SET passkey='$CURUSER[passkey]' WHERE id=$CURUSER[id]");
 }
 ?>
 <div align=center>
-<p><span style="color: green; font-weight: bold;">После загрузки торрента, вам нужно будет скачать торрент и поставить качаться в папку где лежат оригиналы файлов.</span></p>
+<p><span style="color: green; font-weight: bold;">РџРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё С‚РѕСЂСЂРµРЅС‚Р°, РІР°Рј РЅСѓР¶РЅРѕ Р±СѓРґРµС‚ СЃРєР°С‡Р°С‚СЊ С‚РѕСЂСЂРµРЅС‚ Рё РїРѕСЃС‚Р°РІРёС‚СЊ РєР°С‡Р°С‚СЊСЃСЏ РІ РїР°РїРєСѓ РіРґРµ Р»РµР¶Р°С‚ РѕСЂРёРіРёРЅР°Р»С‹ С„Р°Р№Р»РѕРІ.</span></p>
 <form id=upload name="upload" enctype="multipart/form-data" action="takeuploadfilm.php" method="post">
 <input type="hidden" name="MAX_FILE_SIZE" value="<?=$max_torrent_size?>" />
 <table border="1" cellspacing="0" cellpadding="5">
 <tr><td class="colhead" colspan="2"><?=$tracker_lang['upload_torrent'];?></td></tr>
-<?
+<?php
 tr($tracker_lang['torrent_file'], "<input type=file name=tfile size=80>\n", 1);
 tr($tracker_lang['poster'], "<input type=file name=image0 size=80>\n", 1);
-tr("Название", "<input type=\"text\" name=\"name\" size=\"80\" /><br />(Например - <b>Матрица</b>)\n", 1);
-tr("Оригинальное название", "<input type=\"text\" name=\"origname\" size=\"80\" /><br />(Например - <b>Matrix</b>)\n", 1);  
-tr("Год выхода", "<input type=\"text\" name=\"year\" size=\"4\" />\n", 1);
-tr("Жанр", "<input type=\"text\" name=\"janr\" size=\"40\" />\n", 1);
-tr("Режиссер", "<input type=\"text\" name=\"director\" size=\"40\" />\n", 1);
-tr("В ролях", "<input type=\"text\" name=\"roles\" size=\"100\" />\n", 1);
+tr("РќР°Р·РІР°РЅРёРµ", "<input type=\"text\" name=\"name\" size=\"80\" /><br />(РќР°РїСЂРёРјРµСЂ - <b>РњР°С‚СЂРёС†Р°</b>)\n", 1);
+tr("РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ", "<input type=\"text\" name=\"origname\" size=\"80\" /><br />(РќР°РїСЂРёРјРµСЂ - <b>Matrix</b>)\n", 1);  
+tr("Р“РѕРґ РІС‹С…РѕРґР°", "<input type=\"text\" name=\"year\" size=\"4\" />\n", 1);
+tr("Р–Р°РЅСЂ", "<input type=\"text\" name=\"janr\" size=\"40\" />\n", 1);
+tr("Р РµР¶РёСЃСЃРµСЂ", "<input type=\"text\" name=\"director\" size=\"40\" />\n", 1);
+tr("Р’ СЂРѕР»СЏС…", "<input type=\"text\" name=\"roles\" size=\"100\" />\n", 1);
 
 print("</td></tr>\n");
-print("<tr><td class=rowhead style='padding: 10px'>О фильме:</td><td>");
+print("<tr><td class=rowhead style='padding: 10px'>Рћ С„РёР»СЊРјРµ:</td><td>");
 textbbcode("upload","descr","",0);  
 print("</td></tr>\n");
-tr("Кем выпущено", "<input type=\"text\" name=\"publisher\" size=\"40\" />\n", 1);
-tr("Продолжительность", "<input type=\"text\" name=\"time\" size=\"40\" />\n", 1);
-$perevod = array ('Любительский (Одноголосный)', 'Любительский (Многоголосный)', 'Любительский (Гоблин)', 'Профессиональный (Одноголосный)', 'Профессиональный (Многоголосный)', 'Профессиональный (Дублированный)', 'Отсутствует', 'Не требуется');
-$pr = "<select name=\"perevod\">\n<option value=\"0\">(Выбрать)</option>\n";
+tr("РљРµРј РІС‹РїСѓС‰РµРЅРѕ", "<input type=\"text\" name=\"publisher\" size=\"40\" />\n", 1);
+tr("РџСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ", "<input type=\"text\" name=\"time\" size=\"40\" />\n", 1);
+$perevod = array ('Р›СЋР±РёС‚РµР»СЊСЃРєРёР№ (РћРґРЅРѕРіРѕР»РѕСЃРЅС‹Р№)', 'Р›СЋР±РёС‚РµР»СЊСЃРєРёР№ (РњРЅРѕРіРѕРіРѕР»РѕСЃРЅС‹Р№)', 'Р›СЋР±РёС‚РµР»СЊСЃРєРёР№ (Р“РѕР±Р»РёРЅ)', 'РџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅС‹Р№ (РћРґРЅРѕРіРѕР»РѕСЃРЅС‹Р№)', 'РџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅС‹Р№ (РњРЅРѕРіРѕРіРѕР»РѕСЃРЅС‹Р№)', 'РџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅС‹Р№ (Р”СѓР±Р»РёСЂРѕРІР°РЅРЅС‹Р№)', 'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚', 'РќРµ С‚СЂРµР±СѓРµС‚СЃСЏ');
+$pr = "<select name=\"perevod\">\n<option value=\"0\">(Р’С‹Р±СЂР°С‚СЊ)</option>\n";
         while (list($key, $val) = each($perevod)) {
                 $pr .= "<option value=\"$val\">$val</option>\n";
                 }
         $pr .= "</select>\n";
 $pr = "$pr</td></tr>\n";
-tr("Перевод", $pr, 1);
+tr("РџРµСЂРµРІРѕРґ", $pr, 1);
 
 $kach = array ('DVDRip', 'DVD5', 'DVD9','HDTV', 'TVRip', 'SATRip', 'TeleCine', 'TeleSync', 'CAMRip', 'VHSRip', 'DVDScreener', 'BDRip');
-$k = "<select name=\"kachestvo\">\n<option value=\"0\">(Выбрать)</option>\n";
+$k = "<select name=\"kachestvo\">\n<option value=\"0\">(Р’С‹Р±СЂР°С‚СЊ)</option>\n";
         while (list($key, $val) = each($kach)) {
                 $k .= "<option value=\"$val\">$val</option>\n";
                 }
         $k .= "</select>\n";
 $k = "$k</td></tr>\n";
-tr("Качество", $k,1);
+tr("РљР°С‡РµСЃС‚РІРѕ", $k,1);
 
 $format = array ('AVI', 'DVD Video', 'OGM', 'MKV', 'WMV', 'MPEG');
-$fr = "<select name=\"format\">\n<option value=\"0\">(Выбрать)</option>\n";
+$fr = "<select name=\"format\">\n<option value=\"0\">(Р’С‹Р±СЂР°С‚СЊ)</option>\n";
         while (list($key, $val) = each($format)) {
                 $fr .= "<option value=\"$val\">$val</option>\n";
                 }
         $fr .= "</select>\n";
 $fr = "$fr</td></tr>\n";
-tr("Формат", $fr, 1);
+tr("Р¤РѕСЂРјР°С‚", $fr, 1);
 
 
-tr("Видео", "Разрешение: <input type=\"text\" name=\"resolution\" size=\"9\" /> Кодек: <input type=\"text\" name=\"videocodec\" size=\"6\" /> Битрейт: <input type=\"text\" name=\"videobitrate\" size=\"6\" />\n", 1);
-tr("Аудио", "Кодек: <input type=\"text\" name=\"audiocodec\" size=\"6\" /> Битрейт: <input type=\"text\" name=\"audiobitrate\" size=\"6\" />\n", 1);  
+tr("Р’РёРґРµРѕ", "Р Р°Р·СЂРµС€РµРЅРёРµ: <input type=\"text\" name=\"resolution\" size=\"9\" /> РљРѕРґРµРє: <input type=\"text\" name=\"videocodec\" size=\"6\" /> Р‘РёС‚СЂРµР№С‚: <input type=\"text\" name=\"videobitrate\" size=\"6\" />\n", 1);
+tr("РђСѓРґРёРѕ", "РљРѕРґРµРє: <input type=\"text\" name=\"audiocodec\" size=\"6\" /> Р‘РёС‚СЂРµР№С‚: <input type=\"text\" name=\"audiobitrate\" size=\"6\" />\n", 1);  
 
 $s = "<select name=\"type\">\n<option value=\"0\">(".$tracker_lang['choose'].")</option>\n";
 
@@ -88,25 +88,25 @@ for ($i = 0; $i <= 10; ++$i)
 $selected = ($row['free'] == $i*10) ? " selected=\"selected\"" : "";
 $prc .= "<option value=".$i."0".$selected.">".$i."0</option>";
 }
-$prc .= "</select> процентов"; 
-tr("Скидка ", $prc, 1);  
+$prc .= "</select> РїСЂРѕС†РµРЅС‚РѕРІ"; 
+tr("РЎРєРёРґРєР° ", $prc, 1);  
 
 if (get_user_class() >= UC_ADMINISTRATOR)
-    tr("Важный", "<input type=\"checkbox\" name=\"sticky\" value=\"yes\">Прикрепить этот торрент (всегда наверху)", 1);
+    tr("Р’Р°Р¶РЅС‹Р№", "<input type=\"checkbox\" name=\"sticky\" value=\"yes\">РџСЂРёРєСЂРµРїРёС‚СЊ СЌС‚РѕС‚ С‚РѕСЂСЂРµРЅС‚ (РІСЃРµРіРґР° РЅР°РІРµСЂС…Сѓ)", 1);
 
 ?>
 <tr><td align="center" colspan="2"><input type="submit" class=btn value="<?=$tracker_lang['upload'];?>" />
-<input type="button" value="Предпросмотр" onClick="javascript:ajaxpreview('descr');" >
+<input type="button" value="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ" onClick="javascript:ajaxpreview('descr');" >
 <script language="javascript" type="text/javascript" src="js/preview.js"></script>
 <script language="javascript" type="text/javascript" src="js/ajax.js"></script>
 <div id="loading-layer" style="display:none;font-family: Verdana;font-size: 11px;width:200px;height:50px;background:#FFF;padding:10px;text-align:center;border:1px solid #000">
-     <div style="font-weight:bold" id="loading-layer-text">Загрузка. Пожалуйста, подождите...</div><br />
+     <div style="font-weight:bold" id="loading-layer-text">Р—Р°РіСЂСѓР·РєР°. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРґРѕР¶РґРёС‚Рµ...</div><br />
      <img src="pic/loading.gif" border="0" />
 </div>
 <br><br><div id="preview"></div>
 </td></tr>
 </table>
 </form>
-<?
+<?php
 end_frame();
 ?>

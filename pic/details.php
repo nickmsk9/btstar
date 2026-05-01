@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 gzip();
@@ -39,7 +39,7 @@ function getagent($httpagent, $peer_id = "") {
         elseif (preg_match("/ed2k_plugin v([0-9]+\\.[0-9]+).*/", $httpagent, $matches))
         return "eDonkey/$matches[1]";
         elseif (preg_match("/uTorrent\/([0-9]+)([0-9]+)([0-9]+)([0-9A-Z]+)/", $httpagent, $matches))
-        return "µTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
+        return "ВµTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
         elseif (preg_match("/CT([0-9]+)([0-9]+)([0-9]+)([0-9]+)/", $peer_id, $matches))
         return "cTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
         elseif (preg_match("/Transmission\/([0-9]+).([0-9]+)/", $httpagent, $matches))
@@ -133,7 +133,7 @@ function dltable($name, $arr, $torrent)
                   $s .= "<td>" . ($mod ? $e["ip"] : preg_replace('/\.\d+$/', ".xxx", $e["ip"])) . "</td>\n";
                 $secs = max(10, ($e["la"]) - $e["pa"]);
                 $revived = $e["revived"] == "yes";
-        		$s .= "<td align=\"center\">" . ($e[connectable] == "yes" ? "<span style=\"color: green; cursor: help;\" title=\"Порт открыт. Этот пир может подключатся к любому пиру.\">".$tracker_lang['yes']."</span>" : "<span style=\"color: red; cursor: help;\" title=\"Порт закрыт. Рекомендовано проверить настройки Firwewall'а.\">".$tracker_lang['no']."</span>") . "</td>\n";
+        		$s .= "<td align=\"center\">" . ($e[connectable] == "yes" ? "<span style=\"color: green; cursor: help;\" title=\"РџРѕСЂС‚ РѕС‚РєСЂС‹С‚. Р­С‚РѕС‚ РїРёСЂ РјРѕР¶РµС‚ РїРѕРґРєР»СЋС‡Р°С‚СЃСЏ Рє Р»СЋР±РѕРјСѓ РїРёСЂСѓ.\">".$tracker_lang['yes']."</span>" : "<span style=\"color: red; cursor: help;\" title=\"РџРѕСЂС‚ Р·Р°РєСЂС‹С‚. Р РµРєРѕРјРµРЅРґРѕРІР°РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё Firwewall'Р°.\">".$tracker_lang['no']."</span>") . "</td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["uploaded"]) . "</nobr></td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["uploadoffset"] / $secs) . "/s</nobr></td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["downloaded"]) . "</nobr></td>\n";
@@ -163,7 +163,7 @@ dbconn(false);
 
 $id = (int)$_GET["id"];
 
-if (!is_numeric($_GET['id'])) die ("Пошел нахуй отсюда");  
+if (!is_numeric($_GET['id'])) die ("РџРѕС€РµР» РЅР°С…СѓР№ РѕС‚СЃСЋРґР°");  
 
 if ($_GET['lock_comments'] && get_user_class() >= UC_MODERATOR) {
     if ($_GET['lock_comments'] == 'yes' || $_GET['lock_comments'] == 'no')
@@ -188,7 +188,7 @@ $owned = $moderator = 0;
         if($CURUSER[birthday] != "0000-00-00" && (date("U") - $birthday) > 567648000) {
         //do nothing, allowed
         } else {
-        stderr($tracker_lang['error'], "Вам запрещено просматривать эту категорию, так как вам нету 18 лет.");
+        stderr($tracker_lang['error'], "Р’Р°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ СЌС‚Сѓ РєР°С‚РµРіРѕСЂРёСЋ, С‚Р°Рє РєР°Рє РІР°Рј РЅРµС‚Сѓ 18 Р»РµС‚.");
         }
     } 
 ///// 18 only mod end  	
@@ -220,7 +220,7 @@ else {
 <script language="javascript" type="text/javascript" src="js/prototype.js"></script>
 <script language="javascript" type="text/javascript" src="js/scriptaculous.js?load=effects,builder,controls"></script>
 <script language="javascript" type="text/javascript" src="js/starbox.js"></script>
-<?
+<?php
                 begin_frame($row["name"]);
 
                 if ($CURUSER["id"] == $row["owner"] || get_user_class() >= UC_MODERATOR)
@@ -287,7 +287,7 @@ else {
 //                print('<td style="border:none;"><div style="float:right">'.$img1.'<br><br><center>'.$s.'</center></div><div align="left" style="margin:8px; width:900px;">'.format_comment($row["descr"]).'</div>');
 			    print("<td valign='middle' align='left' width='185'>".$img1."<br><br><center>".$s."</center></td>");
 				if ($row["free"] == 100) {
-				print("<td class='outer' valign='top' align='left'><div class=\"success\"><b>Скачивание данной раздачи не учитывается.</b></div>".format_comment($row["descr"])."</td>");
+				print("<td class='outer' valign='top' align='left'><div class=\"success\"><b>РЎРєР°С‡РёРІР°РЅРёРµ РґР°РЅРЅРѕР№ СЂР°Р·РґР°С‡Рё РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ.</b></div>".format_comment($row["descr"])."</td>");
 				} else {
 				print("<td class='outer' valign='top' align='left'>".format_comment($row["descr"])."</td>");
 				}
@@ -302,18 +302,18 @@ else {
                 $editlink = "a href=\"$url\" class=\"sublink\"";
                 $mainlink = "a href=\"$main\" class=\"sublink\"";
                  
-				                $uprow = (isset($row["username"]) ? ("<a href=userdetails.php?id=" . $row["owner"] . ">" . htmlspecialchars($row["username"]) . "</a>") : "<i>Аноним</i>");
+				                $uprow = (isset($row["username"]) ? ("<a href=userdetails.php?id=" . $row["owner"] . ">" . htmlspecialchars($row["username"]) . "</a>") : "<i>РђРЅРѕРЅРёРј</i>");
      if(!$CURUSER)
-        $s = "<font color=\"red\"><b>Что-бы скачать этот торрент <a href=\"signup.php\">зарегестрируйтесь</a>.</b></font>";
+        $s = "<font color=\"red\"><b>Р§С‚Рѕ-Р±С‹ СЃРєР°С‡Р°С‚СЊ СЌС‚РѕС‚ С‚РѕСЂСЂРµРЅС‚ <a href=\"signup.php\">Р·Р°СЂРµРіРµСЃС‚СЂРёСЂСѓР№С‚РµСЃСЊ</a>.</b></font>";
 				                				                                if($CURUSER)
-                $s = "".($row["banned"] == "no" ? "<a class=\"index\" href=\"download.php?id=$id&amp;name=" . rawurlencode($row["filename"]) . "\"><b>Скачать торрент</b></a> | ". $row["seeders"] . " ".$tracker_lang['seeders_l'].", " . $row["leechers"] . " ".$tracker_lang['leechers_l']." = " . ($row["seeders"] + $row["leechers"]) . " ".$tracker_lang['peers_l']."" : "Раздача приостановлена")."";
+                $s = "".($row["banned"] == "no" ? "<a class=\"index\" href=\"download.php?id=$id&amp;name=" . rawurlencode($row["filename"]) . "\"><b>РЎРєР°С‡Р°С‚СЊ С‚РѕСЂСЂРµРЅС‚</b></a> | ". $row["seeders"] . " ".$tracker_lang['seeders_l'].", " . $row["leechers"] . " ".$tracker_lang['leechers_l']." = " . ($row["seeders"] + $row["leechers"]) . " ".$tracker_lang['peers_l']."" : "Р Р°Р·РґР°С‡Р° РїСЂРёРѕСЃС‚Р°РЅРѕРІР»РµРЅР°")."";
                 if ($owned)
-                $s .= " $spacer<$editlink>[".$tracker_lang['edit']."]</a>&nbsp;<$mainlink>[На главную]</a>";
+                $s .= " $spacer<$editlink>[".$tracker_lang['edit']."]</a>&nbsp;<$mainlink>[РќР° РіР»Р°РІРЅСѓСЋ]</a>";
 					   tr ("<nobr>{$row["cat_name"]}</nobr>", $s, 1, 1, "10%");
                print("</table>");
 
 					end_frame();
-					begin_frame("Информация");
+					begin_frame("РРЅС„РѕСЂРјР°С†РёСЏ");
 if($CURUSER) {					
 $torrentid = ( is_numeric($_REQUEST['id']) ? intval($_REQUEST['id']) : 0 );
 list($count777) = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM thanks WHERE torrentid = $torrentid AND userid = $CURUSER[id] LIMIT 1")) or sqlerr(__FILE__,__LINE__);
@@ -321,17 +321,17 @@ list($count777) = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM thanks WHERE t
 if ($row['owner'] == $CURUSER['id'] || $count777 != 0)
      $can_not_thanks = true;
           
-$thanksby .= "<input type=\"button\" name=\"send_thanks\" id=\"send_thanks\" value=\"Сказать спасибо\" ".($can_not_thanks == true ? " disabled" : "")." />&nbsp;<span id=\"thanks_msg\"></span>";
+$thanksby .= "<input type=\"button\" name=\"send_thanks\" id=\"send_thanks\" value=\"РЎРєР°Р·Р°С‚СЊ СЃРїР°СЃРёР±Рѕ\" ".($can_not_thanks == true ? " disabled" : "")." />&nbsp;<span id=\"thanks_msg\"></span>";
 $thanksby .= "<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$torrentid}\">";
 
 $thanksby .= "<div style=\"margin-top:7px;\">";
-$thanksby .= "<div class=\"spoiler_head\" id=\"show_thanks\"><img border=\"0\" src=\"pic/plus.gif\" title=\"Показать\">&nbsp;&nbsp;Последние поблагодарившие</div>";
+$thanksby .= "<div class=\"spoiler_head\" id=\"show_thanks\"><img border=\"0\" src=\"pic/plus.gif\" title=\"РџРѕРєР°Р·Р°С‚СЊ\">&nbsp;&nbsp;РџРѕСЃР»РµРґРЅРёРµ РїРѕР±Р»Р°РіРѕРґР°СЂРёРІС€РёРµ</div>";
 $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_body\"></div></div>";
 ?>
 <script type="text/javascript">
    
    jQuery(document).ready(function(){
-     var t_load   = '<img src="pic/upload.gif" title="Загрузка" />';
+     var t_load   = '<img src="pic/upload.gif" title="Р—Р°РіСЂСѓР·РєР°" />';
      var t_img_p  = '<img src="pic/plus.gif" />';
      var t_img_m  = '<img src="pic/minus.gif" />';
       
@@ -351,16 +351,16 @@ $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_bo
                             else
                             {
                                 jQuery('#thanks_body').empty();
-                                alert( 'Произошла ошибка' );
+                                alert( 'РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°' );
                                   return false;
                             }
                             
                         },'html');
-                            jQuery(this).html(t_img_m + '&nbsp;&nbsp;Последние поблагодарившие');
+                            jQuery(this).html(t_img_m + '&nbsp;&nbsp;РџРѕСЃР»РµРґРЅРёРµ РїРѕР±Р»Р°РіРѕРґР°СЂРёРІС€РёРµ');
                         },
                         function() {
                             jQuery('#thanks_body').slideUp( 'fast' );
-                            jQuery(this).html(t_img_p + '&nbsp;&nbsp;Последние поблагодарившие');
+                            jQuery(this).html(t_img_p + '&nbsp;&nbsp;РџРѕСЃР»РµРґРЅРёРµ РїРѕР±Р»Р°РіРѕРґР°СЂРёРІС€РёРµ');
                         }
                     );
              
@@ -372,11 +372,11 @@ $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_bo
                          {
                              if(status != 'error')
                              {
-                                 jQuery('#thanks_msg').html( '&nbsp; <b>Ваша благодарность добавлена</b>' ).fadeOut(3000);
+                                 jQuery('#thanks_msg').html( '&nbsp; <b>Р’Р°С€Р° Р±Р»Р°РіРѕРґР°СЂРЅРѕСЃС‚СЊ РґРѕР±Р°РІР»РµРЅР°</b>' ).fadeOut(3000);
                              }
                              else
                              {
-                                alert( 'Произошла ошибка. Попробуйте поже' );
+                                alert( 'РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°. РџРѕРїСЂРѕР±СѓР№С‚Рµ РїРѕР¶Рµ' );
                                   return false;
                              }
                          },'html');
@@ -387,18 +387,18 @@ $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_bo
    
   });
 </script>
-<?
+<?php
 }
 					print('<table width="100%" cellspacing="0" cellpadding="5">
-<tr><td width="33%"><b>Забанен: </b>'.($row["banned"] == 'no' ? $tracker_lang['no'] : $tracker_lang['yes']).'</td><td width="33%"><b>Размер: </b> '.mksize($row["size"]).'</td><td width="33%"><b>Активность: </b>'.$row["seeders"].' раздающих '.$row["leechers"].' качающих</td></tr>
-<tr><td width="33%"><b>Скидка: </b><b>'.$row["free"].'%</b></td>
-<td colspan="2"><b>Тэги: </b>'.$tags.'</a></td>
+<tr><td width="33%"><b>Р—Р°Р±Р°РЅРµРЅ: </b>'.($row["banned"] == 'no' ? $tracker_lang['no'] : $tracker_lang['yes']).'</td><td width="33%"><b>Р Р°Р·РјРµСЂ: </b> '.mksize($row["size"]).'</td><td width="33%"><b>РђРєС‚РёРІРЅРѕСЃС‚СЊ: </b>'.$row["seeders"].' СЂР°Р·РґР°СЋС‰РёС… '.$row["leechers"].' РєР°С‡Р°СЋС‰РёС…</td></tr>
+<tr><td width="33%"><b>РЎРєРёРґРєР°: </b><b>'.$row["free"].'%</b></td>
+<td colspan="2"><b>РўСЌРіРё: </b>'.$tags.'</a></td>
 </tr>
 <tr><td colspan="3">'.$thanksby.'</td></tr>
 </table>
 ');
 					end_frame();
-					begin_frame("Пиры");
+					begin_frame("РџРёСЂС‹");
 					    $downloaders = array();
                         $seeders = array();
                         $subres = sql_query("SELECT seeder, finishedat, downloadoffset, uploadoffset, peers.ip, port, peers.uploaded, peers.downloaded, to_go, UNIX_TIMESTAMP(started) AS st, connectable, agent, peer_id, UNIX_TIMESTAMP(last_action) AS la, UNIX_TIMESTAMP(prev_action) AS pa, userid, users.username, users.class FROM peers INNER JOIN users ON peers.userid = users.id WHERE torrent = $id") or sqlerr(__FILE__, __LINE__);
@@ -432,16 +432,16 @@ $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_bo
                         usort($seeders, "seed_sort");
                         usort($downloaders, "leech_sort");
 
-                        print(dltable("Раздающие", $seeders, $row));
+                        print(dltable("Р Р°Р·РґР°СЋС‰РёРµ", $seeders, $row));
                         if($row["leechers"]) {
-                        print(dltable("Качающие", $downloaders, $row));
+                        print(dltable("РљР°С‡Р°СЋС‰РёРµ", $downloaders, $row));
                         }
 
 					end_frame();
-					begin_frame("Комментарии");
+					begin_frame("РљРѕРјРјРµРЅС‚Р°СЂРёРё");
 		?>
 		
-		<?
+		<?php
 		 print("<p><a name=\"startcomments\"></a></p>\n");
 
         $subres = sql_query("SELECT COUNT(*) FROM comments WHERE torrent = $id");
@@ -452,7 +452,7 @@ $thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_bo
 
 if (!$count) {
   print("<table style=\"margin-top: 2px;\" cellpadding=\"5\" width=\"100%\">");
-  print("<tr><td class=colhead align=\"left\" colspan=\"2\"> <a name=comments>&nbsp;</a><b>Комментарии</b></td></tr>");
+  print("<tr><td class=colhead align=\"left\" colspan=\"2\"> <a name=comments>&nbsp;</a><b>РљРѕРјРјРµРЅС‚Р°СЂРёРё</b></td></tr>");
   print("<tr><td align=\"center\" >");
   print("<form name=comment method=\"post\" action=\"comment.php?action=add\">");
   print("<div>");
@@ -460,7 +460,7 @@ if (!$count) {
   print("</div>");
   print("</td></tr><tr><td align=\"left\" colspan=\"2\">");
   print("<input type=\"hidden\" name=\"tid\" value=\"$id\"/>");
-  print("<input type=\"submit\" class=btn value=\"Разместить комментарий\" />");
+  print("<input type=\"submit\" class=btn value=\"Р Р°Р·РјРµСЃС‚РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№\" />");
   print("</td></tr></form></table>");
 
         }
@@ -487,9 +487,9 @@ if (!$count) {
 
 
   print("<table style=\"margin-top: 2px;\" cellpadding=\"5\" width=\"100%\">");
-//  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Добавить комментарий к торренту</b></td></tr>");
+//  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє С‚РѕСЂСЂРµРЅС‚Сѓ</b></td></tr>");
   print("<tr><td width=\"100%\" align=\"center\" >");
-  //print("Ваше имя: ");
+  //print("Р’Р°С€Рµ РёРјСЏ: ");
   //print("".$CURUSER['username']."<p>");
   print("<form name=comment method=\"post\" action=\"comment.php?action=add\">");
  // print("<center><table border=\"0\"><tr><td class=\"clear\">");
@@ -497,8 +497,8 @@ if (!$count) {
  // print("</td></tr></table></center>");
   print("</td></tr><tr><td  align=\"left\" colspan=\"2\">");
   print("<input type=\"hidden\" name=\"tid\" value=\"$id\"/>");
- // print("<input type=\"submit\" class=btn value=\"Разместить комментарий\" />");
-  print('<a id="'.$row['id'].'" class="add_comment" method="send" href="javascript:void(0)">Комментировать</a>');
+ // print("<input type=\"submit\" class=btn value=\"Р Р°Р·РјРµСЃС‚РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№\" />");
+  print('<a id="'.$row['id'].'" class="add_comment" method="send" href="javascript:void(0)">РљРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ</a>');
   print("</td></tr></form></table></div>");
 
         }

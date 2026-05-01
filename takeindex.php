@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 dbconn();
@@ -9,7 +9,7 @@ if (get_user_class() < UC_MODERATOR)
 
 function bark($msg) {
 	stdhead();
-	stdmsg("Îøèáêà!", $msg);
+	stdmsg("ÐžÑˆÐ¸Ð±ÐºÐ°!", $msg);
 	stdfoot();
 	exit;
 }
@@ -19,13 +19,13 @@ $int_list = "quality:video_codec:video_kbps:audio_lang:audio_trans:audio_codec:a
 
 foreach (explode(":", $var_list) as $x)
 	if (empty($_POST[$x]))
-		stderr($tracker_lang["error"], "Âû íå çàïîëíèëè âñå ïîëÿ!");
+		stderr($tracker_lang["error"], "Ð’Ñ‹ Ð½Ðµ Ð·Ð°Ð¿Ð¾Ð»Ð½Ð¸Ð»Ð¸ Ð²ÑÐµ Ð¿Ð¾Ð»Ñ!");
 	else
 		$GLOBALS[$x] = $_POST[$x];
 
 foreach (explode(":", $int_list) as $x)
 	if (!is_valid_id($GLOBALS[$x]))
-		stderr($tracker_lang["error"], "Âû ââåëè íå ÷èñëî â ñëåäóþùåå ïîëå: $x");
+		stderr($tracker_lang["error"], "Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð½Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð² ÑÐ»ÐµÐ´ÑƒÑŽÑ‰ÐµÐµ Ð¿Ð¾Ð»Ðµ: $x");
 $video_kbps = $_POST["video_kbps"];
 $time = $_POST["time"];
 $imdb = $_POST["imdb"];

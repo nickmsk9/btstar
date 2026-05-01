@@ -33,9 +33,9 @@ var spoiler_open = 0;
 var ie_range_cache = '';
 var bbtags   = new Array();
 
-var rus_lr2 = ('Е-е-О-о-Ё-Ё-Ё-Ё-Ж-Ж-Ч-Ч-Ш-Ш-Щ-Щ-Ъ-Ь-Э-Э-Ю-Ю-Я-Я-Я-Я-ё-ё-ж-ч-ш-щ-э-ю-я-я').split('-');
-var lat_lr2 = ('/E-/e-/O-/o-ЫO-Ыo-ЙO-Йo-ЗH-Зh-ЦH-Цh-СH-Сh-ШH-Шh-ъ'+String.fromCharCode(35)+'-ь'+String.fromCharCode(39)+'-ЙE-Йe-ЙU-Йu-ЙA-Йa-ЫA-Ыa-ыo-йo-зh-цh-сh-шh-йe-йu-йa-ыa').split('-');
-var rus_lr1 = ('А-Б-В-Г-Д-Е-З-И-Й-К-Л-М-Н-О-П-Р-С-Т-У-Ф-Х-Х-Ц-Щ-Ы-Я-а-б-в-г-д-е-з-и-й-к-л-м-н-о-п-р-с-т-у-ф-х-х-ц-щ-ъ-ы-ь-ь-я').split('-');
+var rus_lr2 = ('Р•-Рµ-Рћ-Рѕ-РЃ-РЃ-РЃ-РЃ-Р–-Р–-Р§-Р§-РЁ-РЁ-Р©-Р©-РЄ-Р¬-Р­-Р­-Р®-Р®-РЇ-РЇ-РЇ-РЇ-С‘-С‘-Р¶-С‡-С€-С‰-СЌ-СЋ-СЏ-СЏ').split('-');
+var lat_lr2 = ('/E-/e-/O-/o-Р«O-Р«o-Р™O-Р™o-Р—H-Р—h-Р¦H-Р¦h-РЎH-РЎh-РЁH-РЁh-СЉ'+String.fromCharCode(35)+'-СЊ'+String.fromCharCode(39)+'-Р™E-Р™e-Р™U-Р™u-Р™A-Р™a-Р«A-Р«a-С‹o-Р№o-Р·h-С†h-СЃh-С€h-Р№e-Р№u-Р№a-С‹a').split('-');
+var rus_lr1 = ('Рђ-Р‘-Р’-Р“-Р”-Р•-Р—-Р-Р™-Рљ-Р›-Рњ-Рќ-Рћ-Рџ-Р -РЎ-Рў-РЈ-Р¤-РҐ-РҐ-Р¦-Р©-Р«-РЇ-Р°-Р±-РІ-Рі-Рґ-Рµ-Р·-Рё-Р№-Рє-Р»-Рј-РЅ-Рѕ-Рї-СЂ-СЃ-С‚-Сѓ-С„-С…-С…-С†-С‰-СЉ-С‹-СЊ-СЊ-СЏ').split('-');
 var lat_lr1 = ('A-B-V-G-D-E-Z-I-J-K-L-M-N-O-P-R-S-T-U-F-H-X-C-W-Y-Q-a-b-v-g-d-e-z-i-j-k-l-m-n-o-p-r-s-t-u-f-h-x-c-w-'+String.fromCharCode(35)+'-y-'+String.fromCharCode(39)+'-'+String.fromCharCode(96)+'-q').split('-');
 
 function stacksize(thearray)
@@ -380,7 +380,7 @@ function tag_spoiler()
         FoundErrors += " " + error_no_spoiler;
     }
     if (!enterTITLE) {
-        enterTITLE = 'Скрытая информация';
+        enterTITLE = 'РЎРєСЂС‹С‚Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ';
     }
 
     if (FoundErrors) {

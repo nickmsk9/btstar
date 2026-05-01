@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -37,7 +37,7 @@ function puke($text = "You have forgotten here someting?") {
         stderr($tracker_lang['error'], $text);
 }
 
-function barf($text = "Пользователь удален") {
+function barf($text = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓРґР°Р»РµРЅ") {
         global $tracker_lang;
         stderr($tracker_lang['success'], $text);
 }
@@ -81,10 +81,10 @@ if ($action == "edituser") {
 
         $class = 0 + $_POST["class"];
         if (!is_valid_id($userid) || !is_valid_user_class($class))
-                stderr($tracker_lang['error'], "Неверный идентификатор пользователя или класса.");
+                stderr($tracker_lang['error'], "РќРµРІРµСЂРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР»Рё РєР»Р°СЃСЃР°.");
         // check target user class
         $res = sql_query("SELECT warned, enabled, username, class, modcomment, uploaded, downloaded FROM users WHERE id = $userid") or sqlerr(__FILE__, __LINE__);
-        $arr = mysql_fetch_assoc($res) or puke("Ошибка MySQL: " . mysql_error());
+        $arr = mysql_fetch_assoc($res) or puke("РћС€РёР±РєР° MySQL: " . mysql_error());
         $curenabled = $arr["enabled"];
         $curclass = $arr["class"];
         $curwarned = $arr["warned"];
@@ -94,7 +94,7 @@ if ($action == "edituser") {
                 $modcomment = $arr["modcomment"];
         // User may not edit someone with same or higher class than himself!
         if ($curclass >= get_user_class() || $class >= get_user_class())
-                puke("Так нельзя делать!");
+                puke("РўР°Рє РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ!");
 
         if($uploadtoadd > 0) {
                 if ($mpup == "plus")
@@ -102,9 +102,9 @@ if ($action == "edituser") {
                 else
                         $newupload = $arr["uploaded"] - ($formatup == mb ? ($uploadtoadd * 1048576) : ($uploadtoadd * 1073741824));
                 if ($newupload < 0)
-                        stderr($tracker_lang['error'], "Вы хотите отнять у пользователя отданого больше чем у него есть!");
+                        stderr($tracker_lang['error'], "Р’С‹ С…РѕС‚РёС‚Рµ РѕС‚РЅСЏС‚СЊ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РѕС‚РґР°РЅРѕРіРѕ Р±РѕР»СЊС€Рµ С‡РµРј Сѓ РЅРµРіРѕ РµСЃС‚СЊ!");
                 $updateset[] = "uploaded = $newupload";
-                $modcomment = date("Y-m-d") . " - Пользователь $CURUSER[username] ".($mpup == "plus" ? "добавил " : "отнял ").$uploadtoadd.($formatup == mb ? " MB" : " GB")." к раздаче.\n". $modcomment;
+                $modcomment = date("Y-m-d") . " - РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ $CURUSER[username] ".($mpup == "plus" ? "РґРѕР±Р°РІРёР» " : "РѕС‚РЅСЏР» ").$uploadtoadd.($formatup == mb ? " MB" : " GB")." Рє СЂР°Р·РґР°С‡Рµ.\n". $modcomment;
         }
 
         if($downloadtoadd > 0) {
@@ -113,21 +113,21 @@ if ($action == "edituser") {
                 else
                         $newdownload = $arr["downloaded"] - ($formatdown == mb ? ($downloadtoadd * 1048576) : ($downloadtoadd * 1073741824));
                 if ($newdownload < 0)
-                        stderr($tracker_lang['error'], "Вы хотите отнять у пользователя скачаного больше чем у него есть!");
+                        stderr($tracker_lang['error'], "Р’С‹ С…РѕС‚РёС‚Рµ РѕС‚РЅСЏС‚СЊ Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃРєР°С‡Р°РЅРѕРіРѕ Р±РѕР»СЊС€Рµ С‡РµРј Сѓ РЅРµРіРѕ РµСЃС‚СЊ!");
                 $updateset[] = "downloaded = $newdownload";
-                $modcomment = date("Y-m-d") . " - Пользователь $CURUSER[username] ".($mpdown == "plus" ? "добавил " : "отнял ").$downloadtoadd.($formatdown == mb ? " MB" : " GB")." к скачаному.\n". $modcomment;
+                $modcomment = date("Y-m-d") . " - РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ $CURUSER[username] ".($mpdown == "plus" ? "РґРѕР±Р°РІРёР» " : "РѕС‚РЅСЏР» ").$downloadtoadd.($formatdown == mb ? " MB" : " GB")." Рє СЃРєР°С‡Р°РЅРѕРјСѓ.\n". $modcomment;
         }
 
         if ($curclass != $class) {
                 // Notify user
-                $what = ($class > $curclass ? "повышены" : "понижены");
-                $msg = sqlesc("Вы были $what до класса \"" . get_user_class_name($class) . "\" пользователем $CURUSER[username].");
+                $what = ($class > $curclass ? "РїРѕРІС‹С€РµРЅС‹" : "РїРѕРЅРёР¶РµРЅС‹");
+                $msg = sqlesc("Р’С‹ Р±С‹Р»Рё $what РґРѕ РєР»Р°СЃСЃР° \"" . get_user_class_name($class) . "\" РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј $CURUSER[username].");
                 $added = sqlesc(get_date_time());
-                $subject = sqlesc("Вы были $what");
+                $subject = sqlesc("Р’С‹ Р±С‹Р»Рё $what");
                 sql_query("INSERT INTO messages (sender, receiver, msg, added, subject) VALUES(0, $userid, $msg, $added, $subject)") or sqlerr(__FILE__, __LINE__);
                 $updateset[] = "class = $class";
-                $what = ($class > $curclass ? "Повышен" : "Пониженен");
-                 $modcomment = date("Y-m-d") . " - $what до класса \"" . get_user_class_name($class) . "\" пользователем $CURUSER[username].\n". $modcomment;
+                $what = ($class > $curclass ? "РџРѕРІС‹С€РµРЅ" : "РџРѕРЅРёР¶РµРЅРµРЅ");
+                 $modcomment = date("Y-m-d") . " - $what РґРѕ РєР»Р°СЃСЃР° \"" . get_user_class_name($class) . "\" РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј $CURUSER[username].\n". $modcomment;
         }
 
         // some Helshad fun
@@ -136,30 +136,30 @@ if ($action == "edituser") {
         if ($warned && $curwarned != $warned) {
                 $updateset[] = "warned = " . sqlesc($warned);
                 $updateset[] = "warneduntil = '0000-00-00 00:00:00'";
-                $subject = sqlesc("Ваше предупреждение снято");
+                $subject = sqlesc("Р’Р°С€Рµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ СЃРЅСЏС‚Рѕ");
                 if ($warned == 'no')
                 {
-                        $modcomment = date("Y-m-d") . " - Предупреждение снял пользователь " . $CURUSER['username'] . ".\n". $modcomment;
-                        $msg = sqlesc("Ваше предупреждение снял пользователь " . $CURUSER['username'] . ".");
+                        $modcomment = date("Y-m-d") . " - РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ СЃРЅСЏР» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ " . $CURUSER['username'] . ".\n". $modcomment;
+                        $msg = sqlesc("Р’Р°С€Рµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ СЃРЅСЏР» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ " . $CURUSER['username'] . ".");
                 }
                 $added = sqlesc(get_date_time());
                 sql_query("INSERT INTO messages (sender, receiver, msg, added, subject) VALUES (0, $userid, $msg, $added, $subject)") or sqlerr(__FILE__, __LINE__);
         } elseif ($warnlength) {
                 if (strlen($warnpm) == 0)
-                        stderr($tracker_lang['error'], "Вы должны указать причину по которой ставите предупреждение!");
+                        stderr($tracker_lang['error'], "Р’С‹ РґРѕР»Р¶РЅС‹ СѓРєР°Р·Р°С‚СЊ РїСЂРёС‡РёРЅСѓ РїРѕ РєРѕС‚РѕСЂРѕР№ СЃС‚Р°РІРёС‚Рµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ!");
                 if ($warnlength == 255) {
-                        $modcomment = date("Y-m-d") . " - Предупрежден пользователем " . $CURUSER['username'] . ".\nПричина: $warnpm\n" . $modcomment;
-                        $msg = sqlesc("Вы получили [url=rules.php#warning]предупреждение[/url] на неограниченый срок от $CURUSER[username]" . ($warnpm ? "\n\nПричина: $warnpm" : ""));
+                        $modcomment = date("Y-m-d") . " - РџСЂРµРґСѓРїСЂРµР¶РґРµРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј " . $CURUSER['username'] . ".\nРџСЂРёС‡РёРЅР°: $warnpm\n" . $modcomment;
+                        $msg = sqlesc("Р’С‹ РїРѕР»СѓС‡РёР»Рё [url=rules.php#warning]РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ[/url] РЅР° РЅРµРѕРіСЂР°РЅРёС‡РµРЅС‹Р№ СЃСЂРѕРє РѕС‚ $CURUSER[username]" . ($warnpm ? "\n\nРџСЂРёС‡РёРЅР°: $warnpm" : ""));
                         $updateset[] = "warneduntil = '0000-00-00 00:00:00'";
                 } else {
                         $warneduntil = get_date_time(gmtime() + $warnlength * 604800);
-                        $dur = $warnlength . " недел" . ($warnlength > 1 ? "и" : "ю");
-                        $msg = sqlesc("Вы получили [url=rules.php#warning]предупреждение[/url] на $dur от пользователя " . $CURUSER['username'] . ($warnpm ? "\n\nПричина: $warnpm" : ""));
-                        $modcomment = date("Y-m-d") . " - Предупрежден на $dur пользователем " . $CURUSER['username'] .        ".\nПричина: $warnpm\n" . $modcomment;
+                        $dur = $warnlength . " РЅРµРґРµР»" . ($warnlength > 1 ? "Рё" : "СЋ");
+                        $msg = sqlesc("Р’С‹ РїРѕР»СѓС‡РёР»Рё [url=rules.php#warning]РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ[/url] РЅР° $dur РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ " . $CURUSER['username'] . ($warnpm ? "\n\nРџСЂРёС‡РёРЅР°: $warnpm" : ""));
+                        $modcomment = date("Y-m-d") . " - РџСЂРµРґСѓРїСЂРµР¶РґРµРЅ РЅР° $dur РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј " . $CURUSER['username'] .        ".\nРџСЂРёС‡РёРЅР°: $warnpm\n" . $modcomment;
                         $updateset[] = "warneduntil = '$warneduntil'";
                 }
                  $added = sqlesc(get_date_time());
-                 $subject = sqlesc("Вы получили предупреждение");
+                 $subject = sqlesc("Р’С‹ РїРѕР»СѓС‡РёР»Рё РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ");
                 sql_query("INSERT INTO messages (sender, receiver, msg, added, subject) VALUES (0, $userid, $msg, $added, $subject)") or sqlerr(__FILE__, __LINE__);
                 $updateset[] = "warned = 'yes'";
         }
@@ -169,16 +169,16 @@ if ($action == "edituser") {
                 if ($enabled == 'yes') {
                         $nowdate = sqlesc(get_date_time());
                         if (!isset($_POST["enareason"]) || empty($_POST["enareason"]))
-                                puke("Введите причину почему вы включаете пользователя!");
+                                puke("Р’РІРµРґРёС‚Рµ РїСЂРёС‡РёРЅСѓ РїРѕС‡РµРјСѓ РІС‹ РІРєР»СЋС‡Р°РµС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ!");
                         $enareason = htmlspecialchars($_POST["enareason"]);
-                        $modcomment = date("Y-m-d") . " - Включен пользователем " . $CURUSER['username'] . ".\nПричина: $enareason\n" . $modcomment;
+                        $modcomment = date("Y-m-d") . " - Р’РєР»СЋС‡РµРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј " . $CURUSER['username'] . ".\nРџСЂРёС‡РёРЅР°: $enareason\n" . $modcomment;
                 } else {
                         $date = sqlesc(get_date_time());
                         $dateline = sqlesc(time());
                         if (!isset($_POST["disreason"]) || empty($_POST["disreason"]))
-                                puke("Введите причину почему вы отключаете пользователя!");
+                                puke("Р’РІРµРґРёС‚Рµ РїСЂРёС‡РёРЅСѓ РїРѕС‡РµРјСѓ РІС‹ РѕС‚РєР»СЋС‡Р°РµС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ!");
                         $disreason = htmlspecialchars($_POST["disreason"]);
-                        $modcomment = date("Y-m-d") . " - Отключен пользователем " . $CURUSER['username'] . ".\nПричина: $disreason\n" . $modcomment;
+                        $modcomment = date("Y-m-d") . " - РћС‚РєР»СЋС‡РµРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј " . $CURUSER['username'] . ".\nРџСЂРёС‡РёРЅР°: $disreason\n" . $modcomment;
                 }
         }
 
@@ -189,7 +189,7 @@ if ($action == "edituser") {
         $updateset[] = "avatar = " . sqlesc($avatar);
         $updateset[] = "title = " . sqlesc($title);
         if (!empty($modcomm))
-                $modcomment = date("Y-m-d") . " - Заметка от $CURUSER[username]: $modcomm\n" . $modcomment;
+                $modcomment = date("Y-m-d") . " - Р—Р°РјРµС‚РєР° РѕС‚ $CURUSER[username]: $modcomm\n" . $modcomment;
         $updateset[] = "modcomment = " . sqlesc($modcomment);
         if ($_POST['resetkey']) {
                 $passkey = md5($CURUSER['username'].get_date_time().$CURUSER['passhash']);
@@ -217,7 +217,7 @@ if ($action == "edituser") {
                 sql_query("DELETE FROM offervotes WHERE userid = $userid") or sqlerr(__FILE__,__LINE__);
                 sql_query("DELETE FROM sessions WHERE uid = $userid") or sqlerr(__FILE__,__LINE__);
                 $deluserid=$CURUSER["username"];
-                write_log("Пользователь $username был удален пользователем $deluserid");
+                write_log("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ $username Р±С‹Р» СѓРґР°Р»РµРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј $deluserid");
                 barf();
         } else {
                 $returnto = htmlentities($_POST["returnto"]);

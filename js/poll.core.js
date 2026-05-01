@@ -1,6 +1,6 @@
 function loadpoll()
 	{
-		$("#loading_poll").html("Загрузка опроса...");
+		$("#loading_poll").html("Р—Р°РіСЂСѓР·РєР° РѕРїСЂРѕСЃР°...");
 		$("#loading_poll").fadeIn("fast");
 		$("#poll_container").fadeIn("slow", function () {
 		 
@@ -25,7 +25,7 @@ function loadpoll()
 		var choice = $("#choice").val();
 		$("#poll_container").empty();
 		$("#poll_container").append("<div id=\"loading_poll\" style=\"display:none\"><\/div>");
-		$("#loading_poll").fadeIn("fast", function () {$("#loading_poll").html("Пожалуйста подождите пока ваш голос учитывается");});
+		$("#loading_poll").fadeIn("fast", function () {$("#loading_poll").html("РџРѕР¶Р°Р»СѓР№СЃС‚Р° РїРѕРґРѕР¶РґРёС‚Рµ РїРѕРєР° РІР°С€ РіРѕР»РѕСЃ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ");});
 		
 			$.post("poll.core.php",{action:"vote",pollId:pollId,choice:choice}, function(r)
 			{

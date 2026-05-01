@@ -1,9 +1,7 @@
-<?
+<?php
 
-$mysql_host = "localhost";
-$mysql_user = "btstartracker";
-$mysql_pass = "IhnGftHp";
-$mysql_db = "btstartracker";
-$mysql_charset = "cp1251";
-
-?>
+$mysql_host = "db";
+$mysql_user = "root";
+$mysql_pass = "";
+$mysql_db = "btstar";
+$mysql_charset = "utf8";

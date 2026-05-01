@@ -2,6 +2,6 @@
 
 if (!defined("ADMIN_FILE")) die("Illegal File Access");
 
-BuildMenu("tags-admin.php", "Óïðàâëåíèå òýãàìè", "tags.png");
+BuildMenu("tags-admin.php", "Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ‚ÑÐ³Ð°Ð¼Ð¸", "tags.png");
 
 ?>

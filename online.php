@@ -1,7 +1,7 @@
-<?
+<?php
 include_once("include/bittorrent.php");
 dbconn();
-header("Content-Type: text/html; charset=windows-1251");
+header("Content-Type: text/html; charset=utf-8");
 print "    <div id=\"wol\">";
 
 

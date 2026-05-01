@@ -8,7 +8,7 @@ $day = $_POST["day"];
 $poster = unesc($_POST["poster"]);
 $descr = unesc($_POST["descr"]);
 if ($year=='0000' || $month=='00' || $day=='00')
-        stderr($tracker_lang['error'],"Похоже вы указали неверную дату рождения");
+        stderr($tracker_lang['error'],"РџРѕС…РѕР¶Рµ РІС‹ СѓРєР°Р·Р°Р»Рё РЅРµРІРµСЂРЅСѓСЋ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ");
         $birthday = date("$year.$month.$day");
 
 $ret = sql_query("INSERT INTO akters (name, descr, ori_descr, birthday, owner, poster) VALUES (". implode(",", array_map("sqlesc", array($name, $descr, $descr, $birthday, $CURUSER["id"], $poster))) .")") or die(mysql_error());

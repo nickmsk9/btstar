@@ -12,7 +12,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     $act = (string)$_POST["act"];
 	
 	    if (!is_valid_id($id) || empty($act))
-    	die("Ошибка");
+    	die("РћС€РёР±РєР°");
 		
 function getagent($httpagent, $peer_id = "") {
         if (preg_match("/^Azureus ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]\_B([0-9][0-9|*])(.+)$)/", $httpagent, $matches))
@@ -50,7 +50,7 @@ function getagent($httpagent, $peer_id = "") {
         elseif (preg_match("/ed2k_plugin v([0-9]+\\.[0-9]+).*/", $httpagent, $matches))
         return "eDonkey/$matches[1]";
         elseif (preg_match("/uTorrent\/([0-9]+)([0-9]+)([0-9]+)([0-9A-Z]+)/", $httpagent, $matches))
-        return "µTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
+        return "ВµTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
         elseif (preg_match("/CT([0-9]+)([0-9]+)([0-9]+)([0-9]+)/", $peer_id, $matches))
         return "cTorrent/$matches[1].$matches[2].$matches[3].$matches[4]";
         elseif (preg_match("/Transmission\/([0-9]+).([0-9]+)/", $httpagent, $matches))
@@ -144,7 +144,7 @@ function dltable($name, $arr, $torrent)
                   $s .= "<td>" . ($mod ? $e["ip"] : preg_replace('/\.\d+$/', ".xxx", $e["ip"])) . "</td>\n";
                 $secs = max(10, ($e["la"]) - $e["pa"]);
                 $revived = $e["revived"] == "yes";
-        		$s .= "<td align=\"center\">" . ($e[connectable] == "yes" ? "<span style=\"color: green; cursor: help;\" title=\"Порт открыт. Этот пир может подключатся к любому пиру.\">".$tracker_lang['yes']."</span>" : "<span style=\"color: red; cursor: help;\" title=\"Порт закрыт. Рекомендовано проверить настройки Firwewall'а.\">".$tracker_lang['no']."</span>") . "</td>\n";
+        		$s .= "<td align=\"center\">" . ($e[connectable] == "yes" ? "<span style=\"color: green; cursor: help;\" title=\"РџРѕСЂС‚ РѕС‚РєСЂС‹С‚. Р­С‚РѕС‚ РїРёСЂ РјРѕР¶РµС‚ РїРѕРґРєР»СЋС‡Р°С‚СЃСЏ Рє Р»СЋР±РѕРјСѓ РїРёСЂСѓ.\">".$tracker_lang['yes']."</span>" : "<span style=\"color: red; cursor: help;\" title=\"РџРѕСЂС‚ Р·Р°РєСЂС‹С‚. Р РµРєРѕРјРµРЅРґРѕРІР°РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё Firwewall'Р°.\">".$tracker_lang['no']."</span>") . "</td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["uploaded"]) . "</nobr></td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["uploadoffset"] / $secs) . "/s</nobr></td>\n";
                 $s .= "<td align=\"right\"><nobr>" . mksize($e["downloaded"]) . "</nobr></td>\n";
@@ -178,13 +178,13 @@ else
 $res = sql_query("SELECT * FROM torrents WHERE id = $id") or sqlerr(__FILE__, __LINE__);
 $row = mysql_fetch_array($res);
 print("<table width=\"100%\" border=\"0\" cellpadding=\"5\">");
-// Начало тегов
+// РќР°С‡Р°Р»Рѕ С‚РµРіРѕРІ
 foreach(explode(",", $row["tags"]) as $tag)
 $tags .= "<a style=\"font-weight:normal;color:green;\" href=\"browse.php?tag=".$tag."\">".$tag."</a>, ";
 if ($tags)
 $tags = substr($tags, 0, -2);
-// Конец тегов
-// Начала спасибок
+// РљРѕРЅРµС† С‚РµРіРѕРІ
+// РќР°С‡Р°Р»Р° СЃРїР°СЃРёР±РѕРє
 if($CURUSER) {					
 list($count777) = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM thanks WHERE torrentid = $id AND userid = $CURUSER[id] LIMIT 1")) or sqlerr(__FILE__,__LINE__);
 
@@ -192,24 +192,24 @@ if ($row['owner'] == $CURUSER['id'] || $count777 != 0)
      $can_not_thanks = true;
           
 }
-// Конец спасибок
-print("<tr><td width=\"40%\" style=\"background-color: #EEEEEE; border-bottom: none; border-right: none;\" align=\"left\"><a href=\"download.php?id=".$id."&name=".$row["name"]."\" style=\"color: black;\"><font style=\"font-size:14pt;\">Скачать</font></a>&nbsp;<sup><font style=\"font-size:8pt;\">".mksize($row["size"])."</font></sup></td>");
+// РљРѕРЅРµС† СЃРїР°СЃРёР±РѕРє
+print("<tr><td width=\"40%\" style=\"background-color: #EEEEEE; border-bottom: none; border-right: none;\" align=\"left\"><a href=\"download.php?id=".$id."&name=".$row["name"]."\" style=\"color: black;\"><font style=\"font-size:14pt;\">РЎРєР°С‡Р°С‚СЊ</font></a>&nbsp;<sup><font style=\"font-size:8pt;\">".mksize($row["size"])."</font></sup></td>");
 print("<td width=\"20%\" style=\"background-color: #EEEEEE; border-bottom: none; border-left: none; border-right: none;\" align=\"center\">");
 if (!$CURUSER || $row["canrate"] > 0 || $CURUSER['id'] == $row['owner'])
-print("<div><img src=\"pic/minus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" /> " . karma($row["karma"]) . " <img src=\"pic/plus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" /></div>");
+print("<div><img src=\"pic/minus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" /> " . karma($row["karma"]) . " <img src=\"pic/plus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" /></div>");
 else
-print("<div id=\"karma$id\"><img src=\"pic/minus.png\" style=\"cursor:pointer;\" title=\"Уменьшить карму\" alt=\"\" onclick=\"javascript: karma('$id', 'torrent', 'minus');\" /> " . karma($row["karma"]) . " <img src=\"pic/plus.png\" style=\"cursor:pointer;\" onclick=\"javascript: karma('$id', 'torrent', 'plus');\" title=\"Увеличить карму\" alt=\"\" /></div>");
+print("<div id=\"karma$id\"><img src=\"pic/minus.png\" style=\"cursor:pointer;\" title=\"РЈРјРµРЅСЊС€РёС‚СЊ РєР°СЂРјСѓ\" alt=\"\" onclick=\"javascript: karma('$id', 'torrent', 'minus');\" /> " . karma($row["karma"]) . " <img src=\"pic/plus.png\" style=\"cursor:pointer;\" onclick=\"javascript: karma('$id', 'torrent', 'plus');\" title=\"РЈРІРµР»РёС‡РёС‚СЊ РєР°СЂРјСѓ\" alt=\"\" /></div>");
 
 print("</td>");
 print("<td width=\"40%\" style=\"background-color: #EEEEEE; border-left: none; border-bottom: none;\" align=\"right\">");
 if ($CURUSER["id"] == $row["owner"] || get_user_class() >= UC_MODERATOR) {
-print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" title=\"Редактировать раздачу\"></a>");
+print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" title=\"Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ СЂР°Р·РґР°С‡Сѓ\"></a>");
 }
 if($can_not_thanks == true) {
 print("</td></tr>");
 } else {
 print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$torrentid}\">");
-print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"Сказать спасибо\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
+print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"РЎРєР°Р·Р°С‚СЊ СЃРїР°СЃРёР±Рѕ\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
 print("</td></tr>");
 }
 print("</div>");
@@ -217,9 +217,9 @@ print("<tr><td colspan=\"3\" style=\"border-top: none;\"><div style=\"float: lef
 print("</td></tr>");
 print("<tr><td valign=\"top\" colspan=\"3\" ");
 if($row['multitracker']==0)
-print("<b><font color=\"#BB0000\">Скидка:</font> <font color=\"red\">".$row["free"]."%</font></b>");
+print("<b><font color=\"#BB0000\">РЎРєРёРґРєР°:</font> <font color=\"red\">".$row["free"]."%</font></b>");
 else
-print("<b><font color=\"#BB0000\">Данный торрент является мультитрекерным - скачивание полностью не учитывается.</font></b>");
+print("<b><font color=\"#BB0000\">Р”Р°РЅРЅС‹Р№ С‚РѕСЂСЂРµРЅС‚ СЏРІР»СЏРµС‚СЃСЏ РјСѓР»СЊС‚РёС‚СЂРµРєРµСЂРЅС‹Рј - СЃРєР°С‡РёРІР°РЅРёРµ РїРѕР»РЅРѕСЃС‚СЊСЋ РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ.</font></b>");
 print("</td></tr>");
 print("<tr><td valign=\"top\" style=\"border-top: none; border-bottom: none; border-right: none\" colspan=\"2\"><span style=\"font-size: 14;\"><b>".$row["name"]."</b></span>");
 print("<br><br><span align=\"justify\">".format_comment($row["descr"])."</span>");
@@ -235,7 +235,7 @@ if ($act == "peers")
 $res = sql_query("SELECT torrents.seeders, torrents.tags, torrents.numratings, torrents.free, torrents.comment_lock, torrents.points, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, UNIX_TIMESTAMP() - UNIX_TIMESTAMP(torrents.last_action) AS lastseed, torrents.name, IF(torrents.numratings < $minvotes, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, torrents.image1, torrents.image2, torrents.multitracker, torrents.tracker_cache, torrents.f_peers, torrents.f_seeders, categories.name AS cat_name, categories.id AS cat_id, users.username FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id WHERE torrents.id = $id")
         or sqlerr(__FILE__, __LINE__);
 $row = mysql_fetch_array($res);
-if(empty($row)) die('Ошибка');
+if(empty($row)) die('РћС€РёР±РєР°');
 					    $downloaders = array();
                         $seeders = array();
                         $subres = sql_query("SELECT seeder, finishedat, downloadoffset, uploadoffset, peers.ip, port, peers.uploaded, peers.downloaded, to_go, UNIX_TIMESTAMP(started) AS st, connectable, agent, peer_id, UNIX_TIMESTAMP(last_action) AS la, UNIX_TIMESTAMP(prev_action) AS pa, userid, users.username, users.class FROM peers INNER JOIN users ON peers.userid = users.id WHERE torrent = $id") or sqlerr(__FILE__, __LINE__);
@@ -269,17 +269,17 @@ if(empty($row)) die('Ошибка');
                         usort($seeders, "seed_sort");
                         usort($downloaders, "leech_sort");
 
-                        print(dltable("Раздающие", $seeders, $row));
+                        print(dltable("Р Р°Р·РґР°СЋС‰РёРµ", $seeders, $row));
                         if($row["leechers"]) {
-                        print(dltable("Качающие", $downloaders, $row));
+                        print(dltable("РљР°С‡Р°СЋС‰РёРµ", $downloaders, $row));
                         }
 if($row['multitracker']==1)
 {
 	?><br>
 <table cellspacing="0" cellpadding="5">
-<tr><td colspan="3"><b>На других трекерах</b></td></tr>
-<tr><td><b>Трекер</b></td><td><b>Раздающие</b></td><td><b>Качающие</b></td></tr>
-<?
+<tr><td colspan="3"><b>РќР° РґСЂСѓРіРёС… С‚СЂРµРєРµСЂР°С…</b></td></tr>
+<tr><td><b>РўСЂРµРєРµСЂ</b></td><td><b>Р Р°Р·РґР°СЋС‰РёРµ</b></td><td><b>РљР°С‡Р°СЋС‰РёРµ</b></td></tr>
+<?php
 	$list = explode("\n",$row['tracker_cache']);
 	foreach($list as $tracker)
 	{
@@ -287,7 +287,7 @@ if($row['multitracker']==1)
 		if($stat[1]!=='false')
 		print("<tr><td>".$stat[0]."</td><td>".$stat[2]."</td><td>".$stat[1]."</td></tr>");	
 	}
-	print("<tr><td><b>Всего</b></td><td><b>".$row['f_seeders']."</b></td><td><b>".$row['f_peers'].'</b></td></tr>');
+	print("<tr><td><b>Р’СЃРµРіРѕ</b></td><td><b>".$row['f_seeders']."</b></td><td><b>".$row['f_peers'].'</b></td></tr>');
 	print("</table>");
 }
 }
@@ -296,11 +296,11 @@ if($act == "thanks") {
 		  {
 			  $count_sql = sql_query("SELECT COUNT(*) FROM thanks WHERE torrentid = $id");
 	          $count_row = mysql_fetch_row($count_sql);
-			  if($count_row===false) die('Ошибка');
+			  if($count_row===false) die('РћС€РёР±РєР°');
 	          $count = intval($count_row['0']);
 
 	          if ($count == 0) {
-		        $thanksby = "Никто не поставил спасибо этому торренту.";
+		        $thanksby = "РќРёРєС‚Рѕ РЅРµ РїРѕСЃС‚Р°РІРёР» СЃРїР°СЃРёР±Рѕ СЌС‚РѕРјСѓ С‚РѕСЂСЂРµРЅС‚Сѓ.";
 				
 				echo $thanksby;
 	          } else {

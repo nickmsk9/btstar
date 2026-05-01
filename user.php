@@ -12,7 +12,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     $act = (string)$_POST["act"];
 
     if (!is_valid_id($id) || empty($act))
-    	die("Ошибка");
+    	die("РћС€РёР±РєР°");
 
     print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
 
@@ -20,8 +20,8 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     {
         global $tracker_lang;
         $ret = "<table class=\"tt\">\n
-            <tr><td class=\"tt\" style=\"padding:0px;margin:0px;width:45px;\" align=\"center\"><img src=\"pic/genre.gif\" title=\"Категория\" alt=\"\" /></td><td class=\"tt\"><img src=\"pic/release.gif\" title=\"Название\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/mb.gif\" title=\"Размер\" alt=\"\" /></td><td class=\"tt\" width=\"30\" align=\"center\"><img src=\"pic/seeders.gif\" title=\"Раздают\" alt=\"\" /></td><td class=\"tt\" width=\"30\" align=\"center\"><img src=\"pic/leechers.gif\" title=\"Качают\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/uploaded.gif\" title=\"Раздал\" alt=\"\" /></td>\n
-            <td class=\"tt\" align=\"center\"><img src=\"pic/downloaded.gif\" title=\"Скачал\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/ratio.gif\" title=\"Рейтинг\" alt=\"\" /></td></tr>\n";
+            <tr><td class=\"tt\" style=\"padding:0px;margin:0px;width:45px;\" align=\"center\"><img src=\"pic/genre.gif\" title=\"РљР°С‚РµРіРѕСЂРёСЏ\" alt=\"\" /></td><td class=\"tt\"><img src=\"pic/release.gif\" title=\"РќР°Р·РІР°РЅРёРµ\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/mb.gif\" title=\"Р Р°Р·РјРµСЂ\" alt=\"\" /></td><td class=\"tt\" width=\"30\" align=\"center\"><img src=\"pic/seeders.gif\" title=\"Р Р°Р·РґР°СЋС‚\" alt=\"\" /></td><td class=\"tt\" width=\"30\" align=\"center\"><img src=\"pic/leechers.gif\" title=\"РљР°С‡Р°СЋС‚\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/uploaded.gif\" title=\"Р Р°Р·РґР°Р»\" alt=\"\" /></td>\n
+            <td class=\"tt\" align=\"center\"><img src=\"pic/downloaded.gif\" title=\"РЎРєР°С‡Р°Р»\" alt=\"\" /></td><td class=\"tt\" align=\"center\"><img src=\"pic/ratio.gif\" title=\"Р РµР№С‚РёРЅРі\" alt=\"\" /></td></tr>\n";
         while ($arr = mysql_fetch_assoc($res))
         {
             if ($arr["downloaded"] > 0)
@@ -64,7 +64,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     }
 
     $res = @sql_query("SELECT * FROM users WHERE id = $id") or sqlerr(__FILE__, __LINE__);
-    $user = mysql_fetch_array($res) or die("Неверный идентификатор");
+    $user = mysql_fetch_array($res) or die("РќРµРІРµСЂРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ");
 
     print("<style>\n");
     print("table.main td {border:1px solid #cecece;margin:0;}\n");
@@ -95,34 +95,34 @@ if ($user["downloaded"] > 0)
 else
     $rating = "N/A";
 
-	if ($user["gender"] == "1") $gender = "Мужской";
-elseif ($user["gender"] == "2") $gender = "Женский";
+	if ($user["gender"] == "1") $gender = "РњСѓР¶СЃРєРѕР№";
+elseif ($user["gender"] == "2") $gender = "Р–РµРЅСЃРєРёР№";
 	?>
-<div align="left"><b><font color="gray">Класс:</font></b> <?=get_user_class_color($user['class'], get_user_class_name($user['class']))?></div>
-<div align="left"><b><font color="gray">Пол:</font></b> <?=$gender;?></div>
-<? if($user['birthday']!='0000-00-00') { ?>
-<div align="left"><b><font color="gray">Дата рождения:</font></b> <?=nicetime($user["birthday"]);?> года (<?=(date("Y")-date("Y",strtotime($user['birthday']))+((date("m")>date("m",strtotime($user['birthday']))||(date("m")==date("m",strtotime($user['birthday']))&&date("d")>=date("d",strtotime($user['birthday'])))) ? 1 : 0)-1);?>)</div><br>
-<? } ?>
-<h4>Контактная информация <div class="edit" ><? if($user['id']==$CURUSER['id']) { ?><a href="my.php">[ редактировать ]</a><? } ?></div></h4>
-<div align="left"><b><font color="gray">Страна:</font></b> <?=$arr["name"];?></div>
-<div align="left"><b><font color="gray">Город:</font></b> <?=$city;?></div>
-<? if ($user["icq"]) {?>
-<div align="left"><b><font color="gray">Номер ICQ:</font></b>  <img src="email_img.php?uid=<?=$user['id'];?>&type=2" alt="ICQ пользователя <?=$user['name'];?>"></div> <? } ?><br>
-<h4>Статистика на трекере</h4>
-<div align="left"><b><font color="gray">Раздал:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['uploaded']))?></div>
-<div align="left"><b><font color="gray">Скачал:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['downloaded']))?></div>
-<div align="left"><b><font color="gray">Рейтинг:</font></b> <?=$rating;?></div><br>
-<h4>Личная информация <div class="edit" ><? if($user['id']==$CURUSER['id']) { ?><a href="my.php">[ редактировать ]</a><? } ?></div></h4>
-<?
+<div align="left"><b><font color="gray">РљР»Р°СЃСЃ:</font></b> <?=get_user_class_color($user['class'], get_user_class_name($user['class']))?></div>
+<div align="left"><b><font color="gray">РџРѕР»:</font></b> <?=$gender;?></div>
+<?php if($user['birthday']!='0000-00-00') { ?>
+<div align="left"><b><font color="gray">Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ:</font></b> <?=nicetime($user["birthday"]);?> РіРѕРґР° (<?=(date("Y")-date("Y",strtotime($user['birthday']))+((date("m")>date("m",strtotime($user['birthday']))||(date("m")==date("m",strtotime($user['birthday']))&&date("d")>=date("d",strtotime($user['birthday'])))) ? 1 : 0)-1);?>)</div><br>
+<?php } ?>
+<h4>РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ <div class="edit" ><?php if($user['id']==$CURUSER['id']) { ?><a href="my.php">[ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ ]</a><?php } ?></div></h4>
+<div align="left"><b><font color="gray">РЎС‚СЂР°РЅР°:</font></b> <?=$arr["name"];?></div>
+<div align="left"><b><font color="gray">Р“РѕСЂРѕРґ:</font></b> <?=$city;?></div>
+<?php if ($user["icq"]) {?>
+<div align="left"><b><font color="gray">РќРѕРјРµСЂ ICQ:</font></b>  <img src="email_img.php?uid=<?=$user['id'];?>&type=2" alt="ICQ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ <?=$user['name'];?>"></div> <?php } ?><br>
+<h4>РЎС‚Р°С‚РёСЃС‚РёРєР° РЅР° С‚СЂРµРєРµСЂРµ</h4>
+<div align="left"><b><font color="gray">Р Р°Р·РґР°Р»:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['uploaded']))?></div>
+<div align="left"><b><font color="gray">РЎРєР°С‡Р°Р»:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['downloaded']))?></div>
+<div align="left"><b><font color="gray">Р РµР№С‚РёРЅРі:</font></b> <?=$rating;?></div><br>
+<h4>Р›РёС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ <div class="edit" ><?php if($user['id']==$CURUSER['id']) { ?><a href="my.php">[ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ ]</a><?php } ?></div></h4>
+<?php
 foreach(explode(",", $user["lovemovies"]) as $lov)
 $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">".$lov."</a>, ";
                 if ($love)
                 $love = substr($love, 0, -2);
 				if ($user["lovemovies"]) {
 ?>
-<div align="left"><b><font color="gray">Любимые фильмы:</font></b> <?=$love;?></div> <? } ?>
-<div align="left"><b><font color="gray">О себе:</font></b> <?=(!empty($user['info']) ? str_replace("\n","<br>",htmlspecialchars($user["info"])) : '<i>Пользователь не заполнил информацию о себе</i>')?></div>
-<?
+<div align="left"><b><font color="gray">Р›СЋР±РёРјС‹Рµ С„РёР»СЊРјС‹:</font></b> <?=$love;?></div> <?php } ?>
+<div align="left"><b><font color="gray">Рћ СЃРµР±Рµ:</font></b> <?=(!empty($user['info']) ? str_replace("\n","<br>",htmlspecialchars($user["info"])) : '<i>РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ Р·Р°РїРѕР»РЅРёР» РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРµР±Рµ</i>')?></div>
+<?php
         die();
     }
     elseif ($act == "friends")
@@ -139,26 +139,26 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
                     $avatar = $DEFAULTBASEURL.'/avatars/'.$row['avatar'];
                 $dt = get_date_time(gmtime() - 300);
                 if ($row['last_access'] > $dt)
-                    $status = "<font color=\"#008000\">Онлайн</font>";
+                    $status = "<font color=\"#008000\">РћРЅР»Р°Р№РЅ</font>";
                 else
-                    $status = "<font color=\"#FF0000\">Оффлайн</font>";
+                    $status = "<font color=\"#FF0000\">РћС„С„Р»Р°Р№РЅ</font>";
                 if ($row["gender"] == "1")
-                    $gender = "<img src=\"pic/male.gif\" alt=\"Парень\" title=\"Парень\" />";
+                    $gender = "<img src=\"pic/male.gif\" alt=\"РџР°СЂРµРЅСЊ\" title=\"РџР°СЂРµРЅСЊ\" />";
                 else
-                    $gender = "<img src=\"pic/female.gif\" alt=\"Девушка\" title=\"Девушка\" />";
+                    $gender = "<img src=\"pic/female.gif\" alt=\"Р”РµРІСѓС€РєР°\" title=\"Р”РµРІСѓС€РєР°\" />";
                 print("<div class=\"friend\">\n");
                 print("<div class=\"avatar\"><a href=\"userdetails.php?id=" . $row['id'] . "\"><img src=\"$avatar\" alt=\"\" /></a></div>\n");
                 print("<div class=\"finfo\">\n");
-                print("<p><b>Имя:</b>&nbsp;<a href=\"userdetails.php?id=" . $row['id'] . "\">" . get_user_class_color($row['class'], $row['name']) . "</a></p>\n");
-                print("<p><b>Пол:</b>&nbsp;$gender</p>\n");
-                print("<p><b>Класс:</b>&nbsp;" . get_user_class_name($row['class']) . "</p>\n");
-                print("<p><b>Статус:</b>&nbsp;$status</p>\n");
+                print("<p><b>РРјСЏ:</b>&nbsp;<a href=\"userdetails.php?id=" . $row['id'] . "\">" . get_user_class_color($row['class'], $row['name']) . "</a></p>\n");
+                print("<p><b>РџРѕР»:</b>&nbsp;$gender</p>\n");
+                print("<p><b>РљР»Р°СЃСЃ:</b>&nbsp;" . get_user_class_name($row['class']) . "</p>\n");
+                print("<p><b>РЎС‚Р°С‚СѓСЃ:</b>&nbsp;$status</p>\n");
                 print("</div>\n");
                 print("<div class=\"actions\">\n");
-                print("<p><a href=\"message.php?action=sendmessage&receiver=" . $row['id'] . "\">Отправить сообщение</a></p>\n");
-                print("<p><a href=\"friends.php?id=" . $row['id'] . "\">Друзья " . get_user_class_color($row['class'], $row['name']) . "</a></p>\n");
+                print("<p><a href=\"message.php?action=sendmessage&receiver=" . $row['id'] . "\">РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ</a></p>\n");
+                print("<p><a href=\"friends.php?id=" . $row['id'] . "\">Р”СЂСѓР·СЊСЏ " . get_user_class_color($row['class'], $row['name']) . "</a></p>\n");
                 if ($CURUSER['id'] == $id)
-                    print("<p><a href=\"friends.php?action=delete&type=friend&targetid=" . $row['id'] . "\">Убрать из друзей</a></p>\n");
+                    print("<p><a href=\"friends.php?action=delete&type=friend&targetid=" . $row['id'] . "\">РЈР±СЂР°С‚СЊ РёР· РґСЂСѓР·РµР№</a></p>\n");
                 print("</div>\n");
                 print("<div style=\"clear:both;\"></div>\n");
                 print("</div>\n");
@@ -166,7 +166,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             print("</div>\n");
         }
         else
-            print("<div class=\"tab_error\">У пользователя нет друзей.</div>\n");
+            print("<div class=\"tab_error\">РЈ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµС‚ РґСЂСѓР·РµР№.</div>\n");
         die();
     }
     elseif ($act == "downloaded")
@@ -176,16 +176,16 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
         {
             print "<table class=\"tt\" width=\"100%\">\n
             <tr>
-            <td class=\"colhead\" style=\"padding:0;margin:0;width:45px;\" align=\"center\"><img src=\"pic/torrenttable/genre.gif\" title=\"Категория\" alt=\"\" /></td>
-            <td class=\"colhead\"><img src=\"pic/torrenttable/release.gif\" title=\"Название\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/seeders.gif\" title=\"Раздают\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/leechers.gif\" title=\"Качают\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/uploaded.gif\" title=\"Раздал\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/downloaded.gif\" title=\"Скачал\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/ratio.gif\" title=\"Скачал\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/start.gif\" title=\"Начал\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/end.gif\" title=\"Закончил\" alt=\"\" /></td>
-            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/seeded.gif\" title=\"Сид?\" alt=\"\" /></td>";
+            <td class=\"colhead\" style=\"padding:0;margin:0;width:45px;\" align=\"center\"><img src=\"pic/torrenttable/genre.gif\" title=\"РљР°С‚РµРіРѕСЂРёСЏ\" alt=\"\" /></td>
+            <td class=\"colhead\"><img src=\"pic/torrenttable/release.gif\" title=\"РќР°Р·РІР°РЅРёРµ\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/seeders.gif\" title=\"Р Р°Р·РґР°СЋС‚\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/leechers.gif\" title=\"РљР°С‡Р°СЋС‚\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/uploaded.gif\" title=\"Р Р°Р·РґР°Р»\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/downloaded.gif\" title=\"РЎРєР°С‡Р°Р»\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/ratio.gif\" title=\"РЎРєР°С‡Р°Р»\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/start.gif\" title=\"РќР°С‡Р°Р»\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/end.gif\" title=\"Р—Р°РєРѕРЅС‡РёР»\" alt=\"\" /></td>
+            <td class=\"colhead\" width=\"30\" align=\"center\"><img src=\"pic/torrenttable/seeded.gif\" title=\"РЎРёРґ?\" alt=\"\" /></td>";
             while ($row = mysql_fetch_array($res))
             {
                 if ($row["downloaded"] > 0)
@@ -203,9 +203,9 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
                 $uploaded = mksize($row["uploaded"]);
                 $downloaded = mksize($row["downloaded"]);
                 if ($row["seeder"] == 'yes')
-            	    $seeder = "<font color=\"green\">Да</font>";
+            	    $seeder = "<font color=\"green\">Р”Р°</font>";
                 else
-            	    $seeder = "<font color=\"red\">Нет</font>";
+            	    $seeder = "<font color=\"red\">РќРµС‚</font>";
             	$cat = "<a href=\"browse.php?cat=$row[catid]\"><img src=\"pic/cats/$row[catimage]\" alt=\"$row[catname]\" border=\"0\" /></a>";
                 print "<tr><td style=\"padding:0;margin:0;\" rowspan=\"2\">$cat</td><td colspan=\"9\"><a href=\"details.php?id=" . $row["id"] . "&amp;hit=1\"><b>" . $row["name"] . "</b></a></td></tr>" .
                   "<tr><td align=\"left\" width=500></td><td align=\"center\">$row[seeders]</td><td align=\"center\">$row[leechers]</td><td align=\"center\"><nobr>$uploaded</nobr></td><td align=\"center\"><nobr>$downloaded</nobr></td><td align=\"center\">$ratio</td><td align=\"center\"><nobr style=\"font-size:10px;\">$row[startdat]</nobr></td><td align=\"center\"><nobr style=\"font-size:10px;\">$row[completedat]</nobr></td><td align=\"center\">$seeder</td>\n";
@@ -213,7 +213,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             print "</table>";
         }
         else
-            print("<div class=\"tab_error\">Пользователь не скачивал торрентов.</div>");
+            print("<div class=\"tab_error\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ СЃРєР°С‡РёРІР°Р» С‚РѕСЂСЂРµРЅС‚РѕРІ.</div>");
         die();
     }
     elseif ($act == "uploaded")
@@ -222,24 +222,24 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
         if (mysql_num_rows($res) > 0)
         {
             print("<table class=\"tt\">\n" .
-            "<tr><td class=\"colhead\" style=\"padding:0;margin:0;width:50px;\" align=\"center\"><img src=\"pic/torrenttable/genre.gif\" title=\"Категория\" alt=\"\" /></td><td class=\"colhead\"><img src=\"pic/torrenttable/release.gif\" title=\"Название\" alt=\"\" /></td><td class=\"colhead\" width=\"50\" align=\"center\"><img src=\"pic/torrenttable/seeders.gif\" title=\"Раздают\" alt=\"\" /></td><td class=\"colhead\" width=\"50\" align=\"center\"><img src=\"pic/torrenttable/leechers.gif\" title=\"Качают\" alt=\"\" /></td></tr>\n");
+            "<tr><td class=\"colhead\" style=\"padding:0;margin:0;width:50px;\" align=\"center\"><img src=\"pic/torrenttable/genre.gif\" title=\"РљР°С‚РµРіРѕСЂРёСЏ\" alt=\"\" /></td><td class=\"colhead\"><img src=\"pic/torrenttable/release.gif\" title=\"РќР°Р·РІР°РЅРёРµ\" alt=\"\" /></td><td class=\"colhead\" width=\"50\" align=\"center\"><img src=\"pic/torrenttable/seeders.gif\" title=\"Р Р°Р·РґР°СЋС‚\" alt=\"\" /></td><td class=\"colhead\" width=\"50\" align=\"center\"><img src=\"pic/torrenttable/leechers.gif\" title=\"РљР°С‡Р°СЋС‚\" alt=\"\" /></td></tr>\n");
             while ($row = mysql_fetch_assoc($res))
             {
 		        $cat = "<a href=\"browse.php?cat=$row[catid]\"><img src=\"pic/cats/$row[catimage]\" alt=\"$row[catname]\" border=\"0\" /></a>";
                 print("<tr><td rowspan=\"2\" style=\"padding:0;margin:0;\">$cat</td><td colspan=\"3\"><a href=\"details.php?id=" . $row["id"] . "&hit=1\"><b>" . $row["name"] . "</b></a></td></tr>\n");
-                print("<tr><td><font color=\"#808080\" size=\"1\">" . $row["added"] .($row['multitracker']==1 ? ", Мультитрекерный" : "")."</font></td><td align=\"center\">".($row['seeders']+$row['f_seeders'])."</td><td align=\"center\">".($row['leechers']+$row['f_peers'])."</td></tr>\n");
+                print("<tr><td><font color=\"#808080\" size=\"1\">" . $row["added"] .($row['multitracker']==1 ? ", РњСѓР»СЊС‚РёС‚СЂРµРєРµСЂРЅС‹Р№" : "")."</font></td><td align=\"center\">".($row['seeders']+$row['f_seeders'])."</td><td align=\"center\">".($row['leechers']+$row['f_peers'])."</td></tr>\n");
             }
             print("</table>");
         }
         else
-            print("<div class=\"tab_error\">Пользователь не загружал торрентов.</div>");
+            print("<div class=\"tab_error\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ Р·Р°РіСЂСѓР¶Р°Р» С‚РѕСЂСЂРµРЅС‚РѕРІ.</div>");
         die();
     }
     elseif ($act == "moderate")
     {
         if (get_user_class() >= UC_MODERATOR && $user["class"] < get_user_class())
         {
-            print("<h2>Модерирование</h2>\n");
+            print("<h2>РњРѕРґРµСЂРёСЂРѕРІР°РЅРёРµ</h2>\n");
             print("<table width=\"100%\" cellpadding=\"5\">\n");
             print("<tr><td>\n");
             print("<form method=\"post\" action=\"modtask.php\">\n");
@@ -247,19 +247,19 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             print("<input type=\"hidden\" name=\"userid\" value=\"$id\">\n");
             print("<input type=\"hidden\" name=\"returnto\" value=\"userdetails.php?id=$id\">\n");
             print("<table width=\"100%\" cellpadding=\"5\" align=\"left\">\n");
-            print("<tr><td class=\"rowhead\">Заголовок</td><td colspan=\"2\" align=\"left\"><input type=\"text\" size=\"60\" name=\"title\" value=\"" . htmlspecialchars($user[title]) . "\"></tr>\n");
+            print("<tr><td class=\"rowhead\">Р—Р°РіРѕР»РѕРІРѕРє</td><td colspan=\"2\" align=\"left\"><input type=\"text\" size=\"60\" name=\"title\" value=\"" . htmlspecialchars($user[title]) . "\"></tr>\n");
           	$avatar = htmlspecialchars($user["avatar"]);
-            print("<tr><td class=\"rowhead\">Удалить аватар</td><td colspan=\"2\" align=\"left\"><input type=\"checkbox\" name=\"avatar\" value=\"{$user['avatar']}\"></tr>\n");
+            print("<tr><td class=\"rowhead\">РЈРґР°Р»РёС‚СЊ Р°РІР°С‚Р°СЂ</td><td colspan=\"2\" align=\"left\"><input type=\"checkbox\" name=\"avatar\" value=\"{$user['avatar']}\"></tr>\n");
           	if ($CURUSER["class"] < UC_ADMINISTRATOR)
           	    print("<input type=\"hidden\" name=\"donor\" value=\"$user[donor]\">\n");
           	else
-          	    print("<tr><td class=\"rowhead\">Донор</td><td colspan=\"2\" align=\"left\"><input type=\"radio\" name=\"donor\" value=\"yes\"" .($user["donor"] == "yes" ? " checked" : "").">Да <input type=\"radio\" name=\"donor\" value=\"no\"" .($user["donor"] == "no" ? " checked" : "").">Нет</td></tr>\n");
+          	    print("<tr><td class=\"rowhead\">Р”РѕРЅРѕСЂ</td><td colspan=\"2\" align=\"left\"><input type=\"radio\" name=\"donor\" value=\"yes\"" .($user["donor"] == "yes" ? " checked" : "").">Р”Р° <input type=\"radio\" name=\"donor\" value=\"no\"" .($user["donor"] == "no" ? " checked" : "").">РќРµС‚</td></tr>\n");
 
           	if (get_user_class() == UC_MODERATOR && $user["class"] > UC_VIP)
           	    print("<input type=\"hidden\" name=\"class\" value=\"$user[class]\">\n");
           	else
           	{
-                print("<tr><td class=\"rowhead\">Класс</td><td colspan=\"2\" align=\"left\"><select name=\"class\">\n");
+                print("<tr><td class=\"rowhead\">РљР»Р°СЃСЃ</td><td colspan=\"2\" align=\"left\"><select name=\"class\">\n");
                 if (get_user_class() == UC_SYSOP)
                     $maxclass = UC_SYSOP;
                 elseif (get_user_class() == UC_MODERATOR)
@@ -270,56 +270,56 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
                     print("<option value=\"$i\"" . ($user["class"] == $i ? " selected" : "") . ">$prefix" . get_user_class_name($i) . "\n");
                 print("</select></td></tr>\n");
           	}
-          	print("<tr><td class=\"rowhead\">Сбросить день рождения</td><td colspan=\"2\" align=\"left\"><input type=\"radio\" name=\"resetb\" value=\"yes\">Да<input type=\"radio\" name=\"resetb\" value=\"no\" checked>Нет</td></tr>\n");
+          	print("<tr><td class=\"rowhead\">РЎР±СЂРѕСЃРёС‚СЊ РґРµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ</td><td colspan=\"2\" align=\"left\"><input type=\"radio\" name=\"resetb\" value=\"yes\">Р”Р°<input type=\"radio\" name=\"resetb\" value=\"no\" checked>РќРµС‚</td></tr>\n");
           	$modcomment = htmlspecialchars($user["modcomment"]);
           	$supportfor = htmlspecialchars($user["supportfor"]);
-          	print("<tr><td class=rowhead>Поддержка</td><td colspan=2 align=left><input type=radio name=support value=yes" .($user["support"] == "yes" ? " checked" : "").">Да <input type=radio name=support value=no" .($user["support"] == "no" ? " checked" : "").">Нет</td></tr>\n");
-          	print("<tr><td class=rowhead>Поддержка для:</td><td colspan=2 align=left><textarea cols=60 rows=6 name=supportfor>$supportfor</textarea></td></tr>\n");
-          	print("<tr><td class=rowhead>История пользователя</td><td colspan=2 align=left><textarea cols=60 rows=6".(get_user_class() < UC_SYSOP ? " readonly" : " name=modcomment").">$modcomment</textarea></td></tr>\n");
-          	print("<tr><td class=rowhead>Добавить заметку</td><td colspan=2 align=left><textarea cols=60 rows=3 name=modcomm></textarea></td></tr>\n");
+          	print("<tr><td class=rowhead>РџРѕРґРґРµСЂР¶РєР°</td><td colspan=2 align=left><input type=radio name=support value=yes" .($user["support"] == "yes" ? " checked" : "").">Р”Р° <input type=radio name=support value=no" .($user["support"] == "no" ? " checked" : "").">РќРµС‚</td></tr>\n");
+          	print("<tr><td class=rowhead>РџРѕРґРґРµСЂР¶РєР° РґР»СЏ:</td><td colspan=2 align=left><textarea cols=60 rows=6 name=supportfor>$supportfor</textarea></td></tr>\n");
+          	print("<tr><td class=rowhead>РСЃС‚РѕСЂРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</td><td colspan=2 align=left><textarea cols=60 rows=6".(get_user_class() < UC_SYSOP ? " readonly" : " name=modcomment").">$modcomment</textarea></td></tr>\n");
+          	print("<tr><td class=rowhead>Р”РѕР±Р°РІРёС‚СЊ Р·Р°РјРµС‚РєСѓ</td><td colspan=2 align=left><textarea cols=60 rows=3 name=modcomm></textarea></td></tr>\n");
           	$warned = $user["warned"] == "yes";
 
-           	print("<tr><td class=\"rowhead\"" . (!$warned ? " rowspan=\"2\"": "") . ">Предупреждение</td>
-           	<td align=\"left\" width=\"20%\">" . ($warned ? "<input name=\"warned\" value=\"yes\" type=\"radio\" checked>Да<input name=\"warned\" value=\"no\" type=\"radio\">Нет" : "Нет" ) ."</td>");
+           	print("<tr><td class=\"rowhead\"" . (!$warned ? " rowspan=\"2\"": "") . ">РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ</td>
+           	<td align=\"left\" width=\"20%\">" . ($warned ? "<input name=\"warned\" value=\"yes\" type=\"radio\" checked>Р”Р°<input name=\"warned\" value=\"no\" type=\"radio\">РќРµС‚" : "РќРµС‚" ) ."</td>");
 
           	if ($warned)
             {
           		$warneduntil = $user['warneduntil'];
           		if ($warneduntil == '0000-00-00 00:00:00')
-              		print("<td align=\"center\">На неограниченый срок</td></tr>\n");
+              		print("<td align=\"center\">РќР° РЅРµРѕРіСЂР°РЅРёС‡РµРЅС‹Р№ СЃСЂРѕРє</td></tr>\n");
           		else
                 {
-              		print("<td align=\"center\">До $warneduntil");
-          	    	print(" (" . mkprettytime(strtotime($warneduntil) - gmtime()) . " осталось)</td></tr>\n");
+              		print("<td align=\"center\">Р”Рѕ $warneduntil");
+          	    	print(" (" . mkprettytime(strtotime($warneduntil) - gmtime()) . " РѕСЃС‚Р°Р»РѕСЃСЊ)</td></tr>\n");
            	    }
             }
             else
             {
-                print("<td>Предупредить на <select name=\"warnlength\">\n");
+                print("<td>РџСЂРµРґСѓРїСЂРµРґРёС‚СЊ РЅР° <select name=\"warnlength\">\n");
                 print("<option value=\"0\">------</option>\n");
-                print("<option value=\"1\">1 неделю</option>\n");
-                print("<option value=\"2\">2 недели</option>\n");
-                print("<option value=\"4\">4 недели</option>\n");
-                print("<option value=\"8\">8 недель</option>\n");
-                print("<option value=\"255\">Неограничено</option>\n");
-                print("</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Комментарий в ЛС:</td></tr>\n");
+                print("<option value=\"1\">1 РЅРµРґРµР»СЋ</option>\n");
+                print("<option value=\"2\">2 РЅРµРґРµР»Рё</option>\n");
+                print("<option value=\"4\">4 РЅРµРґРµР»Рё</option>\n");
+                print("<option value=\"8\">8 РЅРµРґРµР»СЊ</option>\n");
+                print("<option value=\"255\">РќРµРѕРіСЂР°РЅРёС‡РµРЅРѕ</option>\n");
+                print("</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;РљРѕРјРјРµРЅС‚Р°СЂРёР№ РІ Р›РЎ:</td></tr>\n");
                 print("<tr><td colspan=\"2\" align=\"left\"><input type=\"text\" size=\"60\" name=\"warnpm\"></td></tr>");
             }
-            print("<tr><td class=\"rowhead\" rowspan=\"2\">Включен</td><td colspan=\"2\" align=\"left\"><input name=\"enabled\" value=\"yes\" type=\"radio\"" . ($user["enabled"] == 'yes' ? " checked" : "") . ">Да <input name=\"enabled\" value=\"no\" type=\"radio\"" . ($user["enabled"] == 'no' ? " checked" : "") . ">Нет</td></tr>\n");
+            print("<tr><td class=\"rowhead\" rowspan=\"2\">Р’РєР»СЋС‡РµРЅ</td><td colspan=\"2\" align=\"left\"><input name=\"enabled\" value=\"yes\" type=\"radio\"" . ($user["enabled"] == 'yes' ? " checked" : "") . ">Р”Р° <input name=\"enabled\" value=\"no\" type=\"radio\"" . ($user["enabled"] == 'no' ? " checked" : "") . ">РќРµС‚</td></tr>\n");
             if ($user["enabled"] == 'yes')
-              	print("<tr><td colspan=\"2\" align=\"left\">Причина отключения:&nbsp;<input type=\"text\" name=\"disreason\" size=\"60\" /></td></tr>");
+              	print("<tr><td colspan=\"2\" align=\"left\">РџСЂРёС‡РёРЅР° РѕС‚РєР»СЋС‡РµРЅРёСЏ:&nbsp;<input type=\"text\" name=\"disreason\" size=\"60\" /></td></tr>");
           	else
-          		print("<tr><td colspan=\"2\" align=\"left\">Причина включения:&nbsp;<input type=\"text\" name=\"enareason\" size=\"60\" /></td></tr>");
-            print("<tr><td class=\"rowhead\">Изменить раздачу</td><td align=\"left\"><img src=\"pic/plus.gif\" id=\"uppic\" onClick=\"togglepic('$DEFAULTBASEURL','uppic','upchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"amountup\" size=\"10\" /><td>\n<select name=\"formatup\">\n<option value=\"mb\">MB</option>\n<option value=\"gb\">GB</option></select></td></tr>");
-            print("<tr><td class=\"rowhead\">Изменить скачку</td><td align=\"left\"><img src=\"pic/plus.gif\" id=\"downpic\" onClick=\"togglepic('$DEFAULTBASEURL','downpic','downchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"amountdown\" size=\"10\" /><td>\n<select name=\"formatdown\">\n<option value=\"mb\">MB</option>\n<option value=\"gb\">GB</option></select></td></tr>");
-			print("<tr><td class=\"rowhead\">Изменить кредиты</td><td align=\"left\" colspan=\"2\"><img src=\"pic/plus.gif\" id=\"credpic\" onClick=\"togglepic('$DEFAULTBASEURL','credpic','credchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"cred\" size=\"10\" /></tr>");
-            print("<tr><td class=\"rowhead\">Сбросить passkey</td><td colspan=\"2\" align=\"left\"><input name=\"resetkey\" value=\"1\" type=\"checkbox\"></td></tr>\n");
+          		print("<tr><td colspan=\"2\" align=\"left\">РџСЂРёС‡РёРЅР° РІРєР»СЋС‡РµРЅРёСЏ:&nbsp;<input type=\"text\" name=\"enareason\" size=\"60\" /></td></tr>");
+            print("<tr><td class=\"rowhead\">РР·РјРµРЅРёС‚СЊ СЂР°Р·РґР°С‡Сѓ</td><td align=\"left\"><img src=\"pic/plus.gif\" id=\"uppic\" onClick=\"togglepic('$DEFAULTBASEURL','uppic','upchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"amountup\" size=\"10\" /><td>\n<select name=\"formatup\">\n<option value=\"mb\">MB</option>\n<option value=\"gb\">GB</option></select></td></tr>");
+            print("<tr><td class=\"rowhead\">РР·РјРµРЅРёС‚СЊ СЃРєР°С‡РєСѓ</td><td align=\"left\"><img src=\"pic/plus.gif\" id=\"downpic\" onClick=\"togglepic('$DEFAULTBASEURL','downpic','downchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"amountdown\" size=\"10\" /><td>\n<select name=\"formatdown\">\n<option value=\"mb\">MB</option>\n<option value=\"gb\">GB</option></select></td></tr>");
+			print("<tr><td class=\"rowhead\">РР·РјРµРЅРёС‚СЊ РєСЂРµРґРёС‚С‹</td><td align=\"left\" colspan=\"2\"><img src=\"pic/plus.gif\" id=\"credpic\" onClick=\"togglepic('$DEFAULTBASEURL','credpic','credchange')\" style=\"cursor: pointer;\">&nbsp;<input type=\"text\" name=\"cred\" size=\"10\" /></tr>");
+            print("<tr><td class=\"rowhead\">РЎР±СЂРѕСЃРёС‚СЊ passkey</td><td colspan=\"2\" align=\"left\"><input name=\"resetkey\" value=\"1\" type=\"checkbox\"></td></tr>\n");
             if ($CURUSER["class"] < UC_ADMINISTRATOR)
                 print("<input type=\"hidden\" name=\"deluser\">");
             else
-                print("<tr><td class=\"rowhead\">Удалить</td><td colspan=\"2\" align=\"left\"><input type=\"checkbox\" name=\"deluser\"></td></tr>");
+                print("<tr><td class=\"rowhead\">РЈРґР°Р»РёС‚СЊ</td><td colspan=\"2\" align=\"left\"><input type=\"checkbox\" name=\"deluser\"></td></tr>");
             print("</td></tr>");
-            print("<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" class=\"btn\" value=\"ОК\"></td></tr>\n");
+            print("<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" class=\"btn\" value=\"РћРљ\"></td></tr>\n");
             print("</table>\n");
             print("<input type=\"hidden\" id=\"upchange\" name=\"upchange\" value=\"plus\"><input type=\"hidden\" id=\"downchange\" name=\"downchange\" value=\"plus\"><input type=\"hidden\" id=\"warnchange\" name=\"warnchange\" value=\"plus\">\n"); 
 			print("</form>\n");
@@ -327,7 +327,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             die();
         }
         else
-            die("У вас нет прав");
+            die("РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
     }
     elseif ($act == "pm")
     {
@@ -339,7 +339,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             var subj = enBASE64(subject);
             if (text == '' || subj == '')
             {
-                alert('Вы не указали сообщение или тему.');
+                alert('Р’С‹ РЅРµ СѓРєР°Р·Р°Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РёР»Рё С‚РµРјСѓ.');
                 return;
             }
             jQuery.post("user.php",{"user":to,"msg":text,"subject":subj,"act":"sendmessage"},function (response) {
@@ -350,15 +350,15 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             document.pm.subject.value = '';
         };
         </script>
-        <?
+        <?php
         print("<form name=\"pm\">\n");
-        print("<h2>Личное сообщение</h2>\n");
+        print("<h2>Р›РёС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ</h2>\n");
         print("<table width=\"100%\" cellpadding=\"5\">\n");
         print("<tr><td>\n");
         print("<div id=\"operation\"></div>\n");
-        print("<p>Тема: <input name=\"subject\" type=\"text\" style=\"width:370px;\" /></p>");
+        print("<p>РўРµРјР°: <input name=\"subject\" type=\"text\" style=\"width:370px;\" /></p>");
         textbbcode("pm", "msg", htmlspecialchars($text), $long);
-        print("<p><input type=\"button\" value=\"Отправить\" onclick=\"javascript:send_message('$id', document.pm.msg.value, document.pm.subject.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"Отменить\" /></p>\n");
+        print("<p><input type=\"button\" value=\"РћС‚РїСЂР°РІРёС‚СЊ\" onclick=\"javascript:send_message('$id', document.pm.msg.value, document.pm.subject.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"РћС‚РјРµРЅРёС‚СЊ\" /></p>\n");
         print("</td></tr>\n");
         print("</table>\n");
         print("</form>\n");
@@ -373,10 +373,10 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
             $text = sqlesc(base64_decode($_POST['msg']));
             $subject = sqlesc(base64_decode($_POST['subject']));
             sql_query("INSERT INTO messages (sender, receiver, subject, msg, added) VALUES (" . sqlesc($CURUSER['id']) . ", $id, $subject, $text, " . sqlesc($dt) . ")") or sqlerr(__FILE__,__LINE__);
-            die("<div class=\"success\">Ваше сообщение отправлено.</div>");
+            die("<div class=\"success\">Р’Р°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ РѕС‚РїСЂР°РІР»РµРЅРѕ.</div>");
         }
         else
-            die("Вы не ввели тему или сообщение");
+            die("Р’С‹ РЅРµ РІРІРµР»Рё С‚РµРјСѓ РёР»Рё СЃРѕРѕР±С‰РµРЅРёРµ");
     }
 
     elseif ($act == "statistics")
@@ -391,21 +391,21 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
         $bookmarks = get_row_count("bookmarks", "WHERE userid = $id");
         $friends = get_row_count("friends", "WHERE userid = $id");
         $invites = get_row_count("invites", "WHERE inviter = $id");
-        print("<h2>Статистика</h2>\n");
+        print("<h2>РЎС‚Р°С‚РёСЃС‚РёРєР°</h2>\n");
         print("<table width=\"100%\" cellpadding=\"5\">\n");
         print("<tr>\n");
-        print("<td><b>Комментариев:</b> $comments</td>\n");
-        print("<td><b>Качает:</b> $leecher</td>\n");
-        print("<td><b>Раздает:</b> $seeder</td>\n");
-        print("<td><b>Загрузил:</b> $torrents</td>\n");
-        print("<td><b>Скачал:</b> $snatched</td>\n");
+        print("<td><b>РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ:</b> $comments</td>\n");
+        print("<td><b>РљР°С‡Р°РµС‚:</b> $leecher</td>\n");
+        print("<td><b>Р Р°Р·РґР°РµС‚:</b> $seeder</td>\n");
+        print("<td><b>Р—Р°РіСЂСѓР·РёР»:</b> $torrents</td>\n");
+        print("<td><b>РЎРєР°С‡Р°Р»:</b> $snatched</td>\n");
         print("</tr>\n");
         print("<tr>\n");
-        print("<td><b>Спасибо:</b> $thanks</td>\n");
-        print("<td><b>Оценил:</b> $ratings</td>\n");
-        print("<td><b>Закладок:</b> $bookmarks</td>\n");
-        print("<td><b>Пригласил:</b> $bookmarks</td>\n");
-        print("<td><b>Друзей:</b> $friends</td>\n");
+        print("<td><b>РЎРїР°СЃРёР±Рѕ:</b> $thanks</td>\n");
+        print("<td><b>РћС†РµРЅРёР»:</b> $ratings</td>\n");
+        print("<td><b>Р—Р°РєР»Р°РґРѕРє:</b> $bookmarks</td>\n");
+        print("<td><b>РџСЂРёРіР»Р°СЃРёР»:</b> $bookmarks</td>\n");
+        print("<td><b>Р”СЂСѓР·РµР№:</b> $friends</td>\n");
         print("</tr>\n");
         print("</table>\n");
         die();
@@ -415,29 +415,29 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
     {
         $type = $_POST['type'];
         if (empty($type) || empty($CURUSER['id']))
-            die("Прямой доступ закрыт");
+            die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
         if ($type == "add")
         {
             $res = sql_query("SELECT id, status FROM friends WHERE userid=" . sqlesc($CURUSER['id']) . " AND friendid = $id") or sqlerr(__FILE__, __LINE__);
             $row = mysql_fetch_array($res);
             if ($row['status'] == 'yes')
-                die("<div class=\"error\">Пользователь уже ваш друг.</div>");
+                die("<div class=\"error\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓР¶Рµ РІР°С€ РґСЂСѓРі.</div>");
             elseif ($row['status'] == 'pending')
-                die("<div class=\"error\">Вы уже отправляли запрос. Дождитеcь решения пользователя.</div>");
+                die("<div class=\"error\">Р’С‹ СѓР¶Рµ РѕС‚РїСЂР°РІР»СЏР»Рё Р·Р°РїСЂРѕСЃ. Р”РѕР¶РґРёС‚РµcСЊ СЂРµС€РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.</div>");
             elseif ($row['status'] == 'no')
-                die("<div class=\"error\">Пользователь отказал Вам в дружбе.</div>");
+                die("<div class=\"error\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕС‚РєР°Р·Р°Р» Р’Р°Рј РІ РґСЂСѓР¶Р±Рµ.</div>");
             else
             {
                 sql_query("INSERT INTO friends (userid, friendid) VALUES (" . sqlesc($CURUSER['id']) . ", $id)") or sqlerr(__FILE__, __LINE__);
                 $newid = mysql_insert_id();
-                die("<div class=\"success\">Запрос на дружбу отправлен. Дождитесь ответа пользователя.</div>");
+                die("<div class=\"success\">Р—Р°РїСЂРѕСЃ РЅР° РґСЂСѓР¶Р±Сѓ РѕС‚РїСЂР°РІР»РµРЅ. Р”РѕР¶РґРёС‚РµСЃСЊ РѕС‚РІРµС‚Р° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.</div>");
             }
         }
         if ($type = "delete")
         {
             sql_query("DELETE FROM friends WHERE userid = $id AND friendid = " . sqlesc($CURUSER['id']));
             sql_query("DELETE FROM friends WHERE friendid = $id AND userid = " . sqlesc($CURUSER['id']));
-            die("<div class=\"success\">Пользователь удален из друзей.</div>");
+            die("<div class=\"success\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓРґР°Р»РµРЅ РёР· РґСЂСѓР·РµР№.</div>");
         }
         die();
     }
@@ -452,7 +452,7 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
 			$friend = true;}
 		$notes=sql_query("SELECT * FROM notes WHERE uid=".$id);
 		if(mysql_num_rows($notes)==0)
-			die( "<div class=\"tab_error\">У пользователя нет записей</div>");
+			die( "<div class=\"tab_error\">РЈ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµС‚ Р·Р°РїРёСЃРµР№</div>");
 		echo '<table width="100%" cellpadding="5" border="0">';
 		$closed=0;
 		while($note=mysql_fetch_array($notes))
@@ -464,27 +464,27 @@ $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">"
 		$text=preg_replace("#\[.*\]#is","",$text);
 		if(strlen($note['text']) > 240)
 		$text=substr($text,0,200).'...';
-		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$id;?>-<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Добавлена: <?=nicetime($note['timestamp'],true);?><br>
-		<? if(!empty($note['last_edit'])) { ?><small>Последняя правка: <?=nicetime($note['last_edit'],true);?><? } ?>
+		?><tr><td><span style="font-size: 12pt;"><a href="note<?=$id;?>-<?=$note['id'];?>"><?=$note['name'];?></a></span><br>Р”РѕР±Р°РІР»РµРЅР°: <?=nicetime($note['timestamp'],true);?><br>
+		<?php if(!empty($note['last_edit'])) { ?><small>РџРѕСЃР»РµРґРЅСЏСЏ РїСЂР°РІРєР°: <?=nicetime($note['last_edit'],true);?><?php } ?>
 		<hr>
 		<?=$text;?>
 		<hr>
-		<? if(!empty($note['tags'])) { ?>Теги: <?
+		<?php if(!empty($note['tags'])) { ?>РўРµРіРё: <?php
 			$tags=explode(',',$note['tags']);
 			$i=0;
 			foreach ($tags as $tag)
 		{echo ($i!=0 ? ', ' : '').'<a href="note-tag,'.trim($tag).'" style="color:green;font-weight:normal;">'.trim($tag).'</a>';
 		$i++;}echo "<br>";}
-		?> Просмотров: <?=$note['views'];?>, комментариев: <?=$note['comments'];?></td></tr><?		
+		?> РџСЂРѕСЃРјРѕС‚СЂРѕРІ: <?=$note['views'];?>, РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ: <?=$note['comments'];?></td></tr><?php		
 		}
 		echo "</table>";
 		if($closed > 0)
-		echo "<div class=\"success\">Не показано $closed скрытых записей</div>";
+		echo "<div class=\"success\">РќРµ РїРѕРєР°Р·Р°РЅРѕ $closed СЃРєСЂС‹С‚С‹С… Р·Р°РїРёСЃРµР№</div>";
 	
 	}
     else
-        die("Прямой доступ запрещен");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ");
 }
 else
-    die("Прямой доступ запрещен");
+    die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ");
 ?>

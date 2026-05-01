@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 
@@ -9,12 +9,12 @@ parked();
 
 stdhead($tracker_lang['upload_torrent']);
 
-begin_frame("Âûáåðèòå êàòåãîðèþ ðàçäà÷è");
+begin_frame("Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ Ñ€Ð°Ð·Ð´Ð°Ñ‡Ð¸");
 ?>
 <div align=center>
 <form name="upload" action="uploadnext.php" method="post">
 <table border="1" cellspacing="0" cellpadding="5">
-<?
+<?php
 
 $s = "<select name=\"type\">\n<option value=\"0\">(".$tracker_lang['choose'].")</option>\n";
 
@@ -26,9 +26,9 @@ $s .= "</select>\n";
 echo $s;
 
 ?>
-<input type="submit" class=btn value="Äàëåå" /></table>
+<input type="submit" class=btn value="Ð”Ð°Ð»ÐµÐµ" /></table>
 </form>
-<?
+<?php
 end_frame();
 stdfoot();
 

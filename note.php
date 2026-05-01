@@ -1,23 +1,23 @@
-<?
-// Файл: blog.php
-// Здесь у нас начинается система блогов :)
+<?php
+// Р¤Р°Р№Р»: blog.php
+// Р—РґРµСЃСЊ Сѓ РЅР°СЃ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃРёСЃС‚РµРјР° Р±Р»РѕРіРѕРІ :)
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn(true);
 function bark($msg) {
 	global $tracker_lang;
-	stdhead("Записи || Ошибка");
+	stdhead("Р—Р°РїРёСЃРё || РћС€РёР±РєР°");
 	stdmsg($tracker_lang['error'], $msg);
 	exit;
 }
 
 if(empty($_GET['uid'])||!is_numeric($_GET['uid']))
-bark('Неверный ID');
+bark('РќРµРІРµСЂРЅС‹Р№ ID');
 $uid=(int)$_GET['uid'];
 
 if(!empty($_GET['id']))
 {	if(!is_numeric($_GET['id']))
-		bark("Неверный ID");
+		bark("РќРµРІРµСЂРЅС‹Р№ ID");
 	$id=(int)$_GET['id'];}
 
 $sql="SELECT notes.*, users.username, users.last_access, users.class, users.avatar, users.country, users.firstname, users.surname, friends.id AS fid FROM notes LEFT JOIN users ON users.id=".$uid." LEFT JOIN friends ON friends.userid = ".$uid." AND friends.friendid = ".($CURUSER['id'] ? $CURUSER['id'] : $refid)." AND friends.status='yes' WHERE notes.uid = ".$uid;
@@ -25,28 +25,28 @@ if(empty($id))
 $sql.=" AND notes.id=(SELECT id FROM notes WHERE uid = ".$uid." ORDER BY id LIMIT 1)";
 else
 $sql.=" AND notes.id = ".$id;
-$note = @sql_query($sql) or bark("Неизвестная ошибка!");
+$note = @sql_query($sql) or bark("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!");
 if(!$note = mysql_fetch_assoc($note))
-bark("Такой записи не существует!");
-stdhead("Записи || ".$note['firstname']." ".$note['username']." ".$note['surname']." || ".htmlspecialchars($note['name']));
-?> <script type="text/javascript" language="javascript" src="js/note.js"></script> <?
-begin_frame('Записи &rarr; <a href="id'.$note['uid'].'">'.$note['firstname']." ".$note['username']."</a> &rarr; ".htmlspecialchars($note['name']));
+bark("РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
+stdhead("Р—Р°РїРёСЃРё || ".$note['firstname']." ".$note['username']." ".$note['surname']." || ".htmlspecialchars($note['name']));
+?> <script type="text/javascript" language="javascript" src="js/note.js"></script> <?php
+begin_frame('Р—Р°РїРёСЃРё &rarr; <a href="id'.$note['uid'].'">'.$note['firstname']." ".$note['username']."</a> &rarr; ".htmlspecialchars($note['name']));
 if($note['access']==0 and (!$CURUSER['id']==$uid||!$note['fid']) and $CURUSER['class'] < UC_MODERATOR)
-bark("Эту запись можно просматривать только друзьям ".$note['firstname']." ".$note['username']." ".$note['surname']."!");
+bark("Р­С‚Сѓ Р·Р°РїРёСЃСЊ РјРѕР¶РЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ С‚РѕР»СЊРєРѕ РґСЂСѓР·СЊСЏРј ".$note['firstname']." ".$note['username']." ".$note['surname']."!");
 ?>
 <table width="100%" border="0" cellpadding="5"><tr><td width="100px" valign="top" rowspan="2">
-<? if (!empty($note['avatar']))
-    echo "<img src=\"" . $DEFAULTBASEURL.'/avatars/'.$note['avatar']."\" style=\"border:3px double #ccc;\" title=\"\" alt=\"Аватар\" align=\"left\">";
+<?php if (!empty($note['avatar']))
+    echo "<img src=\"" . $DEFAULTBASEURL.'/avatars/'.$note['avatar']."\" style=\"border:3px double #ccc;\" title=\"\" alt=\"РђРІР°С‚Р°СЂ\" align=\"left\">";
 else
-    echo "<img src=\"pic/default_avatar.gif\" style=\"width:100px;border:3px double #ccc;\" title=\"\" alt=\"Аватар\" align=\"left\">";
+    echo "<img src=\"pic/default_avatar.gif\" style=\"width:100px;border:3px double #ccc;\" title=\"\" alt=\"РђРІР°С‚Р°СЂ\" align=\"left\">";
 ?>
 </td><td valign="top">
-<span style="font-size: 18pt; font-weight: bold;"><?=htmlspecialchars($note['name']);?></span><br>Запись <a href="id<?=$uid;?>"><?=$note['firstname'];?> <?=$note['username'];?> <?=$note['surname'];?></a> от <b><?=nicetime($note['timestamp']);?>
-<? if(!empty($note['last_edit'])) { ?><br><small>Последняя правка: <?=nicetime($note['last_edit'],true);?><? } ?>
+<span style="font-size: 18pt; font-weight: bold;"><?=htmlspecialchars($note['name']);?></span><br>Р—Р°РїРёСЃСЊ <a href="id<?=$uid;?>"><?=$note['firstname'];?> <?=$note['username'];?> <?=$note['surname'];?></a> РѕС‚ <b><?=nicetime($note['timestamp']);?>
+<?php if(!empty($note['last_edit'])) { ?><br><small>РџРѕСЃР»РµРґРЅСЏСЏ РїСЂР°РІРєР°: <?=nicetime($note['last_edit'],true);?><?php } ?>
 <br>
-<span style="color: gray;font-weight: normal;"><? if($note['access']==1) { ?>Это открытая запись, её может просматривать любой пользователь<? } else { ?>Это закрытая запись, только для друзей автора <? } ?></span>
+<span style="color: gray;font-weight: normal;"><?php if($note['access']==1) { ?>Р­С‚Рѕ РѕС‚РєСЂС‹С‚Р°СЏ Р·Р°РїРёСЃСЊ, РµС‘ РјРѕР¶РµС‚ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ Р»СЋР±РѕР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ<?php } else { ?>Р­С‚Рѕ Р·Р°РєСЂС‹С‚Р°СЏ Р·Р°РїРёСЃСЊ, С‚РѕР»СЊРєРѕ РґР»СЏ РґСЂСѓР·РµР№ Р°РІС‚РѕСЂР° <?php } ?></span>
 <br>
-<? if(!empty($note['torrents'])) {
+<?php if(!empty($note['torrents'])) {
 	$torrents = explode(',',$note['torrents']);
 	$tors=array();
 	foreach($torrents as $torrent)
@@ -59,9 +59,9 @@ else
 			$torrents .= (!empty($torrents) ? ', ' : '').'<a href="torrent-'.$torrent['id'].'" style="color:blue;font-weight:normal;" class="tag-torrent">'.$torrent['name'].'</a>';
 	}
 	if(!empty($torrents))
-	echo "<div>Торренты этой записи: ".$torrents."</div>";
+	echo "<div>РўРѕСЂСЂРµРЅС‚С‹ СЌС‚РѕР№ Р·Р°РїРёСЃРё: ".$torrents."</div>";
 }
-if(!empty($note['tags'])) { ?><div style="float: left;">Теги: <?
+if(!empty($note['tags'])) { ?><div style="float: left;">РўРµРіРё: <?php
 $tags=explode(',',$note['tags']);
 $i=0;
 foreach ($tags as $tag)
@@ -73,33 +73,33 @@ if($CURUSER['id']==$uid||$COURUSER['class']>=UC_MODERATOR)
 {
 ?>
 <div style="float:right">
-<a href="noteedit.php?uid=<?=$uid;?>&id=<?=$note['id'];?>&act=edit">[Редактировать]</a> <a href="noteedit.php?uid=<?=$uid;?>&id=<?=$note['id'];?>&act=delete">[Удалить]</a> 
+<a href="noteedit.php?uid=<?=$uid;?>&id=<?=$note['id'];?>&act=edit">[Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ]</a> <a href="noteedit.php?uid=<?=$uid;?>&id=<?=$note['id'];?>&act=delete">[РЈРґР°Р»РёС‚СЊ]</a> 
 </div>
-<? } ?>
+<?php } ?>
 </td></tr><tr><td valign="top">
 <br>
 <span align="justify" style="font-weight: normal;">
 <?=format_comment($note['text']);?>
 </span>
 </td></tr></table>
-<?
+<?php
 end_frame();
 sql_query("UPDATE IGNORE `notes` SET `views` = `views` + 1 WHERE `uid` = ".$uid." AND `id` = ".$id);
-begin_frame("Комментраии");
+begin_frame("РљРѕРјРјРµРЅС‚СЂР°РёРё");
 	print("<div id=\"wall\">\n");
 $count = get_row_count("noteswall", "WHERE owner = $uid AND nid= $id");
 $limited = 25;
 list($pagertop, $pagerbottom, $limit) = pager($limited, $count, "note".$uid."-".$id.",", array(lastpagedefault => 1));
 $res = sql_query("SELECT w.*, u.username, u.class, u.avatar, u.gender FROM noteswall AS w LEFT JOIN users AS u ON u.id = w.user WHERE w.owner = $uid AND w.nid = $id ORDER BY w.added $limit") or sqlerr(__FILE__,__LINE__);
 if (mysql_num_rows($res) < 1)
-    print("<p>Нет записей.</p>\n");
+    print("<p>РќРµС‚ Р·Р°РїРёСЃРµР№.</p>\n");
 else
 {
     print("<table border=\"0\" width=\"100%\">\n");
     while ($row = mysql_fetch_array($res))
     {
-	if ($row["gender"] == "1") $genders = "написал";
-elseif ($row["gender"] == "2") $genders = "написала";
+	if ($row["gender"] == "1") $genders = "РЅР°РїРёСЃР°Р»";
+elseif ($row["gender"] == "2") $genders = "РЅР°РїРёСЃР°Р»Р°";
         print("<tr class=\"zebra\" valign=\"top\">
             <td width=\"50\" style=\"border: none;\"><img src=\"" . ($row['avatar'] ? $DEFAULTBASEURL.'/avatars/small/'.$row['avatar'] : "pic/default_avatar.gif") . "\" style=\"border:1px solid #999;padding:5px;width:50px;\" title=\"\" alt=\"\" /></td>
             <td style=\"border: none;\">
@@ -120,7 +120,7 @@ print("</div>");
 print("<br>");
 print("<form name=\"wall\">\n");
 textbbcode("wall", "text",htmlspecialchars($text),$long);
-print("<p><input type=\"button\" value=\"Отправить\" onclick=\"javascript:wall_send('$uid','$id', document.wall.text.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"Отменить\" /></p>\n");
+print("<p><input type=\"button\" value=\"РћС‚РїСЂР°РІРёС‚СЊ\" onclick=\"javascript:wall_send('$uid','$id', document.wall.text.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"РћС‚РјРµРЅРёС‚СЊ\" /></p>\n");
 print("</form>\n");
 end_frame();
 stdfoot();

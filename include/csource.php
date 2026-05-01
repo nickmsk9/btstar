@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 function _fwk_filter_encrypt($content)
@@ -46,7 +46,7 @@ $f .= "if(s){r+=String.fromCharCode({$xor}^w&255);w>>=8;s-=2}else{s=6}";
 $r = "<script language=JavaScript>";
 $r.= "function decrypt_p(x){";
 $r.= "var l=x.length,b=1024,i,j,r{$fi};";
-$r.= "for(j=Math.ceil(l/b);j>0;j--){r='';for(i=Math.min(l,b);i>0;i--,l--){{$f}}document.write®}";
+$r.= "for(j=Math.ceil(l/b);j>0;j--){r='';for(i=Math.min(l,b);i>0;i--,l--){{$f}}document.writeÂ®}";
 $r.= "}decrypt_p(\"{$enc}\")";
 $r.= "</script>";
 return $r;

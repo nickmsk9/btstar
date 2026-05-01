@@ -1,4 +1,4 @@
-var AZ = '     Ё               ё       АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя'
+var AZ = '     РЃ               С‘       РђР‘Р’Р“Р”Р•Р–Р—РР™РљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©РЄР«Р¬Р­Р®РЇР°Р±РІРіРґРµР¶Р·РёР№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЉС‹СЊСЌСЋСЏ'
 var b64s  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 var b64a  = b64s.split('')
 
@@ -22,7 +22,7 @@ function enBASE64(str) {
 }
 
 jQuery(function() {
-    var loading = "<div align=\"center\" style=\"padding:20px;\"><img src=\"pic/progress7.gif\" alt=\"Загрузка..\" /></div";
+    var loading = "<div align=\"center\" style=\"padding:20px;\"><img src=\"pic/progress7.gif\" alt=\"Р—Р°РіСЂСѓР·РєР°..\" /></div";
 
     jQuery("a.add_comment").click ( function(){
         var torrent = jQuery(this).attr("id");
@@ -30,7 +30,7 @@ jQuery(function() {
         var method = jQuery(this).attr("method");
         var text = enBASE64(document.comment.text.value);
         if (text == ''){
-            alert('Ошибка. Пустое сообщение.');
+            alert('РћС€РёР±РєР°. РџСѓСЃС‚РѕРµ СЃРѕРѕР±С‰РµРЅРёРµ.');
             return;
         }
         jQuery("#takecomment").empty();

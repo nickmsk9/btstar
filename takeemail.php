@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
@@ -13,11 +13,11 @@ while ($a = mysql_fetch_assoc($res))
 
 $subject = $_POST['subject'];
 if (!$subject)
-stderr($tracker_lang['error'],"Пожалуста, введите тему!");
+stderr($tracker_lang['error'],"РџРѕР¶Р°Р»СѓСЃС‚Р°, РІРІРµРґРёС‚Рµ С‚РµРјСѓ!");
 
 $msg = $_POST['msg'];
 if (!$msg)
-stderr($tracker_lang['error'],"Введите текст сообщения!");
+stderr($tracker_lang['error'],"Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ!");
 
 $message = <<<EOD
 
@@ -26,7 +26,7 @@ $msg
 EOD;
 sent_mail($a["email"], $SITENAME, $SITEEMAIL, $subject, $message, false);
 }
-stdhead("Спамилка");
-stdmsg("Успешно..", "Рассылка успешно завершена. Отправлено <b>$counter</b> сообщений");
+stdhead("РЎРїР°РјРёР»РєР°");
+stdmsg("РЈСЃРїРµС€РЅРѕ..", "Р Р°СЃСЃС‹Р»РєР° СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°. РћС‚РїСЂР°РІР»РµРЅРѕ <b>$counter</b> СЃРѕРѕР±С‰РµРЅРёР№");
 stdfoot();
 ?> 

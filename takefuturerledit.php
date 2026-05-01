@@ -1,20 +1,20 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
 function bark($msg) {
 stdhead();
-stdmsg("Îøèáêà!", $msg);
+stdmsg("ÐžÑˆÐ¸Ð±ÐºÐ°!", $msg);
 stdfoot();
 exit;
 }
 
 $catid = $_POST["type"];
 if (!$_POST["type"])
-	bark("Âû äîëæíû âûáðàòü êàòåãîðèþ.");
+	bark("Ð’Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð²Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ.");
 
 if (!$_POST["id"])
-bark("×òî òû òóò äåëàåøü???");
+bark("Ð§Ñ‚Ð¾ Ñ‚Ñ‹ Ñ‚ÑƒÑ‚ Ð´ÐµÐ»Ð°ÐµÑˆÑŒ???");
 
 $id = $_POST["id"];
 $trailer = sqlesc($_POST["text"]);

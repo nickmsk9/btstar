@@ -1,8 +1,8 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 function bark($msg) {
-        stderr("Произошла ошибка", $msg);
+        stderr("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°", $msg);
 }
 
 dbconn();
@@ -29,7 +29,7 @@ switch($_GET['t'])
 		$sect='avatar';
 	break;
 	default:
-		bark("Пустой запрос");
+		bark("РџСѓСЃС‚РѕР№ Р·Р°РїСЂРѕСЃ");
 	break;
 }
   
@@ -42,12 +42,12 @@ $changedemail = 0;
 if($sect=='password') {
 if ($chpassword != "") {
         if (strlen($chpassword) > 40)
-                bark("Извините, ваш пароль слишком длинный (максимум 40 символов)");
+                bark("РР·РІРёРЅРёС‚Рµ, РІР°С€ РїР°СЂРѕР»СЊ СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№ (РјР°РєСЃРёРјСѓРј 40 СЃРёРјРІРѕР»РѕРІ)");
         if ($chpassword != $passagain)
-                bark("Пароли не совпадают. Попробуйте еще раз.");
+                bark("РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·.");
 
     if ($CURUSER["passhash"] != md5($CURUSER["secret"] . $oldpassword . $CURUSER["secret"]))
-            bark("Вы ввели неправильный старый пароль.");
+            bark("Р’С‹ РІРІРµР»Рё РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ СЃС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ.");
 
         $sec = mksecret();
 
@@ -63,10 +63,10 @@ if ($chpassword != "") {
 if($sect=='contact') {
 if ($email != $CURUSER["email"] && !empty($email)) {
         if (!validemail($email))
-                bark("Это не похоже на настоящий E-Mail.");
+                bark("Р­С‚Рѕ РЅРµ РїРѕС…РѕР¶Рµ РЅР° РЅР°СЃС‚РѕСЏС‰РёР№ E-Mail.");
   $r = sql_query("SELECT id FROM users WHERE email=" . sqlesc($email)) or sqlerr(__FILE__, __LINE__);
         if (mysql_num_rows($r) > 0)
-                bark("Этот e-mail адрес уже используется одним из пользователей трекера. (<b>$email</b>)");
+                bark("Р­С‚РѕС‚ e-mail Р°РґСЂРµСЃ СѓР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РѕРґРЅРёРј РёР· РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ С‚СЂРµРєРµСЂР°. (<b>$email</b>)");
         $changedemail = 1;
 		$updateset[] = "email = ".sqlesc($email);
 }}
@@ -86,18 +86,18 @@ for ($i = 0; $i < $rows; ++$i)
 }
 $updateset[]=$notifs."'";
 
-if(!ereg("^[a-zA-Zа-яА-Я \.-]+$", $_POST["fname"]))
-bark("Ваше имя содержит неверные символы.");
+if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$", $_POST["fname"]))
+bark("Р’Р°С€Рµ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРІРµСЂРЅС‹Рµ СЃРёРјРІРѕР»С‹.");
 $updateset[] = "firstname = ".sqlesc($_POST["fname"]);
 
-if(!ereg("^[a-zA-Zа-яА-Я \.-]+$", $_POST["sname"]))
-bark("Ваша фамилия содержит неверные символы.");
+if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$", $_POST["sname"]))
+bark("Р’Р°С€Р° С„Р°РјРёР»РёСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРІРµСЂРЅС‹Рµ СЃРёРјРІРѕР»С‹.");
 $updateset[] = "surname = ".sqlesc($_POST["sname"]);
 
-if(!ereg("^[a-zA-Zа-яА-Я0-9 _-]+$",$_POST['username']))
-bark('Ваш ник содержит недопустимые символы');
+if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ0-9 _-]+$",$_POST['username']))
+bark('Р’Р°С€ РЅРёРє СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹');
 $updateset[] = "username = ".sqlesc($_POST['username']);
-// Мы убрали это
+// РњС‹ СѓР±СЂР°Р»Рё СЌС‚Рѕ
 /*
 $avatar = $_POST["avatar"];
 // Check remote avatar size
@@ -147,16 +147,16 @@ $updateset[] = "birthday = " . sqlesc(date("$year.$month.$day"));
 if (is_valid_id($_POST["country"]))
   $updateset[] = "country = ".$_POST["country"];
 if(!empty($_POST['newcity'])&&is_valid_id($_POST["country"]))
-{	if(!ereg("^[a-zA-Zа-яА-Я0-9\. -]+$",$_POST['newcity']))
-		bark("Это не похоже на реальное название города!");
+{	if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ0-9\. -]+$",$_POST['newcity']))
+		bark("Р­С‚Рѕ РЅРµ РїРѕС…РѕР¶Рµ РЅР° СЂРµР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ РіРѕСЂРѕРґР°!");
 	if(!mysql_fetch_array(sql_query("SELECT id FROM countries WHERE id = ".$_POST['country'])))
-		bark("Этой страны нет в базе!");
+		bark("Р­С‚РѕР№ СЃС‚СЂР°РЅС‹ РЅРµС‚ РІ Р±Р°Р·Рµ!");
 	$arr=mysql_fetch_array(sql_query("SELECT id FROM cities WHERE lower(name)= lower(".sqlesc($_POST['newcity']).") AND country_id = ".$_POST['country']));
 	if(!empty($arr['id']))
 		$updateset[] = "city = ".$arr['id'];
 	else{
 	if(!sql_query("INSERT INTO cities (`name`,`country_id`) VALUES (".sqlesc($_POST['newcity']).", ".$_POST['country'].")"))
-		bark("Неизвестная ошибка!");
+		bark("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!");
 	$updateset[] = "city = ".mysql_insert_id();}
 }
 elseif (is_valid_id($_POST["city"]))
@@ -174,33 +174,33 @@ if($sect=='contact') {
 
 $icq = (int)$_POST["icq"];
 if (strlen($icq) > 10)
-    bark("Номер icq слишком длинный  (Макс - 10)");
+    bark("РќРѕРјРµСЂ icq СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 10)");
 $updateset[] = "icq = " . sqlesc($icq);
 
 /* We haven't that now...
 $msn = unesc($_POST["msn"]);
 if (strlen($msn) > 30)
-    bark("Ваш msn слишком длинный  (Макс - 30)");
+    bark("Р’Р°С€ msn СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 $updateset[] = "msn = " . sqlesc(htmlspecialchars($msn));
 
 $aim = unesc($_POST["aim"]);
 if (strlen($aim) > 30)
-    bark("Ваш aim слишком длинный  (Макс - 30)");
+    bark("Р’Р°С€ aim СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 $updateset[] = "aim = " . sqlesc(htmlspecialchars($aim));
 
 $yahoo = unesc($_POST["yahoo"]);
 if (strlen($yahoo) > 30)
-    bark("Ваш yahoo слишком длинный  (Макс - 30)");
+    bark("Р’Р°С€ yahoo СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 $updateset[] = "yahoo = " . sqlesc(htmlspecialchars($yahoo));
 
 $mirc = unesc($_POST["mirc"]);
 if (strlen($mirc) > 30)
-    bark("Ваш mirc слишком длинный  (Макс - 30)");
+    bark("Р’Р°С€ mirc СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 $updateset[] = "mirc = " . sqlesc(htmlspecialchars($mirc));
 
 $skype = unesc($_POST["skype"]);
 if (strlen($skype) > 20)
-    bark("Ваш skype слишком длинный  (Макс - 20)");
+    bark("Р’Р°С€ skype СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 20)");
 $updateset[] = "skype = " . sqlesc(htmlspecialchars($skype));
 
 /*
@@ -227,10 +227,10 @@ if($sect=='avatar')
 
 $avatar_max_width=200;
 $avatar_max_height=400;
-$maxfilesize = 5242880; // Допустимый размер в байтах (100кб)
+$maxfilesize = 5242880; // Р”РѕРїСѓСЃС‚РёРјС‹Р№ СЂР°Р·РјРµСЂ РІ Р±Р°Р№С‚Р°С… (100РєР±)
 $path=GetCWD()."/avatars";
 
-// Разрешенные типы
+// Р Р°Р·СЂРµС€РµРЅРЅС‹Рµ С‚РёРїС‹
 $allowed_types = array(
 "image/gif" => "gif",
 "image/pjpeg" => "jpg",
@@ -246,43 +246,43 @@ if($_POST['delete'])
 	$updateset[]="avatar = ''";
 }
 elseif(empty($_FILES['avatar']['tmp_name'])) {
-	bark("Аватар не загружен"); }
+	bark("РђРІР°С‚Р°СЂ РЅРµ Р·Р°РіСЂСѓР¶РµРЅ"); }
 else
 {
 	if ($_FILES['avatar']['size'] > $maxfilesize)
-	bark("Слишком большой размер файла (<font color=\"red\">".round($_FILES['avatar']['size']/1024,2)." кб.</font>)!<br>
-      Аватар должен быть <font color=\"red\">менее ".($maxfilesize/1024)."kb</font>.");
+	bark("РЎР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° (<font color=\"red\">".round($_FILES['avatar']['size']/1024,2)." РєР±.</font>)!<br>
+      РђРІР°С‚Р°СЂ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ <font color=\"red\">РјРµРЅРµРµ ".($maxfilesize/1024)."kb</font>.");
 
 	$ifile = $_FILES['avatar']['tmp_name'];
-	// Проверяем на попытку взлома
+	// РџСЂРѕРІРµСЂСЏРµРј РЅР° РїРѕРїС‹С‚РєСѓ РІР·Р»РѕРјР°
 	if(!is_uploaded_file($ifile))
-	bark("Файл не загружен!");
+	bark("Р¤Р°Р№Р» РЅРµ Р·Р°РіСЂСѓР¶РµРЅ!");
 
-	// Получаем НАСТОЯЩИЕ данные об аватаре
+	// РџРѕР»СѓС‡Р°РµРј РќРђРЎРўРћРЇР©РР• РґР°РЅРЅС‹Рµ РѕР± Р°РІР°С‚Р°СЂРµ
 	if(!$av = @getimagesize($ifile))
-		bark("Загружаемый вами файл не является картинкой или данный формат не поддерживается!");
+		bark("Р—Р°РіСЂСѓР¶Р°РµРјС‹Р№ РІР°РјРё С„Р°Р№Р» РЅРµ СЏРІР»СЏРµС‚СЃСЏ РєР°СЂС‚РёРЅРєРѕР№ РёР»Рё РґР°РЅРЅС‹Р№ С„РѕСЂРјР°С‚ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ!");
 	$width=$av[0];
 	$height=$av[1];
 	$mime=$av['mime'];
 
-	// Проверка на допустимые форматы
+	// РџСЂРѕРІРµСЂРєР° РЅР° РґРѕРїСѓСЃС‚РёРјС‹Рµ С„РѕСЂРјР°С‚С‹
 	if (!array_key_exists($mime,$allowed_types))
-		bark("Неверный тип файла для аватара!");
+		bark("РќРµРІРµСЂРЅС‹Р№ С‚РёРї С„Р°Р№Р»Р° РґР»СЏ Р°РІР°С‚Р°СЂР°!");
 		
-	// Берем ид
+	// Р‘РµСЂРµРј РёРґ
 	$id = $CURUSER['id'];
 	
 	$ifilename = "avatar".$id.'.'.$allowed_types[$mime];
 	if(!image_resize($mime, $ifile,$path.'/'.$ifilename,$avatar_max_width,$avatar_max_height))
-	bark("<b><font color=\"red\">Ошибка загрузки аватара на сервер!</font><br>
-	Свяжитесь с <a href=\"contact.php\" target=\"_blank\"'>Администрацией</a> сайта.</b>");
-	// Создаем превьюшку для стены и комментариев
+	bark("<b><font color=\"red\">РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё Р°РІР°С‚Р°СЂР° РЅР° СЃРµСЂРІРµСЂ!</font><br>
+	РЎРІСЏР¶РёС‚РµСЃСЊ СЃ <a href=\"contact.php\" target=\"_blank\"'>РђРґРјРёРЅРёСЃС‚СЂР°С†РёРµР№</a> СЃР°Р№С‚Р°.</b>");
+	// РЎРѕР·РґР°РµРј РїСЂРµРІСЊСЋС€РєСѓ РґР»СЏ СЃС‚РµРЅС‹ Рё РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ
 	if(!image_resize($mime, $ifile,$path.'/small/'.$ifilename,50,100)) 
-	bark("<b><font color=\"red\">Ошибка загрузки аватара на сервер!</font><br>
-	Свяжитесь с <a href=\"contact.php\" target=\"_blank\"'>Администрацией</a> сайта.</b>");
+	bark("<b><font color=\"red\">РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё Р°РІР°С‚Р°СЂР° РЅР° СЃРµСЂРІРµСЂ!</font><br>
+	РЎРІСЏР¶РёС‚РµСЃСЊ СЃ <a href=\"contact.php\" target=\"_blank\"'>РђРґРјРёРЅРёСЃС‚СЂР°С†РёРµР№</a> СЃР°Р№С‚Р°.</b>");
 	if(!image_resize($mime, $ifile,$path.'/65/'.$ifilename,65,130)) 
-	bark("<b><font color=\"red\">Ошибка загрузки аватара на сервер!</font><br>
-	Свяжитесь с <a href=\"contact.php\" target=\"_blank\"'>Администрацией</a> сайта.</b>");
+	bark("<b><font color=\"red\">РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё Р°РІР°С‚Р°СЂР° РЅР° СЃРµСЂРІРµСЂ!</font><br>
+	РЎРІСЏР¶РёС‚РµСЃСЊ СЃ <a href=\"contact.php\" target=\"_blank\"'>РђРґРјРёРЅРёСЃС‚СЂР°С†РёРµР№</a> СЃР°Р№С‚Р°.</b>");
 
 	$updateset[]="avatar= '".$ifilename."'";
 }}
@@ -318,7 +318,7 @@ EOD;
         $urladd .= "&mailsent=1";
 }
 
-sql_query("UPDATE users SET " . implode(",", $updateset) . " WHERE id = " . $CURUSER["id"]) or bark("Произошла ошибка при изменении профиля!");
+sql_query("UPDATE users SET " . implode(",", $updateset) . " WHERE id = " . $CURUSER["id"]) or bark("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё РїСЂРѕС„РёР»СЏ!");
 
 header("Location: $DEFAULTBASEURL/my.php?t=".$sect."&edited=1" . $urladd);
 

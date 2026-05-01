@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 
@@ -18,25 +18,25 @@ $row = mysql_fetch_array($res);
 if (!$row)
 	die();
 
-stdhead("Редактирование торрента \"" . $row["name"] . "\"");
+stdhead("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ С‚РѕСЂСЂРµРЅС‚Р° \"" . $row["name"] . "\"");
 
 if (!isset($CURUSER) || ($CURUSER["id"] != $row["owner"] && get_user_class() < UC_MODERATOR)) {
-	stdmsg($tracker_lang['error'],"Вы не можете редактировать этот торрент.");
+	stdmsg($tracker_lang['error'],"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ СЌС‚РѕС‚ С‚РѕСЂСЂРµРЅС‚.");
 } else {
 	print("<form name=\"edit\" method=post action=takeedit.php enctype=multipart/form-data>\n");
 	print("<input type=\"hidden\" name=\"id\" value=\"$id\">\n");
 	if (isset($_GET["returnto"]))
 		print("<input type=\"hidden\" name=\"returnto\" value=\"" . htmlspecialchars($_GET["returnto"]) . "\" />\n");
 	print("<table border=\"1\" cellspacing=\"0\" cellpadding=\"5\">\n");
-	print("<tr><td class=\"colhead\" colspan=\"2\">Редактировать торрент</td></tr>");
-	tr($tracker_lang['torrent_file'], "<input type=file name=tfile size=80>\n <input type=\"checkbox\"".($row['multitracker']==1 ? ' checked=""' : '').' name="multi" value="1"> Мультитрекерный', 1);
+	print("<tr><td class=\"colhead\" colspan=\"2\">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‚РѕСЂСЂРµРЅС‚</td></tr>");
+	tr($tracker_lang['torrent_file'], "<input type=file name=tfile size=80>\n <input type=\"checkbox\"".($row['multitracker']==1 ? ' checked=""' : '').' name="multi" value="1"> РњСѓР»СЊС‚РёС‚СЂРµРєРµСЂРЅС‹Р№', 1);
 	tr($tracker_lang['torrent_name'], "<input type=\"text\" name=\"name\" value=\"" . $row["name"] . "\" size=\"80\" />", 1);
-	tr($tracker_lang['images'], "<input type=radio name=img1action value='keep' checked>Оставить картинку №1&nbsp&nbsp"."<input type=radio name=img1action value='delete'>Удалить картинку №1&nbsp&nbsp"."<input type=radio name=img1action value='update'>Обновить картинку №1<br /><b>Картинка №1:</b>&nbsp&nbsp<input type=file name=image0 size=80> <br /><br /> <input type=radio name=img2action value='keep' checked>Оставить картинку №2&nbsp&nbsp"."<input type=radio name=img2action value='delete'>Удалить картинку №2&nbsp&nbsp"."<input type=radio name=img2action value='update'>Обновить картинку №2<br /><b>Картинка №2:</b>&nbsp&nbsp<input type=file name=image1 size=80>", 1);
+	tr($tracker_lang['images'], "<input type=radio name=img1action value='keep' checked>РћСЃС‚Р°РІРёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–1&nbsp&nbsp"."<input type=radio name=img1action value='delete'>РЈРґР°Р»РёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–1&nbsp&nbsp"."<input type=radio name=img1action value='update'>РћР±РЅРѕРІРёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–1<br /><b>РљР°СЂС‚РёРЅРєР° в„–1:</b>&nbsp&nbsp<input type=file name=image0 size=80> <br /><br /> <input type=radio name=img2action value='keep' checked>РћСЃС‚Р°РІРёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–2&nbsp&nbsp"."<input type=radio name=img2action value='delete'>РЈРґР°Р»РёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–2&nbsp&nbsp"."<input type=radio name=img2action value='update'>РћР±РЅРѕРІРёС‚СЊ РєР°СЂС‚РёРЅРєСѓ в„–2<br /><b>РљР°СЂС‚РёРЅРєР° в„–2:</b>&nbsp&nbsp<input type=file name=image1 size=80>", 1);
 if ((strpos($row["ori_descr"], "<") === false) || (strpos($row["ori_descr"], "&lt;") !== false))
   $c = "";
 else
   $c = " checked";
-	//tr("Описание", "<textarea name=\"descr\" rows=\"10\" cols=\"80\">" . htmlspecialchars($row["ori_descr"]) . "</textarea><br />(HTML <b>не</b> разрешен. Нажмите <a href=tags.php>сюда</a> для получения информации о тегах.)", 1);
+	//tr("РћРїРёСЃР°РЅРёРµ", "<textarea name=\"descr\" rows=\"10\" cols=\"80\">" . htmlspecialchars($row["ori_descr"]) . "</textarea><br />(HTML <b>РЅРµ</b> СЂР°Р·СЂРµС€РµРЅ. РќР°Р¶РјРёС‚Рµ <a href=tags.php>СЃСЋРґР°</a> РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РµРіР°С….)", 1);
 	print("<tr><td class=rowhead style='padding: 3px'>".$tracker_lang['description']."</td><td>");
 	textbbcode("edit","descr",htmlspecialchars($row["ori_descr"]), 0);
 	print("</td></tr>\n");
@@ -52,8 +52,8 @@ else
 	}
 
 	$s .= "</select>\n";
-	tr("Тип", $s, 1);
-	////// МОД ТЭГОВ [by merdox] //////
+	tr("РўРёРї", $s, 1);
+	////// РњРћР” РўР­Р“РћР’ [by merdox] //////
 ?>
     <style type="text/css" media="screen">
         code {font:99.9%/1.2 consolas,'courier new',monospace;}
@@ -73,49 +73,49 @@ else
         })(jQuery);
     </script>
 
-<?
+<?php
 $s = '<input type="hidden" name="oldtags" value="' . $row["tags"] . '"><input type="text" id="tags" name="tags" value="'.$row["tags"].'">';
 $s .= '<div id="from">';
 $tags = taggenrelist($row["category"]);
 foreach ($tags as $tag)
 	$s .= "<a href='#'>" . htmlspecialchars($tag["name"]) . "</a>\n";
 $s .= "</div>\n";
-tr("Тэги", $s, 1);
-////// МОД ТЭГОВ [by merdox] //////
-///// Скидка раздачи
+tr("РўСЌРіРё", $s, 1);
+////// РњРћР” РўР­Р“РћР’ [by merdox] //////
+///// РЎРєРёРґРєР° СЂР°Р·РґР°С‡Рё
        if (get_user_class() >= UC_MODERATOR)
-        $prc .= "Download не учитывать на <select name=\"free\">";
+        $prc .= "Download РЅРµ СѓС‡РёС‚С‹РІР°С‚СЊ РЅР° <select name=\"free\">";
         for ($i = 0; $i <= 10; ++$i)
         {
         $selected = ($row['free'] == $i*10) ? " selected=\"selected\"" : "";
         $prc .= "<option value=".$i."0".$selected.">".$i."0</option>";
         }
         $prc .= "</select> %";
-        tr("Скидка", $prc, 1);
-////// Скидка раздачи		
-	tr("Видимый", "<input type=\"checkbox\" name=\"visible\"" . (($row["visible"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" /> Видимый на главной<br /><table border=0 cellspacing=0 cellpadding=0 width=420><tr><td class=embedded>Обратите внимание, что торрент автоматически станет видмым когда появиться раздающий и автоматически перестанет быть видимым (станет мертвяком) когда не будет раздающего некоторое время. Используйте этот переключатель для ускорения процеса. Также учтите что невидимые торренты (мертвяки) все-равно могут быть просмотрены и найдены, это просто не по-умолчанию.</td></tr></table>", 1);
+        tr("РЎРєРёРґРєР°", $prc, 1);
+////// РЎРєРёРґРєР° СЂР°Р·РґР°С‡Рё		
+	tr("Р’РёРґРёРјС‹Р№", "<input type=\"checkbox\" name=\"visible\"" . (($row["visible"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" /> Р’РёРґРёРјС‹Р№ РЅР° РіР»Р°РІРЅРѕР№<br /><table border=0 cellspacing=0 cellpadding=0 width=420><tr><td class=embedded>РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ С‚РѕСЂСЂРµРЅС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃС‚Р°РЅРµС‚ РІРёРґРјС‹Рј РєРѕРіРґР° РїРѕСЏРІРёС‚СЊСЃСЏ СЂР°Р·РґР°СЋС‰РёР№ Рё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµСЃС‚Р°РЅРµС‚ Р±С‹С‚СЊ РІРёРґРёРјС‹Рј (СЃС‚Р°РЅРµС‚ РјРµСЂС‚РІСЏРєРѕРј) РєРѕРіРґР° РЅРµ Р±СѓРґРµС‚ СЂР°Р·РґР°СЋС‰РµРіРѕ РЅРµРєРѕС‚РѕСЂРѕРµ РІСЂРµРјСЏ. РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЌС‚РѕС‚ РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ РґР»СЏ СѓСЃРєРѕСЂРµРЅРёСЏ РїСЂРѕС†РµСЃР°. РўР°РєР¶Рµ СѓС‡С‚РёС‚Рµ С‡С‚Рѕ РЅРµРІРёРґРёРјС‹Рµ С‚РѕСЂСЂРµРЅС‚С‹ (РјРµСЂС‚РІСЏРєРё) РІСЃРµ-СЂР°РІРЅРѕ РјРѕРіСѓС‚ Р±С‹С‚СЊ РїСЂРѕСЃРјРѕС‚СЂРµРЅС‹ Рё РЅР°Р№РґРµРЅС‹, СЌС‚Рѕ РїСЂРѕСЃС‚Рѕ РЅРµ РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ.</td></tr></table>", 1);
 	if(get_user_class() >= UC_ADMINISTRATOR)
-		tr("Забанен", "<input type=\"checkbox\" name=\"banned\"" . (($row["banned"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" />", 1);
+		tr("Р—Р°Р±Р°РЅРµРЅ", "<input type=\"checkbox\" name=\"banned\"" . (($row["banned"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" />", 1);
     if(get_user_class() >= UC_ADMINISTRATOR)
-        tr("Золотая раздача", "<input type=\"checkbox\" name=\"free\"" . (($row["free"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" /> Золотая раздача (считаеться только раздача, скачка не учитиваеться)", 1);
+        tr("Р—РѕР»РѕС‚Р°СЏ СЂР°Р·РґР°С‡Р°", "<input type=\"checkbox\" name=\"free\"" . (($row["free"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"1\" /> Р—РѕР»РѕС‚Р°СЏ СЂР°Р·РґР°С‡Р° (СЃС‡РёС‚Р°РµС‚СЊСЃСЏ С‚РѕР»СЊРєРѕ СЂР°Р·РґР°С‡Р°, СЃРєР°С‡РєР° РЅРµ СѓС‡РёС‚РёРІР°РµС‚СЊСЃСЏ)", 1);
     if(get_user_class() >= UC_ADMINISTRATOR)
-        tr("Важный", "<input type=\"checkbox\" name=\"sticky\"" . (($row["sticky"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"yes\" /> Прикрепить этот торрент (всегда наверху)", 1);
-	print("<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"Отредактровать\" style=\"height: 25px; width: 100px\"> <input type=reset value=\"Обратить изменения\" style=\"height: 25px; width: 100px\"></td></tr>\n");
+        tr("Р’Р°Р¶РЅС‹Р№", "<input type=\"checkbox\" name=\"sticky\"" . (($row["sticky"] == "yes") ? " checked=\"checked\"" : "" ) . " value=\"yes\" /> РџСЂРёРєСЂРµРїРёС‚СЊ СЌС‚РѕС‚ С‚РѕСЂСЂРµРЅС‚ (РІСЃРµРіРґР° РЅР°РІРµСЂС…Сѓ)", 1);
+	print("<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"РћС‚СЂРµРґР°РєС‚СЂРѕРІР°С‚СЊ\" style=\"height: 25px; width: 100px\"> <input type=reset value=\"РћР±СЂР°С‚РёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ\" style=\"height: 25px; width: 100px\"></td></tr>\n");
 	print("</table>\n");
 	print("</form>\n");
 	print("<p>\n");
 	print("<form method=\"post\" action=\"delete.php\">\n");
   print("<table border=\"1\" cellspacing=\"0\" cellpadding=\"5\">\n");
-  print("<tr><td class=embedded style='background-color: #F5F4EA;padding-bottom: 5px' colspan=\"2\"><b>Удалить торрент</b> Причина:</td></tr>");
-  print("<td><input name=\"reasontype\" type=\"radio\" value=\"1\">&nbsp;Мертвяк </td><td> 0 раздающих, 0 качающих = 0 соединений</td></tr>\n");
-  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"2\">&nbsp;Дупликат</td><td><input type=\"text\" size=\"40\" name=\"reason[]\"></td></tr>\n");
+  print("<tr><td class=embedded style='background-color: #F5F4EA;padding-bottom: 5px' colspan=\"2\"><b>РЈРґР°Р»РёС‚СЊ С‚РѕСЂСЂРµРЅС‚</b> РџСЂРёС‡РёРЅР°:</td></tr>");
+  print("<td><input name=\"reasontype\" type=\"radio\" value=\"1\">&nbsp;РњРµСЂС‚РІСЏРє </td><td> 0 СЂР°Р·РґР°СЋС‰РёС…, 0 РєР°С‡Р°СЋС‰РёС… = 0 СЃРѕРµРґРёРЅРµРЅРёР№</td></tr>\n");
+  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"2\">&nbsp;Р”СѓРїР»РёРєР°С‚</td><td><input type=\"text\" size=\"40\" name=\"reason[]\"></td></tr>\n");
   print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"3\">&nbsp;Nuked</td><td><input type=\"text\" size=\"40\" name=\"reason[]\"></td></tr>\n");
-  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"4\">&nbsp;Правила</td><td><input type=\"text\" size=\"40\" name=\"reason[]\">(Обязательно)</td></tr>");
-  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"5\" checked>&nbsp;Другое:</td><td><input type=\"text\" size=\"40\" name=\"reason[]\">(Обязательно)</td></tr>\n");
+  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"4\">&nbsp;РџСЂР°РІРёР»Р°</td><td><input type=\"text\" size=\"40\" name=\"reason[]\">(РћР±СЏР·Р°С‚РµР»СЊРЅРѕ)</td></tr>");
+  print("<tr><td><input name=\"reasontype\" type=\"radio\" value=\"5\" checked>&nbsp;Р”СЂСѓРіРѕРµ:</td><td><input type=\"text\" size=\"40\" name=\"reason[]\">(РћР±СЏР·Р°С‚РµР»СЊРЅРѕ)</td></tr>\n");
 	print("<input type=\"hidden\" name=\"id\" value=\"$id\">\n");
 	if (isset($_GET["returnto"]))
 		print("<input type=\"hidden\" name=\"returnto\" value=\"" . htmlspecialchars($_GET["returnto"]) . "\" />\n");
-  print("<td colspan=\"2\" align=\"center\"><input type=submit value='Удалить' style='height: 25px'></td></tr>\n");
+  print("<td colspan=\"2\" align=\"center\"><input type=submit value='РЈРґР°Р»РёС‚СЊ' style='height: 25px'></td></tr>\n");
   print("</table>");
 	print("</form>\n");
 	print("</p>\n");

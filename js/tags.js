@@ -33,10 +33,10 @@ function tagRotate()
 	switch(tagNow)
 	{
 		case 'tags':
-			jQuery('#tagcchead').empty().append('<a href="javascript:tag_switch();" title="Œ·Î‡ÍÓ"><img src="pic/l-arrow.gif" alt="Œ·Î‡ÍÓ" title="Œ·Î‡ÍÓ" border=\"0\"></a> “Â„Ë');
+			jQuery('#tagcchead').empty().append('<a href="javascript:tag_switch();" title="–û–±–ª–∞–∫–æ"><img src="pic/l-arrow.gif" alt="–û–±–ª–∞–∫–æ" title="–û–±–ª–∞–∫–æ" border=\"0\"></a> –¢–µ–≥–∏');
 		break;
 		case 'cloud':
-			jQuery('#tagcchead').empty().append('Œ·Î‡ÍÓ <a href="javascript:tag_switch();" title="“Â„Ë"><img src="pic/r-arrow.gif" alt="“Â„Ë" title="“Â„Ë" border=\"0\"></a>');
+			jQuery('#tagcchead').empty().append('–û–±–ª–∞–∫–æ <a href="javascript:tag_switch();" title="–¢–µ–≥–∏"><img src="pic/r-arrow.gif" alt="–¢–µ–≥–∏" title="–¢–µ–≥–∏" border=\"0\"></a>');
 		break;
 	}
 }

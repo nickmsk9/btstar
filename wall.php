@@ -14,13 +14,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     <script language="JavaScript" type="text/javascript">
         jQuery(function($) {$('.zebra:even').css({backgroundColor: '#EEEEEE'});});
     </script>
-    <?
+    <?php
     if ($act == "send")
     {
         $to = (int)$_POST['to'];
         $text = base64_decode($_POST['text']);
         if(empty($CURUSER['id']) || empty($to) || empty($text))
-            die("Прямой доступ закрыт");
+            die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
         $dt = get_date_time();
         sql_query("INSERT INTO wall (text, owner, user, added) VALUES (" . sqlesc($text) . ", $to, " . sqlesc($CURUSER['id']) . ", " . sqlesc($dt) . ")") or sqlerr(__FILE__,__LINE__);
         $show = true;
@@ -35,14 +35,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
             $res = sql_query("SELECT user, owner FROM wall WHERE id = $post") or sqlerr(__FILE__,__LINE__);
             $row = mysql_fetch_array($res);
             if ($CURUSER['id'] != $row['owner'] && $CURUSER['id'] != $row['user'] && get_user_class() < UC_MODERATOR)
-                die("У вас нет прав.");
+                die("РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ.");
         }
         sql_query("DELETE FROM wall WHERE id = $post") or sqlerr(__FILE__,__LINE__);
         $show = true;
     }
 
     else
-       die("Прямой доступ закрыт");
+       die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
     if (isset($show))
     {
@@ -51,7 +51,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
         list($pagertop, $pagerbottom, $limit) = pager($limited, $count, "userdetails.php?id=$to&", array(lastpagedefault => 1));
         $res = sql_query("SELECT w.*, u.username, u.class, u.avatar FROM wall AS w LEFT JOIN users AS u ON u.id = w.user WHERE w.owner = $to ORDER BY w.added $limit") or sqlerr(__FILE__,__LINE__);
         if (mysql_num_rows($res) < 1)
-            print("<p>Нет записей.</p>\n");
+            print("<p>РќРµС‚ Р·Р°РїРёСЃРµР№.</p>\n");
         else
         {
             print("<table class=\"inlay\" width=\"100%\">\n");
@@ -74,9 +74,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
         }
     }
     else
-        die("Прямой доступ закрыт");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 }
 else
-    die("Прямой доступ закрыт");
+    die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
 ?>

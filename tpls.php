@@ -1,85 +1,85 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
-stdhead('Шаблоны раздач');
+stdhead('РЁР°Р±Р»РѕРЅС‹ СЂР°Р·РґР°С‡');
 if(get_user_class() < UC_ADMINISTRATOR)
 die('Access denied');
 
 if(empty($_GET['act'])) {
 $sql = sql_query("SELECT * FROM templates");
-begin_frame('Шаблоны раздач');
-?> <table border="0" width="100%"> <?
+begin_frame('РЁР°Р±Р»РѕРЅС‹ СЂР°Р·РґР°С‡');
+?> <table border="0" width="100%"> <?php
 while($tpl = mysql_fetch_array($sql))
 {
     ?><tr><td width="30%" align="right" style="padding: 2px;">
-		<?=$tpl['name'];?></td><td style="padding: 2px;">[<a href="tpls.php?act=edit&tpl=<?=$tpl['id'];?>">Редактировать</a>] [<a href="tpls.php?act=del&tpl=<?=$tpl['id'];?>">Удалить</a>]</td></tr><?
+		<?=$tpl['name'];?></td><td style="padding: 2px;">[<a href="tpls.php?act=edit&tpl=<?=$tpl['id'];?>">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</a>] [<a href="tpls.php?act=del&tpl=<?=$tpl['id'];?>">РЈРґР°Р»РёС‚СЊ</a>]</td></tr><?php
 }
-?> </table> <?
+?> </table> <?php
 end_frame();
 
-begin_frame('Управление');
-?> <a href="tpls.php?act=add">Добавить</a> <?
+begin_frame('РЈРїСЂР°РІР»РµРЅРёРµ');
+?> <a href="tpls.php?act=add">Р”РѕР±Р°РІРёС‚СЊ</a> <?php
 end_frame();
 }
 elseif($_GET['act']=='add')
 {
-	begin_frame('Добавить щаблон');
+	begin_frame('Р”РѕР±Р°РІРёС‚СЊ С‰Р°Р±Р»РѕРЅ');
 		?><table border="0" width="100%"><form name="tpl" action="tpls.php?act=takeadd" method="post"><tr><td width="30%" align="right" style="padding: 2px;">
-		Название</td><td style="padding: 2px;"><input type="text" size="40" name="name"></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Текст</td><td style="padding: 2px;">
-		<? textbbcode("tpl","text","",$long); ?>
-		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="Создать"></td></tr>
-		</form></table> <?
+		РќР°Р·РІР°РЅРёРµ</td><td style="padding: 2px;"><input type="text" size="40" name="name"></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРєСЃС‚</td><td style="padding: 2px;">
+		<?php textbbcode("tpl","text","",$long); ?>
+		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="РЎРѕР·РґР°С‚СЊ"></td></tr>
+		</form></table> <?php
 	end_frame();
 }
 elseif($_GET['act']=='takeadd')
 {
 	if(empty($_POST['name'])||empty($_POST['text']))
-	{	echo "Не все поля заполнены";
+	{	echo "РќРµ РІСЃРµ РїРѕР»СЏ Р·Р°РїРѕР»РЅРµРЅС‹";
 		stdfoot(); die(); }
 	if(sql_query("INSERT INTO templates (`name`,`template`) VALUES (".sqlesc($_POST['name']).", ".sqlesc($_POST['text']).")"))
-		echo "Шаблон успешно создан";
+		echo "РЁР°Р±Р»РѕРЅ СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ";
 	else
-		echo "Ошибка при создании шаблона: ".mysql_error();
+		echo "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё С€Р°Р±Р»РѕРЅР°: ".mysql_error();
 }
 elseif($_GET['act']=='del')
 {
 	if(empty($_GET['tpl'])||!is_numeric($_GET['tpl']))
-	{	echo "Выберите шаблон";
+	{	echo "Р’С‹Р±РµСЂРёС‚Рµ С€Р°Р±Р»РѕРЅ";
 		stdfoot(); die(); }
 	if(sql_query("DELETE FROM templates WHERE id = ".$_GET['tpl']))
-		echo "Шаблон удален";
+		echo "РЁР°Р±Р»РѕРЅ СѓРґР°Р»РµРЅ";
 	else
-		echo "Ошибка при удалении шаблона: ".mysql_error();
+		echo "РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё С€Р°Р±Р»РѕРЅР°: ".mysql_error();
 }
 elseif($_GET['act']=='edit')
 {
 	if(empty($_GET['tpl'])||!is_numeric($_GET['tpl']))
-	{	echo "Выберите шаблон";
+	{	echo "Р’С‹Р±РµСЂРёС‚Рµ С€Р°Р±Р»РѕРЅ";
 		stdfoot(); die(); }
 	$tpl = mysql_fetch_array(sql_query("SELECT * FROM templates WHERE id = ".$_GET['tpl']));
 	if(empty($tpl))
-	{	echo "Выберите шаблон";
+	{	echo "Р’С‹Р±РµСЂРёС‚Рµ С€Р°Р±Р»РѕРЅ";
 		stdfoot(); die(); }
-	begin_frame('Изменить щаблон');
+	begin_frame('РР·РјРµРЅРёС‚СЊ С‰Р°Р±Р»РѕРЅ');
 		?><table border="0" width="100%"><form name="tpl" action="tpls.php?act=takeedit&tpl=<?=$tpl['id'];?>" method="post"><tr><td width="30%" align="right" style="padding: 2px;">
-		Название</td><td style="padding: 2px;"><input type="text" size="40" name="name" value="<?=$tpl['name'];?>"></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Текст</td><td style="padding: 2px;">
-		<? textbbcode("tpl","text",$tpl['template'],$long); ?>
-		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="Изменить"></td></tr>
-		</form></table> <?
+		РќР°Р·РІР°РЅРёРµ</td><td style="padding: 2px;"><input type="text" size="40" name="name" value="<?=$tpl['name'];?>"></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРєСЃС‚</td><td style="padding: 2px;">
+		<?php textbbcode("tpl","text",$tpl['template'],$long); ?>
+		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="РР·РјРµРЅРёС‚СЊ"></td></tr>
+		</form></table> <?php
 	end_frame();
 }
 elseif($_GET['act']=='takeedit')
 {
 	if(empty($_GET['tpl'])||!is_numeric($_GET['tpl']))
-	{	echo "Выберите шаблон";
+	{	echo "Р’С‹Р±РµСЂРёС‚Рµ С€Р°Р±Р»РѕРЅ";
 		stdfoot(); die(); }
 	if(sql_query("UPDATE templates SET name = ".sqlesc($_POST['name']).", template = ".sqlesc($_POST['text'])." WHERE id = ".$_GET['tpl']))
-		echo "Шаблон успешно изменен";
+		echo "РЁР°Р±Р»РѕРЅ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅ";
 	else
-		echo "Ошибка при изменении шаблона: ".mysql_error();
+		echo "РћС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё С€Р°Р±Р»РѕРЅР°: ".mysql_error();
 }
 stdfoot();
 ?>

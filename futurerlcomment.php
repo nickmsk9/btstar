@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 $valid_actions = array('add', 'edit', 'delete', 'vieworiginal', 'quote');
 $action = in_array($_GET["action"], $valid_actions) ? $_GET['action'] : '';
@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $futurerlid = 0 + $_POST["tid"];
 if (!is_valid_id($futurerlid))
-stderr("Ошибка", "Неверный ID $futurerlid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $futurerlid.");
 $res = mysql_query("SELECT id FROM futurerls WHERE id = $futurerlid") or sqlerr(__FILE__,__LINE__);
 $arr = mysql_fetch_array($res);
 if (!$arr)
-stderr("Ошибка", "Нет анонса с таким ID $futurerlid.");
+stderr("РћС€РёР±РєР°", "РќРµС‚ Р°РЅРѕРЅСЃР° СЃ С‚Р°РєРёРј ID $futurerlid.");
 $text = trim($_POST["msg"]);
 if (!$text)
-stderr("Ошибка", "А писать то будем то?");
+stderr("РћС€РёР±РєР°", "Рђ РїРёСЃР°С‚СЊ С‚Рѕ Р±СѓРґРµРј С‚Рѕ?");
 mysql_query("INSERT INTO comments (user, trailer, added, text, ori_text) VALUES (" .
 $CURUSER["id"] . ",$futurerlid, '" . get_date_time() . "', " . sqlesc($text) .
 "," . sqlesc($text) . ")");
@@ -28,21 +28,21 @@ die;
 }
 $futurerlid = 0 + $_GET["tid"];
 if (!is_valid_id($futurerlid))
-stderr("Ошибка", "Неверный ID $futurerlid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $futurerlid.");
 $res = mysql_query("SELECT id FROM futurerls WHERE id=$futurerlid") or sqlerr(__FILE__,__LINE__);
 $arr = mysql_fetch_array($res);
 if (!$arr)
-stderr("Ошибка", "Неверный ID $futurerlid.");
-stdhead("Добавление комментария для ожидаемого релиза");
-begin_frame("Добавление комментария для ожидаемого релиза");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $futurerlid.");
+stdhead("Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РґР»СЏ РѕР¶РёРґР°РµРјРѕРіРѕ СЂРµР»РёР·Р°");
+begin_frame("Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РґР»СЏ РѕР¶РёРґР°РµРјРѕРіРѕ СЂРµР»РёР·Р°");
 print("<p><form name=\"nrg\" method=\"post\" action=\"futurerlcomment.php?action=add\">\n");
 print("<input type=\"hidden\" name=\"tid\" value=\"$futurerlid\"/>\n");
 ?>
 <center>
-<?
+<?php
 textbbcode("nrg","msg","$body",0);
 
-print("<center><p><input type=submit class=btn value='Отправить'> <input type=reset class=btn value='Сбросить'></p></center></form></br>\n");
+print("<center><p><input type=submit class=btn value='РћС‚РїСЂР°РІРёС‚СЊ'> <input type=reset class=btn value='РЎР±СЂРѕСЃРёС‚СЊ'></p></center></form></br>\n");
 end_frame();
 stdfoot();
 die;
@@ -51,20 +51,20 @@ elseif ($action == "edit")
 {
 $commentid = 0 + $_GET["cid"];
 if (!is_valid_id($commentid))
-stderr("Ошибка", "Неверный ID $commentid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $commentid.");
 $res = mysql_query("SELECT c.*, o.id FROM comments AS c LEFT JOIN futurerls AS o ON c.trailer = o.id WHERE c.id=$commentid") or sqlerr(__FILE__,__LINE__);
 //$res = mysql_query("SELECT c.*, o.coming FROM comments AS c LEFT JOIN coming AS o ON c.coming = o.id WHERE c.id=$commentid") or sqlerr(__FILE__,__LINE__);
 $arr = mysql_fetch_array($res);
 if (!$arr)
-stderr("Ошибка", "Неверный ID $commentid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $commentid.");
 if ($arr["user"] != $CURUSER["id"] && get_user_class() < UC_MODERATOR)
-stderr("Ошибка", "Доступа нет.");
+stderr("РћС€РёР±РєР°", "Р”РѕСЃС‚СѓРїР° РЅРµС‚.");
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $text = $_POST["msg"];
 $returnto = $_POST["returnto"];
 if ($text == "")
-stderr("Ошибка", "А писать будем то?");
+stderr("РћС€РёР±РєР°", "Рђ РїРёСЃР°С‚СЊ Р±СѓРґРµРј С‚Рѕ?");
 $text = sqlesc($text);
 $editedat = sqlesc(get_date_time());
 mysql_query("UPDATE comments SET text=$text, editedat=$editedat, editedby=$CURUSER[id] WHERE id=$commentid") or sqlerr(__FILE__, __LINE__);
@@ -74,19 +74,19 @@ else
 header("Location: $BASEURL/");      // change later ----------------------
 die;
 }
-stdhead("Редактирование комментария");
-begin_frame("Редактирование комментария");
+stdhead("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ");
+begin_frame("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ");
 print("<form name=nrg method=\"post\" action=\"futurerlcomment.php?action=edit&amp;cid=$commentid\">\n");
 print("<input type=\"hidden\" name=\"returnto\" value=\"" . $_SERVER["HTTP_REFERER"] . "\" size=\"20\" />\n");
 print("<input type=\"hidden\" name=\"cid\" value=\"$commentid\" size=\"20\" />\n");
 ?>
 <center>
-<?
+<?php
 textbbcode("nrg","msg","" . htmlspecialchars(stripslashes($arr["text"])) . "",0);
 ?>
 
-<?
-print("<center><p><input type=submit class=btn value='Отправить'> <input type=reset class=btn value='Сбросить'></p></center></form></br>\n");
+<?php
+print("<center><p><input type=submit class=btn value='РћС‚РїСЂР°РІРёС‚СЊ'> <input type=reset class=btn value='РЎР±СЂРѕСЃРёС‚СЊ'></p></center></form></br>\n");
 end_frame();
 stdfoot();
 die;
@@ -94,18 +94,18 @@ die;
 elseif ($action == "delete")
 {
 if (get_user_class() < UC_MODERATOR)
-stderr("Ошибка", "Доступа нет.");
+stderr("РћС€РёР±РєР°", "Р”РѕСЃС‚СѓРїР° РЅРµС‚.");
 $commentid = 0 + $_GET["cid"];
 if (!is_valid_id($commentid))
-stderr("Ошибка", "Неверный ID $commentid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $commentid.");
 $sure = $_GET["sure"];
 if (!$sure)
 {
 $referer = $_SERVER["HTTP_REFERER"];
-stderr("Удаление комментария", "Если вы уверены нажмите\n" .
+stderr("РЈРґР°Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ", "Р•СЃР»Рё РІС‹ СѓРІРµСЂРµРЅС‹ РЅР°Р¶РјРёС‚Рµ\n" .
 "<a href=?action=delete&cid=$commentid&sure=1" .
 ($referer ? "&returnto=" . urlencode($referer) : "") .
-">тут</a>.");
+">С‚СѓС‚</a>.");
 }
 $res = mysql_query("SELECT trailer FROM comments WHERE id=$commentid")  or sqlerr(__FILE__,__LINE__);
 $arr = mysql_fetch_array($res);
@@ -124,20 +124,20 @@ die;
 elseif ($action == "vieworiginal")
 {
 if (get_user_class() < UC_MODERATOR)
-stderr("Ошибка", "Доступа нет.");
+stderr("РћС€РёР±РєР°", "Р”РѕСЃС‚СѓРїР° РЅРµС‚.");
 $commentid = 0 + $_GET["cid"];
 if (!is_valid_id($commentid))
-stderr("Ошибка", "Неверный ID $commentid.");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $commentid.");
 $res = mysql_query("SELECT c.*, t.id FROM comments AS c LEFT JOIN futurerls AS t ON c.trailer = t.id WHERE c.id=$commentid") or sqlerr(__FILE__,__LINE__);
 $arr = mysql_fetch_array($res);
 if (!$arr)
-stderr("Ошибка", "Неверный ID $commentid.");
-stdhead("Оригинальный ответ");
-begin_frame("Оригинальный ответ");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ ID $commentid.");
+stdhead("РћСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РѕС‚РІРµС‚");
+begin_frame("РћСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РѕС‚РІРµС‚");
 echo htmlspecialchars($arr["ori_text"]);
 $returnto = $_SERVER["HTTP_REFERER"];
 if ($returnto)
-print("<p><font size=small>(<a href=$returnto>Назад</a>)</font></p>\n");
+print("<p><font size=small>(<a href=$returnto>РќР°Р·Р°Рґ</a>)</font></p>\n");
 end_frame();
 stdfoot();
 die;
@@ -153,23 +153,23 @@ elseif ($action == "quote")
                 stderr($tracker_lang['error'], $tracker_lang['invalid_id']);
         $text = "[quote=$arr[username]]" . $arr["text"] . "[/quote]\n";
         $relid = $arr["id"];
-        stdhead("Добавить комментарий к \"" . $arr["name"] . "\"");
+        stdhead("Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє \"" . $arr["name"] . "\"");
         $name = (strlen($arr["name"])>40?substr($arr["name"],0,40)."...":$arr["name"]);
         print("<form name=form method=\"post\" action=\"futurerelcomment.php?action=add\">\n");
         print("<input type=\"hidden\" name=\"tid\" value=\"$relid\" />\n");
         print("<table border=1 cellspacing=\"0\" cellpadding=\"5\">\n");
-        echo ("<tr><td class=colhead align=left>Редактировать комментарий к \"" . htmlspecialchars($name) . "\"</td><tr>\n");
+        echo ("<tr><td class=colhead align=left>Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє \"" . htmlspecialchars($name) . "\"</td><tr>\n");
         print("<tr><td align=center>\n");
         textbbcode("form","msg",htmlspecialchars_uni($text));
-        print("<div align=center><a href=tags.php target=_blank>Все теги</a></div>\n");
+        print("<div align=center><a href=tags.php target=_blank>Р’СЃРµ С‚РµРіРё</a></div>\n");
         print("</td></tr>\n");
-        print("<tr><td align=center colspan=2><input type=submit value=\"Добавить\"></td></tr></form></table>\n");
+        print("<tr><td align=center colspan=2><input type=submit value=\"Р”РѕР±Р°РІРёС‚СЊ\"></td></tr></form></table>\n");
         stdfoot();
 	  die;
 }
 else
 stdhead();
-stdmsg("Извините", "В данный момент это действие отключено в этом ражделе.");
+stdmsg("РР·РІРёРЅРёС‚Рµ", "Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЌС‚Рѕ РґРµР№СЃС‚РІРёРµ РѕС‚РєР»СЋС‡РµРЅРѕ РІ СЌС‚РѕРј СЂР°Р¶РґРµР»Рµ.");
 stdfoot();
 die;
 ?>

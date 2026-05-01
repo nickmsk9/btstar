@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 
@@ -9,7 +9,7 @@ $userid = $CURUSER["id"];
 $torrentid = (int) $_POST["torrentid"];
 
 if (empty($torrentid)) {
-	stdmsg($tracker_lang["error"], "Íå ïûòàéñÿ ìåíÿ âçëîìàòü!");
+	stdmsg($tracker_lang["error"], "ÐÐµ Ð¿Ñ‹Ñ‚Ð°Ð¹ÑÑ Ð¼ÐµÐ½Ñ Ð²Ð·Ð»Ð¾Ð¼Ð°Ñ‚ÑŒ!");
 }
 
 $ajax = $_POST["ajax"];

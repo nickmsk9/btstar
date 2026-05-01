@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -48,14 +48,14 @@ function SmileIT(smile,form,text){
     window.opener.document.forms[form].elements[text].focus();
 }
 </script>
-<title>Смайлики</title>
+<title>РЎРјР°Р№Р»РёРєРё</title>
 <link rel="stylesheet" href="./themes/<?=$ss_uri."/".$ss_uri?>.css" type="text/css">
 </head>
 
 <table width="100%" border=1 cellspacing="2" cellpadding="2">
-<h2>Смайлики</h2>
+<h2>РЎРјР°Р№Р»РёРєРё</h2>
 <tr align="center">
-<?
+<?php
 $ctr=0;
 global $smilies;
 while ((list($code, $url) = each($smilies))) {
@@ -71,5 +71,5 @@ while ((list($code, $url) = each($smilies))) {
 </tr>
 </table>
 <div align="center">
-<a class="altlink_green" href="javascript: window.close()">Закрыть</a>
+<a class="altlink_green" href="javascript: window.close()">Р—Р°РєСЂС‹С‚СЊ</a>
 </div>

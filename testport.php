@@ -1,8 +1,8 @@
-<?
+<?php
 require "include/bittorrent.php";
 dbconn();
 loggedinorreturn();
-stdhead("Проверка порта");
+stdhead("РџСЂРѕРІРµСЂРєР° РїРѕСЂС‚Р°");
 if ($CURUSER) {
 	$ip = $CURUSER['ip'];
 

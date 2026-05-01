@@ -2,6 +2,6 @@
 
 if (!defined('ADMIN_FILE')) die("Illegal File Access");
 
-BuildMenu("".$admin_file.".php?op=BonusGen", "Ãåíåðàòîð áîíóñîâ", "bonus.png");
+BuildMenu("".$admin_file.".php?op=BonusGen", "Ð“ÐµÐ½ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð±Ð¾Ð½ÑƒÑÐ¾Ð²", "bonus.png");
 
 ?>

@@ -1,21 +1,21 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 
-header ("Content-Type: text/html; charset=windows-1251");
+header ("Content-Type: text/html; charset=utf-8");
 
 if ($_POST["action"] == "username") {
 
     $wantname = $_POST["username"];
     $wantusername = convert_text(urldecode(decode_unicode_url($wantname)));
     if (empty($wantusername))
-        ajaxerr("Не указан ник", "294");
+        ajaxerr("РќРµ СѓРєР°Р·Р°РЅ РЅРёРє", "294");
     elseif (strlen($wantusername) > 40)
-        ajaxerr("Ник должен быть короче 40 символов", "294");
-    elseif (!ereg("^[a-zA-Z0-9а-яА-Я _-]+$",$wantusername))
-        ajaxerr("Неверный ник", "294");
+        ajaxerr("РќРёРє РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РєРѕСЂРѕС‡Рµ 40 СЃРёРјРІРѕР»РѕРІ", "294");
+    elseif (!ereg("^[a-zA-Z0-9Р°-СЏРђ-РЇ _-]+$",$wantusername))
+        ajaxerr("РќРµРІРµСЂРЅС‹Р№ РЅРёРє", "294");
     else
-        ajaxsucc("Вы можете использовать этот ник", "294");
+        ajaxsucc("Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚РѕС‚ РЅРёРє", "294");
 }
 elseif ($_POST["action"] == "password"){
     $wantpass = $_POST["password"];
@@ -25,44 +25,44 @@ elseif ($_POST["action"] == "password"){
     $passagain = convert_text(urldecode(decode_unicode_url($pagain)));
 
     if (empty($wantpassword))
-        ajaxerr("Введите пароль", "294");
+        ajaxerr("Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ", "294");
     elseif (empty($passagain))
-        ajaxerr("Продублируйте пароль", "294");
+        ajaxerr("РџСЂРѕРґСѓР±Р»РёСЂСѓР№С‚Рµ РїР°СЂРѕР»СЊ", "294");
     elseif ($wantpassword != $passagain)
-        ajaxerr("Пароли не совпадают.", "294");
+        ajaxerr("РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚.", "294");
     elseif (strlen($wantpassword) < 6)
-        ajaxerr("Минимальная длина пароля 6 символов", "294");
+        ajaxerr("РњРёРЅРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РїР°СЂРѕР»СЏ 6 СЃРёРјРІРѕР»РѕРІ", "294");
     else
-        ajaxsucc("Вы можете использовать этот пароль", "294");
+        ajaxsucc("Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚РѕС‚ РїР°СЂРѕР»СЊ", "294");
 }
 elseif ($_POST["action"] == "email"){
     $email = $_POST["email"];
     $res = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM users WHERE email = ".sqlesc($email))) or die;
     if (empty($email))
-        ajaxerr("Не указан e-mail адрес", "294");
+        ajaxerr("РќРµ СѓРєР°Р·Р°РЅ e-mail Р°РґСЂРµСЃ", "294");
     elseif ($res[0] != 0)
-        ajaxerr("Этот e-mail адрес уже зарегистрирован", "294");
+        ajaxerr("Р­С‚РѕС‚ e-mail Р°РґСЂРµСЃ СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ", "294");
     elseif (!validemail($email))
-        ajaxerr("Этот e-mail не правильного формата, проверьте написание", "294");
+        ajaxerr("Р­С‚РѕС‚ e-mail РЅРµ РїСЂР°РІРёР»СЊРЅРѕРіРѕ С„РѕСЂРјР°С‚Р°, РїСЂРѕРІРµСЂСЊС‚Рµ РЅР°РїРёСЃР°РЅРёРµ", "294");
     else
-        ajaxsucc("Вы можете использовать этот e-mail адрес", "294");
+        ajaxsucc("Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚РѕС‚ e-mail Р°РґСЂРµСЃ", "294");
 }
 elseif ($_POST['action'] == 'name')
 {
 	if(empty($_POST['name']))
-		ajaxerr('Введите ваше имя', '294');
-	elseif(!ereg("^[a-zA-Zа-яА-Я \.-]+$",convert_text(urldecode(decode_unicode_url($_POST['name'])))))
-		ajaxerr('Ваше имя содержит недопустимые символы', '294');
+		ajaxerr('Р’РІРµРґРёС‚Рµ РІР°С€Рµ РёРјСЏ', '294');
+	elseif(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$",convert_text(urldecode(decode_unicode_url($_POST['name'])))))
+		ajaxerr('Р’Р°С€Рµ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹', '294');
 	else
-		ajaxsucc('Вы можете использовать это имя', '294');
+		ajaxsucc('Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚Рѕ РёРјСЏ', '294');
 }
 elseif($_POST['action'] == 'surname')
 {
 	if(empty($_POST['surname']))
-		ajaxerr('Введите вашу фамилию', '294');
-	elseif(!ereg("^[a-zA-Zа-яА-Я \.-]+$",convert_text(urldecode(decode_unicode_url($_POST['surname'])))))
-		ajaxerr('Ваша фамилия содержит недопустимые символы');
+		ajaxerr('Р’РІРµРґРёС‚Рµ РІР°С€Сѓ С„Р°РјРёР»РёСЋ', '294');
+	elseif(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$",convert_text(urldecode(decode_unicode_url($_POST['surname'])))))
+		ajaxerr('Р’Р°С€Р° С„Р°РјРёР»РёСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹');
 	else
-		ajaxsucc('Вы можете использовать эту фамилию', '294');
+		ajaxsucc('Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚Сѓ С„Р°РјРёР»РёСЋ', '294');
 }
 ?> 

@@ -1,1 +1,1 @@
-a:10:{s:10:"registered";s:5:"1,806";s:8:"torrents";s:3:"212";s:9:"uploaders";s:1:"2";s:5:"ratio";d:235;s:5:"peers";s:2:"13";s:7:"seeders";s:2:"11";s:8:"leechers";s:1:"2";s:3:"arr";a:1:{s:9:"SUM(size)";s:12:"762113192113";}s:10:"f_leechers";s:5:"11701";s:9:"f_seeders";s:5:"27538";}
+a:10:{s:10:"registered";s:5:"1,806";s:8:"torrents";s:3:"203";s:9:"uploaders";s:1:"2";s:5:"ratio";d:233;s:5:"peers";s:2:"13";s:7:"seeders";s:2:"11";s:8:"leechers";s:1:"2";s:3:"arr";a:1:{s:9:"SUM(size)";s:12:"744977160181";}s:10:"f_leechers";s:5:"12064";s:9:"f_seeders";s:5:"28111";}

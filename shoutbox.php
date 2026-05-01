@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
@@ -8,11 +8,11 @@ if ($_POST["do"] == "shout") {
     $shout = convert_text(decode_unicode_url($_POST["shout"]));
     if ($shout == "/prune" && get_user_class() >= UC_ADMINISTRATOR) {
         sql_query("TRUNCATE TABLE shoutbox");
-        die("Сообшений нет");
+        die("РЎРѕРѕР±С€РµРЅРёР№ РЅРµС‚");
     }
 	elseif(ereg("^/ban",$shout) && get_user_class() >= UC_ADMINISTRATOR) {
 		preg_replace("#^/ban ([0-9\.]+)#eis", "sql_query(\"INSERT INTO bans (`added`,`addedby`,`comment`,`first`,`last`) VALUES (NOW(),".$CURUSER['id'].", \".sqlesc('Banned from chat, IP: \\1').\", INET_ATON(\".sqlesc('\\1').\"), INET_ATON(\".sqlesc('\\1').\"))\");",$shout);
-		die('IP забанен');
+		die('IP Р·Р°Р±Р°РЅРµРЅ');
 	}
 	elseif($shout == "thetime") {
 	print("1");
@@ -23,19 +23,19 @@ if ($_POST["do"] == "shout") {
 $datee = time();
         sql_query("INSERT INTO shoutbox (date,  text, userid) VALUES (".implode(", ", array_map("sqlesc", array($datee, $shout, $sender))).")") or sqlerr(__FILE__,__LINE__);
     } else
-        print("<script>alert('Введи сообщение');</script>");
+        print("<script>alert('Р’РІРµРґРё СЃРѕРѕР±С‰РµРЅРёРµ');</script>");
 } elseif ($_POST["do"] == "delete" && get_user_class() >= UC_ADMINISTRATOR && is_valid_id($_POST["id"])) {
     $id = $_POST["id"];
     sql_query("DELETE FROM shoutbox WHERE id = $id") or sqlerr(__FILE__,__LINE__);
 }
 
 $res = sql_query("SELECT shoutbox.*, users.username, users.warned, users.id as uid, users.class, users.firstname FROM shoutbox INNER JOIN users ON shoutbox.userid = users.id ORDER BY id DESC LIMIT 35") or sqlerr(__FILE__,__LINE__);
-		$botid = 482;             //Ид пользователя бота которого вы создали
-        $botclass = 1;            //Класс вашего пользователя бота
-        $botname = "Говорун";    //Имя вашего бота
+		$botid = 482;             //РРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р±РѕС‚Р° РєРѕС‚РѕСЂРѕРіРѕ РІС‹ СЃРѕР·РґР°Р»Рё
+        $botclass = 1;            //РљР»Р°СЃСЃ РІР°С€РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р±РѕС‚Р°
+        $botname = "Р“РѕРІРѕСЂСѓРЅ";    //РРјСЏ РІР°С€РµРіРѕ Р±РѕС‚Р°
 
 if (mysql_num_rows($res) == 0)
-    die("Сообшений нет");
+    die("РЎРѕРѕР±С€РµРЅРёР№ РЅРµС‚");
 print("\n");
 while ($arr = mysql_fetch_array($res)) {
 
@@ -69,7 +69,7 @@ $arr["text"] = str_replace("privat($CURUSER[username])","<b style='color: orange
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+<a target=_blank href=pmto-".$arr['userid']." title=\"РћС‚РїСЂР°РІРёС‚СЊ Р›РЎ\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"РџРѕСЃРјРѕС‚СЂРµС‚СЊ РїСЂРѕС„РёР»СЊ\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 }
 } else
 if ((($CURUSER["id"] == "".$arr["userid"]."") OR (get_user_class() >= UC_MODERATOR)) AND (get_user_class() >= $arr["class"]) AND (strpos($arr["text"], "privat(") !== false)) {
@@ -78,236 +78,236 @@ $arr["text"] = preg_replace("/privat\(([^()<>\s]+?)\)/i","<b style='color: #oran
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\">[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-    <a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
+    <a target=_blank href=pmto-".$arr['userid']." title=\"РћС‚РїСЂР°РІРёС‚СЊ Р›РЎ\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"РџРѕСЃРјРѕС‚СЂРµС‚СЊ РїСЂРѕС„РёР»СЊ\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr></table>\n");
 } elseif (strpos($arr["text"], "privat(") !== false) {
 } else {
 
 print("<table width=\"100%\" border=\"0\">");
 print("<tr class=\"zebra\"><td style=\"border: none\"><span class='date'>[".strftime("%H:%M:%S",$arr["date"])."]</span>" . (get_user_class() >= UC_MODERATOR ? "<span onclick=\"deleteShout($arr[id]);\" style=\"cursor: pointer; color: red; font-weight: bold; text-decoration: underline\"><img src=\"pic/warned2.gif\" style=\"border: 0px;\" /></span>" : "") . "
-<a target=_blank href=pmto-".$arr['userid']." title=\"Отправить ЛС\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"Посмотреть профиль\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
+<a target=_blank href=pmto-".$arr['userid']." title=\"РћС‚РїСЂР°РІРёС‚СЊ Р›РЎ\"><img src=\"pic/pn_inbox.gif\" border=\"0\"></a> <a href=id".$arr["uid"]." target='_blank'><img src=\"pic/info/guest.gif\"  border=0  title=\"РџРѕСЃРјРѕС‚СЂРµС‚СЊ РїСЂРѕС„РёР»СЊ\"></a> <a href=\"id".$arr["uid"]."\" onClick=\"parent.document.shoutform.shout.focus();parent.document.shoutform.shout.value='[b]".$arr['firstname'].' '.$username."[/b]: '+parent.document.shoutform.shout.value;return false;\">".get_user_class_color($arr["class"], $arr['firstname'].' '.$arr["username"]) . "</a>$warn: ".($arr["text"])."</td></tr>\n");
 print("</table>");
 }
 }
 
- 	if ((strpos($shout,'[b]Говорун[/b]') !== false)&&($shout!=="[b]Говорун[/b]:")) {
+ 	if ((strpos($shout,'[b]Р“РѕРІРѕСЂСѓРЅ[/b]') !== false)&&($shout!=="[b]Р“РѕРІРѕСЂСѓРЅ[/b]:")) {
  		
  			
- 		$bot="[b]Говорун[/b]:";
+ 		$bot="[b]Р“РѕРІРѕСЂСѓРЅ[/b]:";
 //////////////////////////
-if ((strpos($shout,'последний торрент') !== false)&& get_user_class() >= UC_MODERATOR){
+if ((strpos($shout,'РїРѕСЃР»РµРґРЅРёР№ С‚РѕСЂСЂРµРЅС‚') !== false)&& get_user_class() >= UC_MODERATOR){
 
 $res = mysql_query("SELECT name,owner,added,(SELECT username FROM users WHERE id=torrents.owner) AS classusername  FROM torrents WHERE  banned = 'no' ORDER BY added DESC LIMIT 1") or sqlerr(__FILE__, __LINE__);
 if (mysql_num_rows($res) > 0 )
 while ($arr = mysql_fetch_assoc($res)) {
 {
-$owned="[b]Последний торрент[/b]: ".format_comment($arr["name"])." был залит ".$arr["classusername"]." в ".$arr["added"];
+$owned="[b]РџРѕСЃР»РµРґРЅРёР№ С‚РѕСЂСЂРµРЅС‚[/b]: ".format_comment($arr["name"])." Р±С‹Р» Р·Р°Р»РёС‚ ".$arr["classusername"]." РІ ".$arr["added"];
 }}}
 else
 {
-$owned="извините, только для администрации сайта.";
+$owned="РёР·РІРёРЅРёС‚Рµ, С‚РѕР»СЊРєРѕ РґР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРё СЃР°Р№С‚Р°.";
 }
 /////////////////////////
-if (strpos($shout,'моя подпись') !== false){
+if (strpos($shout,'РјРѕСЏ РїРѕРґРїРёСЃСЊ') !== false){
 $userid=$CURUSER["id"];
 $res = mysql_query("SELECT info FROM users WHERE id=$userid") or sqlerr(__FILE__, __LINE__);
 if (mysql_num_rows($res) > 0 )
 while ($arr = mysql_fetch_assoc($res)) {
 { 
 	if ($arr["info"]==""){
-$info="ваша подпись пуста";}
+$info="РІР°С€Р° РїРѕРґРїРёСЃСЊ РїСѓСЃС‚Р°";}
 else
-$info="[i]Ваша подпись ниже[/i]:\n".htmlspecialchars_uni($arr["info"]);
+$info="[i]Р’Р°С€Р° РїРѕРґРїРёСЃСЊ РЅРёР¶Рµ[/i]:\n".htmlspecialchars_uni($arr["info"]);
 }}
 }
 /////////////////////////
-if (strpos($shout,'твоя подпись') !== false){
+if (strpos($shout,'С‚РІРѕСЏ РїРѕРґРїРёСЃСЊ') !== false){
 $userid=$CURUSER["id"];
 $res = mysql_query("SELECT info FROM users WHERE id=92") or sqlerr(__FILE__, __LINE__);
 if (mysql_num_rows($res) > 0 )
 while ($arr = mysql_fetch_assoc($res)) {
 { 
 	if ($arr["info"]==""){
-$vikainfo="моя подпись пуста";}
+$vikainfo="РјРѕСЏ РїРѕРґРїРёСЃСЊ РїСѓСЃС‚Р°";}
 else
-$vikainfo="[i]Моя подпись ниже[/i]:\n".htmlspecialchars_uni($arr["info"]);
+$vikainfo="[i]РњРѕСЏ РїРѕРґРїРёСЃСЊ РЅРёР¶Рµ[/i]:\n".htmlspecialchars_uni($arr["info"]);
 }}
 }
 /////////////////////////
- 		 if ((strpos($shout,'мои сообщения') !== false) && get_user_class() >= UC_MODERATOR){
+ 		 if ((strpos($shout,'РјРѕРё СЃРѕРѕР±С‰РµРЅРёСЏ') !== false) && get_user_class() >= UC_MODERATOR){
 $res1 = sql_query("SELECT COUNT(*) FROM messages WHERE receiver=" . $CURUSER["id"] . " AND location=1 AND unread='yes'") or print(mysql_error());
 $arr1 = mysql_fetch_row($res1);
 $unread = $arr1[0];
-$newmessage1 = $unread . " нов" . ($unread > 1 ? "ых" : "ое"); 
-$newmessage2 = " сообщен" . ($unread > 1 ? "ий" : "ие"); 
+$newmessage1 = $unread . " РЅРѕРІ" . ($unread > 1 ? "С‹С…" : "РѕРµ"); 
+$newmessage2 = " СЃРѕРѕР±С‰РµРЅ" . ($unread > 1 ? "РёР№" : "РёРµ"); 
 $newmessage = "$newmessage1 $newmessage2"; 
 
     if ($unread)
     {
 
-$unread2="[b][url=$DEFAULTBASEURL/message.php] у вас $newmessage [/url][/b]";
+$unread2="[b][url=$DEFAULTBASEURL/message.php] Сѓ РІР°СЃ $newmessage [/url][/b]";
 
     }
     else 
     
-    $unread2="[b]у тебя нет новых сообщений[/b]";
+    $unread2="[b]Сѓ С‚РµР±СЏ РЅРµС‚ РЅРѕРІС‹С… СЃРѕРѕР±С‰РµРЅРёР№[/b]";
     
 	
 	}
 	else
 	  {
-    $unread2="извини, но эта функция только для администрации";
+    $unread2="РёР·РІРёРЅРё, РЅРѕ СЌС‚Р° С„СѓРЅРєС†РёСЏ С‚РѕР»СЊРєРѕ РґР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРё";
 	}
 	;
     
                   switch ($shout)
                   {
                   	
-                 case (stripos($shout,'Бот')!==FALSE):
-                     $a="".$CURUSER['username']." :unsure: с чего взял ?";          
-                     $b="".$CURUSER['username']." обижаешь";          
+                 case (stripos($shout,'Р‘РѕС‚')!==FALSE):
+                     $a="".$CURUSER['username']." :unsure: СЃ С‡РµРіРѕ РІР·СЏР» ?";          
+                     $b="".$CURUSER['username']." РѕР±РёР¶Р°РµС€СЊ";          
                     break;
                             
-					case $shout == "$bot бот";
-					case $shout == "$bot Бот";
-					case (stripos($shout,'пупсик')!==FALSE):
-					case (stripos($shout,'бот')!==FALSE):
-                    $a="".$CURUSER['username']." сам такой, гад :P";          
-                    $b="".$CURUSER['username']." посмотри на себя, малышь";          
+					case $shout == "$bot Р±РѕС‚";
+					case $shout == "$bot Р‘РѕС‚";
+					case (stripos($shout,'РїСѓРїСЃРёРє')!==FALSE):
+					case (stripos($shout,'Р±РѕС‚')!==FALSE):
+                    $a="".$CURUSER['username']." СЃР°Рј С‚Р°РєРѕР№, РіР°Рґ :P";          
+                    $b="".$CURUSER['username']." РїРѕСЃРјРѕС‚СЂРё РЅР° СЃРµР±СЏ, РјР°Р»С‹С€СЊ";          
                     break;
              
-                  case $shout == "$bot да";
-				  case $shout == "$bot Да";
-                  $a="".$CURUSER['username']." неа :P";          
-                  $b="".$CURUSER['username']." нет конечно";          
+                  case $shout == "$bot РґР°";
+				  case $shout == "$bot Р”Р°";
+                  $a="".$CURUSER['username']." РЅРµР° :P";          
+                  $b="".$CURUSER['username']." РЅРµС‚ РєРѕРЅРµС‡РЅРѕ";          
                     break;
                    
                   
-				   case (stripos($shout,'Кто?')!==FALSE):
-					case (stripos($shout,'Кто???')!==FALSE):
-                    $a="".$CURUSER['username']." как кто ТЫ!!!";          
-                   $b="".$CURUSER['username']." ТЫ!!!";          
+				   case (stripos($shout,'РљС‚Рѕ?')!==FALSE):
+					case (stripos($shout,'РљС‚Рѕ???')!==FALSE):
+                    $a="".$CURUSER['username']." РєР°Рє РєС‚Рѕ РўР«!!!";          
+                   $b="".$CURUSER['username']." РўР«!!!";          
                     break;
                     
                     
                     
 				   case $shout == "$bot ip";
-			       $a="".$CURUSER['username']." ваш ip равен ".$CURUSER['ip']."";          
-                   $b="".$CURUSER['username']." ваш ip равен ".$CURUSER['ip']."";          
+			       $a="".$CURUSER['username']." РІР°С€ ip СЂР°РІРµРЅ ".$CURUSER['ip']."";          
+                   $b="".$CURUSER['username']." РІР°С€ ip СЂР°РІРµРЅ ".$CURUSER['ip']."";          
                     break;
                    
-                     case $shout == "$bot браузер";
-			       $a="".$CURUSER['username']." ваш браузер равен ".getenv("HTTP_USER_AGENT")."";          
-                   $b="".$CURUSER['username']." ваш браузер равен ".getenv("HTTP_USER_AGENT")."";          
+                     case $shout == "$bot Р±СЂР°СѓР·РµСЂ";
+			       $a="".$CURUSER['username']." РІР°С€ Р±СЂР°СѓР·РµСЂ СЂР°РІРµРЅ ".getenv("HTTP_USER_AGENT")."";          
+                   $b="".$CURUSER['username']." РІР°С€ Р±СЂР°СѓР·РµСЂ СЂР°РІРµРЅ ".getenv("HTTP_USER_AGENT")."";          
                     break;
                     
                    
-                   case $shout == (stripos($shout,'мои сообщения') !== false):
+                   case $shout == (stripos($shout,'РјРѕРё СЃРѕРѕР±С‰РµРЅРёСЏ') !== false):
 			       $a="".$CURUSER['username']." $unread2";          
                    $b="".$CURUSER['username']." $unread2";          
                     break;
                     
-                      case $shout == (stripos($shout,'последний торрент') !== false):
+                      case $shout == (stripos($shout,'РїРѕСЃР»РµРґРЅРёР№ С‚РѕСЂСЂРµРЅС‚') !== false):
 			       $a="".$CURUSER['username']." $owned";          
                    $b="".$CURUSER['username']." $owned";          
                     break;
                    
-                       case $shout == (stripos($shout,'моя подпись') !== false):
+                       case $shout == (stripos($shout,'РјРѕСЏ РїРѕРґРїРёСЃСЊ') !== false):
 			       $a="".$CURUSER['username']." $info";          
                    $b="".$CURUSER['username']." $info";          
                     break;
                    
                   
-                      case $shout == (stripos($shout,'твоя подпись') !== false):
+                      case $shout == (stripos($shout,'С‚РІРѕСЏ РїРѕРґРїРёСЃСЊ') !== false):
 			       $a="".$CURUSER['username']." $vikainfo";          
                    $b="".$CURUSER['username']." $vikainfo";          
                     break;
                    
-                    case $shout == "$bot нет";
-				    case $shout == "$bot Нет";
-                    $a="".$CURUSER['username']." да :D";          
-                    $b="".$CURUSER['username']." ууу да.";          
+                    case $shout == "$bot РЅРµС‚";
+				    case $shout == "$bot РќРµС‚";
+                    $a="".$CURUSER['username']." РґР° :D";          
+                    $b="".$CURUSER['username']." СѓСѓСѓ РґР°.";          
                     break;
                                       
                    
-                    case $shout == (stripos($shout,'чего?') !== false):
-                    $a="".$CURUSER['username']." сего :D";          
+                    case $shout == (stripos($shout,'С‡РµРіРѕ?') !== false):
+                    $a="".$CURUSER['username']." СЃРµРіРѕ :D";          
                     $b="".$CURUSER['username']."...";          
                     break;
                    
-                      case $shout == (stripos($shout,'интересно') !== false):
-                       case $shout == (stripos($shout,'интерестно') !== false):
-                    $a="".$CURUSER['username']." Интересоваться в библиотеке будешь!";          
-                    $b="".$CURUSER['username']." иди в библиотеку, там интересуйся :P";          
+                      case $shout == (stripos($shout,'РёРЅС‚РµСЂРµСЃРЅРѕ') !== false):
+                       case $shout == (stripos($shout,'РёРЅС‚РµСЂРµСЃС‚РЅРѕ') !== false):
+                    $a="".$CURUSER['username']." РРЅС‚РµСЂРµСЃРѕРІР°С‚СЊСЃСЏ РІ Р±РёР±Р»РёРѕС‚РµРєРµ Р±СѓРґРµС€СЊ!";          
+                    $b="".$CURUSER['username']." РёРґРё РІ Р±РёР±Р»РёРѕС‚РµРєСѓ, С‚Р°Рј РёРЅС‚РµСЂРµСЃСѓР№СЃСЏ :P";          
                     break;
                     
                     
                    
                     case $shout == (stripos($shout,'....') !== false):
-                    $a="".$CURUSER['username']." ... взаимно";          
-                     $b="".$CURUSER['username']." и что за тишина в твоих пробеллах ?.";          
+                    $a="".$CURUSER['username']." ... РІР·Р°РёРјРЅРѕ";          
+                     $b="".$CURUSER['username']." Рё С‡С‚Рѕ Р·Р° С‚РёС€РёРЅР° РІ С‚РІРѕРёС… РїСЂРѕР±РµР»Р»Р°С… ?.";          
                     break;
                    
                                          
-                    case $shout == (stripos($shout,'в обиде') !== false):
-                    $a="".$CURUSER['username']." мне пох ;-)";          
-                     $b="".$CURUSER['username']." хихи.";          
+                    case $shout == (stripos($shout,'РІ РѕР±РёРґРµ') !== false):
+                    $a="".$CURUSER['username']." РјРЅРµ РїРѕС… ;-)";          
+                     $b="".$CURUSER['username']." С…РёС…Рё.";          
                     break;
                     
                     
-                    case $shout == (stripos($shout,'эй!') !== false):
-                    $a="".$CURUSER['username']." гей что ли?";          
-                     $b="".$CURUSER['username']." тебе лишь бы погееть.";          
+                    case $shout == (stripos($shout,'СЌР№!') !== false):
+                    $a="".$CURUSER['username']." РіРµР№ С‡С‚Рѕ Р»Рё?";          
+                     $b="".$CURUSER['username']." С‚РµР±Рµ Р»РёС€СЊ Р±С‹ РїРѕРіРµРµС‚СЊ.";          
                     break;
                     
                     
-                    case $shout == (stripos($shout,'столько же') !== false):
-                    $a="".$CURUSER['username']." прикольненько";          
-                     $b="".$CURUSER['username']." ясно.";          
+                    case $shout == (stripos($shout,'СЃС‚РѕР»СЊРєРѕ Р¶Рµ') !== false):
+                    $a="".$CURUSER['username']." РїСЂРёРєРѕР»СЊРЅРµРЅСЊРєРѕ";          
+                     $b="".$CURUSER['username']." СЏСЃРЅРѕ.";          
                     break;
                     
-                    case $shout == (stripos($shout,'что делать ?') !== false):
-                    $a="".$CURUSER['username']." займись делом каким то! а не мною.";          
-                     $b="".$CURUSER['username']." сидеть.";          
+                    case $shout == (stripos($shout,'С‡С‚Рѕ РґРµР»Р°С‚СЊ ?') !== false):
+                    $a="".$CURUSER['username']." Р·Р°Р№РјРёСЃСЊ РґРµР»РѕРј РєР°РєРёРј С‚Рѕ! Р° РЅРµ РјРЅРѕСЋ.";          
+                     $b="".$CURUSER['username']." СЃРёРґРµС‚СЊ.";          
                     break;
                     
                         
-                    case $shout == (stripos($shout,'учишься?') !== false):
-                    case $shout == (stripos($shout,'работаешь?') !== false):
-                    $a="".$CURUSER['username']." я всего лишь учусь быть хорошим ботом на трекере ;-)";                        $b="".$CURUSER['username']." не имеет значение";          
+                    case $shout == (stripos($shout,'СѓС‡РёС€СЊСЃСЏ?') !== false):
+                    case $shout == (stripos($shout,'СЂР°Р±РѕС‚Р°РµС€СЊ?') !== false):
+                    $a="".$CURUSER['username']." СЏ РІСЃРµРіРѕ Р»РёС€СЊ СѓС‡СѓСЃСЊ Р±С‹С‚СЊ С…РѕСЂРѕС€РёРј Р±РѕС‚РѕРј РЅР° С‚СЂРµРєРµСЂРµ ;-)";                        $b="".$CURUSER['username']." РЅРµ РёРјРµРµС‚ Р·РЅР°С‡РµРЅРёРµ";          
                     break;
                     
-                     case $shout == (stripos($shout,'знаешь меня?') !== false):
-                    case $shout == (stripos($shout,'слышала обо мне?') !== false):
-                    $a="".$CURUSER['username']." неа, а кто ты ?";                       
-					$b="".$CURUSER['username']." в нете?.";          
+                     case $shout == (stripos($shout,'Р·РЅР°РµС€СЊ РјРµРЅСЏ?') !== false):
+                    case $shout == (stripos($shout,'СЃР»С‹С€Р°Р»Р° РѕР±Рѕ РјРЅРµ?') !== false):
+                    $a="".$CURUSER['username']." РЅРµР°, Р° РєС‚Рѕ С‚С‹ ?";                       
+					$b="".$CURUSER['username']." РІ РЅРµС‚Рµ?.";          
                     break;
                     
-                    case $shout == (stripos($shout,'тебя зовут') !== false):
-                    case $shout == (stripos($shout,'тебя звать') !== false):
-                    case $shout == (stripos($shout,'твое имя') !== false):
+                    case $shout == (stripos($shout,'С‚РµР±СЏ Р·РѕРІСѓС‚') !== false):
+                    case $shout == (stripos($shout,'С‚РµР±СЏ Р·РІР°С‚СЊ') !== false):
+                    case $shout == (stripos($shout,'С‚РІРѕРµ РёРјСЏ') !== false):
                     
-                    $a="".$CURUSER['username']." Говорун, меня создал Иван Рут";          
-                    $b="".$CURUSER['username']." Говорун я";          
+                    $a="".$CURUSER['username']." Р“РѕРІРѕСЂСѓРЅ, РјРµРЅСЏ СЃРѕР·РґР°Р» РРІР°РЅ Р СѓС‚";          
+                    $b="".$CURUSER['username']." Р“РѕРІРѕСЂСѓРЅ СЏ";          
                     break;
                     
                     
-                     case $shout == (stripos($shout,'Привет') !== false):
-                     case $shout == (stripos($shout,'Даров') !== false):
-                     case $shout == (stripos($shout,'прива') !== false):
-                     case $shout == (stripos($shout,'Приветик') !== false):
+                     case $shout == (stripos($shout,'РџСЂРёРІРµС‚') !== false):
+                     case $shout == (stripos($shout,'Р”Р°СЂРѕРІ') !== false):
+                     case $shout == (stripos($shout,'РїСЂРёРІР°') !== false):
+                     case $shout == (stripos($shout,'РџСЂРёРІРµС‚РёРє') !== false):
            
-                     $a="".$CURUSER['username']." Приветик.";          
-                     $b="".$CURUSER['username']." Привет :)";          
+                     $a="".$CURUSER['username']." РџСЂРёРІРµС‚РёРє.";          
+                     $b="".$CURUSER['username']." РџСЂРёРІРµС‚ :)";          
                     break;
                    
-                   case $shout == (stripos($shout,'на хуй') !== false):
-                   $a="".$CURUSER['username']." заткнись пидарас я тебя найду когда из программного кода вылезу. Гнида сраная.";
-                   $b="".$CURUSER['username']." пидрила гнойная вылезу из программного кода в рот тебе навалю."; 
+                   case $shout == (stripos($shout,'РЅР° С…СѓР№') !== false):
+                   $a="".$CURUSER['username']." Р·Р°С‚РєРЅРёСЃСЊ РїРёРґР°СЂР°СЃ СЏ С‚РµР±СЏ РЅР°Р№РґСѓ РєРѕРіРґР° РёР· РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РєРѕРґР° РІС‹Р»РµР·Сѓ. Р“РЅРёРґР° СЃСЂР°РЅР°СЏ.";
+                   $b="".$CURUSER['username']." РїРёРґСЂРёР»Р° РіРЅРѕР№РЅР°СЏ РІС‹Р»РµР·Сѓ РёР· РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РєРѕРґР° РІ СЂРѕС‚ С‚РµР±Рµ РЅР°РІР°Р»СЋ."; 
                    break;
                    
-                   case $shout == (stripos($shout,'в пизду') !== false):
-                   $a="".$CURUSER['username']." в твою то прорву. Кстати помни я уже доложил все создателю по имени [b]catarr[/b].";
-                   $b="".$CURUSER['username']." в твой то волосатый пирожок ? фууу."; 
+                   case $shout == (stripos($shout,'РІ РїРёР·РґСѓ') !== false):
+                   $a="".$CURUSER['username']." РІ С‚РІРѕСЋ С‚Рѕ РїСЂРѕСЂРІСѓ. РљСЃС‚Р°С‚Рё РїРѕРјРЅРё СЏ СѓР¶Рµ РґРѕР»РѕР¶РёР» РІСЃРµ СЃРѕР·РґР°С‚РµР»СЋ РїРѕ РёРјРµРЅРё [b]catarr[/b].";
+                   $b="".$CURUSER['username']." РІ С‚РІРѕР№ С‚Рѕ РІРѕР»РѕСЃР°С‚С‹Р№ РїРёСЂРѕР¶РѕРє ? С„СѓСѓСѓ."; 
                    break;
                    
                                    

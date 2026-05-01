@@ -1,11 +1,11 @@
-<?
+<?php
 require "include/bittorrent.php";
 dbconn();
 loggedinorreturn();
-stdhead("Администрация");
+stdhead("РђРґРјРёРЅРёСЃС‚СЂР°С†РёСЏ");
 begin_main_frame('');
 ?>
-<?
+<?php
 $act = $_GET["act"];
 if (!$act) {
 // Get current datetime
@@ -40,35 +40,35 @@ begin_frame("SYSOp");
 print("<table width=100% cellspacing=\"0\" cellpadding=\"5\">");
 ?>
 <?=$staff_table[UC_GOD]?>
-<?
+<?php
 print("</table>");
 end_frame();
-begin_frame("Владельцы");
+begin_frame("Р’Р»Р°РґРµР»СЊС†С‹");
 print("<table width=100% cellspacing=\"0\" cellpadding=\"5\">");
 ?>
 <?=$staff_table[UC_SYSOP]?>
-<?
+<?php
 print("</table>");
 end_frame();
-begin_frame("Администраторы");
+begin_frame("РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂС‹");
 print("<table width=100% cellspacing=\"0\" cellpadding=\"5\">");
 ?>
 <?=$staff_table[UC_ADMINISTRATOR]?>
-<?
+<?php
 print("</table>");
 end_frame();
-begin_frame("Модераторы");
+begin_frame("РњРѕРґРµСЂР°С‚РѕСЂС‹");
 print("<table width=100% cellspacing=\"0\" cellpadding=\"5\">");
 ?>
 <?=$staff_table[UC_MODERATOR]?>
-<?
+<?php
 print("</table>");
 end_frame();
-begin_frame("Релизеры");
+begin_frame("Р РµР»РёР·РµСЂС‹");
 print("<table width=100% cellspacing=\"0\" cellpadding=\"5\">");
 ?>
 <?=$staff_table[UC_UPLOADER]?>
-<?
+<?php
 print("</table>");
 end_frame();
 end_main_frame();

@@ -1,11 +1,11 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 gzip();
 dbconn(true);
 loggedinorreturn(true);
 stdhead($tracker_lang['homepage']);
-begin_frame('Последние новости трекера');
-// Настройки "главной" записи
+begin_frame('РџРѕСЃР»РµРґРЅРёРµ РЅРѕРІРѕСЃС‚Рё С‚СЂРµРєРµСЂР°');
+// РќР°СЃС‚СЂРѕР№РєРё "РіР»Р°РІРЅРѕР№" Р·Р°РїРёСЃРё
 $noteuid = 1705; // UID
 $noteid = 1; // ID
 if (cache_check("blognews", 60))
@@ -19,7 +19,7 @@ $notes = sql_query("SELECT n.text, n.last_edit, n.timestamp, n.uid, n.views, n.c
     cache_write("blognews", $blog_cache);
     $notes = $blog_cache;
     }
-?> <table width="100%" cellpadding="5" border="0"> <?
+?> <table width="100%" cellpadding="5" border="0"> <?php
 foreach($notes as $note) {
 		$text = format_comment($note['text']);
 		/*$text = str_replace("\n", ' ',$text);
@@ -28,26 +28,26 @@ foreach($notes as $note) {
 		$text=substr($text,0,200).'...';*/
 		/* <span style="font-size: 12pt;"><a href="note<?=$note['uid'];?>-<?=$note['id'];?>"><?=$note['name'];?></a></span> */
 		?><tr><td><?=nicetime((empty($note['last_edit']) ? $note['timestamp'] : $note['last_edit']),true);?><br>
-		Автор: <a href="id<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
+		РђРІС‚РѕСЂ: <a href="id<?=$note['uid'];?>"><?=$note['firstname'];?> <i><?=get_user_class_color($note['class'],$note['username']);?></i> <?=$note['surname'];?></a>
 		<hr>
 		<?=$text;?>
 		<hr>
-		<div style="float: left;">Просмотров: <?=$note['views'];?>, комментариев: <?=$note['comments'];?></div>
-		<div style="float: right;">[<a href="note<?=$noteuid;?>-<?=$noteid;?>">Перейти</a>]
-		<? if($CURUSER['id']==$noteuid||get_user_class()>=UC_MODERATOR) { ?>
-		 [<a href="noteedit.php?uid=<?=$noteuid;?>&id=<?=$noteid;?>&act=edit">Редактировать</a>]
-		<? } ?>
+		<div style="float: left;">РџСЂРѕСЃРјРѕС‚СЂРѕРІ: <?=$note['views'];?>, РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ: <?=$note['comments'];?></div>
+		<div style="float: right;">[<a href="note<?=$noteuid;?>-<?=$noteid;?>">РџРµСЂРµР№С‚Рё</a>]
+		<?php if($CURUSER['id']==$noteuid||get_user_class()>=UC_MODERATOR) { ?>
+		 [<a href="noteedit.php?uid=<?=$noteuid;?>&id=<?=$noteid;?>&act=edit">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</a>]
+		<?php } ?>
 		</div></td></tr>
-	</table> <?
+	</table> <?php
 }
 end_frame();
 /*
 if (get_user_class() >= UC_SYSOP) {
-begin_frame("".$tracker_lang['news']." - <a href=\"news.php\">Добавить</a>");
+begin_frame("".$tracker_lang['news']." - <a href=\"news.php\">Р”РѕР±Р°РІРёС‚СЊ</a>");
 } else {
 begin_frame($tracker_lang['news']);
 }
-//Новости//
+//РќРѕРІРѕСЃС‚Рё//
 if (cache_check("news", 300))
     $resource = cache_read("news");
 else {
@@ -64,28 +64,28 @@ if ($resource) {
 print("<table width=\"100%\" border=\"1\" cellspacing=\"0\" cellpadding=\"10\"><tr><td class=\"text\" style=\"border:none;\">\n");
 foreach($resource as $array) {
 if ($news_flag == 0) {
-print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\"><img border=\"0\" src=\"pic/minus.gif\" id=\"pics".$array["id"]."\" title=\"Скрыть\"></span>&nbsp;");
+print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\"><img border=\"0\" src=\"pic/minus.gif\" id=\"pics".$array["id"]."\" title=\"РЎРєСЂС‹С‚СЊ\"></span>&nbsp;");
 print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\">".date("d.m.Y",strtotime($array['added']))." - \n");
 print("<b>".$array['subject']."</b></span>\n");
 print("<span id=\"ss".$array["id"]."\" style=\"display: block;\">".format_comment($array['body'])."</span>");
-print("<div align=\"right\">Комментариев: ".$array['numcomm']." [<a href=\"newsoverview.php?id=".$array['id']."\">Комментировать</a>]</div>");
+print("<div align=\"right\">РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ: ".$array['numcomm']." [<a href=\"newsoverview.php?id=".$array['id']."\">РљРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ</a>]</div>");
 if (get_user_class() >= UC_ADMINISTRATOR) {
-print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=edit&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Ред.</b></a>]</font>");
-print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=delete&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Удал.</b></a>]</font>");
+print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=edit&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Р РµРґ.</b></a>]</font>");
+print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=delete&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>РЈРґР°Р».</b></a>]</font>");
 }
 print("<br />");
 
 $news_flag = 1;
 } else {
-print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\"><img border=\"0\" src=\"pic/plus.gif\" id=\"pics".$array["id"]."\" title=\"Показать\"></span>&nbsp;");
+print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\"><img border=\"0\" src=\"pic/plus.gif\" id=\"pics".$array["id"]."\" title=\"РџРѕРєР°Р·Р°С‚СЊ\"></span>&nbsp;");
 print("<span style=\"cursor: pointer;\" onclick=\"javascript: show_hide('s".$array["id"]."')\">".date("d.m.Y",strtotime($array['added']))." - \n");
 print("<b>".$array['subject']."</b></span>\n");
 print("<span id=\"ss".$array["id"]."\" style=\"display: none;\">".format_comment($array['body'])."</span>");
 if (get_user_class() >= UC_ADMINISTRATOR) {
-print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=edit&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Ред.</b></a>]</font>");
-print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=delete&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Удал.</b></a>]</font>");
+print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=edit&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>Р РµРґ.</b></a>]</font>");
+print("<font size=\"-2\">[<a class=\"altlink\" href=\"news.php?action=delete&newsid=" . $array['id'] . "&returnto=" . urlencode($_SERVER['PHP_SELF']) . "\"><b>РЈРґР°Р».</b></a>]</font>");
 }
-print("<div align=\"right\">Комментариев: ".$array['numcomm']." [<a href=\"newsoverview.php?id=".$array['id']."\">Комментировать</a>]</div>");
+print("<div align=\"right\">РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ: ".$array['numcomm']." [<a href=\"newsoverview.php?id=".$array['id']."\">РљРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ</a>]</div>");
 print("<br />");
     	}
 	}
@@ -96,12 +96,12 @@ print("<div align=\"center\"><h3>".$tracker_lang['no_news']."</h3></div>\n");
 print("</td></tr></table>");
 }
 end_frame();
-//Новости Конец//
+//РќРѕРІРѕСЃС‚Рё РљРѕРЅРµС†//
 */
 
-//Блок релизов - Начало
-/*begin_frame("Релизы");
-$pwidth = "120"; //ширина отображаемого постера
+//Р‘Р»РѕРє СЂРµР»РёР·РѕРІ - РќР°С‡Р°Р»Рѕ
+/*begin_frame("Р РµР»РёР·С‹");
+$pwidth = "120"; //С€РёСЂРёРЅР° РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ РїРѕСЃС‚РµСЂР°
 if (cache_check("release", 300))
     $res = cache_read("release");
 else {
@@ -117,33 +117,33 @@ $res = sql_query("SELECT * FROM torrents WHERE ontop='yes' ORDER BY id DESC LIMI
      print("<table align=\"center\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">");
     print("<tr valign=\"middle\">");
     foreach($res as $row) {
-	print("<td class=\"embedded\" width=\"$pwidth\"><div id=\"screenshots\"><a href=\"torrent-" . $row["id"] . "\"><img src=\"torrents/images/" . $row["image1"] . "\" width=\"$pwidth\" border=\"0\" title=\"" . $row["name"] . "\" alt=\"Загрузка..\" /></a></div></td>");
+	print("<td class=\"embedded\" width=\"$pwidth\"><div id=\"screenshots\"><a href=\"torrent-" . $row["id"] . "\"><img src=\"torrents/images/" . $row["image1"] . "\" width=\"$pwidth\" border=\"0\" title=\"" . $row["name"] . "\" alt=\"Р—Р°РіСЂСѓР·РєР°..\" /></a></div></td>");
 	}
     print("</tr>");
     print("</table>");
 //print('</div>');
 end_frame();
-//Блок релизов - Конец
-//Блок опросов - Начало */
+//Р‘Р»РѕРє СЂРµР»РёР·РѕРІ - РљРѕРЅРµС†
+//Р‘Р»РѕРє РѕРїСЂРѕСЃРѕРІ - РќР°С‡Р°Р»Рѕ */
 
-begin_frame("Опрос");
+begin_frame("РћРїСЂРѕСЃ");
 if($CURUSER) {
 ?>
 <script type="text/javascript" src="js/poll.core.js"></script>
 <link href="css/poll.core.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">$(document).ready(function(){loadpoll();});</script>
-<?
+<?php
 print("<table width=\"100%\" class=\"main\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"10\">");
 print("<tr><td class=\"text\" align=\"center\" style=\"border:none\" ><div id=\"poll_container\"><div id=\"loading_poll\" style=\"display:none\"></div>");
-print("<noscript><b>Включите JavaScript в браузере</noscript></div></td></tr></table>");
+print("<noscript><b>Р’РєР»СЋС‡РёС‚Рµ JavaScript РІ Р±СЂР°СѓР·РµСЂРµ</noscript></div></td></tr></table>");
 }
 else
-echo "Опрос доступен только зарегистрированным пользователям";
+echo "РћРїСЂРѕСЃ РґРѕСЃС‚СѓРїРµРЅ С‚РѕР»СЊРєРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј";
 end_frame();
-//Блок опросов - Конец
-//Чат Начало
+//Р‘Р»РѕРє РѕРїСЂРѕСЃРѕРІ - РљРѕРЅРµС†
+//Р§Р°С‚ РќР°С‡Р°Р»Рѕ
 if($CURUSER) {
-begin_frame("Живое общение");
+begin_frame("Р–РёРІРѕРµ РѕР±С‰РµРЅРёРµ");
 print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
 print("<script language=\"JavaScript\" src=\"js/user.js\" type=\"text/javascript\"></script>\n");
 print("<form action=\"shoutbox.php\" method=\"post\" name=\"shoutform\" onsubmit=\"return sendShout(this);\">");
@@ -153,14 +153,14 @@ print("<form action=\"shoutbox.php\" method=\"post\" name=\"shoutform\" onsubmit
 <td style="white-space: nowrap;">
 <input type="text" name="shout" style="width: 100%;"  MAXLENGTH="200px">
 </td><td style="white-space: nowrap;" width="5%">
-<input type="submit" value="Отправить">
-<INPUT TYPE="button" VALUE="Смайлы" onClick="javascript:winop()">
+<input type="submit" value="РћС‚РїСЂР°РІРёС‚СЊ">
+<INPUT TYPE="button" VALUE="РЎРјР°Р№Р»С‹" onClick="javascript:winop()">
 </td>
 </tr>
 <tr>
 <td colspan="2">
     <div id="shoutbox" style="overflow: auto; height: 350px; width: 100%; padding-top: 0cm">
-          Загрузка... 
+          Р—Р°РіСЂСѓР·РєР°... 
     </div>
     </td>
 </tr>
@@ -179,14 +179,14 @@ windop = window.open("moresmiles.php?form=shoutform&text=shout","mywin","height=
 function sendShout(formObj) {
 
     /*if (postingShout) {
-        alert('Отправка сообщения...')
+        alert('РћС‚РїСЂР°РІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ...')
         return false
     }*/
 
     Shout = formObj.shout.value
 
     if (Shout.replace(/ /g, '') == '') {
-        alert('Вы должны вести сообщение!')
+        alert('Р’С‹ РґРѕР»Р¶РЅС‹ РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ!')
         return false
     }
 
@@ -234,7 +234,7 @@ function sb_Clear() {
 
 function deleteShout(id) {
 
-    if (confirm("Вы точно хотите удалить это сообщение?")) {
+    if (confirm("Р’С‹ С‚РѕС‡РЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ?")) {
         var ajax = new tbdev_ajax();
         ajax.onShow = function() { };
         var varsString = "";
@@ -253,13 +253,13 @@ getShouts();
 
 -->
 </script>
-<?
+<?php
 end_frame();
 }
-//Чат Конец 
+//Р§Р°С‚ РљРѕРЅРµС† 
 
-//Статистика 
-begin_frame("Статистика");
+//РЎС‚Р°С‚РёСЃС‚РёРєР° 
+begin_frame("РЎС‚Р°С‚РёСЃС‚РёРєР°");
 if (!cache_check("stats", 600)) {
 $registered = number_format(get_row_count("users"));
 $torrents = number_format(get_row_count("torrents"));
@@ -279,7 +279,7 @@ $peers = number_format($seeders + $leechers);
 $seeders = number_format($seeders);
 $leechers = number_format($leechers);
 $res = mysql_query("SELECT SUM(size)FROM torrents;") or sqlerr(__FILE__, __LINE__);
-$arr = mysql_fetch_assoc($res) or die("ошибка доступа к БД ");
+$arr = mysql_fetch_assoc($res) or die("РѕС€РёР±РєР° РґРѕСЃС‚СѓРїР° Рє Р‘Р” ");
 $result = mysql_query("SELECT SUM(downloaded) AS totaldl, SUM(uploaded) AS totalul FROM users") or sqlerr(__FILE__, __LINE__); 
 $row = mysql_fetch_assoc($result); 
 $stats['totaldownloaded'] = $row["totaldl"]; 
@@ -323,38 +323,38 @@ $stats['totaluploaded'] = $row["totalul"];
 print("<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\" width=\"100%\">
 		<tbody id=\"collapseobj_showstats\" style=\"\">	
 	<tr>	
-	<td class=\"rowhead\"><div align=\"right\">Пользователей</div></td>
+	<td class=\"rowhead\"><div align=\"right\">РџРѕР»СЊР·РѕРІР°С‚РµР»РµР№</div></td>
 	<td class=\"rowhead\" ><div align=\"right\"><b>".$registered."</b></div></td>
-	<td class=\"rowhead\"><div align=\"right\">Торрентов</div></td>
+	<td class=\"rowhead\"><div align=\"right\">РўРѕСЂСЂРµРЅС‚РѕРІ</div></td>
 	<td class=\"rowhead\"><div align=\"right\"><b>".$torrents."</b></div></td>
-	<td class=\"rowhead\"><div align=\"right\" >Раздающих </div></td>
+	<td class=\"rowhead\"><div align=\"right\" >Р Р°Р·РґР°СЋС‰РёС… </div></td>
 
-	<td class=\"rowhead\"><div align=\"right\"><b><font color=\"green\" title=\"Вместе с другими трекерами\">".($seeders+$f_seeders)."</font></b></div></td>
-	<td class=\"rowhead\"><div align=\"right\">Качающих </div></td>
-	<td class=\"rowhead\"><div align=\"right\"><b><font color=\"red\" title=\"Вместе с другими трекерами\">".($leechers+$f_leechers)."</font></b></div></td>
+	<td class=\"rowhead\"><div align=\"right\"><b><font color=\"green\" title=\"Р’РјРµСЃС‚Рµ СЃ РґСЂСѓРіРёРјРё С‚СЂРµРєРµСЂР°РјРё\">".($seeders+$f_seeders)."</font></b></div></td>
+	<td class=\"rowhead\"><div align=\"right\">РљР°С‡Р°СЋС‰РёС… </div></td>
+	<td class=\"rowhead\"><div align=\"right\"><b><font color=\"red\" title=\"Р’РјРµСЃС‚Рµ СЃ РґСЂСѓРіРёРјРё С‚СЂРµРєРµСЂР°РјРё\">".($leechers+$f_leechers)."</font></b></div></td>
 	</tr>
 	<tr>
 	<td class=\"rowhead\"><div align=\"right\"><font color=\"orange\">".$tracker_lang['users_uploaders']."</font></div></td>
 	<td class=\"rowhead\"><div align=\"right\"><b>".$uploaders."</b></div></td>
-	<td class=\"rowhead\"><div align=\"right\">Общий размер раздач</div></td>
+	<td class=\"rowhead\"><div align=\"right\">РћР±С‰РёР№ СЂР°Р·РјРµСЂ СЂР°Р·РґР°С‡</div></td>
 	<td class=\"rowhead\"><div align=\"right\">".mksize($arr['SUM(size)'])."</div></td>
 	
-	<td class=\"rowhead\"><div align=\"right\">Подключений </div></td>
+	<td class=\"rowhead\"><div align=\"right\">РџРѕРґРєР»СЋС‡РµРЅРёР№ </div></td>
 	<td class=\"rowhead\"><div align=\"right\">".$peers."</div></td>
-	<td class=\"rowhead\"><div align=\"right\">Рейтинг</div></td>
+	<td class=\"rowhead\"><div align=\"right\">Р РµР№С‚РёРЅРі</div></td>
 	<td class=\"rowhead\"><div align=\"right\">".$ratio."%</div></td>
 
 	</tr>
 		<tr>
 			<td colspan=\"8\" height=\"10\" align=\"center\" class=\"subheader\" onmouseover=\"this.style.backgroundColor='#E8E8FF';\" onmouseout=\"this.style.backgroundColor='#FFFFFF';\">
-			<p align=center><font class=small><b>Статистика обновляется каждые 10 минут.</b></font></p>
+			<p align=center><font class=small><b>РЎС‚Р°С‚РёСЃС‚РёРєР° РѕР±РЅРѕРІР»СЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 10 РјРёРЅСѓС‚.</b></font></p>
 			</td>
 		</tr>");
 print("</td></tr></tbody></table>");	
 end_frame();
-//Статистика - конец
+//РЎС‚Р°С‚РёСЃС‚РёРєР° - РєРѕРЅРµС†
 
-//Кто онлайн ?
+//РљС‚Рѕ РѕРЅР»Р°Р№РЅ ?
 if (cache_check("online", 30) && cache_check("latest", 30) && cache_check("how", 30)) {
 	$result = cache_read("online");
 	$a = cache_read("latest");
@@ -409,17 +409,17 @@ if ($staff == "")  $staff = 0;
 if ($guests == "") $guests = 0;
 if ($users == "")  $users = 0;
 if ($total == "")  $total = 0;
-begin_frame("Сейчас на сайте " . $users . " пользователей");
+begin_frame("РЎРµР№С‡Р°СЃ РЅР° СЃР°Р№С‚Рµ " . $users . " РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№");
 if (count($title_who)){
 print("<table border=\"0\" width=\"100%\"><tr valign=\"top\"><td width=40 style='border: none'><img src=\"pic/whosonline.gif\" border=0 align=absmiddle></td><td align=\"left\" style=\"padding-top: 7px;\" class=\"embedded\"> ".@implode(", ", $title_who)."</td></tr></table>\n");
 if($how[amount] < $total){ sql_query("UPDATE much_on SET amount = $total, date = NOW() WHERE main = 'yes'"); }
-print("<hr>Рекорд одновременного посещения трекера: <b>" .$how[amount]. "</b> <br>Зафиксирован: $how[date]");  
+print("<hr>Р РµРєРѕСЂРґ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕРіРѕ РїРѕСЃРµС‰РµРЅРёСЏ С‚СЂРµРєРµСЂР°: <b>" .$how[amount]. "</b> <br>Р—Р°С„РёРєСЃРёСЂРѕРІР°РЅ: $how[date]");  
 }
 else
-print("<table border=\"0\" width=\"100%\"><tr valign=\"top\"><td width=40 style='border: none'><img src=\"pic/whosonline.gif\" border=0 align=absmiddle></td><td align=\"left\" style=\"padding-top: 7px;\" class=\"embedded\"> Нет активных пользователей</td></tr></table>\n");
+print("<table border=\"0\" width=\"100%\"><tr valign=\"top\"><td width=40 style='border: none'><img src=\"pic/whosonline.gif\" border=0 align=absmiddle></td><td align=\"left\" style=\"padding-top: 7px;\" class=\"embedded\"> РќРµС‚ Р°РєС‚РёРІРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№</td></tr></table>\n");
 end_frame();
-//Конец Кто онлайн?
-// Нагрузка на сервер
+//РљРѕРЅРµС† РљС‚Рѕ РѕРЅР»Р°Р№РЅ?
+// РќР°РіСЂСѓР·РєР° РЅР° СЃРµСЂРІРµСЂ
 /*
 $con = sql_query("SELECT userid FROM peers GROUP by userid");
 $connected = mysql_num_rows($con);
@@ -434,12 +434,12 @@ elseif ($percent <= 70) $pic = "loadbaryellow.gif";
 else $pic = "loadbarred.gif";
 	$width = $percent * 4;
 print("<center>
-<table class=\"main\" border=\"0\" width=\"402\"><tr><td style=\"padding: 0px; background-repeat: repeat-x\" title=\"Нагрузка: $percent%, Средняя (LA): $avgload\">"
-."<img height=\"15\" width=\"$width\" src=\"pic/$pic\" alt=\"Нагрузка: $percent%, Средняя (LA): $avgload\" title=\"Нагрузка: $percent%, Средняя (LA): $avgload\">"
+<table class=\"main\" border=\"0\" width=\"402\"><tr><td style=\"padding: 0px; background-repeat: repeat-x\" title=\"РќР°РіСЂСѓР·РєР°: $percent%, РЎСЂРµРґРЅСЏСЏ (LA): $avgload\">"
+."<img height=\"15\" width=\"$width\" src=\"pic/$pic\" alt=\"РќР°РіСЂСѓР·РєР°: $percent%, РЎСЂРµРґРЅСЏСЏ (LA): $avgload\" title=\"РќР°РіСЂСѓР·РєР°: $percent%, РЎСЂРµРґРЅСЏСЏ (LA): $avgload\">"
 ."</td></tr></table>"
-."<b>Всего к трекеру подключено уникальных $connected пользователей.</b></center>");
+."<b>Р’СЃРµРіРѕ Рє С‚СЂРµРєРµСЂСѓ РїРѕРґРєР»СЋС‡РµРЅРѕ СѓРЅРёРєР°Р»СЊРЅС‹С… $connected РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№.</b></center>");
 */
-// Конец Нагрузка на сервер
+// РљРѕРЅРµС† РќР°РіСЂСѓР·РєР° РЅР° СЃРµСЂРІРµСЂ
 
 stdfoot();
 ?>

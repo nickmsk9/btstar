@@ -1,4 +1,4 @@
-<?
+<?php
 
 # IMPORTANT: Do not edit below unless you know what you are doing!
 if(!defined('IN_TRACKER'))

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -39,7 +39,7 @@ $userid = (int)$_GET["id"];
 if (!is_valid_id($userid)) stderr($tracker_lang['error'], "Invalid ID");
 
 if (get_user_class()< UC_POWER_USER || ($CURUSER["id"] != $userid && get_user_class() < UC_MODERATOR))
-	stderr($tracker_lang['error'], "Нет доступа");
+	stderr($tracker_lang['error'], "РќРµС‚ РґРѕСЃС‚СѓРїР°");
 
 $page = $_GET["page"];
 
@@ -65,7 +65,7 @@ if ($action == "viewposts")
 
 	$res = sql_query($query) or sqlerr(__FILE__, __LINE__);
 
-	$arr = mysql_fetch_row($res) or stderr($tracker_lang['error'], "Посты не найдены");
+	$arr = mysql_fetch_row($res) or stderr($tracker_lang['error'], "РџРѕСЃС‚С‹ РЅРµ РЅР°Р№РґРµРЅС‹");
 
 	$postcount = $arr[0];
 
@@ -96,11 +96,11 @@ if ($action == "viewposts")
 
 	$res = sql_query($query) or sqlerr(__FILE__, __LINE__);
 
-	if (mysql_num_rows($res) == 0) stderr($tracker_lang['error'], "Посты не найдены");
+	if (mysql_num_rows($res) == 0) stderr($tracker_lang['error'], "РџРѕСЃС‚С‹ РЅРµ РЅР°Р№РґРµРЅС‹");
 
-	stdhead("История постов");
+	stdhead("РСЃС‚РѕСЂРёСЏ РїРѕСЃС‚РѕРІ");
 
-	print("<h1>История постов для $subject</h1>\n");
+	print("<h1>РСЃС‚РѕСЂРёСЏ РїРѕСЃС‚РѕРІ РґР»СЏ $subject</h1>\n");
 
 	if ($postcount > $perpage) echo $pagertop;
 
@@ -126,16 +126,16 @@ if ($action == "viewposts")
 
 	    $newposts = ($arr["lastpostread"] < $arr["lastpost"]) && $CURUSER["id"] == $userid;
 
-	    $added = $arr["added"] . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($arr["added"]))) . " назад)";
+	    $added = $arr["added"] . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($arr["added"]))) . " РЅР°Р·Р°Рґ)";
 
 	    print("<p class=sub><table border=0 cellspacing=0 cellpadding=0><tr><td class=embedded>
-	    $added&nbsp;--&nbsp;<b>Форум:&nbsp;</b>
+	    $added&nbsp;--&nbsp;<b>Р¤РѕСЂСѓРј:&nbsp;</b>
 	    <a href=forums.php?action=viewforum&forumid=$forumid>$forumname</a>
-	    &nbsp;--&nbsp;<b>Тема:&nbsp;</b>
+	    &nbsp;--&nbsp;<b>РўРµРјР°:&nbsp;</b>
 	    <a href=forums.php?action=viewtopic&topicid=$topicid>$topicname</a>
-      &nbsp;--&nbsp;<b>Пост:&nbsp;</b>
+      &nbsp;--&nbsp;<b>РџРѕСЃС‚:&nbsp;</b>
       #<a href=forums.php?action=viewtopic&topicid=$topicid&page=p$postid#$postid>$postid</a>" .
-      ($newposts ? " &nbsp;<b>(<font color=red>НОВЫЙ!</font>)</b>" : "") .
+      ($newposts ? " &nbsp;<b>(<font color=red>РќРћР’Р«Р™!</font>)</b>" : "") .
 	    "</td></tr></table></p>\n");
 
 	    begin_table(true);
@@ -148,7 +148,7 @@ if ($action == "viewposts")
 	        if (mysql_num_rows($subres) == 1)
 	        {
 	            $subrow = mysql_fetch_assoc($subres);
-	            $body .= "<p><font size=1 class=small>Последний раз редактировалось <a href=userdetails.php?id=$arr[editedby]><b>$subrow[username]</b></a> at $arr[editedat] GMT</font></p>\n";
+	            $body .= "<p><font size=1 class=small>РџРѕСЃР»РµРґРЅРёР№ СЂР°Р· СЂРµРґР°РєС‚РёСЂРѕРІР°Р»РѕСЃСЊ <a href=userdetails.php?id=$arr[editedby]><b>$subrow[username]</b></a> at $arr[editedat] GMT</font></p>\n";
 	        }
 	    }
 
@@ -185,7 +185,7 @@ if ($action == "viewcomments")
 
 	$res = sql_query($query) or sqlerr(__FILE__, __LINE__);
 
-	$arr = mysql_fetch_row($res) or stderr($tracker_lang['error'], "Комментарии не найдены");
+	$arr = mysql_fetch_row($res) or stderr($tracker_lang['error'], "РљРѕРјРјРµРЅС‚Р°СЂРёРё РЅРµ РЅР°Р№РґРµРЅС‹");
 
 	$commentcount = $arr[0];
 
@@ -214,11 +214,11 @@ if ($action == "viewcomments")
 
 	$res = sql_query($query) or sqlerr(__FILE__, __LINE__);
 
-	if (mysql_num_rows($res) == 0) stderr($tracker_lang['error'], "Комментарии не найдены");
+	if (mysql_num_rows($res) == 0) stderr($tracker_lang['error'], "РљРѕРјРјРµРЅС‚Р°СЂРёРё РЅРµ РЅР°Р№РґРµРЅС‹");
 
-	stdhead("История комментариев");
+	stdhead("РСЃС‚РѕСЂРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ");
 
-	print("<h1>История комментариев для $subject</h1>\n");
+	print("<h1>РСЃС‚РѕСЂРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ РґР»СЏ $subject</h1>\n");
 
 	if ($commentcount > $perpage) echo $pagertop;
 
@@ -249,12 +249,12 @@ if ($action == "viewcomments")
     $comm_page = floor($count/20);
     $page_url = $comm_page?"&page=$comm_page":"";
 
-	  $added = $arr["added"] . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($arr["added"]))) . " назад)";
+	  $added = $arr["added"] . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($arr["added"]))) . " РЅР°Р·Р°Рґ)";
 
 	  print("<p class=sub><table border=0 cellspacing=0 cellpadding=0><tr><td class=embedded>".
-	  "$added&nbsp;---&nbsp;<b>Торрент:&nbsp;</b>".
-	  ($torrent?("<a href=details.php?id=$torrentid&tocomm=1>$torrent</a>"):" [Удален] ").
-	  "&nbsp;---&nbsp;<b>Комментарий:&nbsp;</b>#<a href=details.php?id=$torrentid&tocomm=1$page_url>$commentid</a>
+	  "$added&nbsp;---&nbsp;<b>РўРѕСЂСЂРµРЅС‚:&nbsp;</b>".
+	  ($torrent?("<a href=details.php?id=$torrentid&tocomm=1>$torrent</a>"):" [РЈРґР°Р»РµРЅ] ").
+	  "&nbsp;---&nbsp;<b>РљРѕРјРјРµРЅС‚Р°СЂРёР№:&nbsp;</b>#<a href=details.php?id=$torrentid&tocomm=1$page_url>$commentid</a>
 	  </td></tr></table></p>\n");
 
 	  begin_table(true);
@@ -280,10 +280,10 @@ if ($action == "viewcomments")
 //-------- Handle unknown action
 
 if ($action != "")
-	stderr($tracker_lang['error'], "Неизвестное действие.");
+	stderr($tracker_lang['error'], "РќРµРёР·РІРµСЃС‚РЅРѕРµ РґРµР№СЃС‚РІРёРµ.");
 
 //-------- Any other case
 
-stderr($tracker_lang['error'], "Неверный или отсутствующий запрос.");
+stderr($tracker_lang['error'], "РќРµРІРµСЂРЅС‹Р№ РёР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёР№ Р·Р°РїСЂРѕСЃ.");
 
 ?>

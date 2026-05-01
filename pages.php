@@ -10,11 +10,11 @@ if (isset($_GET['add'])) {
 
     if (get_user_class() < UC_MODERATOR) stderr($tracker_lang['error'],$tracker_lang['access_denied']);
      stdhead($tracker_lang['adding_page']);
-     begin_frame("Добавить персону");
+     begin_frame("Р”РѕР±Р°РІРёС‚СЊ РїРµСЂСЃРѕРЅСѓ");
      print("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\">");
      print("<form action=\"pages.php?saveadd\" method=\"post\" id=\"add\">");
-	 print("<tr><td class='rowhead'>Имя и Фамилия</td><td align='left'><input type=\"text\" size=\"80\" name=\"name\"></td></tr>");
-     print("<tr><td class='rowhead'>Фотография</td><td align='left'><input type=\"text\" size=\"80\" name=\"photo\"></td></tr>");
+	 print("<tr><td class='rowhead'>РРјСЏ Рё Р¤Р°РјРёР»РёСЏ</td><td align='left'><input type=\"text\" size=\"80\" name=\"name\"></td></tr>");
+     print("<tr><td class='rowhead'>Р¤РѕС‚РѕРіСЂР°С„РёСЏ</td><td align='left'><input type=\"text\" size=\"80\" name=\"photo\"></td></tr>");
     $year .= "<select name=year><option value=\"0000\">".$tracker_lang['my_year']."</option>\n";
 $i = "1920";
 while ($i <= (date('Y',time())-13)) {
@@ -52,7 +52,7 @@ while ($i <= 31) {
 	$i++;
 }
 $day .="</select>\n";
-	 print("<tr><td class='rowhead'>Дата рождения</td><td align='left'>".$year.$month.$day."</td></tr>");
+	 print("<tr><td class='rowhead'>Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ</td><td align='left'>".$year.$month.$day."</td></tr>");
 	 print("<tr><td class=\"rowhead\">{$tracker_lang['page_content']}</td>");
      print("<td align=\"left\">");
      textbbcode("add","content",""); 
@@ -106,7 +106,7 @@ return no_ajax;
 }
 </script>');
 
-   begin_frame("Персоны кино".((get_user_class() >= UC_ADMINISTRATOR)?"&nbsp;<small>[<a href=\"pages.php?add\">Добавить персону</a>]</small>":''));
+   begin_frame("РџРµСЂСЃРѕРЅС‹ РєРёРЅРѕ".((get_user_class() >= UC_ADMINISTRATOR)?"&nbsp;<small>[<a href=\"pages.php?add\">Р”РѕР±Р°РІРёС‚СЊ РїРµСЂСЃРѕРЅСѓ</a>]</small>":''));
   }
   if (!$ajax)
 
@@ -121,8 +121,8 @@ return no_ajax;
         print("</td></tr>");
            print('</table></div>');
 		end_frame();
-		begin_frame("Поиск киноактеров"); 
-		print('<div align="center"><form action="pages.php" method="get"><input size="100" type="text" name="q" value="'.htmlentities($_GET['q'],ENT_COMPAT,"CP1251").'"><input type="submit" value="'.$tracker_lang['search'].'"></form></div>'); 
+		begin_frame("РџРѕРёСЃРє РєРёРЅРѕР°РєС‚РµСЂРѕРІ"); 
+		print('<div align="center"><form action="pages.php" method="get"><input size="100" type="text" name="q" value="'.htmlentities($_GET['q'],ENT_COMPAT,"UTF-8").'"><input type="submit" value="'.$tracker_lang['search'].'"></form></div>'); 
         }
 
    if ($ajax) die();
@@ -146,8 +146,8 @@ return no_ajax;
      begin_frame($tracker_lang['editing_page'].' '.$res['name']);
 	 print("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\">");
      print("<form action=\"pages.php?saveedit&id=$id\" method=\"post\">");
-	 print("<tr><td class='rowhead'>Имя и Фамилия</td><td align='left'><input type=\"text\" size=\"80\" name=\"name\" value=\"".$res['name']."\"></td></tr>");
-     print("<tr><td class='rowhead'>Фотография</td><td align='left'><input type=\"text\" size=\"80\" name=\"photo\" value=\"".$res['photo']."\"></td></tr>");
+	 print("<tr><td class='rowhead'>РРјСЏ Рё Р¤Р°РјРёР»РёСЏ</td><td align='left'><input type=\"text\" size=\"80\" name=\"name\" value=\"".$res['name']."\"></td></tr>");
+     print("<tr><td class='rowhead'>Р¤РѕС‚РѕРіСЂР°С„РёСЏ</td><td align='left'><input type=\"text\" size=\"80\" name=\"photo\" value=\"".$res['photo']."\"></td></tr>");
 	 print("<tr><td class=\"rowhead\">{$tracker_lang['page_content']}</td>");
      print("<td align=\"left\">");
      textbbcode("add","content",$res['content']); 
@@ -173,12 +173,12 @@ return no_ajax;
      begin_frame($res['name'].((get_user_class() >= UC_MODERATOR)?"&nbsp;<small>[<a href=\"pages.php?edit&id=$id\">{$tracker_lang['edit']}</a>]&nbsp[<a href=\"pages.php?delete&id=$id\" onclick=\"confirm ('{$tracker_lang['delete']}?');\">{$tracker_lang['delete']}</a>]</small>":''));
 	 print("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"5\">");
 	 print("<tr><td width=\"400\"><img src=\"".$res['photo']."\"></td><td valign=\"top\">");
-	 print("<b>Имя и Фамилия:</b>&nbsp;&nbsp;".$res['name']."<br>");
-	 print("<b>Дата рождения:</b>&nbsp;&nbsp;".$res['birthday']."<br>");
-	 print("<b>Биография:</b>&nbsp;&nbsp;".format_comment($res['content'])."");
+	 print("<b>РРјСЏ Рё Р¤Р°РјРёР»РёСЏ:</b>&nbsp;&nbsp;".$res['name']."<br>");
+	 print("<b>Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ:</b>&nbsp;&nbsp;".$res['birthday']."<br>");
+	 print("<b>Р‘РёРѕРіСЂР°С„РёСЏ:</b>&nbsp;&nbsp;".format_comment($res['content'])."");
 	 print("</td></tr></table>");
 	 end_frame();
-	 begin_frame("Фильмография на трекере");
+	 begin_frame("Р¤РёР»СЊРјРѕРіСЂР°С„РёСЏ РЅР° С‚СЂРµРєРµСЂРµ");
 	 $resource = sql_query("SELECT * FROM torrents WHERE descr LIKE '%".sqlwildcardesc($res['name'])."%'");
 	 while( $array = mysql_fetch_assoc($resource) ) {
 print('<table border="1" cellpadding="5" cellspacing="0" width="100%"><tbody><tr><td colspan="2" align="left">'); 

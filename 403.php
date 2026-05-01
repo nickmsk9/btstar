@@ -1,10 +1,10 @@
 <?php
 require "include/bittorrent.php";
 dbconn(false);
-stdhead("Так б*я куда ты лезеш ?", 'all');
+stdhead("РўР°Рє Р±*СЏ РєСѓРґР° С‚С‹ Р»РµР·РµС€ ?", 'all');
 ?>
 <div align="left"><font color="red" size="20">403</font><br>
-А ну ка б*я проваливай отсюда !</div>
-<?
+Рђ РЅСѓ РєР° Р±*СЏ РїСЂРѕРІР°Р»РёРІР°Р№ РѕС‚СЃСЋРґР° !</div>
+<?php
 stdfoot();
 ?>

@@ -5,12 +5,12 @@ function showspoiler(id){
     {
         text.style.display = 'block';
         pic.src = 'pic/minus.gif';
-        pic.title = 'Скрыть';
+        pic.title = 'РЎРєСЂС‹С‚СЊ';
     }
     else
     {
         text.style.display = 'none';
         pic.src = 'pic/plus.gif';
-        pic.title = 'Показать';
+        pic.title = 'РџРѕРєР°Р·Р°С‚СЊ';
     }
 }  

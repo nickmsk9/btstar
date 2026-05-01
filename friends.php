@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn();
@@ -21,25 +21,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['act']))
         sql_query("UPDATE friends SET status = 'yes' WHERE id = $id") or sqlerr(__FILE__, __LINE__);
         sql_query("INSERT INTO friends (userid, friendid, status) VALUES (" . $CURUSER['id'] . ", $user, 'yes')") or sqlerr(__FILE__, __LINE__);
         $dt = sqlesc(get_date_time());
-        $msg = sqlesc("Пользователь [url=userdetails.php?id=" . $CURUSER['id'] . "]" . $CURUSER['username'] . "[/url] согласился на дружбу.");
-        $subj = sqlesc("Ответ на предложение дружбы.");
+        $msg = sqlesc("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ [url=userdetails.php?id=" . $CURUSER['id'] . "]" . $CURUSER['username'] . "[/url] СЃРѕРіР»Р°СЃРёР»СЃСЏ РЅР° РґСЂСѓР¶Р±Сѓ.");
+        $subj = sqlesc("РћС‚РІРµС‚ РЅР° РїСЂРµРґР»РѕР¶РµРЅРёРµ РґСЂСѓР¶Р±С‹.");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES (0, $user, $dt, $msg, $subj)") or sqlerr(__FILE__, __LINE__);
         header("Refresh: 2; url=" . $DEFAULTBASEURL . "/friends.php");
-        stderr("Успешно", "Пользователь добавлен в список друзей");
+        stderr("РЈСЃРїРµС€РЅРѕ", "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РґРѕР±Р°РІР»РµРЅ РІ СЃРїРёСЃРѕРє РґСЂСѓР·РµР№");
     }
     elseif ($_GET['act'] == "surrender")
     {
         sql_query("UPDATE friends SET status = 'no' WHERE id = $id") or sqlerr(__FILE__, __LINE__);
         sql_query("DELETE FROM friends WHERE id = $id") or sqlerr(__FILE__, __LINE__);
         $dt = sqlesc(get_date_time());
-        $msg = sqlesc("Пользователь [url=userdetails.php?id=" . $CURUSER['id'] . "]" . $CURUSER['username'] . "[/url] отказался от дружбы.");
-        $subj = sqlesc("Ответ на предложение дружбы.");
+        $msg = sqlesc("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ [url=userdetails.php?id=" . $CURUSER['id'] . "]" . $CURUSER['username'] . "[/url] РѕС‚РєР°Р·Р°Р»СЃСЏ РѕС‚ РґСЂСѓР¶Р±С‹.");
+        $subj = sqlesc("РћС‚РІРµС‚ РЅР° РїСЂРµРґР»РѕР¶РµРЅРёРµ РґСЂСѓР¶Р±С‹.");
         sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES (0, $user, $dt, $msg, $subj)") or sqlerr(__FILE__, __LINE__);
         header("Refresh: 2; url=" . $DEFAULTBASEURL . "/friends.php");
-        stderr("Успешно", "Пользователю отказано в дружбе");
+        stderr("РЈСЃРїРµС€РЅРѕ", "РџРѕР»СЊР·РѕРІР°С‚РµР»СЋ РѕС‚РєР°Р·Р°РЅРѕ РІ РґСЂСѓР¶Р±Рµ");
     }
     else
-        stderr("Ошибка", "Нет доступа");
+        stderr("РћС€РёР±РєР°", "РќРµС‚ РґРѕСЃС‚СѓРїР°");
 }
 
 if ($action == 'confirm')
@@ -94,7 +94,7 @@ if ($action == 'delete')
 
 // main body  -----------------------------------------------------------------
 
-stdhead("Мои списки пользователей");
+stdhead("РњРѕРё СЃРїРёСЃРєРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№");
 
 /*print("<p><table class=main border=0 cellspacing=0 cellpadding=0>".
 "<tr><td class=embedded><h1 style='margin:0px'> Personal lists for $user[username]</h1>$donor$warned$country</td></tr></table></p>\n");*/
@@ -150,11 +150,11 @@ print("<br>");
 print("<script language=\"javascript\" type=\"text/javascript\" src=\"js/friends.js\"></script>");
 print("<style type=\"text/css\"> .aprove, .deny { cursor: pointer; text-weight: bold; }</style>");
 print("<table width=100% border=1 cellspacing=0 cellpadding=5>");
-print("<tr><td class=\"colhead\"><a name=\"friends\">Заявки</a></tr></td>");
+print("<tr><td class=\"colhead\"><a name=\"friends\">Р—Р°СЏРІРєРё</a></tr></td>");
 print("<tr><td>");
 $res = sql_query("SELECT f.userid as id, u.username AS name, u.class, u.avatar, u.title, u.donor, u.warned, u.enabled, u.last_access FROM friends AS f LEFT JOIN users as u ON f.userid = u.id WHERE f.friendid=$userid AND f.status = 'pending' ORDER BY name") or sqlerr(__FILE__,__LINE__);
 if(mysql_num_rows($res) == 0)
-	print("<em>У вас нет заявок в друзья</em>");
+	print("<em>РЈ РІР°СЃ РЅРµС‚ Р·Р°СЏРІРѕРє РІ РґСЂСѓР·СЊСЏ</em>");
 else
 {
 	$i=0;
@@ -166,7 +166,7 @@ else
     $body1 = "<a href=userdetails.php?id=" . $friend['id'] . "><b>" . get_user_class_color($friend["class"], $friend['name']) . "</b></a>" .
     	get_user_icons($friend) . " ($title)<br><br>" . $tracker_lang['last_seen'] . $friend['last_access'] .
     	"<br />(" . get_elapsed_time(sql_timestamp_to_unix_timestamp($friend[last_access])) . " ".$tracker_lang['ago'].")";
-		$body2 = "<br /><span><span class=\"aprove\" id=\"".$friend['id']."\">Подтвердить</span><br><br><span class=\"deny\" id=\"".$friend['id']."\">Отклонить</span><br></span><span class=\"loading\"><span class=\"".$friend['id']."\"></span></span><span class=\"answer\"><span class=\"".$friend['id']."\"></span</span>";
+		$body2 = "<br /><span><span class=\"aprove\" id=\"".$friend['id']."\">РџРѕРґС‚РІРµСЂРґРёС‚СЊ</span><br><br><span class=\"deny\" id=\"".$friend['id']."\">РћС‚РєР»РѕРЅРёС‚СЊ</span><br></span><span class=\"loading\"><span class=\"".$friend['id']."\"></span></span><span class=\"answer\"><span class=\"".$friend['id']."\"></span</span>";
     $avatar = ($CURUSER["avatars"] == "yes" ? $DEFAULTBASEURL.'/avatars/'.$friend["avatar"] : "");
 		if (!$friend["avatar"]||!$avatar)
 			$avatar = "pic/default_avatar.gif";
@@ -222,6 +222,6 @@ print("<tr><td style='padding: 5px;background-color: #ECE9D8'>");
 print("$blocks\n");
 print("</td></tr></table>\n");
 print("</td></tr></table>\n");
-print("<p><a href=users.php><b>Найти пользователя/Список пользователей</b></a></p>");
+print("<p><a href=users.php><b>РќР°Р№С‚Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ/РЎРїРёСЃРѕРє РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№</b></a></p>");
 stdfoot();
 ?>

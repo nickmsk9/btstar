@@ -51,7 +51,7 @@ function rate(rating,id,show5,showPerc,showVotes){
 	xmlHttp = GetXmlHttpObject()
 
 	if(xmlHttp == null){
-		alert ("Ваш броузер не поддерживает AJAX!");
+		alert ("Р’Р°С€ Р±СЂРѕСѓР·РµСЂ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ AJAX!");
 		return;
 	  }
 
@@ -70,12 +70,12 @@ function rate(rating,id,show5,showPerc,showVotes){
 			if(res == 'already_voted'){
 
 				loader.style.display = 'block';
-				loader.innerHTML = '<div class="voted_twice">Вы уже голосовали!</div>';
+				loader.innerHTML = '<div class="voted_twice">Р’С‹ СѓР¶Рµ РіРѕР»РѕСЃРѕРІР°Р»Рё!</div>';
 
 			} else {
 
 				loader.style.display = 'block';
-				loader.innerHTML = '<div class="voted">Ваш голос учтен!</div>';
+				loader.innerHTML = '<div class="voted">Р’Р°С€ РіРѕР»РѕСЃ СѓС‡С‚РµРЅ!</div>';
 
 				if(show5 == true){
 					var out = document.getElementById('outOfFive_'+id);
@@ -100,9 +100,9 @@ function rate(rating,id,show5,showPerc,showVotes){
 					var splitted = votediv.split(' ');
 					var newval = parseInt(splitted[0]) + 1;
 					if(newval == 1){
-						document.getElementById('showvotes_'+id).innerHTML = newval+' Голос';
+						document.getElementById('showvotes_'+id).innerHTML = newval+' Р“РѕР»РѕСЃ';
 					} else {
-						document.getElementById('showvotes_'+id).innerHTML = newval+' Голосов';
+						document.getElementById('showvotes_'+id).innerHTML = newval+' Р“РѕР»РѕСЃРѕРІ';
 					}
 				}
 

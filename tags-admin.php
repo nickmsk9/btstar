@@ -1,20 +1,20 @@
-<?
+<?php
 
 require "include/bittorrent.php";
 dbconn(false);
 loggedinorreturn();
 
 if (get_user_class() < UC_ADMINISTRATOR)
-    stderr("Ошибка", "Доступ запрещен.");
+    stderr("РћС€РёР±РєР°", "Р”РѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ.");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST["edit"])) {
     $id = (int)$_POST["id"];
     if(empty($id))
-      stderr("Ошибка", "Не пытайся меня взломать");
+      stderr("РћС€РёР±РєР°", "РќРµ РїС‹С‚Р°Р№СЃСЏ РјРµРЅСЏ РІР·Р»РѕРјР°С‚СЊ");
     $res = sql_query("SELECT * FROM tags WHERE id = $id");
     if (!mysql_num_rows($res))
-      stderr("Ошибка", "Нет такого ID");
+      stderr("РћС€РёР±РєР°", "РќРµС‚ С‚Р°РєРѕРіРѕ ID");
     else {
       sql_query("UPDATE tags SET name = LOWER(".sqlesc($_POST["name"])."), category = ".sqlesc($_POST["category"])." WHERE id = $id;");
       header("Location: $DEFAULTBASEURL/tags-admin.php");
@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   elseif (isset($_POST["add"])) {
       if (empty($_POST["name"]) || empty($_POST["category"]))
-        stderr("Ошибка", "Вы заполнили не все поля формы");
+        stderr("РћС€РёР±РєР°", "Р’С‹ Р·Р°РїРѕР»РЅРёР»Рё РЅРµ РІСЃРµ РїРѕР»СЏ С„РѕСЂРјС‹");
       sql_query("INSERT INTO tags (name, category) VALUES (LOWER(".sqlesc($_POST["name"])."), ".sqlesc($_POST["category"]).");") or sqlerr(__FILE__, __LINE__);
       header("Location: $DEFAULTBASEURL/tags-admin.php");
   }
   else {
-    stderr("Ошибка", "Не выбрано действие");
+    stderr("РћС€РёР±РєР°", "РќРµ РІС‹Р±СЂР°РЅРѕ РґРµР№СЃС‚РІРёРµ");
   }
 }
 
@@ -36,16 +36,16 @@ elseif (isset($_GET["edit"])) {
   $id = (int)$_GET["edit"];
   $res = sql_query("SELECT * FROM tags WHERE id = $id");
   if (!mysql_num_rows($res))
-    stderr("Ошибка", "Нет такого ID");
+    stderr("РћС€РёР±РєР°", "РќРµС‚ С‚Р°РєРѕРіРѕ ID");
   else {
     $row = mysql_fetch_array($res);
-    stdhead("Редактирование тэга \"".$row["name"]."\"");
-    begin_frame("Редактирование тэга \"".$row["name"]."\"");
+    stdhead("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ С‚СЌРіР° \"".$row["name"]."\"");
+    begin_frame("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ С‚СЌРіР° \"".$row["name"]."\"");
     print "<form name=\"edit\" action=\"tags-admin.php\" method=\"POST\">\n";
     print "<input type=\"hidden\" name=\"edit\"/>\n";
     print "<input type=\"hidden\" name=\"id\" value=\"".$row["id"]."\"/>\n";
     print "<table>\n";
-    print "<tr><td>Название:</td><td><input type=\"text\" style=\"width:200px;\" name=\"name\" value=\"".$row["name"]."\"></td></tr>\n";
+    print "<tr><td>РќР°Р·РІР°РЅРёРµ:</td><td><input type=\"text\" style=\"width:200px;\" name=\"name\" value=\"".$row["name"]."\"></td></tr>\n";
 
     $s = "<select name=\"category\" style=\"width:200px;\">\n<option value=\"0\">(".$tracker_lang['choose'].")</option>\n";
     $cats = genrelist();
@@ -53,8 +53,8 @@ elseif (isset($_GET["edit"])) {
 	    $s .= "<option value=\"".$cat["id"]."\" ".($cat['id'] == $row['category'] ? " selected=\"selected\"" : "").">" . htmlspecialchars($cat["name"]) . "</option>\n";
     $s .= "</select>\n";
 
-    print "<tr><td>Категория:</td><td>$s</td></tr>\n";
-    print "<tr><td colspan=\"2\"><input type=\"submit\" value=\"Сохранить\">&nbsp;&nbsp;<input type=\"reset\" value=\"Сбросить\"></td></tr>\n";
+    print "<tr><td>РљР°С‚РµРіРѕСЂРёСЏ:</td><td>$s</td></tr>\n";
+    print "<tr><td colspan=\"2\"><input type=\"submit\" value=\"РЎРѕС…СЂР°РЅРёС‚СЊ\">&nbsp;&nbsp;<input type=\"reset\" value=\"РЎР±СЂРѕСЃРёС‚СЊ\"></td></tr>\n";
     print "</table>\n";
     print "</form>";
     end_frame();
@@ -63,12 +63,12 @@ elseif (isset($_GET["edit"])) {
 }
 
 elseif (isset($_GET["add"])) {
-    stdhead("Добавление тэга");
-    begin_frame("Добавление тэга");
+    stdhead("Р”РѕР±Р°РІР»РµРЅРёРµ С‚СЌРіР°");
+    begin_frame("Р”РѕР±Р°РІР»РµРЅРёРµ С‚СЌРіР°");
     print "<form name=\"add\" action=\"tags-admin.php\" method=\"POST\">\n";
     print "<input type=\"hidden\" name=\"add\"/>\n";
     print "<table>\n";
-    print "<tr><td>Название:</td><td><input type=\"text\" style=\"width:200px;\" name=\"name\"></td></tr>\n";
+    print "<tr><td>РќР°Р·РІР°РЅРёРµ:</td><td><input type=\"text\" style=\"width:200px;\" name=\"name\"></td></tr>\n";
 
     $s = "<select name=\"category\" style=\"width:200px;\">\n<option value=\"0\">(".$tracker_lang['choose'].")</option>\n";
     $cats = genrelist();
@@ -76,8 +76,8 @@ elseif (isset($_GET["add"])) {
 	    $s .= "<option value=\"".$cat["id"]."\">" . htmlspecialchars($cat["name"]) . "</option>\n";
     $s .= "</select>\n";
 
-    print "<tr><td>Категория:</td><td>$s</td></tr>\n";
-    print "<tr><td colspan=\"2\"><input type=\"submit\" value=\"Сохранить\">&nbsp;&nbsp;<input type=\"reset\" value=\"Сбросить\"></td></tr>\n";
+    print "<tr><td>РљР°С‚РµРіРѕСЂРёСЏ:</td><td>$s</td></tr>\n";
+    print "<tr><td colspan=\"2\"><input type=\"submit\" value=\"РЎРѕС…СЂР°РЅРёС‚СЊ\">&nbsp;&nbsp;<input type=\"reset\" value=\"РЎР±СЂРѕСЃРёС‚СЊ\"></td></tr>\n";
     print "</table>\n";
     print "</form>";
     end_frame();
@@ -88,7 +88,7 @@ elseif (isset($_GET["delete"])) {
   $id = (int)$_GET["delete"];
   $res = sql_query("SELECT name FROM tags WHERE id = $id") or sqlerr(__FILE__, __LINE__);
   if (!mysql_num_rows($res))
-    stderr("Ошибка", "Нет такого ID");
+    stderr("РћС€РёР±РєР°", "РќРµС‚ С‚Р°РєРѕРіРѕ ID");
   else {
     sql_query("DELETE FROM tags WHERE id = $id;");
     header("Location: $DEFAULTBASEURL/tags-admin.php");
@@ -96,21 +96,21 @@ elseif (isset($_GET["delete"])) {
 }
 
 else {
-  stdhead("Управление тэгами");
-  begin_frame("Управление тэгами [ <a href=\"tags-admin.php?add=1\">Добавить новый</a> ]");
+  stdhead("РЈРїСЂР°РІР»РµРЅРёРµ С‚СЌРіР°РјРё");
+  begin_frame("РЈРїСЂР°РІР»РµРЅРёРµ С‚СЌРіР°РјРё [ <a href=\"tags-admin.php?add=1\">Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№</a> ]");
   print "<style>#browsetags img{border:none;}</style>\n";
   print "<table id=\"browsetags\" width=\"100%\">\n";
   print "<tr>\n";
-  print "<td class=\"colhead\">Тэг</td>";
-  print "<td class=\"colhead\">Категория</td>";
-  print "<td class=\"colhead\" align=\"center\">Обзор</td>";
-  print "<td class=\"colhead\" align=\"center\">Торрентов с тэгом</td>";
-  print "<td class=\"colhead\" align=\"center\">Редактировать</td>";
-  print "<td class=\"colhead\" align=\"center\">Удалить</td>";
+  print "<td class=\"colhead\">РўСЌРі</td>";
+  print "<td class=\"colhead\">РљР°С‚РµРіРѕСЂРёСЏ</td>";
+  print "<td class=\"colhead\" align=\"center\">РћР±Р·РѕСЂ</td>";
+  print "<td class=\"colhead\" align=\"center\">РўРѕСЂСЂРµРЅС‚РѕРІ СЃ С‚СЌРіРѕРј</td>";
+  print "<td class=\"colhead\" align=\"center\">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</td>";
+  print "<td class=\"colhead\" align=\"center\">РЈРґР°Р»РёС‚СЊ</td>";
   print "</tr>\n";
 
   $count = number_format(get_row_count("tags"));
-  $perpage = 25; //Количество тэгов на странице
+  $perpage = 25; //РљРѕР»РёС‡РµСЃС‚РІРѕ С‚СЌРіРѕРІ РЅР° СЃС‚СЂР°РЅРёС†Рµ
   list($pagertop, $pagerbottom, $limit) = pager($perpage, $count, "tags-admin.php?");
 
   $res = sql_query("SELECT t.*, c.id AS cat_id, c.name AS cat_name FROM tags AS t LEFT JOIN categories AS c ON t.category = c.id ORDER BY c.id $limit;") or sqlerr(__FILE__, __LINE__);

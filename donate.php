@@ -1,24 +1,24 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
-stdhead("Помощь трекеру");
-begin_frame("Нашему трекеру нужна ваша помощь");
+stdhead("РџРѕРјРѕС‰СЊ С‚СЂРµРєРµСЂСѓ");
+begin_frame("РќР°С€РµРјСѓ С‚СЂРµРєРµСЂСѓ РЅСѓР¶РЅР° РІР°С€Р° РїРѕРјРѕС‰СЊ");
 print("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\"><tr><td>");
 
-print("За каждый рубль на ваш аккаунт будет начислено 2 бонуса :) Бонус пока можно обменять на трафик, но в ближайшие дни будет расширение функционала.");
+print("Р—Р° РєР°Р¶РґС‹Р№ СЂСѓР±Р»СЊ РЅР° РІР°С€ Р°РєРєР°СѓРЅС‚ Р±СѓРґРµС‚ РЅР°С‡РёСЃР»РµРЅРѕ 2 Р±РѕРЅСѓСЃР° :) Р‘РѕРЅСѓСЃ РїРѕРєР° РјРѕР¶РЅРѕ РѕР±РјРµРЅСЏС‚СЊ РЅР° С‚СЂР°С„РёРє, РЅРѕ РІ Р±Р»РёР¶Р°Р№С€РёРµ РґРЅРё Р±СѓРґРµС‚ СЂР°СЃС€РёСЂРµРЅРёРµ С„СѓРЅРєС†РёРѕРЅР°Р»Р°.");
 print("</td></tr></table>");
 end_frame();
-begin_frame("Реквезиты");
+begin_frame("Р РµРєРІРµР·РёС‚С‹");
 print("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"5\">");
 print("<tr>");
 print("<td class=\"rowhead\">WebMoney</td><td align=\"left\">");
-print("<b>R424582178941</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;рублях.");
-print("<br><b>Z353530554487</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;долларах.");
-print("<br><b>E242423324828</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;евро.");
-print("<br><b>U798575084060</b>&nbsp;-&nbsp;Эквивалент&nbsp;в&nbsp;гривнах.");
+print("<b>R424582178941</b>&nbsp;-&nbsp;Р­РєРІРёРІР°Р»РµРЅС‚&nbsp;РІ&nbsp;СЂСѓР±Р»СЏС….");
+print("<br><b>Z353530554487</b>&nbsp;-&nbsp;Р­РєРІРёРІР°Р»РµРЅС‚&nbsp;РІ&nbsp;РґРѕР»Р»Р°СЂР°С….");
+print("<br><b>E242423324828</b>&nbsp;-&nbsp;Р­РєРІРёРІР°Р»РµРЅС‚&nbsp;РІ&nbsp;РµРІСЂРѕ.");
+print("<br><b>U798575084060</b>&nbsp;-&nbsp;Р­РєРІРёРІР°Р»РµРЅС‚&nbsp;РІ&nbsp;РіСЂРёРІРЅР°С….");
 print("</td></tr>");
-print("<tr><td class=\"rowhead\">Яндекс.Деньги</td><td align=\"left\"><b><font color=\"green\">41001289828071</font></b></td></tr>");
-print("<tr><td colspan=\"2\">После&nbsp;перевода&nbsp;пишем&nbsp;<a href=\"pmto-1\">сюда</a>,&nbsp;сумму&nbsp;и&nbsp;тип&nbsp;перевода.</td></tr>");
+print("<tr><td class=\"rowhead\">РЇРЅРґРµРєСЃ.Р”РµРЅСЊРіРё</td><td align=\"left\"><b><font color=\"green\">41001289828071</font></b></td></tr>");
+print("<tr><td colspan=\"2\">РџРѕСЃР»Рµ&nbsp;РїРµСЂРµРІРѕРґР°&nbsp;РїРёС€РµРј&nbsp;<a href=\"pmto-1\">СЃСЋРґР°</a>,&nbsp;СЃСѓРјРјСѓ&nbsp;Рё&nbsp;С‚РёРї&nbsp;РїРµСЂРµРІРѕРґР°.</td></tr>");
 print("</table>");
 end_frame();
 stdfoot();

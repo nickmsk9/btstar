@@ -21,17 +21,17 @@ function browsepager($rpp, $count, $href, $opts = array()) {
     else
         $page = $pagedefault;
 
-       $pager = "<td class=\"pager\">Страницы:</td><td class=\"pagebr\">&nbsp;</td>";
+       $pager = "<td class=\"pager\">РЎС‚СЂР°РЅРёС†С‹:</td><td class=\"pagebr\">&nbsp;</td>";
 
     $mp = $pages - 1;
-    $as = "<b>«</b>";
+    $as = "<b>В«</b>";
     if ($page >= 1) {
         $pager .= "<td class=\"pager\">";
         $pager .= "<a href=\"{$href}page=" . ($page - 1) . "\" onclick=\"return pageswitcher(" . ($page - 1) . ")\" style=\"text-decoration: none;\">$as</a>";
         $pager .= "</td><td class=\"pagebr\">&nbsp;</td>";
     }
 
-    $as = "<b>»</b>";
+    $as = "<b>В»</b>";
     if ($page < $mp && $mp >= 0) {
         $pager2 .= "<td class=\"pager\">";
         $pager2 .= "<a href=\"{$href}page=" . ($page + 1) . "\" onclick=\"return pageswitcher(" . ($page + 1) . ")\" style=\"text-decoration: none;\">$as</a>";
@@ -67,7 +67,7 @@ function browsepager($rpp, $count, $href, $opts = array()) {
                   }
         $pagerstr = join("", $pagerarr);
         $pagertop = "<table class=\"main\"><tr>$pager $pagerstr $pager2</tr></table>\n";
-        $pagerbottom = "Всего $count на $i страницах по $rpp на каждой странице.<br /><br /><table class=\"main\">$pager $pagerstr $pager2</table>\n";
+        $pagerbottom = "Р’СЃРµРіРѕ $count РЅР° $i СЃС‚СЂР°РЅРёС†Р°С… РїРѕ $rpp РЅР° РєР°Р¶РґРѕР№ СЃС‚СЂР°РЅРёС†Рµ.<br /><br /><table class=\"main\">$pager $pagerstr $pager2</table>\n";
     }
     else {
         $pagertop = $pager;

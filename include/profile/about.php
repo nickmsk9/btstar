@@ -32,9 +32,9 @@ function createCities(index)
     eval(ajax[index].response);    // Executing the response from Ajax as Javascript code     
 } 
 </script>
-<?
+<?php
 $select_contry_city = "<select id=\"country\" name=\"country\" onchange=\"getCityList(this)\">"; 
-$select_contry_city .= "<option value=\"0\" style=\"color: gray;\"".($CURUSER['country'] ? '' : ' selected').">Выбрать страну</option>"; 
+$select_contry_city .= "<option value=\"0\" style=\"color: gray;\"".($CURUSER['country'] ? '' : ' selected').">Р’С‹Р±СЂР°С‚СЊ СЃС‚СЂР°РЅСѓ</option>"; 
 $countries = mysql_query("SELECT `id`, `name`, `order` FROM `countries` ORDER BY `order` DESC, `name`") or die(mysql_error()); 
 if(mysql_num_rows($countries) > 0){
 while($lista = mysql_fetch_array($countries)) { 
@@ -44,8 +44,8 @@ $select_contry_city .= "<option value=".$lista['id']."" . ($CURUSER["country"] =
 $select_contry_city .= "</select>"; 
 
 $select_contry_city .= "&nbsp;<select id=\"city\" name=\"city\" onChange=\"newCity(this);\">";
-$select_contry_city .= "<option value=\"0\" style=\"color: gray;\"".($CURUSER['city'] ? '' : ' selected').">Выберите город</option>";
-$select_contry_city .= "<option value=\"Other\">Другой...</option>";
+$select_contry_city .= "<option value=\"0\" style=\"color: gray;\"".($CURUSER['city'] ? '' : ' selected').">Р’С‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ</option>";
+$select_contry_city .= "<option value=\"Other\">Р”СЂСѓРіРѕР№...</option>";
 
 $cities = mysql_query("SELECT ci.id, ci.name FROM cities ci INNER JOIN countries co ON ci.country_id = co.ID WHERE co.ID = ".$CURUSER['country']." ORDER BY ci.name") or die;  
 if(mysql_num_rows($cities) > 0){ 
@@ -55,11 +55,11 @@ $select_contry_city .= "<option value=".$lista['id']."" . ($CURUSER['city'] == $
 } 
 $select_contry_city .= "</select>";
 $select_contry_city .= "<span id=\"newCity\"></span>";
-tr("Страна/Город", "".$select_contry_city."",1);
+tr("РЎС‚СЂР°РЅР°/Р“РѕСЂРѕРґ", "".$select_contry_city."",1);
 /*if(!empty($CURUSER['avatar']))
-$avatar='<img src="'.$DEFAULTBASEURL.'/avatars/'.$CURUSER['avatar'].'" alt="Автатар" title="Аватар"> <img src="'.$DEFAULTBASEURL.'/avatars/small/'.$CURUSER['avatar'].'" alt="Уменьшенная версия аватара" title="Уменьшенная версия аватара"><br />';
+$avatar='<img src="'.$DEFAULTBASEURL.'/avatars/'.$CURUSER['avatar'].'" alt="РђРІС‚Р°С‚Р°СЂ" title="РђРІР°С‚Р°СЂ"> <img src="'.$DEFAULTBASEURL.'/avatars/small/'.$CURUSER['avatar'].'" alt="РЈРјРµРЅСЊС€РµРЅРЅР°СЏ РІРµСЂСЃРёСЏ Р°РІР°С‚Р°СЂР°" title="РЈРјРµРЅСЊС€РµРЅРЅР°СЏ РІРµСЂСЃРёСЏ Р°РІР°С‚Р°СЂР°"><br />';
 else $avatar='';
-tr("".$tracker_lang['my_avatar_url']."", "".$avatar."<b><span style=\"cursor:pointer;\" title=\"Загрузить аватар\" onmouseover=\"this.style.color='red';\" onmouseout=\"this.style.color='';\" onClick=\"javascript:window.open('uploadavatar.php', '', 'width=500, height=380, toolbar=no, resizable=no, status=no, scrollbars=yes');\">Загрузить аватар</span></b>",1);
+tr("".$tracker_lang['my_avatar_url']."", "".$avatar."<b><span style=\"cursor:pointer;\" title=\"Р—Р°РіСЂСѓР·РёС‚СЊ Р°РІР°С‚Р°СЂ\" onmouseover=\"this.style.color='red';\" onmouseout=\"this.style.color='';\" onClick=\"javascript:window.open('uploadavatar.php', '', 'width=500, height=380, toolbar=no, resizable=no, status=no, scrollbars=yes');\">Р—Р°РіСЂСѓР·РёС‚СЊ Р°РІР°С‚Р°СЂ</span></b>",1);
 */
 tr($tracker_lang['my_gender'],
 "<input type=radio name=gender" . ($CURUSER["gender"] == "1" ? " checked" : "") . " value=1>".$tracker_lang['my_gender_male']."
@@ -113,12 +113,12 @@ if ($CURUSER[birthday] == "0000-00-00") {
         tr($tracker_lang['my_birthdate'], $year . $month . $day ,1);
 }
 
-/* Думаю, это какая-то фигня не нужная...
+/* Р”СѓРјР°СЋ, СЌС‚Рѕ РєР°РєР°СЏ-С‚Рѕ С„РёРіРЅСЏ РЅРµ РЅСѓР¶РЅР°СЏ...
 if($CURUSER[birthday] != "0000-00-00") {
         tr($tracker_lang['my_birthdate'],"<b><input type=hidden name=year value=$year1>$year1<input type=hidden name=month value=$month1>.$month1<input type=hidden name=day value=$day1>.$day1</b>",1);
 }*/
 
-tr($tracker_lang['my_info'], "<textarea name=info cols=50 rows=4>" . $CURUSER["info"] . "</textarea><br />Показывается на вашей публичной странице. Может содержать <a href=tags.php target=_new>BB коды</a>.", 1);
-tr("Любимые фильмы", "<textarea name=lovemovie cols=50 rows=4>" . $CURUSER["lovemovies"] . "</textarea>", 1);
+tr($tracker_lang['my_info'], "<textarea name=info cols=50 rows=4>" . $CURUSER["info"] . "</textarea><br />РџРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РЅР° РІР°С€РµР№ РїСѓР±Р»РёС‡РЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ. РњРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ <a href=tags.php target=_new>BB РєРѕРґС‹</a>.", 1);
+tr("Р›СЋР±РёРјС‹Рµ С„РёР»СЊРјС‹", "<textarea name=lovemovie cols=50 rows=4>" . $CURUSER["lovemovies"] . "</textarea>", 1);
 
 ?>

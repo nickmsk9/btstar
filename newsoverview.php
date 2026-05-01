@@ -3,19 +3,19 @@ require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn(true);
 
-if (!is_numeric($_GET['id'])) stderr($tracker_lang['error'], "Неверный ID");
+if (!is_numeric($_GET['id'])) stderr($tracker_lang['error'], "РќРµРІРµСЂРЅС‹Р№ ID");
 //$action = $_GET["action"];
 $newsid = $_GET['id'];
 //$returnto = $_GET["returnto"];
 
 if (get_user_class() < UC_USER)
-  stderr($tracker_lang['error'], "Нет доступа.");
+  stderr($tracker_lang['error'], "РќРµС‚ РґРѕСЃС‚СѓРїР°.");
   
 if (!is_valid_id($_GET['id'])) {
-  stderr($tracker_lang['error'], "Неверный ID");
+  stderr($tracker_lang['error'], "РќРµРІРµСЂРЅС‹Р№ ID");
 }
  
-stdhead("Комментирование новости");
+stdhead("РљРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРёРµ РЅРѕРІРѕСЃС‚Рё");
 
 
 if (isset($_GET['id'])) {
@@ -24,12 +24,12 @@ $sql = sql_query("SELECT * FROM news WHERE id = {$newsid} ORDER BY id DESC") or 
 
 
 
-print("<h1>Обзор Новости</h1>");
+print("<h1>РћР±Р·РѕСЂ РќРѕРІРѕСЃС‚Рё</h1>");
 print("<table width=\"100%\" border=\"1\" cellspacing=\"0\" cellpadding=\"5\"><tr>\n" .
-"<td class=\"colhead\">Добавлена</td><td class=\"colhead\">Заглавие</td><td class=\"colhead\">Содержание</td></tr>\n");
+"<td class=\"colhead\">Р”РѕР±Р°РІР»РµРЅР°</td><td class=\"colhead\">Р—Р°РіР»Р°РІРёРµ</td><td class=\"colhead\">РЎРѕРґРµСЂР¶Р°РЅРёРµ</td></tr>\n");
 
 if (mysql_num_rows($sql) == 0) {
- print("<tr><td colspan=2>Извините...Нет новости с таким ID!</td></tr></table>");
+ print("<tr><td colspan=2>РР·РІРёРЅРёС‚Рµ...РќРµС‚ РЅРѕРІРѕСЃС‚Рё СЃ С‚Р°РєРёРј ID!</td></tr></table>");
  stdfoot();
  exit;
  }
@@ -38,7 +38,7 @@ while ($news = mysql_fetch_assoc($sql))
 {
 
  
- $added = date("Y-m-d h-i-s",strtotime($news['added'])) . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($news["added"]))) . " назад)";
+ $added = date("Y-m-d h-i-s",strtotime($news['added'])) . " GMT (" . (get_elapsed_time(sql_timestamp_to_unix_timestamp($news["added"]))) . " РЅР°Р·Р°Рґ)";
  print("<tr><td width=\"100px\">{$added}</td><td width=\"200px\">{$news['subject']}</td><td>".format_comment($news['body'])."</td></tr>\n");
  
 }
@@ -55,10 +55,10 @@ if (!$count) {
 
   print("<table style=\"margin-top: 2px;\" cellpadding=\"5\" width=\"100%\">");
   print("<tr><td class=colhead align=\"left\" colspan=\"2\">");
-  print("<div style=\"float: left; width: auto;\" align=\"left\"> :: Список комментариев к новости</div>");
-  print("<div align=\"right\"><a href=#comments class=altlink_white>Добавить комментарий</a></div>");
+  print("<div style=\"float: left; width: auto;\" align=\"left\"> :: РЎРїРёСЃРѕРє РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ Рє РЅРѕРІРѕСЃС‚Рё</div>");
+  print("<div align=\"right\"><a href=#comments class=altlink_white>Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№</a></div>");
   print("</td></tr><tr><td align=\"center\">");
-  print("Комментариев нет. <a href=#comments>Желаете добавить?</a>");
+  print("РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ РЅРµС‚. <a href=#comments>Р–РµР»Р°РµС‚Рµ РґРѕР±Р°РІРёС‚СЊ?</a>");
   print("</td></tr></table><br>");
 
         }
@@ -78,8 +78,8 @@ if (!$count) {
 
          print("<table class=main cellspacing=\"0\" cellPadding=\"5\" width=\"100%\" >");
          print("<tr><td class=\"colhead\" align=\"center\" >");
-         print("<div style=\"float: left; width: auto;\" align=\"left\"> :: Список комментариев</div>");
-         print("<div align=\"right\"><a href=#comments class=altlink_white>Добавить комментарий</a></div>");
+         print("<div style=\"float: left; width: auto;\" align=\"left\"> :: РЎРїРёСЃРѕРє РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ</div>");
+         print("<div align=\"right\"><a href=#comments class=altlink_white>Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№</a></div>");
          print("</td></tr>");
 
          print("<tr><td>");
@@ -97,9 +97,9 @@ if (!$count) {
 
 
  print("<table style=\"margin-top: 2px;\" cellpadding=\"5\" width=\"100%\">");
-  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Добавить комментарий к новости</b></td></tr>");
+  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє РЅРѕРІРѕСЃС‚Рё</b></td></tr>");
   print("<tr><td width=\"100%\" align=\"center\" >");
-  //print("Ваше имя: ");
+  //print("Р’Р°С€Рµ РёРјСЏ: ");
   //print("".$CURUSER['username']."<p>");
   print("<form name=news method=\"post\" action=\"newscomment.php?action=add\">");
   print("<center><table border=\"0\"><tr><td class=\"clear\">");
@@ -107,7 +107,7 @@ if (!$count) {
   print("</td></tr></table></center>");
   print("</td></tr><tr><td  align=\"center\" colspan=\"2\">");
   print("<input type=\"hidden\" name=\"nid\" value=\"".$newsid."\"/>");
-  print("<input type=\"submit\" class=btn value=\"Разместить комментарий\" />");
+  print("<input type=\"submit\" class=btn value=\"Р Р°Р·РјРµСЃС‚РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№\" />");
   print("</td></tr></form></table>");
 
 }

@@ -1,4 +1,4 @@
-<?
+<?php
 if (!defined('UC_SYSOP'))
 	die('Direct access denied.');
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -6,10 +6,10 @@ if (!defined('UC_SYSOP'))
 <head>
 <!--<base href="<?=$DEFAULTBASEURL;?>">-->
 <title><?= $title ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="generator" content="bt-star.engine">
-<meta name="Description" content="У нас Вы сможете скачать все, что Вам нужно: музыка, фильмы, видео абсолютно бесплатно!<?=$desription;?>">
-<meta name="Keywords" content="скачать музыку кинофильмов, cкачать видео, Торрент файлы, поиск Торрентов, качать Торренты, Торент трекер, сериал Ранетки скачать песню, скачать сезон сериала Клуб, скачать сериал Клиника, Торрент.ру, сериал Ранетки скачать серии, Торент фильмы, списки Торрентов, где скачать сериал, скачать сериал сверхъестественное, кино Торренты, сериалы Торрент, русские Торренты, аниме Торрент<?=$keywords;?>">
+<meta name="Description" content="РЈ РЅР°СЃ Р’С‹ СЃРјРѕР¶РµС‚Рµ СЃРєР°С‡Р°С‚СЊ РІСЃРµ, С‡С‚Рѕ Р’Р°Рј РЅСѓР¶РЅРѕ: РјСѓР·С‹РєР°, С„РёР»СЊРјС‹, РІРёРґРµРѕ Р°Р±СЃРѕР»СЋС‚РЅРѕ Р±РµСЃРїР»Р°С‚РЅРѕ!<?=$description;?>">
+<meta name="Keywords" content="СЃРєР°С‡Р°С‚СЊ РјСѓР·С‹РєСѓ РєРёРЅРѕС„РёР»СЊРјРѕРІ, cРєР°С‡Р°С‚СЊ РІРёРґРµРѕ, РўРѕСЂСЂРµРЅС‚ С„Р°Р№Р»С‹, РїРѕРёСЃРє РўРѕСЂСЂРµРЅС‚РѕРІ, РєР°С‡Р°С‚СЊ РўРѕСЂСЂРµРЅС‚С‹, РўРѕСЂРµРЅС‚ С‚СЂРµРєРµСЂ, СЃРµСЂРёР°Р» Р Р°РЅРµС‚РєРё СЃРєР°С‡Р°С‚СЊ РїРµСЃРЅСЋ, СЃРєР°С‡Р°С‚СЊ СЃРµР·РѕРЅ СЃРµСЂРёР°Р»Р° РљР»СѓР±, СЃРєР°С‡Р°С‚СЊ СЃРµСЂРёР°Р» РљР»РёРЅРёРєР°, РўРѕСЂСЂРµРЅС‚.СЂСѓ, СЃРµСЂРёР°Р» Р Р°РЅРµС‚РєРё СЃРєР°С‡Р°С‚СЊ СЃРµСЂРёРё, РўРѕСЂРµРЅС‚ С„РёР»СЊРјС‹, СЃРїРёСЃРєРё РўРѕСЂСЂРµРЅС‚РѕРІ, РіРґРµ СЃРєР°С‡Р°С‚СЊ СЃРµСЂРёР°Р», СЃРєР°С‡Р°С‚СЊ СЃРµСЂРёР°Р» СЃРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅРѕРµ, РєРёРЅРѕ РўРѕСЂСЂРµРЅС‚С‹, СЃРµСЂРёР°Р»С‹ РўРѕСЂСЂРµРЅС‚, СЂСѓСЃСЃРєРёРµ РўРѕСЂСЂРµРЅС‚С‹, Р°РЅРёРјРµ РўРѕСЂСЂРµРЅС‚<?=$keywords;?>">
 <meta name="verify-v1" content="dtoPAe5KrTJujLASaRMoiVH5fdRI6+sXU/5RbNSdXhw=">
 <link rel="stylesheet" href="./themes/<?=$ss_uri."/".$ss_uri?>.css" type="text/css">
 <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
@@ -18,7 +18,7 @@ if (!defined('UC_SYSOP'))
 <script language="javascript" type="text/javascript" src="js/overlib.js"></script>
 <script language="javascript" type="text/javascript" src="js/functions.js"></script>
 <script language="javascript" type="text/javascript" src="js/collapse.js"></script>
-<link rel="alternate" type="application/rss+xml" title="Последние торренты" href="<?=$DEFAULTBASEURL?>/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="РџРѕСЃР»РµРґРЅРёРµ С‚РѕСЂСЂРµРЅС‚С‹" href="<?=$DEFAULTBASEURL?>/rss.xml">
 <link rel="shortcut icon" href="<?=$DEFAULTBASEURL;?>/favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -33,27 +33,27 @@ if (!defined('UC_SYSOP'))
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="browse.php"><?=$tracker_lang['browse'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<? if($CURUSER) {?>
+<?php if($CURUSER) {?>
 <li><a href="upload.php"><?=$tracker_lang['upload'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<? } ?>
-<li><a href="notes">Записи</a></li>
+<?php } ?>
+<li><a href="notes">Р—Р°РїРёСЃРё</a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="rules.php"><?=$tracker_lang['rules'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="faq.php"><?=$tracker_lang['faq'];?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<? if($CURUSER) {?>
-<li><a href="staff.php">Команда</a></li>
+<?php if($CURUSER) {?>
+<li><a href="staff.php">РљРѕРјР°РЅРґР°</a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<? } ?>
+<?php } ?>
 </ul><div style="float:right;">
-<? if($CURUSER) {?>
+<?php if($CURUSER) {?>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <li><a href="id<?=$CURUSER["id"];?>"><?=$CURUSER["firstname"]?>&nbsp;<?=$CURUSER["surname"]?></a></li>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
-<li><a href="logout.php">Выход</a></li>
-<? } ?>
+<li><a href="logout.php">Р’С‹С…РѕРґ</a></li>
+<?php } ?>
 <li><img src="./themes/<?=$ss_uri;?>/images/menu_spacer.jpg"></li>
 <img src="./themes/TBDev/images/right_menu.gif">
 </div></div>
@@ -70,12 +70,12 @@ $w = "width=\"95%\"";
 
 <!------------- MENU ------------------------------------------------------------------------>
 
-<? $fn = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], "/") + 1); ?>
+<?php $fn = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], "/") + 1); ?>
 
 <td align="center" valign="top" class="outer" style="border:0;padding-right:0px;">
-<?
+<?php
 
-if ($CURUSER['override_class'] != 255 && $CURUSER) // Second condition needed so that this box isn't displayed for non members/logged out members.
+if ($CURUSER && $CURUSER['override_class'] != 255) // Second condition needed so that this box isn't displayed for non members/logged out members.
 {
 		print("<p><table border=0 cellspacing=0 cellpadding=10 bgcolor=green><tr><td style='padding: 10px; background: green'>\n");
 		print("<b><a href=\"$DEFAULTBASEURL/restoreclass.php\"><font color=white>".$tracker_lang['lower_class']."</font></a></b>");

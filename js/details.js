@@ -1,4 +1,4 @@
-var loading = "<img src=\"pic/upload.gif\" alt=\"Çàãðóçêà..\" />";
+var loading = "<img src=\"pic/upload.gif\" alt=\"Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ°..\" />";
 
 jQuery(function() {
     jQuery(".tab").click ( function(){

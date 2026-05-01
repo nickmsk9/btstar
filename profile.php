@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn();
@@ -17,12 +17,12 @@ if (!is_valid_id($id))
   bark($tracker_lang['invalid_id']);
   
   $r = @sql_query("SELECT * FROM users WHERE id=$id") or sqlerr(__FILE__, __LINE__);
-$user = mysql_fetch_array($r) or bark("Нет пользователя с таким ID $id.");
+$user = mysql_fetch_array($r) or bark("РќРµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ С‚Р°РєРёРј ID $id.");
 
 $it = sql_query("SELECT u.id, u.username, u.class, i.id AS invitedid, i.username AS invitedname, i.class AS invitedclass FROM users AS u LEFT JOIN users AS i ON i.id = u.invitedby WHERE u.invitedroot = $id OR u.invitedby = $id ORDER BY u.invitedby");
 if (mysql_num_rows($it) >= 1) {
 	$invitetree = "<table class=\"main\" border=\"1\" cellspacing=\"0\" cellpadding=\"5\"><tr>".
-		"<td class=\"colhead\">Пользователь</td><td class=\"colhead\">Пригласил</td>";
+		"<td class=\"colhead\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ</td><td class=\"colhead\">РџСЂРёРіР»Р°СЃРёР»</td>";
 	while ($inviter = mysql_fetch_array($it))
 		$invitetree .= "<tr><td><a href=\"userdetails.php?id=$inviter[id]\">".get_user_class_color($inviter["class"], $inviter["username"])."</a></td><td><a href=\"userdetails.php?id=$inviter[invitedid]\">".get_user_class_color($inviter["invitedclass"], $inviter["invitedname"])."</a></td></tr>";
 	$invitetree .= "</table>";
@@ -79,10 +79,10 @@ if (!empty($user['avatar']))
 else
     $avatar = "<img src=\"pic/default_avatar.gif\" style=\"width:100px;border:3px double #ccc;\" title=\"\" alt=\"\" />";
 
-if ($user["gender"] == "1") $gender = "Мужской";
-elseif ($user["gender"] == "2") $gender = "Женский";
+if ($user["gender"] == "1") $gender = "РњСѓР¶СЃРєРѕР№";
+elseif ($user["gender"] == "2") $gender = "Р–РµРЅСЃРєРёР№";
 
-stdhead("Просмотр профиля " . $user["username"]);
+stdhead("РџСЂРѕСЃРјРѕС‚СЂ РїСЂРѕС„РёР»СЏ " . $user["username"]);
 $enabled = $user["enabled"] == 'yes';
 begin_frame($user["username"]);
 print("<table width=100% border=0 cellspacing=0 cellpadding=5><tr><td valign='top' align='left' width='110' style='border:none'>");
@@ -91,63 +91,63 @@ if ($CURUSER['id'] != $id)
 {
     $res = sql_query("SELECT id FROM friends WHERE userid=" . sqlesc($CURUSER['id']) . " AND friendid = $id AND status = 'yes'") or sqlerr(__FILE__, __LINE__);
     if (mysql_num_rows($res) > 0)
-        print("<a href=\"javascript:void(0);\" onclick=\"javascript:addtofriends('$id', 'delete');\" class=\"menu\">Удалить из друзей</a>\n");
+        print("<a href=\"javascript:void(0);\" onclick=\"javascript:addtofriends('$id', 'delete');\" class=\"menu\">РЈРґР°Р»РёС‚СЊ РёР· РґСЂСѓР·РµР№</a>\n");
     else
-        print("<a href=\"javascript:void(0);\" onclick=\"javascript:addtofriends('$id', 'add');\" class=\"menu\">Добавить в друзья</a>\n");
+        print("<a href=\"javascript:void(0);\" onclick=\"javascript:addtofriends('$id', 'add');\" class=\"menu\">Р”РѕР±Р°РІРёС‚СЊ РІ РґСЂСѓР·СЊСЏ</a>\n");
 		 if (get_user_class() >= UC_MODERATOR && $user["class"] < get_user_class())
-        print("<a href=\"javascript:void(0);\" onclick=\"javascript:moderate('$id');\" class=\"menu\">Модерирование</a>\n");
+        print("<a href=\"javascript:void(0);\" onclick=\"javascript:moderate('$id');\" class=\"menu\">РњРѕРґРµСЂРёСЂРѕРІР°РЅРёРµ</a>\n");
 }
 ?>
 
 <script language="JavaScript" src="js/user.js" type="text/javascript"></script>
 <td class='outer' valign='top' align='left' style='border:none'>
 <div id="actions"></div><div id="tabs">
-<span class="tab active" id="info">Общее</span>
-<span class="tab" id="friends">Друзья</span>
-<span class="tab" id="downloaded">Скачал</span>
-<span class="tab" id="uploaded">Загрузил</span>
+<span class="tab active" id="info">РћР±С‰РµРµ</span>
+<span class="tab" id="friends">Р”СЂСѓР·СЊСЏ</span>
+<span class="tab" id="downloaded">РЎРєР°С‡Р°Р»</span>
+<span class="tab" id="uploaded">Р—Р°РіСЂСѓР·РёР»</span>
 <span id="loading"></span>
 <div id="body" user="<?=$user["id"];?>">
-<h4>Оснавная информация</h4>
-<? if($user["username"] == "Полина") { ?>
-<div align="left"><b><font color="gray">Помолвлена с <a href="id1" title="Faris">Ваней</a></font></b></div>
-<? } ?>
-<? if($user["icq"] == "6227714") { ?>
-<div align="left"><b><font color="gray">Помолвлен с <a href="id1" title="Faris">Полиной</a></font></b></div>
-<? } ?>
-<div align="left"><b><font color="gray">Класс:</font></b> <?=get_user_class_color($user['class'], get_user_class_name($user['class']))?></div>
-<div align="left"><b><font color="gray">Пол:</font></b> <?=$gender;?></div>
-<div align="left"><b><font color="gray">Дата рождения:</font></b> <?=nicetime($user["birthday"]);?> года</div><br>
-<h4>Контактная информация </h4>
-<div align="left"><b><font color="gray">Страна:</font></b> <?=$arr["name"];?></div>
-<div align="left"><b><font color="gray">Город:</font></b> <?=$city;?></div>
-<? if ($user["icq"])?>
-<div align="left"><b><font color="gray">Номер ICQ:</font></b> <?=$user["icq"];?></div><br>
-<h4>Статистика на трекере</h4>
-<div align="left"><b><font color="gray">Раздал:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['uploaded']))?></div>
-<div align="left"><b><font color="gray">Скачал:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['downloaded']))?></div>
-<div align="left"><b><font color="gray">Рейтинг:</font></b> <?=$rating;?></div><br>
-<h4>Личная информация </h4>
-<?
+<h4>РћСЃРЅР°РІРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</h4>
+<?php if($user["username"] == "РџРѕР»РёРЅР°") { ?>
+<div align="left"><b><font color="gray">РџРѕРјРѕР»РІР»РµРЅР° СЃ <a href="id1" title="Faris">Р’Р°РЅРµР№</a></font></b></div>
+<?php } ?>
+<?php if($user["icq"] == "6227714") { ?>
+<div align="left"><b><font color="gray">РџРѕРјРѕР»РІР»РµРЅ СЃ <a href="id1" title="Faris">РџРѕР»РёРЅРѕР№</a></font></b></div>
+<?php } ?>
+<div align="left"><b><font color="gray">РљР»Р°СЃСЃ:</font></b> <?=get_user_class_color($user['class'], get_user_class_name($user['class']))?></div>
+<div align="left"><b><font color="gray">РџРѕР»:</font></b> <?=$gender;?></div>
+<div align="left"><b><font color="gray">Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ:</font></b> <?=nicetime($user["birthday"]);?> РіРѕРґР°</div><br>
+<h4>РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ </h4>
+<div align="left"><b><font color="gray">РЎС‚СЂР°РЅР°:</font></b> <?=$arr["name"];?></div>
+<div align="left"><b><font color="gray">Р“РѕСЂРѕРґ:</font></b> <?=$city;?></div>
+<?php if ($user["icq"])?>
+<div align="left"><b><font color="gray">РќРѕРјРµСЂ ICQ:</font></b> <?=$user["icq"];?></div><br>
+<h4>РЎС‚Р°С‚РёСЃС‚РёРєР° РЅР° С‚СЂРµРєРµСЂРµ</h4>
+<div align="left"><b><font color="gray">Р Р°Р·РґР°Р»:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['uploaded']))?></div>
+<div align="left"><b><font color="gray">РЎРєР°С‡Р°Р»:</font></b> <?=str_replace(" ", "&nbsp;", mksize($user['downloaded']))?></div>
+<div align="left"><b><font color="gray">Р РµР№С‚РёРЅРі:</font></b> <?=$rating;?></div><br>
+<h4>Р›РёС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ </h4>
+<?php
 foreach(explode(",", $user["lovemovies"]) as $lov)
 $love .= "<a style=\"font-weight:normal;\" href=\"browse.php?search=".$lov."\">".$lov."</a>, ";
                 if ($love)
                 $love = substr($love, 0, -2);
 				if (isset($user["lovemovies"]))
 ?>
-<div align="left"><b><font color="gray">Любимые фильмы:</font></b> <?=$love;?></div>
-<div align="left"><b><font color="gray">О себе:</font></b> <?=htmlspecialchars($user["info"]);?></div>
+<div align="left"><b><font color="gray">Р›СЋР±РёРјС‹Рµ С„РёР»СЊРјС‹:</font></b> <?=$love;?></div>
+<div align="left"><b><font color="gray">Рћ СЃРµР±Рµ:</font></b> <?=htmlspecialchars($user["info"]);?></div>
 </div>
 </div>
-<?
-begin_frame("Стена");
+<?php
+begin_frame("РЎС‚РµРЅР°");
 	print("<div id=\"wall\">\n");
 $count = get_row_count("wall", "WHERE owner = $id");
 $limited = 5;
 list($pagertop, $pagerbottom, $limit) = pager($limited, $count, "userdetails.php?id=$id&", array(lastpagedefault => 1));
 $res = sql_query("SELECT w.*, u.username, u.class, u.avatar FROM wall AS w LEFT JOIN users AS u ON u.id = w.user WHERE w.owner = $id ORDER BY w.added $limit") or sqlerr(__FILE__,__LINE__);
 if (mysql_num_rows($res) < 1)
-    print("<p>Нет записей.</p>\n");
+    print("<p>РќРµС‚ Р·Р°РїРёСЃРµР№.</p>\n");
 else
 {
     print("<table border=\"0\" width=\"100%\">\n");
@@ -172,11 +172,11 @@ print("</div>");
 print("<br>");
 print("<form name=\"wall\">\n");
 textbbcode("wall", "text",htmlspecialchars($text),$long);
-print("<p><input type=\"button\" value=\"Отправить\" onclick=\"javascript:wall_send('$id', document.wall.text.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"Отменить\" /></p>\n");
+print("<p><input type=\"button\" value=\"РћС‚РїСЂР°РІРёС‚СЊ\" onclick=\"javascript:wall_send('$id', document.wall.text.value);\"/>&nbsp;&nbsp;<input type=\"reset\" value=\"РћС‚РјРµРЅРёС‚СЊ\" /></p>\n");
 print("</form>\n");
 end_frame();
 ?>
 </td></tr></table>
-<?
+<?php
 end_frame();
 stdfoot();

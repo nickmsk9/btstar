@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 $id = (int)$_GET["id"];
@@ -13,24 +13,24 @@ if(empty($row))
 { header("HTTP/1.0 404 Not Found");
 	stderr($tracker_lang['error'],$tracker_lang['no_torrent_with_such_id']);
 }
-stdhead("Обзор торрента ".$row["name"]."");
-//begin_frame("Обзор торрента ".$row["name"]."");
+stdhead("РћР±Р·РѕСЂ С‚РѕСЂСЂРµРЅС‚Р° ".$row["name"]."");
+//begin_frame("РћР±Р·РѕСЂ С‚РѕСЂСЂРµРЅС‚Р° ".$row["name"]."");
 print("<link rel=\"stylesheet\" href=\"css/user.css\" type=\"text/css\">\n");
 print("<script language=\"JavaScript\" src=\"js/details.js\" type=\"text/javascript\"></script>\n");
 print("<div id=\"tabs\">");
-print("<span class=\"tab active\" id=\"info\">Описание</span>");
-print("<span class=\"tab\" id=\"peers\">Пиры</span>");
-print("<span class=\"tab\" id=\"thanks\">Поблагодарили</span>");
+print("<span class=\"tab active\" id=\"info\">РћРїРёСЃР°РЅРёРµ</span>");
+print("<span class=\"tab\" id=\"peers\">РџРёСЂС‹</span>");
+print("<span class=\"tab\" id=\"thanks\">РџРѕР±Р»Р°РіРѕРґР°СЂРёР»Рё</span>");
 print("<span id=\"loading\"></span>");
 print("<div id=\"body\" torrent=\"".$id."\">");
 print("<table width=\"100%\" border=\"0\" cellpadding=\"5\">");
-// Начало тегов
+// РќР°С‡Р°Р»Рѕ С‚РµРіРѕРІ
 foreach(explode(",", $row["tags"]) as $tag)
 $tags .= "<a style=\"font-weight:normal;color:green;\" href=\"browse.php?tag=".$tag."\">".$tag."</a>, ";
 if ($tags)
 $tags = substr($tags, 0, -2);
-// Конец тегов
-// Начала спасибок
+// РљРѕРЅРµС† С‚РµРіРѕРІ
+// РќР°С‡Р°Р»Р° СЃРїР°СЃРёР±РѕРє
 if($CURUSER) {					
 $torrentid = intval($_GET['id']);
 list($count777) = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM thanks WHERE torrentid = $torrentid AND userid = $CURUSER[id] LIMIT 1")) or sqlerr(__FILE__,__LINE__);
@@ -38,30 +38,30 @@ list($count777) = mysql_fetch_row(sql_query("SELECT COUNT(*) FROM thanks WHERE t
 if ($row['owner'] == $CURUSER['id'] || $count777 != 0)
      $can_not_thanks = true;
           
-//$thanksby .= "<input type=\"button\" name=\"send_thanks\" id=\"send_thanks\" value=\"Сказать спасибо\" ".($can_not_thanks == true ? " disabled" : "")." />&nbsp;";
+//$thanksby .= "<input type=\"button\" name=\"send_thanks\" id=\"send_thanks\" value=\"РЎРєР°Р·Р°С‚СЊ СЃРїР°СЃРёР±Рѕ\" ".($can_not_thanks == true ? " disabled" : "")." />&nbsp;";
 $thanksby .= "";
 
-//$thanksby .= "<div class=\"spoiler_head\" id=\"show_thanks\"><img border=\"0\" src=\"pic/plus.gif\" title=\"Показать\">&nbsp;&nbsp;Сказали спасибо за раздачу</div>";
+//$thanksby .= "<div class=\"spoiler_head\" id=\"show_thanks\"><img border=\"0\" src=\"pic/plus.gif\" title=\"РџРѕРєР°Р·Р°С‚СЊ\">&nbsp;&nbsp;РЎРєР°Р·Р°Р»Рё СЃРїР°СЃРёР±Рѕ Р·Р° СЂР°Р·РґР°С‡Сѓ</div>";
 //$thanksby .= "<div class=\"spoiler_body\" style=\"display:none;\" id=\"thanks_body\"></div>";
 }
-// Конец спасибок
-print("<tr><td width=\"40%\" style=\"background-color: #EEEEEE; border-bottom: none; border-right: none;\" align=\"left\"><a href=\"download.php?id=".$id."&name=".$row["name"]."\" style=\"color: black;\"><font style=\"font-size:14pt;\">Скачать</font></a>&nbsp;<sup><font style=\"font-size:8pt;\">".mksize($row["size"])."</font></sup></td>");
+// РљРѕРЅРµС† СЃРїР°СЃРёР±РѕРє
+print("<tr><td width=\"40%\" style=\"background-color: #EEEEEE; border-bottom: none; border-right: none;\" align=\"left\"><a href=\"download.php?id=".$id."&name=".$row["name"]."\" style=\"color: black;\"><font style=\"font-size:14pt;\">РЎРєР°С‡Р°С‚СЊ</font></a>&nbsp;<sup><font style=\"font-size:8pt;\">".mksize($row["size"])."</font></sup></td>");
 print("<td width=\"20%\" style=\"background-color: #EEEEEE; border-bottom: none; border-left: none; border-right: none;\" align=\"center\">");
 if (!$CURUSER || $row["canrate"] > 0 || $CURUSER['id'] == $row['owner'])
-print("<div><img src=\"pic/minus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" /> " . karma($row["karma"]) . " <img src=\"pic/plus-dis.png\" title=\"Вы не можете голосовать\" alt=\"\" /></div>");
+print("<div><img src=\"pic/minus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" /> " . karma($row["karma"]) . " <img src=\"pic/plus-dis.png\" title=\"Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РіРѕР»РѕСЃРѕРІР°С‚СЊ\" alt=\"\" /></div>");
 else
-print("<div id=\"karma$id\"><img src=\"pic/minus.png\" style=\"cursor:pointer;\" title=\"Уменьшить карму\" alt=\"\" onclick=\"javascript: karma('$id', 'torrent', 'minus');\" /> " . karma($row["karma"]) . " <img src=\"pic/plus.png\" style=\"cursor:pointer;\" onclick=\"javascript: karma('$id', 'torrent', 'plus');\" title=\"Увеличить карму\" alt=\"\" /></div>");
+print("<div id=\"karma$id\"><img src=\"pic/minus.png\" style=\"cursor:pointer;\" title=\"РЈРјРµРЅСЊС€РёС‚СЊ РєР°СЂРјСѓ\" alt=\"\" onclick=\"javascript: karma('$id', 'torrent', 'minus');\" /> " . karma($row["karma"]) . " <img src=\"pic/plus.png\" style=\"cursor:pointer;\" onclick=\"javascript: karma('$id', 'torrent', 'plus');\" title=\"РЈРІРµР»РёС‡РёС‚СЊ РєР°СЂРјСѓ\" alt=\"\" /></div>");
 
 print("</td>");
 print("<td width=\"40%\" style=\"background-color: #EEEEEE; border-left: none; border-bottom: none;\" align=\"right\">");
 if ($CURUSER["id"] == $row["owner"] || get_user_class() >= UC_MODERATOR) {
-print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" title=\"Редактировать раздачу\"></a>");
+print("<a href=\"edit.php?id=".$id."\"><img src=\"pic/edit.png\" border=\"0\" title=\"Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ СЂР°Р·РґР°С‡Сѓ\"></a>");
 }
 if($can_not_thanks == true) {
 print("</td></tr>");
 } else {
 print("<input type=\"hidden\" name=\"torrentid\" id=\"torrentid\" value=\"{$torrentid}\">");
-print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"Сказать спасибо\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
+print("<span id=\"thanks_msg\"></span>&nbsp;<img src=\"pic/thanks.png\" title=\"РЎРєР°Р·Р°С‚СЊ СЃРїР°СЃРёР±Рѕ\" name=\"send_thanks\" id=\"send_thanks\" style=\"cursor: pointer;\">");
 print("</td></tr>");
 }
 print("</div>");
@@ -69,9 +69,9 @@ print("<tr><td colspan=\"3\" style=\"border-top: none;\"><div style=\"float: lef
 print("</td></tr>");
 print("<tr><td valign=\"top\" colspan=\"3\">");
 if($row['multitracker']==0)
-print("<b><font color=\"#BB0000\">Скидка:</font> <font color=\"red\">".$row["free"]."%</font></b>");
+print("<b><font color=\"#BB0000\">РЎРєРёРґРєР°:</font> <font color=\"red\">".$row["free"]."%</font></b>");
 else
-print("<b><font color=\"#BB0000\">Данный торрент является мультитрекерным - скачивание полностью не учитывается.</font></b>");
+print("<b><font color=\"#BB0000\">Р”Р°РЅРЅС‹Р№ С‚РѕСЂСЂРµРЅС‚ СЏРІР»СЏРµС‚СЃСЏ РјСѓР»СЊС‚РёС‚СЂРµРєРµСЂРЅС‹Рј - СЃРєР°С‡РёРІР°РЅРёРµ РїРѕР»РЅРѕСЃС‚СЊСЋ РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ.</font></b>");
 print("</td></tr>");
 print("<tr><td valign=\"top\" style=\"border-top: none; border-bottom: none; border-right: none\" colspan=\"2\"><span style=\"font-size: 14;\"><b>".$row["name"]."</b></span>");
 print("<br><br><span align=\"justify\">".format_comment($row["descr"])."</span>");
@@ -84,7 +84,7 @@ print("</div>");
 print("</div>");
 
 //end_frame();
-					begin_frame("Комментарии");
+					begin_frame("РљРѕРјРјРµРЅС‚Р°СЂРёРё");
 		 print("<p><a name=\"startcomments\"></a></p>\n");
 
         $subres = sql_query("SELECT COUNT(*) FROM comments WHERE torrent = $id");
@@ -95,13 +95,13 @@ print("</div>");
 
 if (!$count) {
   print("<table border=\"0\" style=\"margin-top: 2px;\" cellpadding=\"3\" width=\"100%\">");
-//  print("<tr><td class=colhead align=\"left\" colspan=\"2\"> <a name=comments>&nbsp;</a><b>Комментарии</b></td></tr>");
+//  print("<tr><td class=colhead align=\"left\" colspan=\"2\"> <a name=comments>&nbsp;</a><b>РљРѕРјРјРµРЅС‚Р°СЂРёРё</b></td></tr>");
   print("<tr><td align=\"center\" style=\"border: none;\">");
   print("<form name=comment method=\"post\" action=\"comment.php?action=add\">");
   textbbcode("comment","text","");
   print("</td></tr><tr><td align=\"left\" colspan=\"2\" style=\"border: none;\">");
   print("<input type=\"hidden\" name=\"tid\" value=\"$id\"/>");
-  print("<input type=\"submit\" class=btn value=\"Разместить комментарий\" />");
+  print("<input type=\"submit\" class=btn value=\"Р Р°Р·РјРµСЃС‚РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№\" />");
   print("</td></tr></form></table>");
 
         }
@@ -128,9 +128,9 @@ if (!$count) {
 
 
   print("<table style=\"margin-top: 2px;\" cellpadding=\"5\" width=\"100%\">");
-//  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Добавить комментарий к торренту</b></td></tr>");
+//  print("<tr><td class=colhead align=\"left\" colspan=\"2\">  <a name=comments>&nbsp;</a><b>:: Р”РѕР±Р°РІРёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Рє С‚РѕСЂСЂРµРЅС‚Сѓ</b></td></tr>");
   print("<tr><td width=\"100%\" align=\"center\" style=\"border:none\">");
-  //print("Ваше имя: ");
+  //print("Р’Р°С€Рµ РёРјСЏ: ");
   //print("".$CURUSER['username']."<p>");
   print("<form name=comment method=\"post\" action=\"comment.php?action=add\">");
  // print("<center><table border=\"0\"><tr><td class=\"clear\">");
@@ -138,7 +138,7 @@ if (!$count) {
  // print("</td></tr></table></center>");
   print("</td></tr><tr><td align=\"left\" colspan=\"2\" style=\"border:none;\">");
   print("<input type=\"hidden\" name=\"tid\" value=\"$id\"/>");
-  print("<input type=\"submit\" class=btn value=\"Разместить комментарий\" />");
+  print("<input type=\"submit\" class=btn value=\"Р Р°Р·РјРµСЃС‚РёС‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№\" />");
   print("</td></tr></form></table></div>");
 
         }

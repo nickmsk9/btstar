@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 dbconn(false);
@@ -12,7 +12,7 @@ $type = $_POST["type"];
 
 if (!isset($type))
 {
-  stdmsg($tracker_lang['error'], "Не выбрана категория");
+  stdmsg($tracker_lang['error'], "РќРµ РІС‹Р±СЂР°РЅР° РєР°С‚РµРіРѕСЂРёСЏ");
   stdfoot();
   exit;
 }
@@ -27,7 +27,7 @@ begin_frame($tracker_lang['upload_torrent']);
 <form name="upload" id="upload" enctype="multipart/form-data" action="takeupload.php" method="post">
 <input type="hidden" name="MAX_FILE_SIZE" value="<?=$max_torrent_size?>" />
 <table width="100%" border="1" cellspacing="0" cellpadding="5">
-<?
+<?php
 tr($tracker_lang['torrent_file'], "<input type=file name=tfile size=80>\n", 1);
 tr($tracker_lang['torrent_name'], "<input type=\"text\" name=\"name\" size=\"80\" />\n", 1);
 tr($tracker_lang['poster'], "<input type=file name=image0 size=80>\n", 1);
@@ -56,49 +56,49 @@ var field = jQuery("form[@name=upload]").jQuery("textarea[@name=descr]");
         })(jQuery);
     </script>
 
-<?
+<?php
 $s = '<input type="text" id="tags" name="tags">';
 $s .= '<div id="from">';
 $tags = taggenrelist($type);
 if (!$tags)
-$s .= "Нет тегов для данной категории. Вы можете добавить собственные.";
+$s .= "РќРµС‚ С‚РµРіРѕРІ РґР»СЏ РґР°РЅРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё. Р’С‹ РјРѕР¶РµС‚Рµ РґРѕР±Р°РІРёС‚СЊ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рµ.";
 else
   {
    foreach ($tags as $row)
    $s .= "<a href='#'>" . htmlspecialchars($row["name"]) . "</a>\n";
   }
 $s .= "</div>\n";
-tr("Тэги", $s, 1);
+tr("РўСЌРіРё", $s, 1);
 
-///// Скидка раздачи
+///// РЎРєРёРґРєР° СЂР°Р·РґР°С‡Рё
        if (get_user_class() >= UC_MODERATOR) {
-        $prc .= "<b>Скачивание не будет учитыватся на </b><select name=\"free\">";
+        $prc .= "<b>РЎРєР°С‡РёРІР°РЅРёРµ РЅРµ Р±СѓРґРµС‚ СѓС‡РёС‚С‹РІР°С‚СЃСЏ РЅР° </b><select name=\"free\">";
         for ($i = 0; $i <= 10; ++$i)
         {
         $selected = ($row['free'] == $i*10) ? " selected=\"selected\"" : "";
         $prc .= "<option value=".$i."0".$selected.">".$i."0</option>";
         }
         $prc .= "</select>%";
-        tr("Скидка", $prc, 1);
+        tr("РЎРєРёРґРєР°", $prc, 1);
 		}
-////// Скидка раздачи
+////// РЎРєРёРґРєР° СЂР°Р·РґР°С‡Рё
 
-	tr("Мульти-трекер", "<input type=\"checkbox\" name=\"multi\" value=\"1\">Разрешить раздовать на других трекерах", 1);
+	tr("РњСѓР»СЊС‚Рё-С‚СЂРµРєРµСЂ", "<input type=\"checkbox\" name=\"multi\" value=\"1\">Р Р°Р·СЂРµС€РёС‚СЊ СЂР°Р·РґРѕРІР°С‚СЊ РЅР° РґСЂСѓРіРёС… С‚СЂРµРєРµСЂР°С…", 1);
 
 if (get_user_class() >= UC_ADMINISTRATOR)
-    tr("Важный", "<input type=\"checkbox\" name=\"sticky\" value=\"yes\">Прикрепить этот торрент (всегда наверху)", 1);
+    tr("Р’Р°Р¶РЅС‹Р№", "<input type=\"checkbox\" name=\"sticky\" value=\"yes\">РџСЂРёРєСЂРµРїРёС‚СЊ СЌС‚РѕС‚ С‚РѕСЂСЂРµРЅС‚ (РІСЃРµРіРґР° РЅР°РІРµСЂС…Сѓ)", 1);
 ?>	
-<tr><td align="center" colspan="2"><input type="hidden" name="type" value="<?=$type?>"><input type="submit" class=btn value="<?=$tracker_lang['upload'];?>" />&nbsp;<input type="button" value="Предпросмотр" onClick="javascript:ajaxpreview('descr');" >
+<tr><td align="center" colspan="2"><input type="hidden" name="type" value="<?=$type?>"><input type="submit" class=btn value="<?=$tracker_lang['upload'];?>" />&nbsp;<input type="button" value="РџСЂРµРґРїСЂРѕСЃРјРѕС‚СЂ" onClick="javascript:ajaxpreview('descr');" >
 <script language="javascript" type="text/javascript" src="js/preview.js"></script>
 <script language="javascript" type="text/javascript" src="js/ajax.js"></script>
 <div id="loading-layer" style="display:none;font-family: Verdana;font-size: 11px;width:200px;height:50px;background:#FFF;padding:10px;text-align:center;border:1px solid #000">
-     <div style="font-weight:bold" id="loading-layer-text">Загрузка. Пожалуйста, подождите...</div><br />
+     <div style="font-weight:bold" id="loading-layer-text">Р—Р°РіСЂСѓР·РєР°. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРґРѕР¶РґРёС‚Рµ...</div><br />
      <img src="pic/loading.gif" border="0" />
 </div>
 <br><br><div id="preview"></div></td></tr>
 </table>
 </form>
-<?
+<?php
 end_frame();
 stdfoot();
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -74,4 +74,4 @@ stdhead($tracker_lang['add_user']);
 <tr><td colspan=2 align=center><input type=submit value="OK" class=btn></td></tr>
 </table>
 </form>
-<? stdfoot(); ?>
+<?php stdfoot(); ?>

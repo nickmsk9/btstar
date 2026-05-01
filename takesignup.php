@@ -1,10 +1,10 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 dbconn();
 
 if ($deny_signup && !$allow_invite_signup)
-        stderr($tracker_lang['error'], "Извините, но регистрация отключена администрацией.");
+        stderr($tracker_lang['error'], "РР·РІРёРЅРёС‚Рµ, РЅРѕ СЂРµРіРёСЃС‚СЂР°С†РёСЏ РѕС‚РєР»СЋС‡РµРЅР° Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРµР№.");
 
 if ($CURUSER)
         stderr($tracker_lang['error'], sprintf($tracker_lang['signup_already_registered'], $SITENAME));
@@ -14,7 +14,7 @@ if ($users >= $maxusers)
         stderr($tracker_lang['error'], sprintf($tracker_lang['signup_users_limit'], number_format($maxusers)));
 
 if (!mkglobal("wantusername:wantpassword:passagain:email"))
-        stderr($tracker_lang['error'], "Прямой доступ к этому файлу не разрешен.");
+        stderr($tracker_lang['error'], "РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Рє СЌС‚РѕРјСѓ С„Р°Р№Р»Сѓ РЅРµ СЂР°Р·СЂРµС€РµРЅ.");
 
 function bark($msg) {
         global $tracker_lang;
@@ -26,27 +26,27 @@ function bark($msg) {
 
 function validusername($username)
 {
-        if(ereg("^[a-zA-Zа-яА-Я0-9 _-]+$",$username))
+        if(ereg("^[a-zA-ZР°-СЏРђ-РЇ0-9 _-]+$",$username))
 			return true;
 		return false;
 }
 $updateset = array();
 
-// Нам не нужны инвайты. Да.
+// РќР°Рј РЅРµ РЅСѓР¶РЅС‹ РёРЅРІР°Р№С‚С‹. Р”Р°.
 /*
 	if($_POST["invite"]) {
 	if (strlen($_POST["invite"]) != 32)
-	stderr("Ошибка", "Вы ввели не правильный код приглашения.");
+	stderr("РћС€РёР±РєР°", "Р’С‹ РІРІРµР»Рё РЅРµ РїСЂР°РІРёР»СЊРЅС‹Р№ РєРѕРґ РїСЂРёРіР»Р°С€РµРЅРёСЏ.");
 	list($inviter) = mysql_fetch_row(sql_query("SELECT inviter FROM invites WHERE invite = ".sqlesc($_POST["invite"])));
     if (!$inviter)
-	stderr("Ошибка", "Код приглашения введенный вами не рабочий.");
+	stderr("РћС€РёР±РєР°", "РљРѕРґ РїСЂРёРіР»Р°С€РµРЅРёСЏ РІРІРµРґРµРЅРЅС‹Р№ РІР°РјРё РЅРµ СЂР°Р±РѕС‡РёР№.");
 	list($invitedroot) = mysql_fetch_row(sql_query("SELECT invitedroot FROM users WHERE id = $inviter")); 
 	} */
 
 if($_POST['gender']==1||$_POST['gender']==2)
 $updateset[] = 'gender = '.$_POST["gender"];
 else
-	bark('Выберите ваш пол');
+	bark('Р’С‹Р±РµСЂРёС‚Рµ РІР°С€ РїРѕР»');
 	
 if(ereg("^(http|https|ftp|ftps|steam)://[^<>]+$",$_POST['website']))
 $updateset[] = 'website = '.sqlesc($_POST["website"]);
@@ -56,120 +56,120 @@ if(is_numeric($_POST['country']))
 	if(mysql_fetch_array(sql_query("SELECT * FROM countries WHERE id =".$_POST['country'])))
 	$updateset[] = 'country = '.$_POST['country'];
 	else
-	bark('Выберите страну!');
+	bark('Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂР°РЅСѓ!');
 }
-else bark('Выберите страну!');
+else bark('Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂР°РЅСѓ!');
 
 // CITY CHECK
 if(!empty($_POST['newcity']))
-{	if(!ereg("^[a-zA-Zа-яА-Я0-9\. -]+$",$_POST['newcity']))
-		bark("Это не похоже на реальное название города!");
+{	if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ0-9\. -]+$",$_POST['newcity']))
+		bark("Р­С‚Рѕ РЅРµ РїРѕС…РѕР¶Рµ РЅР° СЂРµР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ РіРѕСЂРѕРґР°!");
 	$arr=mysql_fetch_array(sql_query("SELECT id FROM cities WHERE lower(name)= lower(".sqlesc($_POST['newcity']).") AND country_id = ".$_POST['country']));
 	if(!empty($arr['id']))
 		$updateset[] = "city = ".$arr['id'];
 	else{
 	if(!sql_query("INSERT INTO cities (`name`,`country_id`) VALUES (".sqlesc($_POST['newcity']).", ".$_POST['country'].")"))
-		bark("Неизвестная ошибка!");
+		bark("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!");
 	$updateset[] = "city = ".mysql_insert_id();}
 }
 elseif (is_valid_id($_POST["city"])) {
 	if(mysql_fetch_array(sql_query("SELECT id FROM cities WHERE id = ".$_POST['city'])))
   $updateset[] = "city = ".$_POST["city"];
 	else
-		bark('Выберите город');
+		bark('Р’С‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ');
 }
 
 if(is_numeric($_POST['year'])&&$_POST['year']<(date("Y")-13))
 $year = intval($_POST["year"]);
-else bark('Выберите год рождения');
+else bark('Р’С‹Р±РµСЂРёС‚Рµ РіРѕРґ СЂРѕР¶РґРµРЅРёСЏ');
 if(is_numeric($_POST['month'])&&$_POST['month']<=12&&$_POST['month']>=1)
 $month = intval($_POST["month"]);
-else bark('Выберите месяц рождения');
+else bark('Р’С‹Р±РµСЂРёС‚Рµ РјРµСЃСЏС† СЂРѕР¶РґРµРЅРёСЏ');
 if(is_numeric($_POST['day'])&&$_POST['day']<=31&&$_POST['day']>=1)
 $day = intval($_POST["day"]);
-else bark('Выберите день рождения');
+else bark('Р’С‹Р±РµСЂРёС‚Рµ РґРµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ');
 
 $updateset[] = 'birthday = \''.date("Y-m-d",strtotime($year.'-'.$month.'-'.$day)).'\''; 
 
 if(!empty($_POST['icq'])&&is_numeric($_POST['icq'])&&$_POST['icq']>9999&&$_POST['icq']<=9999999999)
 $updateset[] = 'icq = '.$_POST['icq'];
 
-// Что за нахуй? У нас этого нет и не надо
+// Р§С‚Рѕ Р·Р° РЅР°С…СѓР№? РЈ РЅР°СЃ СЌС‚РѕРіРѕ РЅРµС‚ Рё РЅРµ РЅР°РґРѕ
 /*
 $msn = unesc($_POST["msn"]);
 if (strlen($msn) > 30)
-    bark("Жаль, Ваш msn слишком длинный  (Макс - 30)");
+    bark("Р–Р°Р»СЊ, Р’Р°С€ msn СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 
 $aim = unesc($_POST["aim"]);
 if (strlen($aim) > 30)
-    bark("Жаль, Ваш aim слишком длинный  (Макс - 30)");
+    bark("Р–Р°Р»СЊ, Р’Р°С€ aim СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 
 $yahoo = unesc($_POST["yahoo"]);
 if (strlen($yahoo) > 30)
-    bark("Жаль, Ваш yahoo слишком длинный  (Макс - 30)");
+    bark("Р–Р°Р»СЊ, Р’Р°С€ yahoo СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 
 $mirc = unesc($_POST["mirc"]);
 if (strlen($mirc) > 30)
-    bark("Жаль, Ваш mirc слишком длинный  (Макс - 30)");
+    bark("Р–Р°Р»СЊ, Р’Р°С€ mirc СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 30)");
 
 $skype = unesc($_POST["skype"]);
 if (strlen($skype) > 20)
-    bark("Жаль, Ваш skype слишком длинный  (Макс - 20)"); */
+    bark("Р–Р°Р»СЊ, Р’Р°С€ skype СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№  (РњР°РєСЃ - 20)"); */
 	
 if(empty($wantusername))
-	bark('Вы не ввели ник');
+	bark('Р’С‹ РЅРµ РІРІРµР»Рё РЅРёРє');
 if(!validusername($wantusername))
-	bark('Ник содержит недопустимые символы');
+	bark('РќРёРє СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹');
 $updateset[] = 'username = '.sqlesc($wantusername);
 if(empty($_POST['name']))
-	bark('Вы не ввели имя');
-if(!ereg("^[a-zA-Zа-яА-Я \.-]+$",$_POST['name']))
-	bark('Имя содержит недопустимые символы');
+	bark('Р’С‹ РЅРµ РІРІРµР»Рё РёРјСЏ');
+if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$",$_POST['name']))
+	bark('РРјСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹');
 $updateset[] = 'firstname = '.sqlesc($_POST['name']);
 if(empty($_POST['surname']))
-	bark('Вы не ввели фамилию!');
-if(!ereg("^[a-zA-Zа-яА-Я \.-]+$",$_POST['surname']))
-	bark('Фамилия содержит недопустимые символы');
+	bark('Р’С‹ РЅРµ РІРІРµР»Рё С„Р°РјРёР»РёСЋ!');
+if(!ereg("^[a-zA-ZР°-СЏРђ-РЇ \.-]+$",$_POST['surname']))
+	bark('Р¤Р°РјРёР»РёСЏ СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРёРјРІРѕР»С‹');
 $updateset[] = 'surname = '.sqlesc($_POST['surname']);
 
 if(empty($wantpassword))
-	bark('Вы не ввели пароль');
+	bark('Р’С‹ РЅРµ РІРІРµР»Рё РїР°СЂРѕР»СЊ');
 
 if (strlen($wantusername) > 40)
-    bark("Ник слишком длинный (не более 40 символов)");
+    bark("РќРёРє СЃР»РёС€РєРѕРј РґР»РёРЅРЅС‹Р№ (РЅРµ Р±РѕР»РµРµ 40 СЃРёРјРІРѕР»РѕРІ)");
 
 if(strlen($_POST['name']) > 40)
-	bark('Имя не может быть более 40 символов');
+	bark('РРјСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»РµРµ 40 СЃРёРјРІРѕР»РѕРІ');
 	
 if(strlen($_POST['surname']) > 40)
-	bark('Фамилия не может быть более 40 символов');
+	bark('Р¤Р°РјРёР»РёСЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»РµРµ 40 СЃРёРјРІРѕР»РѕРІ');
 
 if ($wantpassword != $passagain)
-        bark("Пароли не совпадают");
+        bark("РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚");
 
 if (strlen($wantpassword) < 6)
-        bark("Пароль слишком короткий (минимум 6 символов)");
+        bark("РџР°СЂРѕР»СЊ СЃР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРёР№ (РјРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ)");
 
 if ($wantpassword == $wantusername)
-        bark("Пароль не может быть такой же как ник");
+        bark("РџР°СЂРѕР»СЊ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚Р°РєРѕР№ Р¶Рµ РєР°Рє РЅРёРє");
 if ($wantpassword == $_POST['name'])
-	bark('Пароль не может быть такой же как имя');
+	bark('РџР°СЂРѕР»СЊ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚Р°РєРѕР№ Р¶Рµ РєР°Рє РёРјСЏ');
 if ($wantpassword == $_POST['furname'])
-	bark('Пароль не може тбыть такой же как фамилия');
+	bark('РџР°СЂРѕР»СЊ РЅРµ РјРѕР¶Рµ С‚Р±С‹С‚СЊ С‚Р°РєРѕР№ Р¶Рµ РєР°Рє С„Р°РјРёР»РёСЏ');
 
 if (!validemail($email))
-        bark("Вы ввели неверный E-mail адрес");
+        bark("Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅС‹Р№ E-mail Р°РґСЂРµСЃ");
 if (strlen($email) > 80)
-	bark('E-mail не может быть больше 80 символов');
+	bark('E-mail РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 80 СЃРёРјРІРѕР»РѕРІ');
 
 // make sure user agrees to everything...
 if ($_POST["rulesverify"] != "yes" || $_POST["faqverify"] != "yes" || $_POST["ageverify"] != "yes")
-        stderr($tracker_lang['error'], "Извините, вы не подходите для того что-бы стать членом этого сайта.");
+        stderr($tracker_lang['error'], "РР·РІРёРЅРёС‚Рµ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ РґР»СЏ С‚РѕРіРѕ С‡С‚Рѕ-Р±С‹ СЃС‚Р°С‚СЊ С‡Р»РµРЅРѕРј СЌС‚РѕРіРѕ СЃР°Р№С‚Р°.");
 
 // check if email addy is already in use
 $a = (@mysql_fetch_row(@sql_query("SELECT COUNT(*) FROM users WHERE email=".sqlesc($email)))) or die(mysql_error());  
 if ($a[0] != 0)
-        bark("E-mail адрес $email уже зарегистрирован в системе.");
+        bark("E-mail Р°РґСЂРµСЃ $email СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РІ СЃРёСЃС‚РµРјРµ.");
 
 $updateset[] = "email = '$email'";
 $updateset[] = "ip = '".getip()."'";
@@ -180,15 +180,15 @@ if (isset($_COOKIE["uid"]) && is_numeric($_COOKIE["uid"]) && $users) {
     $co = @mysql_fetch_row($c);
     if ($co[0] == 'no') {
                 sql_query("UPDATE users SET ip = '".getip()."', last_access = NOW() WHERE id = $cid");
-                bark("Ваш IP забанен на этом трекере. Регистрация невозможна.");
+                bark("Р’Р°С€ IP Р·Р°Р±Р°РЅРµРЅ РЅР° СЌС‚РѕРј С‚СЂРµРєРµСЂРµ. Р РµРіРёСЃС‚СЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°.");
     } else
-                bark("Регистрация невозможна!");
+                bark("Р РµРіРёСЃС‚СЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°!");
 } else {
     $b = (@mysql_fetch_row(@sql_query("SELECT enabled, id FROM users WHERE ip = '".getip()."' ORDER BY last_access DESC LIMIT 1")));
     if ($b[0] == 'no') {
                 $banned_id = $b[1];
         setcookie("uid", $banned_id, "0x7fffffff", "/");
-                bark("Вы забанены на этом трекере. Регистрация невозможна.");
+                bark("Р’С‹ Р·Р°Р±Р°РЅРµРЅС‹ РЅР° СЌС‚РѕРј С‚СЂРµРєРµСЂРµ. Р РµРіРёСЃС‚СЂР°С†РёСЏ РЅРµРІРѕР·РјРѕР¶РЅР°.");
     }
 }
 
@@ -214,35 +214,35 @@ foreach($updateset as $field)
 $ret = sql_query("INSERT INTO users (".$fields.") VALUES (".$values.")");
 
 if (!$ret) {
-        bark("Неизвестная ошибка.");
+        bark("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°.");
 }
 
 $id = mysql_insert_id();
 
 //sql_query("DELETE FROM invites WHERE invite = ".sqlesc($_POST["invite"]));
-$bot_text = "[b]У нас на трекере зарегистрирован новый пользователь [color=red]".$_POST['name']. ' [i]'.$wantusername.'[/i] '.$_POST['surname']."[/color][/b]";
+$bot_text = "[b]РЈ РЅР°СЃ РЅР° С‚СЂРµРєРµСЂРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РЅРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ [color=red]".$_POST['name']. ' [i]'.$wantusername.'[/i] '.$_POST['surname']."[/color][/b]";
 bot_msg($bot_text);
-write_log("Зарегистрирован новый пользователь $wantusername","FFFFFF","tracker");
+write_log("Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РЅРѕРІС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ $wantusername","FFFFFF","tracker");
 
 $psecret = md5($editsecret);
 
 $body = <<<EOD
-Вы зарегистрировались на $SITENAME и указали этот адрес как обратный ($email).
+Р’С‹ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°Р»РёСЃСЊ РЅР° $SITENAME Рё СѓРєР°Р·Р°Р»Рё СЌС‚РѕС‚ Р°РґСЂРµСЃ РєР°Рє РѕР±СЂР°С‚РЅС‹Р№ ($email).
 
-Если это были не вы, пожалуйста, проигнорируйте это письмо. Персона, которая ввела ваш E-Mail адресс, имеет IP адрес {$_SERVER["REMOTE_ADDR"]}. Пожалуста, не отвечайте.
+Р•СЃР»Рё СЌС‚Рѕ Р±С‹Р»Рё РЅРµ РІС‹, РїРѕР¶Р°Р»СѓР№СЃС‚Р°, РїСЂРѕРёРіРЅРѕСЂРёСЂСѓР№С‚Рµ СЌС‚Рѕ РїРёСЃСЊРјРѕ. РџРµСЂСЃРѕРЅР°, РєРѕС‚РѕСЂР°СЏ РІРІРµР»Р° РІР°С€ E-Mail Р°РґСЂРµСЃСЃ, РёРјРµРµС‚ IP Р°РґСЂРµСЃ {$_SERVER["REMOTE_ADDR"]}. РџРѕР¶Р°Р»СѓСЃС‚Р°, РЅРµ РѕС‚РІРµС‡Р°Р№С‚Рµ.
 
-Для подтверждения вашей регистрации, вам нужно пройти по следующей ссылке:
+Р”Р»СЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ РІР°С€РµР№ СЂРµРіРёСЃС‚СЂР°С†РёРё, РІР°Рј РЅСѓР¶РЅРѕ РїСЂРѕР№С‚Рё РїРѕ СЃР»РµРґСѓСЋС‰РµР№ СЃСЃС‹Р»РєРµ:
 
 $DEFAULTBASEURL/confirm.php?id=$id&secret=$psecret
 
-После того, как вы это сделаете, вы сможете использовать ваш аккаунт. Если вы этого не сделаете,
- ваш новый аккаунт будет удален через пару дней. Мы рекомендуем вам прочитать правила
-и ЧаВо, прежде чем вы начнете использовать $SITENAME.
+РџРѕСЃР»Рµ С‚РѕРіРѕ, РєР°Рє РІС‹ СЌС‚Рѕ СЃРґРµР»Р°РµС‚Рµ, РІС‹ СЃРјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІР°С€ Р°РєРєР°СѓРЅС‚. Р•СЃР»Рё РІС‹ СЌС‚РѕРіРѕ РЅРµ СЃРґРµР»Р°РµС‚Рµ,
+ РІР°С€ РЅРѕРІС‹Р№ Р°РєРєР°СѓРЅС‚ Р±СѓРґРµС‚ СѓРґР°Р»РµРЅ С‡РµСЂРµР· РїР°СЂСѓ РґРЅРµР№. РњС‹ СЂРµРєРѕРјРµРЅРґСѓРµРј РІР°Рј РїСЂРѕС‡РёС‚Р°С‚СЊ РїСЂР°РІРёР»Р°
+Рё Р§Р°Р’Рѕ, РїСЂРµР¶РґРµ С‡РµРј РІС‹ РЅР°С‡РЅРµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ $SITENAME.
 EOD;
 
 if($use_email_act && $users) {
-        if (!sent_mail($email,$SITENAME,$SITEEMAIL,"Подтверждение регистрации на $SITENAME",$body,false)) {
-                stderr($tracker_lang['error'], "Невозможно отправить E-Mail. Попробуйте позже");
+        if (!sent_mail($email,$SITENAME,$SITEEMAIL,"РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё РЅР° $SITENAME",$body,false)) {
+                stderr($tracker_lang['error'], "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РїСЂР°РІРёС‚СЊ E-Mail. РџРѕРїСЂРѕР±СѓР№С‚Рµ РїРѕР·Р¶Рµ");
         }
 } else {
         logincookie($id, $wantpasshash);

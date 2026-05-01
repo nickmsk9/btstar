@@ -14,21 +14,21 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     <script language="JavaScript" type="text/javascript">
         jQuery(function($) {$('.zebra:even').css({backgroundColor: '#EEEEEE'});});
     </script>
-    <?
+    <?php
     if ($act == "send")
     {
         $uid = (int)$_POST['uid'];
 		$id = (int)$_POST['id'];
         $text = base64_decode($_POST['text']);
         if(empty($CURUSER['id']) || empty($uid) || empty($id) || empty($text))
-            die("Прямой доступ закрыт");
+            die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
         $dt = get_date_time();
 		$note = mysql_fetch_array(sql_query("SELECT n.id, n.uid, n.access, friends.id AS fid FROM notes AS n LEFT JOIN friends ON friends.friendid = ".$CURUSER['id']." AND friends.userid = ".$uid." AND friends.status = 'yes' WHERE n.uid = ".$uid." AND n.id = ".$id));
         if(empty($note))
-			die("Прямой доступ запрещен!");
+			die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РїСЂРµС‰РµРЅ!");
 		if($note['access']==0 and (!$CURUSER['id']==$uid||!$note['fid']) and $CURUSER['class'] < UC_MODERATOR)
-			die("Эту запись можно просматривать только друзьям ".$note['firstname']." ".$note['username']." ".$note['surname']."!");
-		sql_query("INSERT INTO noteswall (text, owner, nid, user, added) VALUES (" . sqlesc($text) . ", $uid, ".$id.", ".$CURUSER['id'].", ".sqlesc($dt).")") or die("Неизвестная ошибка!");
+			die("Р­С‚Сѓ Р·Р°РїРёСЃСЊ РјРѕР¶РЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ С‚РѕР»СЊРєРѕ РґСЂСѓР·СЊСЏРј ".$note['firstname']." ".$note['username']." ".$note['surname']."!");
+		sql_query("INSERT INTO noteswall (text, owner, nid, user, added) VALUES (" . sqlesc($text) . ", $uid, ".$id.", ".$CURUSER['id'].", ".sqlesc($dt).")") or die("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!");
 		sql_query("UPDATE LOW_PRIORITY notes SET comments = comments + 1 WHERE uid =".$uid." AND id = ".$id);
 		$show = true;
     }
@@ -38,9 +38,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
         $id = (int)$_POST['id'];
         $res = sql_query("SELECT user, owner, nid FROM noteswall WHERE id = $id") or sqlerr(__FILE__,__LINE__);
         $row = mysql_fetch_array($res);
-		if(empty($row)) die("Не выбрано сообщение!");
+		if(empty($row)) die("РќРµ РІС‹Р±СЂР°РЅРѕ СЃРѕРѕР±С‰РµРЅРёРµ!");
             if ($CURUSER['id'] != $row['owner'] && $CURUSER['id'] != $row['user'] && get_user_class() < UC_MODERATOR)
-                die("У вас нет прав.");
+                die("РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ.");
 		$kid = $id;
 		$id = $row['nid']; $uid = $row['owner'];
         sql_query("DELETE FROM noteswall WHERE id = $kid") or sqlerr(__FILE__,__LINE__);
@@ -49,7 +49,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
     }
 
     else
-       die("Прямой доступ закрыт");
+       die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
     if (isset($show))
     {	
@@ -58,7 +58,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
         list($pagertop, $pagerbottom, $limit) = pager($limited, $count, "note".$uid."-".$id.",", array(lastpagedefault => 1));
 		$res = sql_query("SELECT w.*, u.username, u.class, u.avatar, u.gender FROM noteswall AS w LEFT JOIN users AS u ON u.id = w.user WHERE w.owner = $uid AND w.nid = $id ORDER BY w.added $limit") or sqlerr(__FILE__,__LINE__);
 		if (mysql_num_rows($res) < 1)
-            print("<p>Нет записей.</p>\n");
+            print("<p>РќРµС‚ Р·Р°РїРёСЃРµР№.</p>\n");
         else
         {
             print("<table class=\"inlay\" width=\"100%\">\n");
@@ -81,9 +81,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
         }
     }
     else
-        die("Прямой доступ закрыт");
+        die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 }
 else
-    die("Прямой доступ закрыт");
+    die("РџСЂСЏРјРѕР№ РґРѕСЃС‚СѓРї Р·Р°РєСЂС‹С‚");
 
 ?>

@@ -1,14 +1,14 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
-stdhead("Приветствуем");
-begin_frame("Добро пожаловать");
-print("<b>BT-Star - универсальное средство поиска фильмов и друзей.</b><br><br>");
-print("Все смотрят фильмы, у каждого есть любимые жанры, и у каждого есть друзья.<br>");
-print("Наш проект решил обьеденить все в одном месте, теперь общайтесь и скачивайте файлы в одном месте.<br><br>");
+stdhead("РџСЂРёРІРµС‚СЃС‚РІСѓРµРј");
+begin_frame("Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ");
+print("<b>BT-Star - СѓРЅРёРІРµСЂСЃР°Р»СЊРЅРѕРµ СЃСЂРµРґСЃС‚РІРѕ РїРѕРёСЃРєР° С„РёР»СЊРјРѕРІ Рё РґСЂСѓР·РµР№.</b><br><br>");
+print("Р’СЃРµ СЃРјРѕС‚СЂСЏС‚ С„РёР»СЊРјС‹, Сѓ РєР°Р¶РґРѕРіРѕ РµСЃС‚СЊ Р»СЋР±РёРјС‹Рµ Р¶Р°РЅСЂС‹, Рё Сѓ РєР°Р¶РґРѕРіРѕ РµСЃС‚СЊ РґСЂСѓР·СЊСЏ.<br>");
+print("РќР°С€ РїСЂРѕРµРєС‚ СЂРµС€РёР» РѕР±СЊРµРґРµРЅРёС‚СЊ РІСЃРµ РІ РѕРґРЅРѕРј РјРµСЃС‚Рµ, С‚РµРїРµСЂСЊ РѕР±С‰Р°Р№С‚РµСЃСЊ Рё СЃРєР°С‡РёРІР°Р№С‚Рµ С„Р°Р№Р»С‹ РІ РѕРґРЅРѕРј РјРµСЃС‚Рµ.<br><br>");
 $stats = cache_read("stats");
 $registered = $stats["registered"];
-print("Нас уже <b title=\"Да, у нас нет тикающего счетчика :)\">".$registered."</b><br><br>");
+print("РќР°СЃ СѓР¶Рµ <b title=\"Р”Р°, Сѓ РЅР°СЃ РЅРµС‚ С‚РёРєР°СЋС‰РµРіРѕ СЃС‡РµС‚С‡РёРєР° :)\">".$registered."</b><br><br>");
 ?>
 <script language="javascript" type="text/javascript">
 function login()
@@ -20,13 +20,13 @@ function login()
 };
 </script>
 
-<div class="UILinkButton""><input type="submit" class="UILinkButton_A" onclick="login()" value="Вход" /><div class="UILinkButton_RW"><div class="UILinkButton_R"></div></div></div><div style="margin-left: 3px" class="UILinkButton""><form method=get action=signup.php><input type="submit" class="UILinkButton_A" value="Регистрация" /><div class="UILinkButton_RW"><div class="UILinkButton_R"></div></div></div></form>
+<div class="UILinkButton""><input type="submit" class="UILinkButton_A" onclick="login()" value="Р’С…РѕРґ" /><div class="UILinkButton_RW"><div class="UILinkButton_R"></div></div></div><div style="margin-left: 3px" class="UILinkButton""><form method=get action=signup.php><input type="submit" class="UILinkButton_A" value="Р РµРіРёСЃС‚СЂР°С†РёСЏ" /><div class="UILinkButton_RW"><div class="UILinkButton_R"></div></div></div></form>
 <br><div id="login"></div>
-<?
+<?php
 if(!empty($_COOKIE['return'])&&!empty($_COOKIE['canret'])&&$_COOKIE['canret']==1)
-print('<br><a href="'.urldecode($_COOKIE['return']).'">» Я не хочу пока регистрироваться, верните меня на запрошенную страницу</a>');
+print('<br><a href="'.urldecode($_COOKIE['return']).'">В» РЇ РЅРµ С…РѕС‡Сѓ РїРѕРєР° СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ, РІРµСЂРЅРёС‚Рµ РјРµРЅСЏ РЅР° Р·Р°РїСЂРѕС€РµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ</a>');
 elseif(!empty($_COOKIE['return']))
-print('<br>» Запрошенная страница доступна только зарегистрированным пользователям');
+print('<br>В» Р—Р°РїСЂРѕС€РµРЅРЅР°СЏ СЃС‚СЂР°РЅРёС†Р° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј');
 end_frame();
 stdfoot();
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 function get_tags() {
 if (cache_check("tags", 300))
     $res = cache_read("tags");
@@ -21,7 +21,7 @@ else {
 function cloud($small, $big, $colour = false) {
     $tags = get_tags();
     if (empty($tags))
-        $data = "Нет тэгов";
+        $data = "РќРµС‚ С‚СЌРіРѕРІ";
     else {
         $minimum_count = min(array_values($tags));
         $maximum_count = max(array_values($tags));
@@ -35,9 +35,9 @@ function cloud($small, $big, $colour = false) {
 
         foreach ($tags as $tag => $count) {
             $size = $small + ($count - $minimum_count) * ($big - $small) / $spread;
-            $colours = array('#003EFF', '#0000FF', '#7EB6FF', '#0099CC', '#62B1F6'); // Диапазон цветов (только для статичного облака)
-            $cloud[] = "<a href=\"browse.php?tag=" . urlencode($tag) . "&cat=0&incldead=1\" style=\"".($colour ? "color:".$colours[mt_rand(0, 4)]."; " : "")."font-size:". floor($size) . "px;\" rel=\"tag\" title=\"Содержится в $count торрентах\">"
-            . htmlentities($tag, ENT_QUOTES, "cp1251") . "</a>\n";
+            $colours = array('#003EFF', '#0000FF', '#7EB6FF', '#0099CC', '#62B1F6'); // Р”РёР°РїР°Р·РѕРЅ С†РІРµС‚РѕРІ (С‚РѕР»СЊРєРѕ РґР»СЏ СЃС‚Р°С‚РёС‡РЅРѕРіРѕ РѕР±Р»Р°РєР°)
+            $cloud[] = "<a href=\"browse.php?tag=" . urlencode($tag) . "&cat=0&incldead=1\" style=\"".($colour ? "color:".$colours[mt_rand(0, 4)]."; " : "")."font-size:". floor($size) . "px;\" rel=\"tag\" title=\"РЎРѕРґРµСЂР¶РёС‚СЃСЏ РІ $count С‚РѕСЂСЂРµРЅС‚Р°С…\">"
+            . htmlentities($tag, ENT_QUOTES, "UTF-8") . "</a>\n";
         }
         $data = join($cloud);
     }
@@ -47,14 +47,14 @@ function cloud($small, $big, $colour = false) {
 function flash_cloud($width, $height, $small, $big) {
     $divname = 'tagcloud';
     $soname = 'settings';
-    $movie = '/swf/tagcloud.swf'; // Путь до флэш-файла
-    $path = '/js/'; // Директория js-скриптов
-    $options['bgcolor'] = 'FFFFFF'; // Цвет фона (HEX)
-    $options['trans'] = 'true'; // Прозрачность (true - включена, false - выключена)
-    $options['tcolor'] = '000000'; // Первый цвет тэгов (HEX)
-    $options['tcolor2'] = '111111'; // Второй цвет тэгов (HEX)
-    $options['hicolor'] = '222222'; // Цвет перемешки (HEX)
-    $options['speed'] = '50'; // Скорость вращения
+    $movie = '/swf/tagcloud.swf'; // РџСѓС‚СЊ РґРѕ С„Р»СЌС€-С„Р°Р№Р»Р°
+    $path = '/js/'; // Р”РёСЂРµРєС‚РѕСЂРёСЏ js-СЃРєСЂРёРїС‚РѕРІ
+    $options['bgcolor'] = 'FFFFFF'; // Р¦РІРµС‚ С„РѕРЅР° (HEX)
+    $options['trans'] = 'true'; // РџСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ (true - РІРєР»СЋС‡РµРЅР°, false - РІС‹РєР»СЋС‡РµРЅР°)
+    $options['tcolor'] = '000000'; // РџРµСЂРІС‹Р№ С†РІРµС‚ С‚СЌРіРѕРІ (HEX)
+    $options['tcolor2'] = '111111'; // Р’С‚РѕСЂРѕР№ С†РІРµС‚ С‚СЌРіРѕРІ (HEX)
+    $options['hicolor'] = '222222'; // Р¦РІРµС‚ РїРµСЂРµРјРµС€РєРё (HEX)
+    $options['speed'] = '50'; // РЎРєРѕСЂРѕСЃС‚СЊ РІСЂР°С‰РµРЅРёСЏ
     $options['distr'] = 'true';
     $options['mode'] = 'tags';
 

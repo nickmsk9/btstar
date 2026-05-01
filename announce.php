@@ -5,6 +5,9 @@
 }
 $now = timer();*/
 define ('IN_ANNOUNCE', true);
+require_once('./include/compat.php');
+@error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+@ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 require_once('./include/core_announce.php');
 
 gzip();
@@ -64,7 +67,7 @@ if (!isset($event))
 	$event = '';
 $seeder = ($left == 0) ? 'yes' : 'no';
 
-// ” Ì‡Ò ÌÂ ‡Ô‡˜ - ÙÛÌÍˆËË ÌÂÚ
+// –£ –Ω–∞—Å –Ω–µ –∞–ø–∞—á - —Ñ—É–Ω–∫—Ü–∏–∏ –Ω–µ—Ç
 /*if (function_exists('getallheaders'))
 	$headers = getallheaders();
 else*/
@@ -127,7 +130,7 @@ if ($numpeers > $rsize)
 $res = mysql_query('SELECT '.$fields.' FROM peers WHERE torrent = '.$torrentid.' '.$limit) or err(mysql_error());
 $resp = 'd' . benc_str('interval') . 'i' . $announce_interval . 'e' . benc_str('peers') . (($compact = ($_GET['compact'] == 1)) ? '' : 'l');
 $no_peer_id = ($_GET['no_peer_id'] == 1);
-unset($self);   // Õ¿¬≈–ÕŒ≈ ÃŒ∆ÕŒ ”¡–¿“‹?
+unset($self);   // –ù–ê–í–ï–†–ù–û–ï –ú–û–ñ–ù–û –£–ë–†–ê–¢–¨?
 while ($row = mysql_fetch_array($res)) {
 	if ($row['peer_id'] == $peer_id) {
 		$userid = $row['userid'];

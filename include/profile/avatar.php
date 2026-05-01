@@ -1,14 +1,14 @@
-<?
+<?php
 print("<table width=\"100%\">");
 print("<tr><td width=\"20%\" style=\"border: none;\" align=\"center\">");
 if($CURUSER['avatar'])
-print("<img src=\"".$DEFAULTBASEURL."/avatars/".$CURUSER['avatar']."\" title=\"Аватар\" alt=\"Загрузка...\">");
+print("<img src=\"".$DEFAULTBASEURL."/avatars/".$CURUSER['avatar']."\" title=\"РђРІР°С‚Р°СЂ\" alt=\"Р—Р°РіСЂСѓР·РєР°...\">");
 else
-print("Нет<br>фотографии");
+print("РќРµС‚<br>С„РѕС‚РѕРіСЂР°С„РёРё");
 print("</td><td width=\"10px\" style=\"border: none;\">&nbsp;</td><td valign=\"top\" style=\"border:none;\">");
-print("<h4 style=\"font-size: 15px;\">Загрузка фотографии</h4>");
-print("Вы можете загрузить сюда фотографию формата JPG, GIF или PNG.<br>");
-print("<form method=\"post\" enctype=\"multipart/form-data\" action=\"takeprofedit.php?t=avatar\"><input type=\"file\" size=\"80\" name=\"avatar\"><input type=\"submit\" value=\"Загрузить\"><input type=\"submit\" name=\"delete\" value=\"Удалить\"></form><br>");
-print("<font class=\"small\">Файлы размером более 5 MB не загрузятся. В случае возникновения проблем попробуйте загрузить фотографию меньшего размера.</font>");
+print("<h4 style=\"font-size: 15px;\">Р—Р°РіСЂСѓР·РєР° С„РѕС‚РѕРіСЂР°С„РёРё</h4>");
+print("Р’С‹ РјРѕР¶РµС‚Рµ Р·Р°РіСЂСѓР·РёС‚СЊ СЃСЋРґР° С„РѕС‚РѕРіСЂР°С„РёСЋ С„РѕСЂРјР°С‚Р° JPG, GIF РёР»Рё PNG.<br>");
+print("<form method=\"post\" enctype=\"multipart/form-data\" action=\"takeprofedit.php?t=avatar\"><input type=\"file\" size=\"80\" name=\"avatar\"><input type=\"submit\" value=\"Р—Р°РіСЂСѓР·РёС‚СЊ\"><input type=\"submit\" name=\"delete\" value=\"РЈРґР°Р»РёС‚СЊ\"></form><br>");
+print("<font class=\"small\">Р¤Р°Р№Р»С‹ СЂР°Р·РјРµСЂРѕРј Р±РѕР»РµРµ 5 MB РЅРµ Р·Р°РіСЂСѓР·СЏС‚СЃСЏ. Р’ СЃР»СѓС‡Р°Рµ РІРѕР·РЅРёРєРЅРѕРІРµРЅРёСЏ РїСЂРѕР±Р»РµРј РїРѕРїСЂРѕР±СѓР№С‚Рµ Р·Р°РіСЂСѓР·РёС‚СЊ С„РѕС‚РѕРіСЂР°С„РёСЋ РјРµРЅСЊС€РµРіРѕ СЂР°Р·РјРµСЂР°.</font>");
 print("</td></tr>");
 ?>

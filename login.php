@@ -1,46 +1,46 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 dbconn();
 
 if ($CURUSER)
-	stderr($tracker_lang['error'], "Вы уже вошли на $SITENAME!");
+	stderr($tracker_lang['error'], "Р’С‹ СѓР¶Рµ РІРѕС€Р»Рё РЅР° $SITENAME!");
 
-stdhead("Вход");
-begin_frame("Вход на сайт");
+stdhead("Р’С…РѕРґ");
+begin_frame("Р’С…РѕРґ РЅР° СЃР°Р№С‚");
 unset($returnto);
 if (!empty($_GET["returnto"])) {
 	$returnto = $_GET["returnto"];
 	if (!$_GET["nowarn"]) {
-		$error = "<tr><td colspan=\"2\"><div class=\"error\">К сожалению страница, которую вы пытаетесь посмотреть <b>доступна только вошедшим в систему</b>.<br />После успешного входа вы будете переадресованы на запрошеную страницу.</div></td></tr>";
-		//print("<h1>Не авторизированы!</h1>\n");
-		//print("<p><b>Ошибка:</b> Страница, которую вы пытаетесь посмотреть, доступна только зарегистрированым.</p>\n");
+		$error = "<tr><td colspan=\"2\"><div class=\"error\">Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ СЃС‚СЂР°РЅРёС†Р°, РєРѕС‚РѕСЂСѓСЋ РІС‹ РїС‹С‚Р°РµС‚РµСЃСЊ РїРѕСЃРјРѕС‚СЂРµС‚СЊ <b>РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ РІРѕС€РµРґС€РёРј РІ СЃРёСЃС‚РµРјСѓ</b>.<br />РџРѕСЃР»Рµ СѓСЃРїРµС€РЅРѕРіРѕ РІС…РѕРґР° РІС‹ Р±СѓРґРµС‚Рµ РїРµСЂРµР°РґСЂРµСЃРѕРІР°РЅС‹ РЅР° Р·Р°РїСЂРѕС€РµРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ.</div></td></tr>";
+		//print("<h1>РќРµ Р°РІС‚РѕСЂРёР·РёСЂРѕРІР°РЅС‹!</h1>\n");
+		//print("<p><b>РћС€РёР±РєР°:</b> РЎС‚СЂР°РЅРёС†Р°, РєРѕС‚РѕСЂСѓСЋ РІС‹ РїС‹С‚Р°РµС‚РµСЃСЊ РїРѕСЃРјРѕС‚СЂРµС‚СЊ, РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹Рј.</p>\n");
 	}
 }
 
 ?>
 <form method="post" action="takelogin.php">
 <table border="0" cellpadding="5" width="100%">
-<?
+<?php
 if (isset($error)) {
 	echo $error;
 }
 ?>
 <tr><td class="rowhead">E-Mail:</td><td align="left"><input type="text" size="40" name="email" style="width: 200px; border: 1px solid gray" /></td></tr>
-<tr><td class="rowhead">Пароль:</td><td align="left"><input type="password" size="40" name="password" style="width: 200px; border: 1px solid gray" /></td></tr>
-<tr><td colspan="2" align="left"><input type="submit" value="Войти" class="btn"></td></tr>
+<tr><td class="rowhead">РџР°СЂРѕР»СЊ:</td><td align="left"><input type="password" size="40" name="password" style="width: 200px; border: 1px solid gray" /></td></tr>
+<tr><td colspan="2" align="left"><input type="submit" value="Р’РѕР№С‚Рё" class="btn"></td></tr>
 </table>
-<?
+<?php
 
 if (isset($returnto))
 	print("<input type=\"hidden\" name=\"returnto\" value=\"" . htmlspecialchars_uni($returnto) . "\" />\n");
 
 ?>
 </form>
-<div class="success" align="left">Если Вы забыли пароль или Вы не можете зайти - попытайтесь воспользоваться формой <a href="recover.php">восстановления паролей</a><br>
-Ещё не зарегистрированы ? Вы можете <a href="signup.php">зарегистрироваться</a> прямо сейчас!</div>
+<div class="success" align="left">Р•СЃР»Рё Р’С‹ Р·Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ РёР»Рё Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ Р·Р°Р№С‚Рё - РїРѕРїС‹С‚Р°Р№С‚РµСЃСЊ РІРѕСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ С„РѕСЂРјРѕР№ <a href="recover.php">РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РїР°СЂРѕР»РµР№</a><br>
+Р•С‰С‘ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ ? Р’С‹ РјРѕР¶РµС‚Рµ <a href="signup.php">Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ</a> РїСЂСЏРјРѕ СЃРµР№С‡Р°СЃ!</div>
 
-<?
+<?php
 end_frame();
 stdfoot();
 

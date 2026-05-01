@@ -22,9 +22,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
 			$q1=sql_query("UPDATE friends SET `status` = 'yes' WHERE userid = ".$_POST['id']." AND friendid = ".$CURUSER['id']);
 			$q2=sql_query("REPLACE INTO friends (`userid`,`friendid`,`status`) VALUES (".$CURUSER['id'].",".$_POST['id'].",'yes')");
 			if($q1&&$q2)
-			echo"<div class=\"success\">Пользователь добавлен в список друзей!</div>";
+			echo"<div class=\"success\">РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РґРѕР±Р°РІР»РµРЅ РІ СЃРїРёСЃРѕРє РґСЂСѓР·РµР№!</div>";
 			else
-			echo"<div class=\"error\">Произошла неизвестная ошибка!</div>";
+			echo"<div class=\"error\">РџСЂРѕРёР·РѕС€Р»Р° РЅРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!</div>";
 		break;
 		case 'deny':
 					$qw=sql_query("SELECT `status` FROM	friends WHERE userid = ".$_POST['id']." AND friendid = ".$CURUSER['id']);
@@ -36,9 +36,9 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER["REQUEST_ME
 			$q1=sql_query("UPDATE friends SET `status` = 'no' WHERE userid = ".$_POST['id']." AND friendid = ".$CURUSER['id']);
 			$q2=sql_query("REPLACE INTO friends (`userid`,`friendid`,`status`) VALUES (".$CURUSER['id'].",".$_POST['id'].",'no')");
 			if($q1&&$q2)
-			echo"<div class=\"success\">Заявка отклонена!</div>";
+			echo"<div class=\"success\">Р—Р°СЏРІРєР° РѕС‚РєР»РѕРЅРµРЅР°!</div>";
 			else
-			echo"<div class=\"error\">Произошла неизвестная ошибка!</div>";
+			echo"<div class=\"error\">РџСЂРѕРёР·РѕС€Р»Р° РЅРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!</div>";
 		break;
 		default:
 		die("Error 5");

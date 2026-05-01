@@ -9,11 +9,11 @@ $lim = 100;
 
 if(isset($_GET['ref'])){
     $ref = str($_GET['ref']);
-    stdhead("Последние переходы сайта ".$ref);
-    begin_frame("Последние переходы сайта ".$ref);
+    stdhead("РџРѕСЃР»РµРґРЅРёРµ РїРµСЂРµС…РѕРґС‹ СЃР°Р№С‚Р° ".$ref);
+    begin_frame("РџРѕСЃР»РµРґРЅРёРµ РїРµСЂРµС…РѕРґС‹ СЃР°Р№С‚Р° ".$ref);
 
     begin_table();
-    echo "<tr><td class=row2><b>URL</b></td><td class=row2><b>Дата</b></td><td class=row2><b>IP</b></td></tr>\n";
+    echo "<tr><td class=row2><b>URL</b></td><td class=row2><b>Р”Р°С‚Р°</b></td><td class=row2><b>IP</b></td></tr>\n";
 
     $a = sql_query("SELECT url, added,ip FROM `referrers` WHERE refsite='".$ref."' ORDER BY id DESC LIMIT 200");
     while($S = mysql_fetch_assoc($a)){
@@ -31,8 +31,8 @@ exit;
 
 
 
-stdhead("ТОП ".$lim." сайтов, от которых мы получаем посетителей");
-begin_frame("ТОП ".$lim." сайтов, от которых мы получаем посетителей");
+stdhead("РўРћРџ ".$lim." СЃР°Р№С‚РѕРІ, РѕС‚ РєРѕС‚РѕСЂС‹С… РјС‹ РїРѕР»СѓС‡Р°РµРј РїРѕСЃРµС‚РёС‚РµР»РµР№");
+begin_frame("РўРћРџ ".$lim." СЃР°Р№С‚РѕРІ, РѕС‚ РєРѕС‚РѕСЂС‹С… РјС‹ РїРѕР»СѓС‡Р°РµРј РїРѕСЃРµС‚РёС‚РµР»РµР№");
 
 $a = sql_query("SELECT added FROM `referrers` ORDER BY id LIMIT 1");
 $a = mysql_fetch_row($a);
@@ -42,11 +42,11 @@ $a = sql_query("SELECT COUNT(*) FROM `referrers`");
 $a = mysql_fetch_row($a);
 $count = $a[0];
 
-echo "<br>Статистика ведётся <b>".$time."<br>".$count." переходов.</b><br><br>";
+echo "<br>РЎС‚Р°С‚РёСЃС‚РёРєР° РІРµРґС‘С‚СЃСЏ <b>".$time."<br>".$count." РїРµСЂРµС…РѕРґРѕРІ.</b><br><br>";
 
 begin_table();
 
-echo "<tr><td class=row2><b>№</b></td><td class=row2><b>Сайт</b></td><td class=row2><b>Переходов</b></td></tr>\n";
+echo "<tr><td class=row2><b>в„–</b></td><td class=row2><b>РЎР°Р№С‚</b></td><td class=row2><b>РџРµСЂРµС…РѕРґРѕРІ</b></td></tr>\n";
 
 $a = sql_query("SELECT refsite, COUNT( * ) AS cnt FROM `referrers` GROUP BY refsite ORDER BY cnt DESC LIMIT 0 , ".$lim);
 $c=1;

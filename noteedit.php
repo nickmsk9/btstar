@@ -1,56 +1,56 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn();
 function bark($msg) {
 	global $tracker_lang;
-	stdhead('Записи');
+	stdhead('Р—Р°РїРёСЃРё');
 	stdmsg($tracker_lang['error'], $msg);
 	stdfoot();
 	exit;
 }
 
 function succ($msg) {
-	stdhead('Записи');
-	stdmsg('Успешно', $msg);
+	stdhead('Р—Р°РїРёСЃРё');
+	stdmsg('РЈСЃРїРµС€РЅРѕ', $msg);
 	stdfoot();
 	exit;
 }
 
 function ques($msg) {
-	stdhead('Записи');
-	stdmsg('Вопрос', $msg);
+	stdhead('Р—Р°РїРёСЃРё');
+	stdmsg('Р’РѕРїСЂРѕСЃ', $msg);
 	stdfoot();
 	exit;
 }
 
 if(empty($_GET['act']))
-bark('Нет действия!');
+bark('РќРµС‚ РґРµР№СЃС‚РІРёСЏ!');
 switch($_GET['act'])
 {
 	case 'add':
 		$sql=mysql_fetch_array(sql_query("SELECT COUNT(*) FROM notes WHERE uid=".$CURUSER['id']));
 		if(!empty($sql)&&$sql[0]>=$maxnotes)
-			bark("Вы не можете больше создавать записи!");
-		stdhead('Записи');
-		begin_frame('Создать запись');
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ Р±РѕР»СЊС€Рµ СЃРѕР·РґР°РІР°С‚СЊ Р·Р°РїРёСЃРё!");
+		stdhead('Р—Р°РїРёСЃРё');
+		begin_frame('РЎРѕР·РґР°С‚СЊ Р·Р°РїРёСЃСЊ');
 		?><table border="0" width="100%"><form name="note" action="noteedit.php?act=takeadd" method="post"><tr><td width="30%" align="right" style="padding: 2px;">
-		Заголовок</td><td style="padding: 2px;"><input type="text" size="40" name="name"></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Тип</td><td style="padding: 2px;"><select name="access"><option selected="" value="1">Открытая</option><option value="0">Закрытая</option></select> Закрытые записи могут читать только ваши друзья<br><small>* Модераторы могут читать закрытые записи!</small></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Текст</td><td style="padding: 2px;">
-		<? textbbcode("note","text","",$long); ?></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Теги</td><td style="padding: 2px;"><input size="35" type="text" name="tags"><br><small>* Через запятую, не более 10</small></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Торренты</td><td style="padding: 2px;"><input size="35" type="text" name="torrents"><br><small>* ID торрентов через запятую, не более 10</small></td></tr>
-		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="Создать"></td></tr>
-		</form></table> <?
+		Р—Р°РіРѕР»РѕРІРѕРє</td><td style="padding: 2px;"><input type="text" size="40" name="name"></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРёРї</td><td style="padding: 2px;"><select name="access"><option selected="" value="1">РћС‚РєСЂС‹С‚Р°СЏ</option><option value="0">Р—Р°РєСЂС‹С‚Р°СЏ</option></select> Р—Р°РєСЂС‹С‚С‹Рµ Р·Р°РїРёСЃРё РјРѕРіСѓС‚ С‡РёС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ РІР°С€Рё РґСЂСѓР·СЊСЏ<br><small>* РњРѕРґРµСЂР°С‚РѕСЂС‹ РјРѕРіСѓС‚ С‡РёС‚Р°С‚СЊ Р·Р°РєСЂС‹С‚С‹Рµ Р·Р°РїРёСЃРё!</small></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРєСЃС‚</td><td style="padding: 2px;">
+		<?php textbbcode("note","text","",$long); ?></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРіРё</td><td style="padding: 2px;"><input size="35" type="text" name="tags"><br><small>* Р§РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ, РЅРµ Р±РѕР»РµРµ 10</small></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРѕСЂСЂРµРЅС‚С‹</td><td style="padding: 2px;"><input size="35" type="text" name="torrents"><br><small>* ID С‚РѕСЂСЂРµРЅС‚РѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ, РЅРµ Р±РѕР»РµРµ 10</small></td></tr>
+		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="РЎРѕР·РґР°С‚СЊ"></td></tr>
+		</form></table> <?php
 		end_frame();
 	break;
 	case 'takeadd':
 		$sql=mysql_fetch_array(sql_query("SELECT COUNT(*) FROM notes WHERE uid=".$CURUSER['id']));
 		if(!empty($sql)&&$sql[0]>=$maxnotes)
-			bark("Вы не можете больше создавать записи!");
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ Р±РѕР»СЊС€Рµ СЃРѕР·РґР°РІР°С‚СЊ Р·Р°РїРёСЃРё!");
 		if(empty($_POST['name'])||empty($_POST['text']))
-			bark("Заполните название и текст!");
+			bark("Р—Р°РїРѕР»РЅРёС‚Рµ РЅР°Р·РІР°РЅРёРµ Рё С‚РµРєСЃС‚!");
 		
 		$text = trim(sqlesc($_POST['text']));
 		$name = trim(sqlesc($_POST['name']));
@@ -73,41 +73,41 @@ switch($_GET['act'])
 		if(sql_query("INSERT INTO notes (`uid`,`id`,`name`,`timestamp`,`text`,`access`,`tags`,`torrents`) VALUES (".$CURUSER['id'].", $id, $name, $timestamp, $text, $access, $tags, $torrents)"))
 		{header("Location: note".$CURUSER['id']."-".$id); die; }
 		else
-			bark("Неизвестная ошибка!");
+			bark("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!");
 	break;
 	case 'edit':
 		if(empty($_GET['uid'])||!is_numeric($_GET['uid'])||empty($_GET['id'])||!is_numeric($_GET['id']))
-			bark("Не выбрана запись!");
+			bark("РќРµ РІС‹Р±СЂР°РЅР° Р·Р°РїРёСЃСЊ!");
 		$uid = $_GET['uid'];
 		$id = $_GET['id'];
 		$note = mysql_fetch_array(sql_query("SELECT * FROM notes WHERE uid = ".$uid." AND id = ".$id));
 		if(empty($note))
-			bark("Такой записи не существует!");
+			bark("РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
 		if($uid!=$CURUSER['id']&&$CURUSER['class'] < UC_MODERATOR)
-			bark("Вы не можете редактировать чужие записи!");
-		stdhead("Записи");
-		begin_frame('Изменить запись');
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‡СѓР¶РёРµ Р·Р°РїРёСЃРё!");
+		stdhead("Р—Р°РїРёСЃРё");
+		begin_frame('РР·РјРµРЅРёС‚СЊ Р·Р°РїРёСЃСЊ');
 		?><table border="0" width="100%"><form name="note" action="noteedit.php?act=takeedit&uid=<?=$uid;?>&id=<?=$id;?>" method="post"><tr><td width="30%" align="right" style="padding: 2px;">
-		Заголовок</td><td style="padding: 2px;"><input type="text" size="40" name="name" value="<?=htmlspecialchars($note['name']);?>"></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Тип</td><td style="padding: 2px;"><select name="access"><option <?=($note['access']==1 ? 'selected=""' : '');?> value="1">Открытая</option><option <?=($note['access']==0 ? 'selected=""' : '');?> value="0">Закрытая</option></select> Закрытые записи могут читать только ваши друзья<br><small>* Модераторы могут читать закрытые записи!</small></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Текст</td><td style="padding: 2px;">
-		<? textbbcode("note","text",htmlspecialchars($note['text']),$long); ?></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Теги</td><td style="padding: 2px;"><input size="35" type="text" name="tags" value="<?=htmlspecialchars($note['tags']);?>"><br><small>* Через запятую, не более 10</small></td></tr>
-		<tr><td align="right" valign="top" style="padding: 2px;">Торренты</td><td style="padding: 2px;"><input size="35" type="text" name="torrents" value="<?=htmlspecialchars($note['torrents']);?>"><br><small>* ID торрентов через запятую, не более 10</small></td></tr>
-		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="Изменить"></td></tr>
-		</form></table> <?
+		Р—Р°РіРѕР»РѕРІРѕРє</td><td style="padding: 2px;"><input type="text" size="40" name="name" value="<?=htmlspecialchars($note['name']);?>"></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРёРї</td><td style="padding: 2px;"><select name="access"><option <?=($note['access']==1 ? 'selected=""' : '');?> value="1">РћС‚РєСЂС‹С‚Р°СЏ</option><option <?=($note['access']==0 ? 'selected=""' : '');?> value="0">Р—Р°РєСЂС‹С‚Р°СЏ</option></select> Р—Р°РєСЂС‹С‚С‹Рµ Р·Р°РїРёСЃРё РјРѕРіСѓС‚ С‡РёС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ РІР°С€Рё РґСЂСѓР·СЊСЏ<br><small>* РњРѕРґРµСЂР°С‚РѕСЂС‹ РјРѕРіСѓС‚ С‡РёС‚Р°С‚СЊ Р·Р°РєСЂС‹С‚С‹Рµ Р·Р°РїРёСЃРё!</small></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРєСЃС‚</td><td style="padding: 2px;">
+		<?php textbbcode("note","text",htmlspecialchars($note['text']),$long); ?></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРµРіРё</td><td style="padding: 2px;"><input size="35" type="text" name="tags" value="<?=htmlspecialchars($note['tags']);?>"><br><small>* Р§РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ, РЅРµ Р±РѕР»РµРµ 10</small></td></tr>
+		<tr><td align="right" valign="top" style="padding: 2px;">РўРѕСЂСЂРµРЅС‚С‹</td><td style="padding: 2px;"><input size="35" type="text" name="torrents" value="<?=htmlspecialchars($note['torrents']);?>"><br><small>* ID С‚РѕСЂСЂРµРЅС‚РѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ, РЅРµ Р±РѕР»РµРµ 10</small></td></tr>
+		<tr><td>&nbsp;</td><td style="padding: 2px;"><input type="submit" name="ok" value="РР·РјРµРЅРёС‚СЊ"></td></tr>
+		</form></table> <?php
 		end_frame();
 	break;
 	case 'takeedit':
 		if(empty($_GET['uid'])||!is_numeric($_GET['uid'])||empty($_GET['id'])||!is_numeric($_GET['id']))
-			bark("Не выбрана запись!");
+			bark("РќРµ РІС‹Р±СЂР°РЅР° Р·Р°РїРёСЃСЊ!");
 		$uid = $_GET['uid'];
 		$id = $_GET['id'];
 		$note = mysql_fetch_array(sql_query("SELECT * FROM notes WHERE uid = ".$uid." AND id = ".$id));
 		if(empty($note))
-			bark("Такой записи не существует!");
+			bark("РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
 		if($uid!=$CURUSER['id']&&$CURUSER['class'] < UC_MODERATOR)
-			bark("Вы не можете редактировать чужие записи!");
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‡СѓР¶РёРµ Р·Р°РїРёСЃРё!");
 		
 		$text = trim(sqlesc($_POST['text']));
 		$name = trim(sqlesc($_POST['name']));
@@ -125,41 +125,41 @@ switch($_GET['act'])
 		else
 			$moderated = '';
 		if(sql_query("UPDATE notes SET name = $name, text = $text, last_edit = $timestamp,$moderated tags = $tags, torrents = $torrents, access = $access WHERE uid = ".$uid." AND id = ".$id))
-			succ("Запись успешно изменена!<br><a href=\"note".$uid."-".$id."\">Перейти</a>");
+			succ("Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅР°!<br><a href=\"note".$uid."-".$id."\">РџРµСЂРµР№С‚Рё</a>");
 		else
-			bark("Ошибка при изменении");
+			bark("РћС€РёР±РєР° РїСЂРё РёР·РјРµРЅРµРЅРёРё");
 	break;
 	case 'delete':
 		if(empty($_GET['uid'])||!is_numeric($_GET['uid'])||empty($_GET['id'])||!is_numeric($_GET['id']))
-			bark("Не выбрана запись!");
+			bark("РќРµ РІС‹Р±СЂР°РЅР° Р·Р°РїРёСЃСЊ!");
 		$uid = $_GET['uid'];
 		$id = $_GET['id'];
 		$note = mysql_fetch_array(sql_query("SELECT * FROM notes WHERE uid = ".$uid." AND id = ".$id));
 		if(empty($note))
-			bark("Такой записи не существует!");
+			bark("РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
 		if($uid!=$CURUSER['id']&&$CURUSER['class'] < UC_MODERATOR)
-			bark("Вы не можете редактировать чужие записи!");
-		ques('Вы действительно хотите удалить запись "'.htmlspecialchars($note['name']).'"?<br>[<a href="noteedit.php?uid='.$uid.'&id='.$id.'&act=deleteconf">Удалить</a>] [<a href="note'.$uid.'-'.$id.'">Вернуться</a>]');
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‡СѓР¶РёРµ Р·Р°РїРёСЃРё!");
+		ques('Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ "'.htmlspecialchars($note['name']).'"?<br>[<a href="noteedit.php?uid='.$uid.'&id='.$id.'&act=deleteconf">РЈРґР°Р»РёС‚СЊ</a>] [<a href="note'.$uid.'-'.$id.'">Р’РµСЂРЅСѓС‚СЊСЃСЏ</a>]');
 	
 	break;
 	case 'deleteconf':
 		if(empty($_GET['uid'])||!is_numeric($_GET['uid'])||empty($_GET['id'])||!is_numeric($_GET['id']))
-			bark("Не выбрана запись!");
+			bark("РќРµ РІС‹Р±СЂР°РЅР° Р·Р°РїРёСЃСЊ!");
 		$uid = $_GET['uid'];
 		$id = $_GET['id'];
 		$note = mysql_fetch_array(sql_query("SELECT * FROM notes WHERE uid = ".$uid." AND id = ".$id));
 		if(empty($note))
-			bark("Такой записи не существует!");
+			bark("РўР°РєРѕР№ Р·Р°РїРёСЃРё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!");
 		if($uid!=$CURUSER['id']&&$CURUSER['class'] < UC_MODERATOR)
-			bark("Вы не можете редактировать чужие записи!");
+			bark("Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‡СѓР¶РёРµ Р·Р°РїРёСЃРё!");
 		if(sql_query("DELETE FROM `notes` WHERE uid = ".$uid." AND id = ".$id))
 		{	if(sql_query("DELETE FROM `noteswall` WHERE `owner` = ".$uid." AND nid = ".$id))
-				succ("Запись успешно удалена!");}
+				succ("Р—Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅР°!");}
 		else
-			bark("Невозможно удалить запись!");
+			bark("РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ Р·Р°РїРёСЃСЊ!");
 	break;
 	default:
-		bark('Нет действия');
+		bark('РќРµС‚ РґРµР№СЃС‚РІРёСЏ');
 }
 stdfoot();
 ?>

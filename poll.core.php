@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();	
 
@@ -36,10 +36,10 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 				{
 					print("<div align=\"left\"><input type=\"radio\" onclick=\"addvote(".$op_id.")\" name=\"choices\" value=\"".$op_id."\" id=\"opt_".$op_id."\" /><label for=\"opt_".$op_id."\">&nbsp;".$op_val."</label></div>\n");
 				}
-				print("<div  align=\"left\"><input type=\"radio\" onclick=\"addvote(255)\" name=\"choices\" value=\"255\" id=\"opt_255\" /><label for=\"opt_255\">&nbsp;Пустой голос! Хочу увидеть результаты</label></div>\n");
+				print("<div  align=\"left\"><input type=\"radio\" onclick=\"addvote(255)\" name=\"choices\" value=\"255\" id=\"opt_255\" /><label for=\"opt_255\">&nbsp;РџСѓСЃС‚РѕР№ РіРѕР»РѕСЃ! РҐРѕС‡Сѓ СѓРІРёРґРµС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹</label></div>\n");
 				print("<input type=\"hidden\" value=\"\" name=\"choice\" id=\"choice\"/>");
 				print("<input type=\"hidden\" value=\"".$ar_check["id"]."\" name=\"pollId\" id=\"pollId\"/>");
-				print("<div align=\"center\"><input type=\"button\" value=\"Голосовать\" style=\"display:none;\" id=\"vote_b\" onclick=\"vote();\"/></div>");
+				print("<div align=\"center\"><input type=\"button\" value=\"Р“РѕР»РѕСЃРѕРІР°С‚СЊ\" style=\"display:none;\" id=\"vote_b\" onclick=\"vote();\"/></div>");
 			}
 			else
 			{
@@ -77,21 +77,21 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 				print("</table>");
 				
 
-          	$modop= "<b>[</b><a href=\"makepoll.php?action=edit&pollid=$ar_check[id]&returnto=main\">Редактировать</a><b>]</b> - <b>[</b><a  href=\"polls.php?action=delete&pollid=$ar_check[id]&returnto=main\">Удалить</a><b>]</b>";
+          	$modop= "<b>[</b><a href=\"makepoll.php?action=edit&pollid=$ar_check[id]&returnto=main\">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</a><b>]</b> - <b>[</b><a  href=\"polls.php?action=delete&pollid=$ar_check[id]&returnto=main\">РЈРґР°Р»РёС‚СЊ</a><b>]</b>";
           	
 				
-				print("<div align=\"center\"><b>Голосов</b> : ".$total."  </div>  <br><div align=\"right\">	".(get_user_class() >= UC_MODERATOR ? " ".$modop."" : "")."
+				print("<div align=\"center\"><b>Р“РѕР»РѕСЃРѕРІ</b> : ".$total."  </div>  <br><div align=\"right\">	".(get_user_class() >= UC_MODERATOR ? " ".$modop."" : "")."
 				 </div>");
 }
 		}else 
-			print("Нет опросов");
+			print("РќРµС‚ РѕРїСЂРѕСЃРѕРІ");
 			
 	
 	}
 	elseif($do == "vote")
 	{
 		if ($pollId == 0 )
-			print(json_encode(array("status" =>0 , "msg"=>"Произошла ошибка. Ваш голос не был принят.")));
+			print(json_encode(array("status" =>0 , "msg"=>"РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°. Р’Р°С€ РіРѕР»РѕСЃ РЅРµ Р±С‹Р» РїСЂРёРЅСЏС‚.")));
 		
 		else
 		{
@@ -100,12 +100,12 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 			if($check == 0) {
 				mysql_query("INSERT INTO pollanswers VALUES(0,$pollId, $userId, $choice)") or die(mysql_error());
 				if (mysql_affected_rows() != 1)
-				print(json_encode(array("status" =>0 , "msg"=>"Ошибка при засчитывании голоса, попробуйте еще раз")));
+				print(json_encode(array("status" =>0 , "msg"=>"РћС€РёР±РєР° РїСЂРё Р·Р°СЃС‡РёС‚С‹РІР°РЅРёРё РіРѕР»РѕСЃР°, РїРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰Рµ СЂР°Р·")));
 				else 
 				print(json_encode(array("status" =>1)));
 			}
 			else 
-			print(json_encode(array("status" =>0 , "msg"=>"Двойной голос")));
+			print(json_encode(array("status" =>0 , "msg"=>"Р”РІРѕР№РЅРѕР№ РіРѕР»РѕСЃ")));
 			
 		}
 	}

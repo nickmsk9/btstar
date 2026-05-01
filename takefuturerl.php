@@ -1,25 +1,25 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
 if (get_user_class() < UC_POWER_USER)
-stderr("Îøèáêà", "×òî òû òóò çàáûë?");
+stderr("ÐžÑˆÐ¸Ð±ÐºÐ°", "Ð§Ñ‚Ð¾ Ñ‚Ñ‹ Ñ‚ÑƒÑ‚ Ð·Ð°Ð±Ñ‹Ð»?");
 function bark($msg) {
 stdhead();
-stdmsg("Îøèáêà!", $msg);
+stdmsg("ÐžÑˆÐ¸Ð±ÐºÐ°!", $msg);
 stdfoot();
 exit;
 }
 $catid = $_POST["type"];
 if (!$_POST["type"])
-	bark("Âû äîëæíû âûáðàòü êàòåãîðèþ.");
+	bark("Ð’Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð²Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ ÐºÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸ÑŽ.");
 
 if (!$_POST["trailer"])
-bark("Ââåäèòå àäðåññ ïîñòåðà.");
+bark("Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð°Ð´Ñ€ÐµÑÑ Ð¿Ð¾ÑÑ‚ÐµÑ€Ð°.");
 
 $name = sqlesc($_POST["name"]);
 if (!$_POST["name"])
-bark("Ââåäèòå íàçâàíèå ðåëèçà.");
+bark("Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ€ÐµÐ»Ð¸Ð·Ð°.");
 
 $realeasedate = $_POST["realeasedate"];
 $trailer = sqlesc($_POST["trailer"]);

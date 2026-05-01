@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 // +--------------------------------------------------------------------------+
@@ -32,7 +32,7 @@ dbconn();
 loggedinorreturn();
 
 if ($HTTP_SERVER_VARS["REQUEST_METHOD"] != "POST")
- stderr($tracker_lang['error'], "Øóòíèê!");
+ stderr($tracker_lang['error'], "Ð¨ÑƒÑ‚Ð½Ð¸Ðº!");
 
 if (get_user_class() < UC_MODERATOR)
 stderr($tracker_lang['error'], $tracker_lang['access_denied']);
@@ -41,15 +41,15 @@ $sender_id = ($_POST['sender'] == 'system' ? 0 : $CURUSER['id']);
 $dt = sqlesc(get_date_time());
 $msg = $_POST['msg'];
 if (!$msg)
-stderr($tracker_lang['error'],"Ïîæàëóñòà, ââåäèòå ñîîáùåíèå!");
+stderr($tracker_lang['error'],"ÐŸÐ¾Ð¶Ð°Ð»ÑƒÑÑ‚Ð°, Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ!");
 
 $subject = $_POST['subject'];
 if (!$subject)
-stderr($tracker_lang['error'],"Ïîæàëóñòà, ââåäèòå òåìó!");
+stderr($tracker_lang['error'],"ÐŸÐ¾Ð¶Ð°Ð»ÑƒÑÑ‚Ð°, Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‚ÐµÐ¼Ñƒ!");
 
 $clases = $_POST['clases'];
 if (!$_POST['clases'])
-	stderr($tracker_lang['error'],"Âûáåðèòå 1 èëè áîëåå êëàññîâ äëÿ îòïðàâêè ñîîáùåíèÿ.");
+	stderr($tracker_lang['error'],"Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ 1 Ð¸Ð»Ð¸ Ð±Ð¾Ð»ÐµÐµ ÐºÐ»Ð°ÑÑÐ¾Ð² Ð´Ð»Ñ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¸ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ.");
 
 /*$query = sql_query("SELECT id FROM users WHERE class IN (".implode(", ", array_map("sqlesc", $clases)).")");
 
@@ -57,13 +57,13 @@ while ($dat=mysql_fetch_assoc($query)) {
 	sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES ($sender_id, $dat[id], '" . get_date_time() . "', " . sqlesc($msg) .", " . sqlesc($subject) .")") or sqlerr(__FILE__,__LINE__);
 }*/
 
-write_log("Ìàññîâîå ñîîáùåíèå îò ïîëüçîâàòåëÿ $CURUSER[username]","FFAE00","tracker");
+write_log("ÐœÐ°ÑÑÐ¾Ð²Ð¾Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¾Ñ‚ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ $CURUSER[username]","FFAE00","tracker");
 
 sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) SELECT $sender_id, id, NOW(), ".sqlesc($msg).", ".sqlesc($subject)." FROM users WHERE class IN (".implode(", ", array_map("sqlesc", $clases)).")") or sqlerr(__FILE__,__LINE__);
 $counter = mysql_affected_rows();
 
 header("Refresh: 2; url=staffmess.php");
 
-stderr("Óñïåøíî", "Îòïðàâëåíî $counter ñîîáùåíèé.");
+stderr("Ð£ÑÐ¿ÐµÑˆÐ½Ð¾", "ÐžÑ‚Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¾ $counter ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹.");
 
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn();
 loggedinorreturn();
@@ -17,23 +17,23 @@ stderr("Error","You can't give that amount of points!!!");
 $sdsa = sql_query("SELECT 1 FROM coins WHERE torrentid=".sqlesc($id)." AND userid =" .sqlesc($CURUSER["id"])) or die();
 $asdd = mysql_fetch_array($sdsa);
 if ($asdd)
-stderr("Îøèáêà","Âû óæå ïîäàðèëè ìîíåòû ýòîìó òîððåíòó.");
+stderr("ÐžÑˆÐ¸Ð±ÐºÐ°","Ð’Ñ‹ ÑƒÐ¶Ðµ Ð¿Ð¾Ð´Ð°Ñ€Ð¸Ð»Ð¸ Ð¼Ð¾Ð½ÐµÑ‚Ñ‹ ÑÑ‚Ð¾Ð¼Ñƒ Ñ‚Ð¾Ñ€Ñ€ÐµÐ½Ñ‚Ñƒ.");
 
 $res = sql_query("SELECT owner FROM torrents WHERE id = ".sqlesc($id)) or die();
 $row = mysql_fetch_assoc($res) or stderr("Error","Torrent was not found");
 $userid = $row["owner"];
 
 if ($userid == $CURUSER["id"])
-stderr("Îøèáêà","Âû íå ìîæåòå ïîäàðèòü ìîíåòû ñàìè ñåáå!");
+stderr("ÐžÑˆÐ¸Ð±ÐºÐ°","Ð’Ñ‹ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð¿Ð¾Ð´Ð°Ñ€Ð¸Ñ‚ÑŒ Ð¼Ð¾Ð½ÐµÑ‚Ñ‹ ÑÐ°Ð¼Ð¸ ÑÐµÐ±Ðµ!");
 
 if ($CURUSER["bonus"] < $points)
-stderr("Îøèáêà","Ó âàñ íåò ñòîëüêî ìîíåò.");
+stderr("ÐžÑˆÐ¸Ð±ÐºÐ°","Ð£ Ð²Ð°Ñ Ð½ÐµÑ‚ ÑÑ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¼Ð¾Ð½ÐµÑ‚.");
 
 sql_query("INSERT INTO coins (userid, torrentid, points) VALUES (".sqlesc($CURUSER["id"]).", ".sqlesc($id).", ".sqlesc($points).")") or sqlerr(__FILE__,__LINE__);
 sql_query("UPDATE users SET bonus=bonus+".$points." WHERE id=".sqlesc($userid)) or sqlerr(__FILE__,__LINE__);
 sql_query("UPDATE users SET bonus=bonus-".$points." WHERE id=".sqlesc($CURUSER["id"])) or sqlerr(__FILE__,__LINE__);
 sql_query("UPDATE torrents SET points=points+".$points." WHERE id=".sqlesc($id)) or sqlerr(__FILE__,__LINE__);
 
-stderr("Âåëèêîëåïíî","Âû äîáàâèëè $points òîððåíòó.");
+stderr("Ð’ÐµÐ»Ð¸ÐºÐ¾Ð»ÐµÐ¿Ð½Ð¾","Ð’Ñ‹ Ð´Ð¾Ð±Ð°Ð²Ð¸Ð»Ð¸ $points Ñ‚Ð¾Ñ€Ñ€ÐµÐ½Ñ‚Ñƒ.");
 
 ?>

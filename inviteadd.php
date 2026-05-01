@@ -1,4 +1,4 @@
-<?
+<?php
 
 require "include/bittorrent.php";
 
@@ -59,4 +59,4 @@ stdhead("Update Users Invite Amounts");
 
 </form>
 
-<? stdfoot(); ?>
+<?php stdfoot(); ?>

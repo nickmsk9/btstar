@@ -28,14 +28,14 @@ function format_tz($a)
 		":" . ($m==0?"00":$m);
 }
 
-tr("Ваше имя", "<input type=\"text\" size=\"40\" name=\"fname\" id=\"fname\" value=\"".$CURUSER["firstname"]."\">", 1);
-tr("Ваша фамилия", "<input type=\"text\" size=\"40\" name=\"sname\" id=\"sname\" value=\"".$CURUSER["surname"]."\">", 1);
-tr("Ваш ник", "<input type=\"text\" size=\"40\" name=\"username\" id=\"username\" value=\"".$CURUSER['username']."\">", 1);
+tr("Р’Р°С€Рµ РёРјСЏ", "<input type=\"text\" size=\"40\" name=\"fname\" id=\"fname\" value=\"".$CURUSER["firstname"]."\">", 1);
+tr("Р’Р°С€Р° С„Р°РјРёР»РёСЏ", "<input type=\"text\" size=\"40\" name=\"sname\" id=\"sname\" value=\"".$CURUSER["surname"]."\">", 1);
+tr("Р’Р°С€ РЅРёРє", "<input type=\"text\" size=\"40\" name=\"username\" id=\"username\" value=\"".$CURUSER['username']."\">", 1);
 
 tr($tracker_lang['my_allow_pm_from'],
-"<input type=radio name=acceptpms" . ($CURUSER["acceptpms"] == "yes" ? " checked" : "") . " value=\"yes\">Все (исключая блокированных)
-&nbsp;<input type=radio name=acceptpms" .  ($CURUSER["acceptpms"] == "friends" ? " checked" : "") . " value=\"friends\">Только друзей
-&nbsp;<input type=radio name=acceptpms" .  ($CURUSER["acceptpms"] == "no" ? " checked" : "") . " value=\"no\">Только администрации"
+"<input type=radio name=acceptpms" . ($CURUSER["acceptpms"] == "yes" ? " checked" : "") . " value=\"yes\">Р’СЃРµ (РёСЃРєР»СЋС‡Р°СЏ Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹С…)
+&nbsp;<input type=radio name=acceptpms" .  ($CURUSER["acceptpms"] == "friends" ? " checked" : "") . " value=\"friends\">РўРѕР»СЊРєРѕ РґСЂСѓР·РµР№
+&nbsp;<input type=radio name=acceptpms" .  ($CURUSER["acceptpms"] == "no" ? " checked" : "") . " value=\"no\">РўРѕР»СЊРєРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С†РёРё"
 ,1);
 
 tr($tracker_lang['my_parked'],
@@ -65,19 +65,19 @@ if (mysql_num_rows($r) > 0)
 tr($tracker_lang['my_default_browse'],$categories,1);
 tr($tracker_lang['my_language'], $lang_select ,1);
 //tr($tracker_lang['my_website'], "<input type=\"text\" name=\"website\" size=50 value=\"" . htmlspecialchars($CURUSER["website"]) . "\" /> ", 1);
-tr($tracker_lang['my_torrents_per_page'], "<input type=text size=10 name=torrentsperpage value=$CURUSER[torrentsperpage]> (0 = установки по умолчанию)",1);
+tr($tracker_lang['my_torrents_per_page'], "<input type=text size=10 name=torrentsperpage value=$CURUSER[torrentsperpage]> (0 = СѓСЃС‚Р°РЅРѕРІРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)",1);
 //
-//tr($tracker_lang['my_messages_per_page'], "<input type=text size=10 name=postsperpage value=$CURUSER[postsperpage]> (0 = установки по умолчанию)",1);
-tr($tracker_lang['my_show_avatars'], "<input type=checkbox name=avatars" . ($CURUSER["avatars"] == "yes" ? " checked" : "") . "> (Пользователи с маленькими каналами могут отключить эту опцию)",1);
+//tr($tracker_lang['my_messages_per_page'], "<input type=text size=10 name=postsperpage value=$CURUSER[postsperpage]> (0 = СѓСЃС‚Р°РЅРѕРІРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)",1);
+tr($tracker_lang['my_show_avatars'], "<input type=checkbox name=avatars" . ($CURUSER["avatars"] == "yes" ? " checked" : "") . "> (РџРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ РјР°Р»РµРЅСЊРєРёРјРё РєР°РЅР°Р»Р°РјРё РјРѕРіСѓС‚ РѕС‚РєР»СЋС‡РёС‚СЊ СЌС‚Сѓ РѕРїС†РёСЋ)",1);
 
 tr($tracker_lang['my_userbar'], "<img src=\"torrentbar/bar.php/".$CURUSER["id"].".png\" border=\"0\"><br />".$tracker_lang['my_userbar_descr'].":<br /><input type=\"text\" size=65 value=\"[url=$DEFAULTBASEURL][img]$DEFAULTBASEURL/torrentbar/bar.php/".$CURUSER["id"].".png[/img][/url]\" readonly />",1);
-tr("Сменить пасскей","<input type=checkbox name=resetpasskey value=1 /> (Вы должны перекачать все активные торренты после смены пасскея)", 1);
+tr("РЎРјРµРЅРёС‚СЊ РїР°СЃСЃРєРµР№","<input type=checkbox name=resetpasskey value=1 /> (Р’С‹ РґРѕР»Р¶РЅС‹ РїРµСЂРµРєР°С‡Р°С‚СЊ РІСЃРµ Р°РєС‚РёРІРЅС‹Рµ С‚РѕСЂСЂРµРЅС‚С‹ РїРѕСЃР»Рµ СЃРјРµРЅС‹ РїР°СЃСЃРєРµСЏ)", 1);
 
 if (strlen($CURUSER['passkey']) != 32) {
 	$CURUSER['passkey'] = md5($CURUSER['username'].get_date_time().$CURUSER['passhash']);
 	sql_query("UPDATE users SET passkey='$CURUSER[passkey]' WHERE id=$CURUSER[id]");
 }
-tr("Ваш пасскей","<b>$CURUSER[passkey]</b>", 1);
-tr("Привязать IP к пасскею", "<input type=checkbox name=passkey_ip" . ($CURUSER["passkey_ip"] != "" ? " checked" : "") . "> Включив эту опцию вы можете защитить себя от неавторизованной закакачки по вашему пасскею привязав его к IP. Если ваш IP динамический - не включайте эту опцию.<br />На данный момент ваш IP: <b>".getip()."</b>", 1);
+tr("Р’Р°С€ РїР°СЃСЃРєРµР№","<b>$CURUSER[passkey]</b>", 1);
+tr("РџСЂРёРІСЏР·Р°С‚СЊ IP Рє РїР°СЃСЃРєРµСЋ", "<input type=checkbox name=passkey_ip" . ($CURUSER["passkey_ip"] != "" ? " checked" : "") . "> Р’РєР»СЋС‡РёРІ СЌС‚Сѓ РѕРїС†РёСЋ РІС‹ РјРѕР¶РµС‚Рµ Р·Р°С‰РёС‚РёС‚СЊ СЃРµР±СЏ РѕС‚ РЅРµР°РІС‚РѕСЂРёР·РѕРІР°РЅРЅРѕР№ Р·Р°РєР°РєР°С‡РєРё РїРѕ РІР°С€РµРјСѓ РїР°СЃСЃРєРµСЋ РїСЂРёРІСЏР·Р°РІ РµРіРѕ Рє IP. Р•СЃР»Рё РІР°С€ IP РґРёРЅР°РјРёС‡РµСЃРєРёР№ - РЅРµ РІРєР»СЋС‡Р°Р№С‚Рµ СЌС‚Сѓ РѕРїС†РёСЋ.<br />РќР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РІР°С€ IP: <b>".getip()."</b>", 1);
 
 ?>

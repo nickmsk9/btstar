@@ -1,4 +1,4 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 dbconn();
@@ -8,16 +8,16 @@ header ("Content-Type: text/html; charset=" . $tracker_lang['language_charset'])
 $category = (int) $_POST["cat"];
 
 if (empty($category)) {
-	stdmsg($tracker_lang["error"], "Не пытайся меня взломать!");
+	stdmsg($tracker_lang["error"], "РќРµ РїС‹С‚Р°Р№СЃСЏ РјРµРЅСЏ РІР·Р»РѕРјР°С‚СЊ!");
 }
 
 $res = sql_query("SELECT name FROM categories WHERE id=".sqlesc($category));
 $row = mysql_fetch_array($res);
 
-$r = "<span id=\"ss".$category."\" style=\"display: block;\"><fieldset id='tags' style='border: 2px solid gray;min-width:95%;display: block;'><legend style='color:#555;'> Теги для категории \"".$row["name"]."\"&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" style=\"font-weight:normal\" onClick=\"javascript:this.style.display='none';document.getElementById('ss".$category."').innerHTML='';\">[свернуть]</a></legend><table cellpadding=\"5\" class=\"bottom\"><tr>";
+$r = "<span id=\"ss".$category."\" style=\"display: block;\"><fieldset id='tags' style='border: 2px solid gray;min-width:95%;display: block;'><legend style='color:#555;'> РўРµРіРё РґР»СЏ РєР°С‚РµРіРѕСЂРёРё \"".$row["name"]."\"&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0)\" style=\"font-weight:normal\" onClick=\"javascript:this.style.display='none';document.getElementById('ss".$category."').innerHTML='';\">[СЃРІРµСЂРЅСѓС‚СЊ]</a></legend><table cellpadding=\"5\" class=\"bottom\"><tr>";
         $tags = taggenrelist($category);
         if (!$tags)
-        $r .= "<font style=\"font-size:8pt;color:#555555;padding-left:2px;\">Нет тегов в выбранной категории</font>";
+        $r .= "<font style=\"font-size:8pt;color:#555555;padding-left:2px;\">РќРµС‚ С‚РµРіРѕРІ РІ РІС‹Р±СЂР°РЅРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё</font>";
         else {
         $j = 0;
         foreach ($tags as $row)

@@ -1,4 +1,4 @@
-<?
+<?php
 ob_start("ob_gzhandler");
 header("Cache-Control: no-cache");
 header("Pragma: nocache");

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 
 if (!is_numeric($_GET['id'])) die ("Access denied: Wrong ID");  

@@ -20,7 +20,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
 	          $count = intval($count_row['0']);
 
 	          if ($count == 0) {
-		        $thanksby = "Никто не поставил спасибо этому торренту.";
+		        $thanksby = "РќРёРєС‚Рѕ РЅРµ РїРѕСЃС‚Р°РІРёР» СЃРїР°СЃРёР±Рѕ СЌС‚РѕРјСѓ С‚РѕСЂСЂРµРЅС‚Сѓ.";
 				
 				echo $thanksby;
 	          } else {
@@ -54,7 +54,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')
 		  
 		  if($count <= 0 && !$is_author)
 		    if(sql_query("INSERT INTO thanks (`torrentid`, `userid`, `added`) VALUES ($torrentid, $userid, ".sqlesc(date( 'Y-m-d H:i:s ') ).")"));
-			echo "<b>Ваша благодарность успешно добавлена!</b>";
+			echo "<b>Р’Р°С€Р° Р±Р»Р°РіРѕРґР°СЂРЅРѕСЃС‚СЊ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅР°!</b>";
 		break;
 	}
 }

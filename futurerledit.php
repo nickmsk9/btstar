@@ -1,14 +1,14 @@
-<?
+<?php
 require "include/bittorrent.php";
 
 dbconn();
 loggedinorreturn();
 
 if (!mkglobal("id"))
-stderr("Ошибка", "Введите ID");
+stderr("РћС€РёР±РєР°", "Р’РІРµРґРёС‚Рµ ID");
 $id = (int) $_GET["id"];
 if (!$id){
-stderr("Ошибка", "Введите ID");
+stderr("РћС€РёР±РєР°", "Р’РІРµРґРёС‚Рµ ID");
 die();
 }
 
@@ -40,12 +40,12 @@ die();
 
 if($act == 'take'){
 stdhead();
-begin_frame("Выполнение ожидаемого релиза");
+begin_frame("Р’С‹РїРѕР»РЅРµРЅРёРµ РѕР¶РёРґР°РµРјРѕРіРѕ СЂРµР»РёР·Р°");
 
 print("<center><form action=\"futurerledit.php?act=takerelease&id=$id\" name=\"takerelease\" method=post>\n");
-print("<b>Введите ID релиза:</b> <input type='text' name='download'  size='30' /> ");
+print("<b>Р’РІРµРґРёС‚Рµ ID СЂРµР»РёР·Р°:</b> <input type='text' name='download'  size='30' /> ");
 print("<input type=\"hidden\" name=\"id\" value=\"$id\">\n"); 
-print(" <input type=submit class=btn value='Выполнить!'>\n");
+print(" <input type=submit class=btn value='Р’С‹РїРѕР»РЅРёС‚СЊ!'>\n");
 print("</form>\n");
 end_frame();
 stdfoot();
@@ -55,31 +55,31 @@ die();
 $res = mysql_query("SELECT futurerls.id, futurerls.name, futurerls.userid, futurerls.trailer, futurerls.comments, futurerls.added, futurerls.realeasedate, futurerls.descr, users.username FROM futurerls LEFT JOIN users ON users.id=futurerls.userid WHERE futurerls.id = $id")or sqlerr();
 $row = mysql_fetch_array($res);
 if (!$row)	
-stderr("Ошибка", "Неверный релиз");
+stderr("РћС€РёР±РєР°", "РќРµРІРµСЂРЅС‹Р№ СЂРµР»РёР·");
 $id = (int) $_GET["id"];
 if (!$id)
 die();
 if ($CURUSER["id"] != $row["userid"] && get_user_class() < UC_POWER_USER){
-stderr("Ошибка", "Вы не можете редактировать этот ожидаемый релиз.");
+stderr("РћС€РёР±РєР°", "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ СЌС‚РѕС‚ РѕР¶РёРґР°РµРјС‹Р№ СЂРµР»РёР·.");
 }
 $where = "WHERE userid = " . $CURUSER["id"] . "";
 $res2 = mysql_query("SELECT * FROM futurerls $where") or sqlerr();
 $num2 = mysql_num_rows($res2);
-stdhead("Редактирование ожилаемого релиза");
-begin_frame("Редактирование ожилаемого релиза");
+stdhead("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РѕР¶РёР»Р°РµРјРѕРіРѕ СЂРµР»РёР·Р°");
+begin_frame("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РѕР¶РёР»Р°РµРјРѕРіРѕ СЂРµР»РёР·Р°");
 print("<center><form action=\"takefuturerledit.php\" name=\"nrg\" method=post>\n");
 print("<input type=\"hidden\" name=\"id\" value=\"$id\">\n");
 ?>
 <table class="embedded" width="550" border="1" cellspacing="0" cellpadding="5">
-<tr><td class="rowhead">Название:</td><td align="left"><input type='text' name='name' value='<?=$row['name']?>' size='80' /></td></tr>
-<tr><td class="rowhead">Дата выхода:</td><td align="left"><input type='text' name='realeasedate' value='<?=$row['realeasedate']?>' size='80' /></td></tr>
-<tr><td class="rowhead">Постер:</td><td align="left"><input type='text' name='text' value='<?=$row['trailer']?>' size='80' /></td></tr>
-<tr><td class="rowhead">Описание:</td><td align="left">
-<?
+<tr><td class="rowhead">РќР°Р·РІР°РЅРёРµ:</td><td align="left"><input type='text' name='name' value='<?=$row['name']?>' size='80' /></td></tr>
+<tr><td class="rowhead">Р”Р°С‚Р° РІС‹С…РѕРґР°:</td><td align="left"><input type='text' name='realeasedate' value='<?=$row['realeasedate']?>' size='80' /></td></tr>
+<tr><td class="rowhead">РџРѕСЃС‚РµСЂ:</td><td align="left"><input type='text' name='text' value='<?=$row['trailer']?>' size='80' /></td></tr>
+<tr><td class="rowhead">РћРїРёСЃР°РЅРёРµ:</td><td align="left">
+<?php
 textbbcode("upload","descr",htmlspecialchars($row["descr"]), 0);
 ?>
 </td></tr>
-<?
+<?php
 	$s = "<select name=\"type\">\n";
 
 	$cats = genrelist();
@@ -91,14 +91,14 @@ textbbcode("upload","descr",htmlspecialchars($row["descr"]), 0);
 	}
 
 	$s .= "</select>\n";
-print("<tr><td class='rowhead'>Категория:</td><td align='left'> ".$s." </td></tr>");
+print("<tr><td class='rowhead'>РљР°С‚РµРіРѕСЂРёСЏ:</td><td align='left'> ".$s." </td></tr>");
 print("<tr><td colspan='2'><input type=\"hidden\" name=\"id\" value=\"$id\">\n");
-print("<input type=submit class=btn value='Изменить!'>\n");
+print("<input type=submit class=btn value='РР·РјРµРЅРёС‚СЊ!'>\n");
 print("\n");
 
 print("<form method=\"post\" action=\"futurerledit.php?act=delete&id=".$id."\">\n");
 print("<input type=\"hidden\" name=\"id\" value=\"$id\">\n"); 
-print("<input type=submit value='Удалить!' class=btn></td></tr>\n");
+print("<input type=submit value='РЈРґР°Р»РёС‚СЊ!' class=btn></td></tr>\n");
 
 end_frame();
 stdfoot();

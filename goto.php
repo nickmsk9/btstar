@@ -1,9 +1,9 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn();
 if(empty($_GET['link'])) die("Error");
-stdhead('œÂÂıÓ‰ ÔÓ ÒÒ˚ÎÍÂ');
-stdmsg($tracker_lang['error'], '¬˚ ÛıÓ‰ËÚÂ Ò bt-star.ru ÔÓ ‚ÌÂ¯ÌÂÈ ÒÒ˚ÎÍÂ, ÂÒÎË ‚˚ Û‚ÂÂÌ˚, Ì‡ÊÏËÚÂ ÒÒ˚ÎÍÛ ÒÌËÁÛ:<br><a href="'.urldecode($_GET['link']).'">'.urldecode($_GET['link']).'</a>');
+stdhead('–ü–µ—Ä–µ—Ö–æ–¥ –ø–æ —Å—Å—ã–ª–∫–µ');
+stdmsg($tracker_lang['error'], '–í—ã —É—Ö–æ–¥–∏—Ç–µ —Å bt-star.ru –ø–æ –≤–Ω–µ—à–Ω–µ–π —Å—Å—ã–ª–∫–µ, –µ—Å–ª–∏ –≤—ã —É–≤–µ—Ä–µ–Ω—ã, –Ω–∞–∂–º–∏—Ç–µ —Å—Å—ã–ª–∫—É —Å–Ω–∏–∑—É:<br><a href="'.urldecode($_GET['link']).'">'.urldecode($_GET['link']).'</a>');
 stdfoot();
 ?>

@@ -101,9 +101,9 @@ function taggenrelist($cat) {
 
 function nicetime($input, $time = false) {
     $search = array('January','February','March','April','May','June','July','August','September','October','November','December');
-    $replace = array('января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
+    $replace = array('СЏРЅРІР°СЂСЏ','С„РµРІСЂР°Р»СЏ','РјР°СЂС‚Р°','Р°РїСЂРµР»СЏ','РјР°СЏ','РёСЋРЅСЏ','РёСЋР»СЏ','Р°РІРіСѓСЃС‚Р°','СЃРµРЅС‚СЏР±СЂСЏ','РѕРєС‚СЏР±СЂСЏ','РЅРѕСЏР±СЂСЏ','РґРµРєР°Р±СЂСЏ');
     if ($time == true)
-        $data = date("j F Y в H:i:s", strtotime($input));
+        $data = date("j F Y РІ H:i:s", strtotime($input));
     else
         $data = date("j F Y", strtotime($input));
     return str_replace($search, $replace, $data);;
@@ -115,10 +115,10 @@ function local_user() {
 
     function bot_msg($text)
     {
-                            //НАПОМИНАЮ СДЕСЬ ДАННЫЕ ДОЛЖНЫ СОВПАДАТЬ С ТЕМИ ЧТО ВЫ РЕГИСТРИРОВАЛИ
-        $botid = 482;             //Ид пользователя бота которого вы создали
-        $botclass = 1;            //Класс вашего пользователя бота
-        $botname = "Говорун";    //Имя вашего бота
+                            //РќРђРџРћРњРРќРђР® РЎР”Р•РЎР¬ Р”РђРќРќР«Р• Р”РћР›Р–РќР« РЎРћР’РџРђР”РђРўР¬ РЎ РўР•РњР Р§РўРћ Р’Р« Р Р•Р“РРЎРўР РР РћР’РђР›Р
+        $botid = 482;             //РРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р±РѕС‚Р° РєРѕС‚РѕСЂРѕРіРѕ РІС‹ СЃРѕР·РґР°Р»Рё
+        $botclass = 1;            //РљР»Р°СЃСЃ РІР°С€РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р±РѕС‚Р°
+        $botname = "Р“РѕРІРѕСЂСѓРЅ";    //РРјСЏ РІР°С€РµРіРѕ Р±РѕС‚Р°
         
         sql_query("INSERT INTO shoutbox (id, userid, class, username, date, text, orig_text) VALUES ('id='," .  sqlesc($botid) . ", " .  sqlesc($botclass) . ", "  .  sqlesc($botname) . ", ".time().", " . sqlesc($text) . ", " . sqlesc($text) . ")") or sqlerr(__FILE__, __LINE__);
     }; 
@@ -265,33 +265,33 @@ function time_return($stamp){
     $seconds = $stamp;
 
     if($years == 1){
-        $nicetime['years'] = "1 год";}
+        $nicetime['years'] = "1 РіРѕРґ";}
     elseif($years > 1){
-        $nicetime['years'] = $years."года";}
+        $nicetime['years'] = $years."РіРѕРґР°";}
     if($months == 1){
-        $nicetime['months'] = "1 месяц";}
+        $nicetime['months'] = "1 РјРµСЃСЏС†";}
     elseif($months > 1){
-        $nicetime['months'] = $months." месяца";}
+        $nicetime['months'] = $months." РјРµСЃСЏС†Р°";}
     if($weeks == 1){
-        $nicetime['weeks'] = "1 неделя";}
+        $nicetime['weeks'] = "1 РЅРµРґРµР»СЏ";}
     elseif($weeks > 1){
-        $nicetime['weeks'] = $weeks." недели";}
+        $nicetime['weeks'] = $weeks." РЅРµРґРµР»Рё";}
     if($days == 1){
-        $nicetime['days'] = "1 день";}
+        $nicetime['days'] = "1 РґРµРЅСЊ";}
     elseif($days > 1){
-        $nicetime['days'] = $days." дня";}
+        $nicetime['days'] = $days." РґРЅСЏ";}
     if($hours == 1){
-        $nicetime['hours'] = "1 час";}
+        $nicetime['hours'] = "1 С‡Р°СЃ";}
     elseif($hours > 1){
-        $nicetime['hours'] = $hours." час.";}
+        $nicetime['hours'] = $hours." С‡Р°СЃ.";}
     if($minutes == 1){
-        $nicetime['minutes'] = "1 мин.";}
+        $nicetime['minutes'] = "1 РјРёРЅ.";}
     elseif($minutes > 1){
-        $nicetime['minutes'] = $minutes." мин.";}
+        $nicetime['minutes'] = $minutes." РјРёРЅ.";}
     if($seconds == 1){
-        $nicetime['seconds'] = "1 сек.";}
+        $nicetime['seconds'] = "1 СЃРµРє.";}
     elseif($seconds > 1){
-        $nicetime['seconds'] = $seconds." сек.";}
+        $nicetime['seconds'] = $seconds." СЃРµРє.";}
     if(is_array($nicetime)){
         return implode(", ", $nicetime);}
 }  
@@ -374,6 +374,7 @@ function unesc($x) {
 }
 
 function gzip() {
+        global $use_gzip;
         if (@extension_loaded('zlib') && @ini_get('zlib.output_compression') != '1' && @ini_get('output_handler') != 'ob_gzhandler' && $use_gzip) {
                 @ob_start('ob_gzhandler');
         }
@@ -413,7 +414,7 @@ function getip() {
                 } elseif (isset($_SERVER['HTTP_CLIENT_IP']) && validip($_SERVER['HTTP_CLIENT_IP'])) {
                         $ip = $_SERVER['HTTP_CLIENT_IP'];
                 } else {
-                        $ip = $_SERVER['REMOTE_ADDR'];
+                        $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
                 }
         } else {
                 if (getenv('HTTP_X_FORWARDED_FOR') && validip(getenv('HTTP_X_FORWARDED_FOR'))) {
@@ -568,7 +569,7 @@ function sent_mail($to,$fromname,$fromemail,$subject,$body,$multiple=false,$mult
         $headers .= "Message-ID: <$mid thesystem@$name>".$eol;
         $headers .= "X-Mailer: PHP v".phpversion().$eol;
     $headers .= "MIME-Version: 1.0".$eol;
-    $headers .= "Content-type: text/plain; charset=windows-1251".$eol;
+    $headers .= "Content-type: text/plain; charset=utf-8".$eol;
     $headers .= "X-Sender: PHP".$eol;
     if ($multiple)
             $headers .= "Bcc: $multiplemail.$eol";
@@ -668,7 +669,7 @@ require_once("themes/TBDev/template.php");
 require_once("themes/TBDev/stdfoot.php");
         if ((DEBUG_MODE || isset($_GET["catarr"])) && count($query_stat)) {
                 foreach ($query_stat as $key => $value) {
-                        print("<div>[".($key+1)."] => <b>".($value["seconds"] > 0.01 ? "<font color=\"red\" title=\"Рекомендуется оптимизировать запрос. Время исполнения превышает норму.\">".$value["seconds"]."</font>" : "<font color=\"green\" title=\"Запрос не нуждается в оптимизации. Время исполнения допустимое.\">".$value["seconds"]."</font>" )."</b> [$value[query]]</div>\n");
+                        print("<div>[".($key+1)."] => <b>".($value["seconds"] > 0.01 ? "<font color=\"red\" title=\"Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РѕРїС‚РёРјРёР·РёСЂРѕРІР°С‚СЊ Р·Р°РїСЂРѕСЃ. Р’СЂРµРјСЏ РёСЃРїРѕР»РЅРµРЅРёСЏ РїСЂРµРІС‹С€Р°РµС‚ РЅРѕСЂРјСѓ.\">".$value["seconds"]."</font>" : "<font color=\"green\" title=\"Р—Р°РїСЂРѕСЃ РЅРµ РЅСѓР¶РґР°РµС‚СЃСЏ РІ РѕРїС‚РёРјРёР·Р°С†РёРё. Р’СЂРµРјСЏ РёСЃРїРѕР»РЅРµРЅРёСЏ РґРѕРїСѓСЃС‚РёРјРѕРµ.\">".$value["seconds"]."</font>" )."</b> [$value[query]]</div>\n");
                 }
                 print("<br />");
         }
@@ -736,8 +737,8 @@ function loggedinorreturn($bott = false) {
 				{
 					$refid = -1; 
 					return;}
-				if($bott) setcookie('canret',true); else setcookie('canret', false);
-				setcookie("return",urlencode($_SERVER['REQUEST_URI']));
+	                if($bott) setcookie('canret',true); else setcookie('canret', false);
+					setcookie("return",urlencode($_SERVER['REQUEST_URI'] ?? '/'));
                 header("Location: $DEFAULTBASEURL/home.php");
                 exit();
         }
@@ -776,14 +777,14 @@ function pager($rpp, $count, $href, $opts = array()) {
          
 
         $mp = $pages - 1;
-        $as = "<b>«</b>";
+        $as = "<b>В«</b>";
         if ($page >= 1) {
                 $pager .= "<td class=\"pager\">";
                 $pager .= "<a href=\"{$href}page=" . ($page - 1) . "\" style=\"text-decoration: none;\">$as</a>";
                 $pager .= "</td><td class=\"pagebr\">&nbsp;</td>";
         }
 
-        $as = "<b>»</b>";
+        $as = "<b>В»</b>";
         if ($page < $mp && $mp >= 0) {
                 $pager2 .= "<td class=\"pager\">";
                 $pager2 .= "<a href=\"{$href}page=" . ($page + 1) . "\" style=\"text-decoration: none;\">$as</a>";
@@ -820,7 +821,7 @@ function pager($rpp, $count, $href, $opts = array()) {
 				$pager = "<td class=\"pager\">1 - $i</td><td class=\"pagebr\">&nbsp;</td>";
                 $pagerstr = join("", $pagerarr);
                 $pagertop = "<table class=\"main\"><tr>$pager $pagerstr $pager2</tr></table>\n";
-                $pagerbottom = "Всего $count на $i страницах по $rpp на каждой странице.<br /><br /><table class=\"main\">$pager $pagerstr $pager2</table>\n";
+                $pagerbottom = "Р’СЃРµРіРѕ $count РЅР° $i СЃС‚СЂР°РЅРёС†Р°С… РїРѕ $rpp РЅР° РєР°Р¶РґРѕР№ СЃС‚СЂР°РЅРёС†Рµ.<br /><br /><table class=\"main\">$pager $pagerstr $pager2</table>\n";
         }
         else {
                 $pagertop = $pager;
@@ -906,7 +907,7 @@ $tags .= "<a style=\"font-weight:normal;\" href=\"browse.php?tag=".$tag."&inclde
 if ($tags)
 $tags = substr($tags, 0, -2);
 if (empty($addtags))
-$tags = "Нет тэгов";
+$tags = "РќРµС‚ С‚СЌРіРѕРІ";
 return $tags;
 }
 
@@ -946,7 +947,7 @@ function get_user_icons($arr, $big = false) {
 function parked() {
            global $CURUSER;
            if ($CURUSER["parked"] == "yes")
-                  stderr($tracker_lang['error'], "Ваш аккаунт припаркован.");
+                  stderr($tracker_lang['error'], "Р’Р°С€ Р°РєРєР°СѓРЅС‚ РїСЂРёРїР°СЂРєРѕРІР°РЅ.");
 }
 
 function mysql_modified_rows () {

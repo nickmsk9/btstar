@@ -1,4 +1,4 @@
-<?
+<?php
 if(!defined('IN_TRACKER'))
   die('Hacking attempt!');
 
@@ -17,16 +17,16 @@ function commenttable($rows, $redaktor = "comment") {
                             }
                              if (strtotime($row["last_access"]) > gmtime() - 600) {
                                      $online = "online";
-                                     $online_text = "В сети";
+                                     $online_text = "Р’ СЃРµС‚Рё";
                              } else {
                                      $online = "offline";
-                                     $online_text = "Не в сети";
+                                     $online_text = "РќРµ РІ СЃРµС‚Рё";
                              }
 							 
 							 if($row["gender"] == 1) {
-							 $gender = "написал"; 
+							 $gender = "РЅР°РїРёСЃР°Р»"; 
 							 } else {
-							 $gender = "написала";
+							 $gender = "РЅР°РїРёСЃР°Р»Р°";
 							 }
 
            print("<table class=maibaugrand width=100% border=0 cellspacing=0 cellpadding=3>");
@@ -51,15 +51,15 @@ function commenttable($rows, $redaktor = "comment") {
          $text = format_comment($row["text"]);
 
         if ($row["editedby"]) {
-               $text .= "<p><font size=1 class=small>Последний раз редактировалось <a href=userdetails.php?id=$row[editedby]><b>$row[editedbyname]</b></a> в $row[editedat]</font></p>\n";
+               $text .= "<p><font size=1 class=small>РџРѕСЃР»РµРґРЅРёР№ СЂР°Р· СЂРµРґР°РєС‚РёСЂРѕРІР°Р»РѕСЃСЊ <a href=userdetails.php?id=$row[editedby]><b>$row[editedbyname]</b></a> РІ $row[editedat]</font></p>\n";
          }
 			    print("<br><font size=\"small\">".nicetime($row["added"], true)."</font>");
                 print("</div><div style=\"margin-top:1px;\">$text</div>\n");
 				print"<div style=\"margin-top:10px; float: left; border-bottom: 1px solid #DCDCDC;'>"
-                .($CURUSER ? " <a href=\"".$redaktor.".php?action=quote&amp;cid=$row[id]\" class=\"altlink_white\">Цитировать </a>&nbsp;|&nbsp;" : "")
-                .($row["user"] == $CURUSER["id"] || get_user_class() >= UC_MODERATOR ? " <a href=".$redaktor.".php?action=edit&amp;cid=$row[id] class=\"altlink_white\">Редактировать</a>&nbsp;|&nbsp;" : "")
-                .(get_user_class() >= UC_MODERATOR ? " <a href=\"".$redaktor.".php?action=delete&amp;cid=$row[id]\" class=\"altlink_white\">Удалить</a>" : "")
-                .($row["editedby"] && get_user_class() >= UC_MODERATOR ? " [<a href=\"".$redaktor.".php?action=vieworiginal&amp;cid=$row[id]\" class=\"altlink_white\">Оригинал</a>]" : "")
+                .($CURUSER ? " <a href=\"".$redaktor.".php?action=quote&amp;cid=$row[id]\" class=\"altlink_white\">Р¦РёС‚РёСЂРѕРІР°С‚СЊ </a>&nbsp;|&nbsp;" : "")
+                .($row["user"] == $CURUSER["id"] || get_user_class() >= UC_MODERATOR ? " <a href=".$redaktor.".php?action=edit&amp;cid=$row[id] class=\"altlink_white\">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</a>&nbsp;|&nbsp;" : "")
+                .(get_user_class() >= UC_MODERATOR ? " <a href=\"".$redaktor.".php?action=delete&amp;cid=$row[id]\" class=\"altlink_white\">РЈРґР°Р»РёС‚СЊ</a>" : "")
+                .($row["editedby"] && get_user_class() >= UC_MODERATOR ? " [<a href=\"".$redaktor.".php?action=vieworiginal&amp;cid=$row[id]\" class=\"altlink_white\">РћСЂРёРіРёРЅР°Р»</a>]" : "")
 
                 ."</div>";
                 print("</td></tr>\n");

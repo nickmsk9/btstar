@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/benc.php");
 require_once("include/bittorrent.php");
 
@@ -29,20 +29,20 @@ if (!isset($_FILES["tfile"]))
 $f = $_FILES["tfile"];
 $fname = unesc($f["name"]);
 if (empty($fname))
-	bark("Файл не загружен. Пустое имя файла!");
+	bark("Р¤Р°Р№Р» РЅРµ Р·Р°РіСЂСѓР¶РµРЅ. РџСѓСЃС‚РѕРµ РёРјСЏ С„Р°Р№Р»Р°!");
 
 $descr = unesc($_POST["descr"]);
 if (!$descr)
-	bark("Вы должны ввести описание!");
+	bark("Р’С‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РѕРїРёСЃР°РЅРёРµ!");
 
 $catid = (0 + $_POST["type"]);
 if (!is_valid_id($catid))
-	bark("Вы должны выбрать категорию, в которую поместить торрент!");
+	bark("Р’С‹ РґРѕР»Р¶РЅС‹ РІС‹Р±СЂР°С‚СЊ РєР°С‚РµРіРѕСЂРёСЋ, РІ РєРѕС‚РѕСЂСѓСЋ РїРѕРјРµСЃС‚РёС‚СЊ С‚РѕСЂСЂРµРЅС‚!");
 	
 if (!validfilename($fname))
-	bark("Неверное имя файла!");
+	bark("РќРµРІРµСЂРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р°!");
 if (!preg_match('/^(.+)\.torrent$/si', $fname, $matches))
-	bark("Неверное имя файла (не .torrent).");
+	bark("РќРµРІРµСЂРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р° (РЅРµ .torrent).");
 $shortfname = $torrent = $matches[1];
 if (!empty($_POST["name"]))
 	$torrent = unesc($_POST["name"]);
@@ -51,11 +51,11 @@ $tmpname = $f["tmp_name"];
 if (!is_uploaded_file($tmpname))
 	bark("eek");
 if (!filesize($tmpname))
-	bark("Пустой файл!");
+	bark("РџСѓСЃС‚РѕР№ С„Р°Р№Р»!");
 
 $dict = bdec_file($tmpname, $max_torrent_size);
 if (!isset($dict))
-	bark("Что за хрень ты загружаешь? Это не бинарно-кодированый файл!");
+	bark("Р§С‚Рѕ Р·Р° С…СЂРµРЅСЊ С‚С‹ Р·Р°РіСЂСѓР¶Р°РµС€СЊ? Р­С‚Рѕ РЅРµ Р±РёРЅР°СЂРЅРѕ-РєРѕРґРёСЂРѕРІР°РЅС‹Р№ С„Р°Р№Р»!");
 
 if ($CURUSER['class'] >= UC_MODERATOR)
 {
@@ -110,7 +110,7 @@ list($info) = dict_check($dict, "info");
 list($dname, $plen, $pieces) = dict_check($info, "name(string):piece length(integer):pieces(string)");
 
 /*if (!in_array($ann, $announce_urls, 1))
-	bark("Неверный Announce URL! Должен быть ".$announce_urls[0]);*/
+	bark("РќРµРІРµСЂРЅС‹Р№ Announce URL! Р”РѕР»Р¶РµРЅ Р±С‹С‚СЊ ".$announce_urls[0]);*/
 
 if (strlen($pieces) % 20 != 0)
 	bark("invalid pieces");
@@ -142,7 +142,7 @@ if (isset($totallen)) {
 		$filelist[] = array($ffe, $ll);
 	if ($ffe == 'Thumbs.db')
         {
-            stderr("Ошибка", "В торрентах запрещено держать файлы Thumbs.db!");
+            stderr("РћС€РёР±РєР°", "Р’ С‚РѕСЂСЂРµРЅС‚Р°С… Р·Р°РїСЂРµС‰РµРЅРѕ РґРµСЂР¶Р°С‚СЊ С„Р°Р№Р»С‹ Thumbs.db!");
             die;
         }
 	}
@@ -179,7 +179,7 @@ $announce_list = sqlesc(implode("\n",$a_list));
     $announces[] = array('type' => 'list', 'value' => array(bdec(benc_str($announce))), 'strlen' => strlen("l".$announce."e"), 'string' => "l".$announce."e");
     $liststring .= "l".$announce."e";
   }}else
-  {	stderr('Должен быть указан хотябы один анонсер!');
+  {	stderr('Р”РѕР»Р¶РµРЅ Р±С‹С‚СЊ СѓРєР°Р·Р°РЅ С…РѕС‚СЏР±С‹ РѕРґРёРЅ Р°РЅРѕРЅСЃРµСЂ!');
 	die(); }
   $dict['value']['announce-list']['type'] = 'list';
   $dict['value']['announce-list']['value'] = $announces;
@@ -203,7 +203,7 @@ $dict['value']['info']['value']['source']=bdec(benc_str( "[$DEFAULTBASEURL] $SIT
 unset($dict['value']['nodes']); // remove cached peers (Bitcomet & Azareus)
 unset($dict['value']['azureus_properties']); // remove azureus properties
 $dict=bdec(benc($dict)); // double up on the becoding solves the occassional misgenerated infohash
-$dict['value']['comment']=bdec(benc_str( "Торрент создан для '$SITENAME'")); // change torrent comment
+$dict['value']['comment']=bdec(benc_str( "РўРѕСЂСЂРµРЅС‚ СЃРѕР·РґР°РЅ РґР»СЏ '$SITENAME'")); // change torrent comment
 $dict['value']['created by']=bdec(benc_str( "$CURUSER[username]")); // change created by
 $dict['value']['publisher']=bdec(benc_str( "$CURUSER[username]")); // change publisher
 $dict['value']['publisher.utf-8']=bdec(benc_str( "$CURUSER[username]")); // change publisher.utf-8
@@ -264,7 +264,7 @@ if (!($_FILES[image.$x]['name'] == "")) {
 		bark("Invalid file type! Image $y");
 
 	if (!preg_match('/^(.+)\.(jpg|jpeg|png|gif)$/si', $_FILES[image.$x]['name']))
-		bark("Неверное имя файла (не картинка).");
+		bark("РќРµРІРµСЂРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р° (РЅРµ РєР°СЂС‚РёРЅРєР°).");
 
 	// Is within allowed filesize?
 	if ($_FILES[image.$x]['size'] > $maxfilesize)
@@ -295,7 +295,7 @@ if (!($_FILES[image.$x]['name'] == "")) {
 
 $ifn=$uploaddir.$ifilename;
 
-//две картинки которые накладываем одна для темного фона другая для светлого
+//РґРІРµ РєР°СЂС‚РёРЅРєРё РєРѕС‚РѕСЂС‹Рµ РЅР°РєР»Р°РґС‹РІР°РµРј РѕРґРЅР° РґР»СЏ С‚РµРјРЅРѕРіРѕ С„РѕРЅР° РґСЂСѓРіР°СЏ РґР»СЏ СЃРІРµС‚Р»РѕРіРѕ
 $watermark_image_light = 'pic/watermark_light.png';
 $watermark_image_dark =  'pic/watermark_dark.png';
 
@@ -388,7 +388,7 @@ if ($fp)
     fclose($fp);
 }
 
-////// МОД ТЭГОВ [by merdox] //////
+////// РњРћР” РўР­Р“РћР’ [by merdox] //////
 $ret = array();
 $res = sql_query("SELECT name FROM tags WHERE category = ".sqlesc($_POST["type"]));
 while ($row = mysql_fetch_array($res))
@@ -404,24 +404,24 @@ foreach ($union as $tag) {
 foreach ($ununion as $tag) {
 		@sql_query("INSERT INTO tags (category, name, howmuch) VALUES (".sqlesc($_POST["type"]).", ".sqlesc($tag).", 1)") or sqlerr(__FILE__, __LINE__);
 	}
-////// МОД ТЭГОВ [by merdox] //////
+////// РњРћР” РўР­Р“РћР’ [by merdox] //////
 
 
-write_log("Торрент номер $id ($torrent) был залит пользователем " . $CURUSER["username"],"5DDB6E","torrent");
+write_log("РўРѕСЂСЂРµРЅС‚ РЅРѕРјРµСЂ $id ($torrent) Р±С‹Р» Р·Р°Р»РёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј " . $CURUSER["username"],"5DDB6E","torrent");
 
-stdhead("Файл загружен", 'all');
+stdhead("Р¤Р°Р№Р» Р·Р°РіСЂСѓР¶РµРЅ", 'all');
 
-$downlink = "<a title=\"Скачать\" href=\"download.php?id=$id&amp;name=$fname\"><span style=\"color: red; cursor: help;\" title=\"Скачать торрент-файл.\">СКАЧАТЬ ФАЙЛ</span></a>"; 
+$downlink = "<a title=\"РЎРєР°С‡Р°С‚СЊ\" href=\"download.php?id=$id&amp;name=$fname\"><span style=\"color: red; cursor: help;\" title=\"РЎРєР°С‡Р°С‚СЊ С‚РѕСЂСЂРµРЅС‚-С„Р°Р№Р».\">РЎРљРђР§РђРўР¬ Р¤РђР™Р›</span></a>"; 
 
 print ("<table style='width: 100%; border: 1px dashed #008000; padding: 10px; background-color: #D6F3CC'>
-<b><font size=2px>Спасибо, Ваша раздача почти готова. Торрент-файл размещен на сервере.<hr>
-Теперь нужно $downlink и начать раздачу в клиенте, с его помощью.</font></b></table>");
+<b><font size=2px>РЎРїР°СЃРёР±Рѕ, Р’Р°С€Р° СЂР°Р·РґР°С‡Р° РїРѕС‡С‚Рё РіРѕС‚РѕРІР°. РўРѕСЂСЂРµРЅС‚-С„Р°Р№Р» СЂР°Р·РјРµС‰РµРЅ РЅР° СЃРµСЂРІРµСЂРµ.<hr>
+РўРµРїРµСЂСЊ РЅСѓР¶РЅРѕ $downlink Рё РЅР°С‡Р°С‚СЊ СЂР°Р·РґР°С‡Сѓ РІ РєР»РёРµРЅС‚Рµ, СЃ РµРіРѕ РїРѕРјРѕС‰СЊСЋ.</font></b></table>");
 print ("<br>");
 
-$create = "<a title=\"Создать описание релиза\" target=\"_blank\" href=\"indexadd.php\"><span style=\"color: #DA0000; cursor: help;\" title=\"Создать описание релиза...\">СОЗДАТЬ ОПИСАНИЕ</span></a>";
+$create = "<a title=\"РЎРѕР·РґР°С‚СЊ РѕРїРёСЃР°РЅРёРµ СЂРµР»РёР·Р°\" target=\"_blank\" href=\"indexadd.php\"><span style=\"color: #DA0000; cursor: help;\" title=\"РЎРѕР·РґР°С‚СЊ РѕРїРёСЃР°РЅРёРµ СЂРµР»РёР·Р°...\">РЎРћР—Р”РђРўР¬ РћРџРРЎРђРќРР•</span></a>";
 
 print ("<table style='width: 100%; border: 1px dashed #990000; padding: 10px; background-color: #FFF0F0'>
-<b><font color='#990000' size=2px>Напоминаем, что Вам необходимо $create Вашего релиза, чтобы он стал виден на главной странице сайта, всем посетителям!</font></b></table>");
+<b><font color='#990000' size=2px>РќР°РїРѕРјРёРЅР°РµРј, С‡С‚Рѕ Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ $create Р’Р°С€РµРіРѕ СЂРµР»РёР·Р°, С‡С‚РѕР±С‹ РѕРЅ СЃС‚Р°Р» РІРёРґРµРЅ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ СЃР°Р№С‚Р°, РІСЃРµРј РїРѕСЃРµС‚РёС‚РµР»СЏРј!</font></b></table>");
 print ("<br>");
 
 $detalistorr = "torrent_info.php?id=$id";
@@ -430,14 +430,14 @@ $gettorrent = "details.php?id=$id";
 
 $editlink = "<center><table class=my_table width=\"100%\" border='0' cellspacing='0' cellpadding='0'>
              <tr>
-             <td class=bottom><center><form method=post action=\"$url\"><input type=submit value=\"Редактировать торрент\" style='height: 20px; width: 160px;'></center></form></td>
-             <td class=bottom><center><form method=post action=\"$gettorrent\"><input type=submit value=\"Перейти к деталям\" style='height: 20px; width: 160px;'></center></form></td>
-             <td class=bottom><center><form method=post action=\"$detalistorr\"><input type=submit value=\"Данные торрента\" style='height: 20px; width: 160px;'></center></form></td>
+             <td class=bottom><center><form method=post action=\"$url\"><input type=submit value=\"Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‚РѕСЂСЂРµРЅС‚\" style='height: 20px; width: 160px;'></center></form></td>
+             <td class=bottom><center><form method=post action=\"$gettorrent\"><input type=submit value=\"РџРµСЂРµР№С‚Рё Рє РґРµС‚Р°Р»СЏРј\" style='height: 20px; width: 160px;'></center></form></td>
+             <td class=bottom><center><form method=post action=\"$detalistorr\"><input type=submit value=\"Р”Р°РЅРЅС‹Рµ С‚РѕСЂСЂРµРЅС‚Р°\" style='height: 20px; width: 160px;'></center></form></td>
              </tr>
              </table></center>";
 
 print ("<table style='width: 100%; border: 1px dashed #008000; padding: 10px; background-color: #D6F3CC'>
-<b><font size=2px>Дополнительные действия:</font></b><hr>
+<b><font size=2px>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РґРµР№СЃС‚РІРёСЏ:</font></b><hr>
 $editlink</table>");
 
 stdfoot();  

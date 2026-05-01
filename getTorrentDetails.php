@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("include/bittorrent.php");
 dbconn(false);
 header("Content-Type: text/html; charset=" .$tracker_lang['language_charset']);
@@ -24,7 +24,7 @@ print("<center>" .$img. "</center>");
 print("<td valign='top' align='left'>");
 
 if(!$row)
-  die("Не известная ошибка ...");
+  die("РќРµ РёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР° ...");
 
 $det = $row["descr"];
 $pos_img_tag = strpos($det, "[img]");
@@ -37,7 +37,7 @@ else
    print(format_comment($det));
 
 print("</td>");
-print("<tr><td colspan='2'><div align='right'><a href='details.php?id=$tid'>[Подробней]</a></div></td></tr>");
+print("<tr><td colspan='2'><div align='right'><a href='details.php?id=$tid'>[РџРѕРґСЂРѕР±РЅРµР№]</a></div></td></tr>");
 print("</td></tr></table><br />");
 
 ?> 

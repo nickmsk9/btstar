@@ -125,9 +125,9 @@ if ($link10 == "") { $link10 = "desc"; }
 
 ?>
 <td class="colhead" align="center"><img src="pic/torrenttable/genre.gif" border="0"></td>
-<td class="colhead" align="left"><a href="browse.php?<? print $oldlink; ?>sort=1&type=<? print $link1; ?>" class="altlink_white"><img src="pic/torrenttable/release.gif" border="0"></a></td>
+<td class="colhead" align="left"><a href="browse.php?<?php print $oldlink; ?>sort=1&type=<?php print $link1; ?>" class="altlink_white"><img src="pic/torrenttable/release.gif" border="0"></a></td>
 <!--<td class="heading" align="left">DL</td>-->
-<?
+<?php
 if ($wait)
         print("<td class=\"colhead\" align=\"center\">".$tracker_lang['wait']."</td>\n");
 
@@ -136,18 +136,18 @@ if ($variant == "mytorrents")
 
 
 ?>
-<td class="colhead" align="center"><a href="browse.php?<? print $oldlink; ?>sort=2&type=<? print $link2; ?>" class="altlink_white"><img src="pic/torrenttable/files.gif" border="0" alt="Файлов"></a></td>
-<td class="colhead" align="center"><a href="browse.php?<? print $oldlink; ?>sort=3&type=<? print $link3; ?>" class="altlink_white"><img src="pic/torrenttable/comments.gif" border="0" alt="Комментариев"></a></td>
-<? if ($use_ttl) {
+<td class="colhead" align="center"><a href="browse.php?<?php print $oldlink; ?>sort=2&type=<?php print $link2; ?>" class="altlink_white"><img src="pic/torrenttable/files.gif" border="0" alt="Р¤Р°Р№Р»РѕРІ"></a></td>
+<td class="colhead" align="center"><a href="browse.php?<?php print $oldlink; ?>sort=3&type=<?php print $link3; ?>" class="altlink_white"><img src="pic/torrenttable/comments.gif" border="0" alt="РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ"></a></td>
+<?php if ($use_ttl) {
 ?>
         <td class="colhead" align="center"><?=$tracker_lang['ttl'];?></td>
-<?
+<?php
 }
 ?>
-<td class="colhead" align="center"><a href="browse.php?<? print $oldlink; ?>sort=5&type=<? print $link5; ?>" class="altlink_white"><img src="pic/torrenttable/mb.gif" border="0" alt="Размер"></a></td>
-<td class="colhead" align="center"><a href="browse.php?<? print $oldlink; ?>sort=7&type=<? print $link7; ?>" class="altlink_white"><img src="pic/torrenttable/seeders.gif" border="0" alt="Сидеров"></a></td>
-<td class="colhead" align="center"><a href="browse.php?<? print $oldlink; ?>sort=8&type=<? print $link8; ?>" class="altlink_white"><img src="pic/torrenttable/leechers.gif" border="0" alt="Личеров"></a></td>
-<?
+<td class="colhead" align="center"><a href="browse.php?<?php print $oldlink; ?>sort=5&type=<?php print $link5; ?>" class="altlink_white"><img src="pic/torrenttable/mb.gif" border="0" alt="Р Р°Р·РјРµСЂ"></a></td>
+<td class="colhead" align="center"><a href="browse.php?<?php print $oldlink; ?>sort=7&type=<?php print $link7; ?>" class="altlink_white"><img src="pic/torrenttable/seeders.gif" border="0" alt="РЎРёРґРµСЂРѕРІ"></a></td>
+<td class="colhead" align="center"><a href="browse.php?<?php print $oldlink; ?>sort=8&type=<?php print $link8; ?>" class="altlink_white"><img src="pic/torrenttable/leechers.gif" border="0" alt="Р›РёС‡РµСЂРѕРІ"></a></td>
+<?php
 
 if ($variant == "index" || $variant == "bookmarks")
         print("<td class=\"colhead\" align=\"center\"><a href=\"browse.php?{$oldlink}sort=9&type={$link9}\" class=\"altlink_white\"><img src=\"pic/torrenttable/upped.gif\" border=\"0\"></a></td>\n");
@@ -185,7 +185,7 @@ print("<tbody id=\"highlighted\">");
 
                 $dispname = $row["name"];
                 $thisisfree = ($row['free']=="yes" ? "<img src=\"pic/freedownload.gif\" title=\"".$tracker_lang['golden']."\" alt=\"".$tracker_lang['golden']."\">" : "");
-                print("<td colspan=\"9\" align=\"left\">".($row["sticky"] == "yes" ? "Важный: " : "")."<a onmouseover=\"return overlib('<div style=\'padding: 5px;\'><table id=\'thumbs\'><tr style=\'background: #f0f0f0;\'><td colspan=\'2\'><img src=\'torrents/images/$row[image1]\' width=\'250\'></td></tr></table></div>');\" onmouseout=\"return nd();\" href=\"torrent-".$id."\" style=\"cursor:pointer;\"");
+                print("<td colspan=\"9\" align=\"left\">".($row["sticky"] == "yes" ? "Р’Р°Р¶РЅС‹Р№: " : "")."<a onmouseover=\"return overlib('<div style=\'padding: 5px;\'><table id=\'thumbs\'><tr style=\'background: #f0f0f0;\'><td colspan=\'2\'><img src=\'torrents/images/$row[image1]\' width=\'250\'></td></tr></table></div>');\" onmouseout=\"return nd();\" href=\"torrent-".$id."\" style=\"cursor:pointer;\"");
                 print("\"><b>$dispname</b></a> $thisisfree\n");
 
                 if ($CURUSER["id"] == $row["owner"] || get_user_class() >= UC_MODERATOR)
@@ -198,9 +198,9 @@ print("<tbody id=\"highlighted\">");
 print("</td></tr><tr>");
 
 							if(isset($row['multitracker'])&&$row['multitracker'])
-							print('<td style="width:55%"><font size="1" color="#808080">Теги: '.addtags($row["tags"]).' | <font color="red" title="Раздача и скачивание не учитывается">Мультитрекерный</font></td>');				
+							print('<td style="width:55%"><font size="1" color="#808080">РўРµРіРё: '.addtags($row["tags"]).' | <font color="red" title="Р Р°Р·РґР°С‡Р° Рё СЃРєР°С‡РёРІР°РЅРёРµ РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ">РњСѓР»СЊС‚РёС‚СЂРµРєРµСЂРЅС‹Р№</font></td>');				
 							else
-				            print('<td style="width:55%"><font size="1" color="#808080">Теги: '.addtags($row["tags"]).' | Скидка: <font color="red">'.$row["free"].'%</font></td>');				
+				            print('<td style="width:55%"><font size="1" color="#808080">РўРµРіРё: '.addtags($row["tags"]).' | РЎРєРёРґРєР°: <font color="red">'.$row["free"].'%</font></td>');				
 
                                                                 if ($wait)
                                                                 {
@@ -245,7 +245,7 @@ print("</td></tr><tr>");
 
 //                print("<td align=center><nobr>" . str_replace(" ", "<br />", $row["added"]) . "</nobr></td>\n");
                                 $ttl = ($ttl_days*24) - floor((gmtime() - sql_timestamp_to_unix_timestamp($row["added"])) / 3600);
-                                if ($ttl == 1) $ttl .= " час"; else $ttl .= "&nbsp;часов";
+                                if ($ttl == 1) $ttl .= " С‡Р°СЃ"; else $ttl .= "&nbsp;С‡Р°СЃРѕРІ";
                 if ($use_ttl)
                         print("<td align=\"center\">$ttl</td>\n");
                 print("<td align=\"center\">" . str_replace(" ", "&nbsp;", mksize($row["size"])) . "</td>\n");
@@ -289,7 +289,7 @@ print("</td></tr><tr>");
                 print("</td>");
 				
 				if ($row["cat_name"]=="XXX") {
-				   print("<td align=\"center\"><b>Скрыто</b></td>\n");
+				   print("<td align=\"center\"><b>РЎРєСЂС‹С‚Рѕ</b></td>\n");
 				 }  elseif ($variant == "index") {
                         print("<td align=\"center\">" . (isset($row["username"]) ? ("<a href=\"id" . $row["owner"] . "\"><b>" . get_user_class_color($row["class"], htmlspecialchars_uni($row["username"])) . "</b></a>") : "<i>(unknown)</i>") . "</td>\n");
                  }
@@ -299,7 +299,7 @@ print("</td></tr><tr>");
 print("</tr>");  
         print("</tr> \n");		
 
-$oldday = $day; // старая дата 
+$oldday = $day; // СЃС‚Р°СЂР°СЏ РґР°С‚Р° 
         }
         print("</tbody>");
 

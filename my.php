@@ -1,11 +1,11 @@
-<?
+<?php
 
 require_once("include/bittorrent.php");
 dbconn(false);
 loggedinorreturn();
 
-stdhead("Настройки аккаунта");
-begin_frame("Настройки аккаунта");
+stdhead("РќР°СЃС‚СЂРѕР№РєРё Р°РєРєР°СѓРЅС‚Р°");
+begin_frame("РќР°СЃС‚СЂРѕР№РєРё Р°РєРєР°СѓРЅС‚Р°");
 if ($_GET["edited"]) {
 	print("<h1>".$tracker_lang['my_updated']."</h1>\n");
 	if ($_GET["mailsent"])
@@ -39,24 +39,24 @@ switch($_GET['t'])
 <table width="100%" border="0px" cellspacing="0" cellpadding="5" align="center">
 <tr>
 <td colspan="3" border="0" style="padding: 0px; border: none;"><div id="tabs" border="0">
-<? if($sect=='profile') { ?><span class="tab active" id="profile">Профиль</span><? } else { ?>
-<a href="my.php?t=profile"><span class="tab" id="profile">Профиль</span></a><? }
+<?php if($sect=='profile') { ?><span class="tab active" id="profile">РџСЂРѕС„РёР»СЊ</span><?php } else { ?>
+<a href="my.php?t=profile"><span class="tab" id="profile">РџСЂРѕС„РёР»СЊ</span></a><?php }
 if($sect=='contact') { ?>
-<span class="tab active" id="contact">Контактная информация</span> <? } else { ?>
-<a href="my.php?t=contact"><span class="tab" id="contact">Контактная информация</span></a> <? }
+<span class="tab active" id="contact">РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</span> <?php } else { ?>
+<a href="my.php?t=contact"><span class="tab" id="contact">РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</span></a> <?php }
 if($sect=='about') { ?>
-<span class="tab active" id="about">О себе</span> <? }else { ?>
-<a href="my.php?t=about"><span class="tab" id="about">О себе</span></a><? }
+<span class="tab active" id="about">Рћ СЃРµР±Рµ</span> <?php }else { ?>
+<a href="my.php?t=about"><span class="tab" id="about">Рћ СЃРµР±Рµ</span></a><?php }
 if($sect=='avatar') { ?>
-<span class="tab active" id="avatar">Фотография</span> <? }else { ?>
-<a href="my.php?t=avatar"><span class="tab" id="avatar">Фотография</span></a></div>
-<? } ?>
+<span class="tab active" id="avatar">Р¤РѕС‚РѕРіСЂР°С„РёСЏ</span> <?php }else { ?>
+<a href="my.php?t=avatar"><span class="tab" id="avatar">Р¤РѕС‚РѕРіСЂР°С„РёСЏ</span></a></div>
+<?php } ?>
 </td></tr>
 <td colspan="3">
-<? if($sect!='avatar') { ?>
-<form method="post" action="takeprofedit.php?t=<?=$sect;?>"> <? } ?>
+<?php if($sect!='avatar') { ?>
+<form method="post" action="takeprofedit.php?t=<?=$sect;?>"> <?php } ?>
 <table border="1" cellspacing="0" cellpadding="5" width="100%">
-<?
+<?php
 require('include/profile/'.$sect.'.php');
 
 function priv($name, $descr) {
@@ -69,14 +69,14 @@ function priv($name, $descr) {
 
 if($sect!='avatar') {
 ?>
-<tr><td colspan="2" align="center"><input type="submit" value="Обновить профиль" style='height: 25px'> <input type="reset" value="Сбросить изменения" style='height: 25px'></td></tr>
-<? } ?>
+<tr><td colspan="2" align="center"><input type="submit" value="РћР±РЅРѕРІРёС‚СЊ РїСЂРѕС„РёР»СЊ" style='height: 25px'> <input type="reset" value="РЎР±СЂРѕСЃРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ" style='height: 25px'></td></tr>
+<?php } ?>
 </table>
 </form>
 </td>
 </tr>
 </table>
-<?
+<?php
 end_frame();
 stdfoot();
 
